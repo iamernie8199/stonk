@@ -33,108 +33,151 @@
     .hero {
       background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(52, 211, 153, 0.04) 100%);
       border: 1px solid var(--panel-border);
-      border-radius: 24px;
-      padding: 32px 36px;
+      border-radius: 20px;
+      padding: 22px 26px;
       box-shadow: var(--shadow);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
     }
     .hero-brand {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 14px;
     }
     .hero-logo {
-      width: 76px;
-      height: 76px;
-      border-radius: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       object-fit: cover;
       image-rendering: pixelated;
       flex-shrink: 0;
-      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-    }
-    .hero p {
+    .hero-text h1 {
       margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      max-width: 860px;
-      line-height: 1.7;
-    }
-    .meta-row {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
       gap: 10px;
+    }
+    .slogan {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
     .chip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
+      padding: 4px 10px;
       border-radius: 999px;
       background: var(--chip-bg);
       color: var(--accent);
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 600;
       border: 1px solid rgba(56, 189, 248, 0.16);
+      white-space: nowrap;
     }
-    .toolbar {
+    .search-box {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-bottom: 28px;
+      align-items: center;
+      width: 100%;
     }
-    .tool-panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 20px 24px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-    .tool-title {
-      margin: 0 0 12px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--accent);
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--muted);
+      pointer-events: none;
     }
     .search-input {
       width: 100%;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.3);
       color: var(--text);
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-size: 15px;
+      border-radius: 12px;
+      padding: 11px 36px 11px 40px;
+      font-size: 14px;
       outline: none;
       transition: all 0.2s ease;
     }
     .search-input:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
     }
     .search-input::placeholder { color: var(--muted); }
-    .control-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.8fr) minmax(220px, 0.8fr);
-      gap: 18px;
-      align-items: start;
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--muted);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 11px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      line-height: 1;
     }
-    .filter-row {
+    .clear-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #f87171;
+    }
+    .toolbar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
+      align-items: center;
+    }
+    .more-filters {
+      display: none;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .more-filters.open {
+      display: flex;
+    }
+    .filter-toggle-btn {
+      appearance: none;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(56, 189, 248, 0.08);
+      color: #38bdf8;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .filter-toggle-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.4);
     }
     .filter-btn, .sort-btn {
       appearance: none;
@@ -142,8 +185,8 @@
       background: rgba(255, 255, 255, 0.03);
       color: var(--muted);
       border-radius: 999px;
-      padding: 8px 16px;
-      font-size: 13px;
+      padding: 6px 13px;
+      font-size: 12px;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -157,24 +200,18 @@
       background: linear-gradient(135deg, var(--accent), #6366f1);
       color: #ffffff;
       border-color: transparent;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 3px 10px rgba(56, 189, 248, 0.25);
     }
-    .sort-stack {
+    .sort-pills {
       display: flex;
-      gap: 10px;
+      gap: 6px;
     }
-    .sort-btn { flex: 1; text-align: center; border-radius: 12px; }
-    .section-title {
-      margin: 28px 0 12px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-    }
-    .result-meta {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 14px;
+    mark.hl {
+      background: rgba(250, 204, 21, 0.22);
+      color: #fde047;
+      border-bottom: 2px solid #fde047;
+      padding: 0 2px;
+      border-radius: 2px;
     }
     .grid {
       display: grid;
@@ -318,62 +355,60 @@
       text-align: center;
       background: rgba(255, 255, 255, 0.02);
     }
-    @media (max-width: 860px) {
-      .control-grid { grid-template-columns: 1fr; }
-    }
     @media (max-width: 720px) {
-      .wrap { padding: 24px 16px 40px; }
-      .hero-brand { flex-direction: column; align-items: flex-start; gap: 14px; }
-      .hero-logo { width: 60px; height: 60px; }
-      .hero h1 { font-size: 26px; }
-      .company { font-size: 22px; }
+      .wrap { padding: 16px 12px 36px; }
+      .hero { padding: 16px; margin-bottom: 16px; border-radius: 16px; gap: 12px; }
+      .hero-logo { width: 40px; height: 40px; border-radius: 10px; }
+      .hero-text h1 { font-size: 20px; }
+      .slogan { font-size: 12px; }
+      .toolbar-row { flex-direction: column; align-items: stretch; gap: 10px; }
+      .filter-pills { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+      .filter-btn { flex-shrink: 0; }
+      .sort-pills { justify-content: flex-end; }
+      .grid { gap: 14px; }
     }
   </style>
   <link rel="icon" type="image/png" href="stonk_logo.png">
 </head>
 <body>
   <div class="wrap">
-    <section class="hero">
-      <div class="hero-brand">
-        <img src="stonk_logo.png" alt="Stonks Logo" class="hero-logo">
-        <div class="hero-text">
-          <h1>台股死當</h1>
-          <p>「死當是常態，看懂是心態。」</br>集中整理由 AI Mentor 與 Junior 進行的深度個股擬真對話報告，深入產業護城河、估值模型與失效條件。</p>
+    <header class="hero">
+      <div class="hero-top">
+        <div class="hero-brand">
+          <img src="stonk_logo.png" alt="Stonks Logo" class="hero-logo">
+          <div class="hero-text">
+            <h1>台股死當 <span class="chip">共 15 份報告</span></h1>
+            <p class="slogan">「死當是常態，看懂是心態。」深度個股對話研究報告，直擊護城河與失效條件。</p>
+          </div>
         </div>
       </div>
-      <div class="meta-row">
-        <span class="chip">共 15 份報告</span>
-      </div>
-    </section>
 
-    <section class="toolbar">
-      <div class="tool-panel">
-        <h2 class="tool-title">搜尋</h2>
-        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名、關鍵字，例如：2330、台積電、封裝、交換器、電力、ASIC" />
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名、關鍵字（例如：2330、台積電、封裝...）" />
+        <button id="clearSearchBtn" class="clear-btn" title="清空搜尋" aria-label="清空搜尋">✕</button>
       </div>
-      <div class="control-grid">
-        <div class="tool-panel">
-          <h2 class="tool-title">主題篩選</h2>
-          <div class="filter-row" id="filters">
+
+      <div class="toolbar-row">
+        <div class="filter-pills" id="filters">
             <button class="filter-btn active" data-filter="all">全部</button>
             <button class="filter-btn" data-filter="ai-server">AI伺服器</button>
             <button class="filter-btn" data-filter="semiconductor">半導體 / 封裝</button>
             <button class="filter-btn" data-filter="power">電力 / 電源</button>
-            <button class="filter-btn" data-filter="asic">AI ASIC / TPU</button>
-            <button class="filter-btn" data-filter="materials">材料 / CCL</button>
-            <button class="filter-btn" data-filter="network">網通 / 交換器</button>
-            <button class="filter-btn" data-filter="components">被動元件 / 零組件</button>
+          <div class="more-filters" id="moreFilters">
+              <button class="filter-btn" data-filter="asic">AI ASIC / TPU</button>
+              <button class="filter-btn" data-filter="materials">材料 / CCL</button>
+              <button class="filter-btn" data-filter="network">網通 / 交換器</button>
+              <button class="filter-btn" data-filter="components">被動元件 / 零組件</button>
           </div>
+          <button id="toggleFilterBtn" class="filter-toggle-btn" title="展開更多主題">更多 ▾</button>
         </div>
-        <div class="tool-panel">
-          <h2 class="tool-title">排序方式</h2>
-          <div class="sort-stack" id="sorts">
-            <button class="sort-btn active" data-field="ticker">代號 <span class="sort-indicator">↑</span></button>
-            <button class="sort-btn" data-field="name">名稱 <span class="sort-indicator">↓</span></button>
-          </div>
+        <div class="sort-pills" id="sorts">
+          <button class="sort-btn active" data-field="ticker">代號 <span class="sort-indicator">↑</span></button>
+          <button class="sort-btn" data-field="name">名稱 <span class="sort-indicator">↓</span></button>
         </div>
       </div>
-    </section>
+    </header>
 
     <section class="grid" id="reportGrid">
       <article class="card" data-tags="ai-server semiconductor materials network" data-search="1303 南亞 TW-1303 南亞  TW-1303 南亞 深度對話式研究報告
@@ -716,6 +751,7 @@
     const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
     const sortButtons = Array.from(document.querySelectorAll('.sort-btn'));
     const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
     const grid = document.getElementById('reportGrid');
     const emptyState = document.getElementById('emptyState');
 
@@ -749,6 +785,24 @@
       return haystack.includes(searchTerm);
     }
 
+    function applyHighlighting(card, query) {
+      ['ticker', 'company', 'core-value', 'summary'].forEach(cls => {
+        const el = card.querySelector('.' + cls);
+        if (!el) return;
+        if (!el.dataset.raw) {
+          el.dataset.raw = el.textContent;
+        }
+        const raw = el.dataset.raw;
+        if (!query) {
+          el.textContent = raw;
+        } else {
+          const escaped = query.replace(/[.*+?^${}()\[\]\\]/g, '\$&');
+          const regex = new RegExp(`(${escaped})`, 'gi');
+          el.innerHTML = raw.replace(regex, '<mark class="hl">$1</mark>');
+        }
+      });
+    }
+
     function applyFilterAndSort() {
       let visibleCount = 0;
       cards.forEach(card => {
@@ -757,7 +811,10 @@
         const matchSearch = matchesSearch(card);
         const show = matchFilter && matchSearch;
         card.hidden = !show;
-        if (show) visibleCount += 1;
+        if (show) {
+          visibleCount += 1;
+          applyHighlighting(card, searchTerm);
+        }
       });
 
       const sortedCards = [...cards].sort((a, b) => {
@@ -776,6 +833,16 @@
       updateSortButtons();
     }
 
+    const toggleFilterBtn = document.getElementById('toggleFilterBtn');
+    const moreFilters = document.getElementById('moreFilters');
+
+    if (toggleFilterBtn && moreFilters) {
+      toggleFilterBtn.addEventListener('click', () => {
+        const isOpen = moreFilters.classList.toggle('open');
+        toggleFilterBtn.textContent = isOpen ? '收起 ▴' : '更多 ▾';
+      });
+    }
+
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -791,11 +858,15 @@
         const tagKey = tagBtn.dataset.tagkey;
         const targetFilterBtn = filterButtons.find(b => b.dataset.filter === tagKey);
         if (targetFilterBtn) {
+          if (moreFilters && moreFilters.contains(targetFilterBtn) && !moreFilters.classList.contains('open')) {
+            moreFilters.classList.add('open');
+            if (toggleFilterBtn) toggleFilterBtn.textContent = '收起 ▴';
+          }
           filterButtons.forEach(b => b.classList.remove('active'));
           targetFilterBtn.classList.add('active');
           activeFilter = tagKey;
           applyFilterAndSort();
-          window.scrollTo({ top: document.querySelector('.toolbar').offsetTop - 20, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
     });
@@ -815,6 +886,15 @@
 
     searchInput.addEventListener('input', () => {
       searchTerm = searchInput.value.trim().toLowerCase();
+      clearSearchBtn.style.display = searchInput.value ? 'inline-flex' : 'none';
+      applyFilterAndSort();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchTerm = '';
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
       applyFilterAndSort();
     });
 

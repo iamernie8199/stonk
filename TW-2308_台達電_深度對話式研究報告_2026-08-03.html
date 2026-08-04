@@ -25,11 +25,11 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   margin: 0 0 24px;
-  padding: 18px 24px;
+  padding: 16px 20px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 .hero-inner { max-width: 1160px; margin: 0 auto; }
-.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; }
 .nav-brand-btn {
   display: inline-flex;
   align-items: center;
@@ -60,7 +60,7 @@ a { color: inherit; text-decoration: none; }
 }
 .nav-back-hint {
   font-size: 12px;
-  color: #38bdf8;
+  color: #f87171;
   font-weight: 600;
   margin-left: 2px;
 }
@@ -68,27 +68,44 @@ a { color: inherit; text-decoration: none; }
 .header-main {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
-  gap: 24px;
+  gap: 20px;
   align-items: center;
 }
 .header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: monospace, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.05em;
+}
 .company-name {
   font-size: 26px;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
   letter-spacing: -0.01em;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 .sub-title-hint { font-size: 13px; color: #94a3b8; font-weight: 500; }
 .header-meta-box { display: flex; justify-content: flex-end; }
 .header-meta-box .meta-card {
-  width: 100%;
-  max-width: 380px;
+  width: fit-content;
+  max-width: 310px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
-  padding: 10px 14px;
+  padding: 8px 12px;
 }
 .toolbtn {
   background: rgba(255, 255, 255, 0.04);
@@ -176,6 +193,43 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
 .summary-card { padding: 20px 24px; }
 .summary-card h3 { margin: 0 0 14px; font-size: 16px; font-weight: 700; color: #fbbf24; }
 .summary-card ul { margin: 0; padding-left: 20px; line-height: 1.75; color: #cbd5e1; font-size: 14px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.summary-table td {
+  padding: 5px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td {
+  border-bottom: none;
+}
+.tbl-k {
+  color: #94a3b8;
+  font-weight: 500;
+}
+.tbl-v {
+  color: #f1f5f9;
+  font-weight: 600;
+  text-align: right;
+  font-family: monospace, sans-serif;
+}
 .digest-card { padding: 24px; scroll-margin-top: 110px; }
 .digest-title { font-size: 18px; font-weight: 700; color: #34d399; margin-bottom: 12px; border-bottom: 1px solid rgba(52, 211, 153, 0.15); padding-bottom: 8px; }
 .digest-toc { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
@@ -203,9 +257,9 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
     <div class="hero-inner">
       <div class="top-nav">
         <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
           <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
           <span class="nav-brand">台股死當</span>
-          <span class="nav-back-hint">← 返回首頁</span>
         </a>
         <div class="mode-tools">
           <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
@@ -214,11 +268,14 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
       </div>
       <div class="header-main">
         <div class="header-title-box">
-          <h1 class="company-name" id="top">TW-2308 台達電</h1>
+          <div class="company-badge-row">
+            <span class="ticker-badge">TW-2308</span>
+            <h1 class="company-name" id="top">台達電</h1>
+          </div>
         </div>
         <div class="header-meta-box"><section class="meta-card meta-deadline">
 <div class="meta-card-title">資料截止日</div>
-<ul><li>KG 公司頁 <code>as_of</code>: 2026-08-03</li><li>daily DB 股價資料：最新台灣交易日為 2026-07-31</li><li>monthly revenue：最新為 2026 年 6 月營收，公告日 2026-07-08</li></ul>
+<ul><li>公司資料：2026-08-03</li><li>交易股價：2026-07-31</li><li>月營收：2026 年 6 月（2026-07-08 公告）</li></ul>
 </section></div>
       </div>
     </div>
@@ -777,7 +834,15 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
     <aside class="sidebar">
       <section class="summary-card section-card">
 <h3>已知事實</h3>
-<ul><li>KG 將台達電定位為 AI 資料中心電力基礎設施受惠核心公司之一</li><li>研究主線集中於：AI 伺服器電源、HVDC / 800VDC、CDU、SOFC / SST、微電網</li><li>最新台灣交易日 2026-07-31 的股價資料</li><li>收盤價 1640</li><li>單日漲幅 7.19%</li><li>本益比 40.3</li><li>股價淨值比 14.22</li><li>總市值 42,599 億</li><li>最新月營收依月份語意解讀為 2026 年 6 月，公告日 2026-07-08</li><li>單月合併營收 65,602,611 千元</li><li>年增 55.43%</li><li>月增 11.26%</li><li>光寶科同樣卡位 AI 電源與 800VDC 升級，但估值顯著較低</li><li>2026-07-31 台灣交易日語意解讀下：收盤 209、本益比 24.5、股價淨值比 5.49</li><li>高力在 KG 中更接近 AI 散熱 / 熱交換器鏈條，屬可用來觀察 AI 基建資本開支在不同子題如何分配溢價的比較基準，但不是台達電的同型公司</li><li>多家機構仍偏多，但法說會後目標價分歧與下修同時存在</li><li>多家機構近期共同把焦點放在零組件成本、產品組合與新專案爬坡對毛利率的壓力</li></ul>
+<ul><li>收盤價：1640 (<span style="color: #f87171; font-weight: 700;">+7.19%</span>)</li><li>台達電定位為 AI 資料中心電力基礎設施受惠核心公司之一</li><li>研究主線集中於：AI 伺服器電源、HVDC / 800VDC、CDU、SOFC / SST、微電網</li><li>光寶科同樣卡位 AI 電源與 800VDC 升級，但估值顯著較低</li><li>2026-07-31 台灣交易日語意解讀下：收盤 209、本益比 24.5、股價淨值比 5.49</li><li>高力在 KG 中更接近 AI 散熱 / 熱交換器鏈條，屬可用來觀察 AI 基建資本開支在不同子題如何分配溢價的比較基準，但不是台達電的同型公司</li><li>多家機構仍偏多，但法說會後目標價分歧與下修同時存在</li><li>多家機構近期共同把焦點放在零組件成本、產品組合與新專案爬坡對毛利率的壓力</li><li>本益比 40.3</li><li>股價淨值比 14.22</li><li>總市值 42,599 億</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">656.0 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+55.43%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+11.26%</td></tr>
+  </tbody>
+</table>
+</div>
 </section>
 <section class="summary-card section-card">
 <h3>關鍵推論</h3>
@@ -793,13 +858,21 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
 </section>
 <section class="summary-card section-card">
 <h3>thesis 失效條件</h3>
-<ul><li>HVDC / 800VDC 放量明顯遞延，且市場開始確認不是短期噪音</li><li>AI 相關收入成長存在，但毛利率與利潤轉化持續不及預期</li><li>台達電最終被市場重新降級回高成長設備供應商，而非平台級基建股估值框架</li><li>同業如光寶科在 AI 電源升級上實際追趕速度快於市場原先預期，導致台達電溢價被重新壓縮</li><li>市場最終發現 AI 用電與 CAPEX 擴張，沒有順利等比例轉成台達電的高品質獲利</li><li>與海外平台商比較時，台達電始終無法證明自己有足夠的系統級地位支撐高平台溢價</li><li>營收雖持續成長，但內容價值與獲利品質長期沒有同步改善，導致高估值框架被市場改寫</li></ul>
+<ul><li>HVDC / 800VDC 放量明顯遞延，且市場開始確認不是短期噪音</li><li>AI 相關收入成長存在，但毛利率與利潤轉化持續不及預期</li><li>台達電最終被市場重新降級回高成長設備供應商，而非平台級基建股估值框架</li><li>同業如光寶科在 AI 電源升級上實際追趕速度快於市場原先預期，導致台達電溢價被重新壓縮</li><li>市場最終發現 AI 用電與 CAPEX 擴張，沒有順利等比例轉成台達電的高品質獲利</li><li>與海外平台商比較時，台達電始終無法證明自己有足夠的系統級地位支撐高平台溢價</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">雖持續成長，但內容價值與獲利品質長期沒有同步改善，導致高估值框架被市場改寫</td></tr>
+  </tbody>
+</table>
+</div>
 </section>
 <section class="summary-card section-card">
 <h3>目前最缺的資料</h3>
 <ul><li>更清楚的 AI 相關產品線收入拆分</li><li>更高信度的 HVDC / 800VDC 導入時程與客戶節奏</li><li>與主要競爭者相比的實際份額變化與價格壓力證據</li><li>台達電與光寶科在同一產品環節上的毛利結構與內容價值差異</li><li>與 Vertiv / 施耐德等更高層平台型公司相比，市場目前賦予台達電的相對估值框架依據</li><li>新架構產品放量後，毛利率與營益率是否能穩定往上，仍需更多季度財報驗證</li></ul>
 </section>
-      <div class="footer">Generated at 2026-08-04 21:01</div>
+      <div class="footer">Generated at 2026-08-04 21:31</div>
     </aside>
   </main>
 </div>

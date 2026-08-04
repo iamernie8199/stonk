@@ -25,11 +25,11 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   margin: 0 0 24px;
-  padding: 18px 24px;
+  padding: 16px 20px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 .hero-inner { max-width: 1160px; margin: 0 auto; }
-.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; }
 .nav-brand-btn {
   display: inline-flex;
   align-items: center;
@@ -60,7 +60,7 @@ a { color: inherit; text-decoration: none; }
 }
 .nav-back-hint {
   font-size: 12px;
-  color: #38bdf8;
+  color: #f87171;
   font-weight: 600;
   margin-left: 2px;
 }
@@ -68,27 +68,44 @@ a { color: inherit; text-decoration: none; }
 .header-main {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
-  gap: 24px;
+  gap: 20px;
   align-items: center;
 }
 .header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: monospace, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.05em;
+}
 .company-name {
   font-size: 26px;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
   letter-spacing: -0.01em;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 .sub-title-hint { font-size: 13px; color: #94a3b8; font-weight: 500; }
 .header-meta-box { display: flex; justify-content: flex-end; }
 .header-meta-box .meta-card {
-  width: 100%;
-  max-width: 380px;
+  width: fit-content;
+  max-width: 310px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
-  padding: 10px 14px;
+  padding: 8px 12px;
 }
 .toolbtn {
   background: rgba(255, 255, 255, 0.04);
@@ -176,6 +193,43 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
 .summary-card { padding: 20px 24px; }
 .summary-card h3 { margin: 0 0 14px; font-size: 16px; font-weight: 700; color: #fbbf24; }
 .summary-card ul { margin: 0; padding-left: 20px; line-height: 1.75; color: #cbd5e1; font-size: 14px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.summary-table td {
+  padding: 5px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td {
+  border-bottom: none;
+}
+.tbl-k {
+  color: #94a3b8;
+  font-weight: 500;
+}
+.tbl-v {
+  color: #f1f5f9;
+  font-weight: 600;
+  text-align: right;
+  font-family: monospace, sans-serif;
+}
 .digest-card { padding: 24px; scroll-margin-top: 110px; }
 .digest-title { font-size: 18px; font-weight: 700; color: #34d399; margin-bottom: 12px; border-bottom: 1px solid rgba(52, 211, 153, 0.15); padding-bottom: 8px; }
 .digest-toc { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
@@ -203,9 +257,9 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
     <div class="hero-inner">
       <div class="top-nav">
         <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
           <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
           <span class="nav-brand">台股死當</span>
-          <span class="nav-back-hint">← 返回首頁</span>
         </a>
         <div class="mode-tools">
           <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
@@ -214,11 +268,14 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
       </div>
       <div class="header-main">
         <div class="header-title-box">
-          <h1 class="company-name" id="top">TW-7769 鴻勁</h1>
+          <div class="company-badge-row">
+            <span class="ticker-badge">TW-7769</span>
+            <h1 class="company-name" id="top">鴻勁</h1>
+          </div>
         </div>
         <div class="header-meta-box"><section class="meta-card meta-deadline">
 <div class="meta-card-title">資料截止日</div>
-<ul><li>KG 公司頁 <code>as_of</code>: 2026-08-03</li><li>daily DB 股價資料：最新台灣交易日為 2026-08-04</li><li>monthly revenue：最新為 2026 年 6 月營收，公告日 2026-07-08</li></ul>
+<ul><li>公司資料：2026-08-03</li><li>交易股價：2026-08-04</li><li>月營收：2026 年 6 月（2026-07-08 公告）</li></ul>
 </section></div>
       </div>
     </div>
@@ -652,7 +709,15 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
     <aside class="sidebar">
       <section class="summary-card section-card">
 <h3>已知事實</h3>
-<ul><li>鴻勁與半導體測試設備、SLT / FT、CPO / 矽光子測試前移、先進封裝相關主線高度連動</li><li>最新台灣交易日 2026-08-04 的股價資料</li><li>收盤價 6190</li><li>單日漲幅 -3.66%</li><li>本益比 49.2</li><li>股價淨值比 17.76</li><li>總市值 11,136 億</li><li>最新月營收依月份語意解讀為 2026 年 6 月營收，公告日 2026-07-08</li><li>單月合併營收 5,301,564 千元</li><li>年增 106.54%</li><li>月增 28.38%</li><li>近三月合併營收年增 100.64%</li><li>近 12 月營收合併成長 96.85%</li><li>鴻勁主要受惠於 AI 晶片測試複雜度提升與設備投資擴張，而非晶片本身銷售</li></ul>
+<ul><li>收盤價：6190 (<span style="color: #34d399; font-weight: 700;">-3.66%</span>)</li><li>鴻勁與半導體測試設備、SLT / FT、CPO / 矽光子測試前移、先進封裝相關主線高度連動</li><li>鴻勁主要受惠於 AI 晶片測試複雜度提升與設備投資擴張，而非晶片本身銷售</li><li>本益比 49.2</li><li>股價淨值比 17.76</li><li>總市值 11,136 億</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">53.02 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+106.54%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+28.38%</td></tr><tr><td class="tbl-k">近 3 月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+100.64%</td></tr><tr><td class="tbl-k">近 12 月成長</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+96.85%</td></tr>
+  </tbody>
+</table>
+</div>
 </section>
 <section class="summary-card section-card">
 <h3>關鍵推論</h3>
@@ -674,7 +739,7 @@ code { background: rgba(255, 255, 255, 0.06); padding: 2px 7px; border-radius: 6
 <h3>目前最缺的資料</h3>
 <ul><li>鴻勁產品線中 FT / SLT / Handler / 光電測試的更細營收與毛利拆分</li><li>CPO / 矽光子測試實際訂單與量產時間表</li><li>與致茂、Advantest、Teradyne 在特定測試段落上的更細市占與競爭位置</li></ul>
 </section>
-      <div class="footer">Generated at 2026-08-04 21:01</div>
+      <div class="footer">Generated at 2026-08-04 21:31</div>
     </aside>
   </main>
 </div>
