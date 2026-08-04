@@ -3,44 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>台股死當 - 深度對話式研究報告索引庫</title>
+  <title>台股死當 TERMINAL - 深度對話式研究報告索引庫</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #080c14;
-      --panel: rgba(17, 24, 39, 0.7);
-      --panel-border: rgba(255, 255, 255, 0.07);
+      --bg: #07090e;
+      --panel: rgba(14, 20, 32, 0.85);
+      --panel-border: rgba(0, 240, 255, 0.18);
       --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-emerald: #34d399;
-      --chip-bg: rgba(56, 189, 248, 0.08);
-      --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      --muted: #8492a6;
+      --accent: #00f0ff;
+      --amber: #ffb700;
+      --accent-emerald: #00e676;
+      --chip-bg: rgba(0, 240, 255, 0.08);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      font-family: var(--font-mono);
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
     }
     .wrap {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 40px 24px 60px;
+      padding: 24px 24px 60px;
     }
+    .term-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 183, 0, 0.2);
+      border-radius: 8px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+    .term-dot { color: var(--accent-emerald); font-weight: 700; margin-right: 6px; }
+    .term-cmd { color: var(--amber); font-weight: 700; }
+    
     .hero {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(52, 211, 153, 0.04) 100%);
+      background: var(--panel);
       border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 22px 26px;
+      border-radius: 16px;
+      padding: 20px 24px;
       box-shadow: var(--shadow);
       margin-bottom: 24px;
       backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
     .hero-top {
       display: flex;
@@ -54,14 +71,14 @@
       gap: 14px;
     }
     .hero-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       object-fit: cover;
       image-rendering: pixelated;
       flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 14px rgba(0, 240, 255, 0.25);
+      border: 1px solid var(--accent);
     }
     .hero-text h1 {
       margin: 0;
@@ -79,17 +96,24 @@
       font-size: 13px;
       line-height: 1.5;
     }
+    .slogan code {
+      color: var(--amber);
+      background: rgba(255, 183, 0, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
     .chip {
       display: inline-flex;
       align-items: center;
-      padding: 4px 10px;
-      border-radius: 999px;
+      padding: 3px 10px;
+      border-radius: 6px;
       background: var(--chip-bg);
       color: var(--accent);
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid rgba(56, 189, 248, 0.16);
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--panel-border);
       white-space: nowrap;
+      letter-spacing: 0.05em;
     }
     .search-box {
       position: relative;
@@ -97,27 +121,31 @@
       align-items: center;
       width: 100%;
     }
-    .search-icon {
+    .cmd-prompt {
       position: absolute;
-      left: 14px;
-      color: var(--muted);
+      left: 12px;
+      color: var(--amber);
+      font-weight: 800;
+      font-size: 13px;
       pointer-events: none;
+      font-family: var(--font-mono);
     }
     .search-input {
       width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--panel-border);
+      background: rgba(0, 0, 0, 0.4);
       color: var(--text);
-      border-radius: 12px;
-      padding: 11px 36px 11px 40px;
-      font-size: 14px;
+      border-radius: 8px;
+      padding: 10px 36px 10px 65px;
+      font-size: 13px;
       outline: none;
       transition: all 0.2s ease;
+      font-family: var(--font-mono);
     }
     .search-input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
-      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
+      background: rgba(0, 0, 0, 0.6);
     }
     .search-input::placeholder { color: var(--muted); }
     .clear-btn {
@@ -164,52 +192,54 @@
     }
     .filter-toggle-btn {
       appearance: none;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      background: rgba(56, 189, 248, 0.08);
-      color: #38bdf8;
-      border-radius: 999px;
+      border: 1px solid var(--panel-border);
+      background: rgba(0, 240, 255, 0.08);
+      color: var(--accent);
+      border-radius: 6px;
       padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+    }
+    .filter-toggle-btn:hover {
+      background: rgba(0, 240, 255, 0.2);
+      border-color: var(--accent);
+    }
+    .filter-btn, .sort-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--muted);
+      border-radius: 6px;
+      padding: 5px 12px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .filter-toggle-btn:hover {
-      background: rgba(56, 189, 248, 0.2);
-      border-color: rgba(56, 189, 248, 0.4);
-    }
-    .filter-btn, .sort-btn {
-      appearance: none;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 6px 13px;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      font-family: var(--font-mono);
     }
     .filter-btn:hover, .sort-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 240, 255, 0.12);
       color: var(--text);
-      transform: translateY(-1px);
+      border-color: var(--accent);
     }
     .filter-btn.active, .sort-btn.active {
-      background: linear-gradient(135deg, var(--accent), #6366f1);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 3px 10px rgba(56, 189, 248, 0.25);
+      background: rgba(255, 183, 0, 0.18);
+      color: var(--amber);
+      border-color: var(--amber);
+      box-shadow: 0 2px 8px rgba(255, 183, 0, 0.2);
     }
     .sort-pills {
       display: flex;
       gap: 6px;
     }
     mark.hl {
-      background: rgba(250, 204, 21, 0.22);
-      color: #fde047;
-      border-bottom: 2px solid #fde047;
+      background: rgba(255, 183, 0, 0.25);
+      color: var(--amber);
+      border-bottom: 2px solid var(--amber);
       padding: 0 2px;
       border-radius: 2px;
     }
@@ -221,19 +251,19 @@
     .card {
       background: var(--panel);
       border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 24px;
+      border-radius: 14px;
+      padding: 20px 22px;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
       backdrop-filter: blur(12px);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
     }
     .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 16px 36px rgba(0, 240, 255, 0.12);
     }
     .card[hidden] { display: none !important; }
     .card-top {
@@ -248,21 +278,21 @@
     }
     .date-chip {
       font-size: 11px;
-      color: #94a3b8;
+      color: var(--muted);
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.08);
       padding: 3px 8px;
       border-radius: 6px;
       white-space: nowrap;
-      font-family: monospace, sans-serif;
+      font-family: var(--font-mono);
     }
     .ticker {
       font-size: 13px;
       color: var(--accent);
       letter-spacing: 0.05em;
       font-weight: 700;
-      text-transform: uppercase;
+      font-family: var(--font-mono);
     }
     .company {
       margin-top: 2px;
@@ -272,93 +302,99 @@
       color: #ffffff;
     }
     .core-box {
-      background: linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(56, 189, 248, 0.04));
-      border: 1px solid rgba(52, 211, 153, 0.18);
-      border-radius: 12px;
-      padding: 10px 14px;
+      background: rgba(0, 230, 118, 0.04);
+      border: 1px solid rgba(0, 230, 118, 0.2);
+      border-radius: 8px;
+      padding: 8px 12px;
     }
     .core-label {
       color: var(--accent-emerald);
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 2px;
     }
     .core-value {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      color: #ffffff;
+      color: #f1f5f9;
     }
     .summary {
+      font-size: 13px;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-      min-height: 68px;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
     .tag-btn {
-      appearance: none;
-      font-size: 12px;
-      font-weight: 500;
-      color: #cbd5e1;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      padding: 4px 10px;
-      border-radius: 999px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .tag-btn:hover {
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      border-color: rgba(56, 189, 248, 0.3);
-      transform: translateY(-1px);
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent);
+      color: #ffffff;
     }
     .actions {
       margin-top: auto;
-      width: 100%;
+      padding-top: 6px;
     }
     .btn {
-      text-decoration: none;
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
+      display: block;
       width: 100%;
       text-align: center;
-      display: block;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #6366f1);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
     }
     .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
-      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+      background: rgba(0, 240, 255, 0.25);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(0, 240, 255, 0.3);
     }
     .empty {
       display: none;
       margin-top: 24px;
       padding: 32px;
-      border-radius: 20px;
-      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      border: 1px dashed var(--panel-border);
       color: var(--muted);
       text-align: center;
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(0, 0, 0, 0.3);
     }
     @media (max-width: 720px) {
       .wrap { padding: 16px 12px 36px; }
-      .hero { padding: 16px; margin-bottom: 16px; border-radius: 16px; gap: 12px; }
-      .hero-logo { width: 40px; height: 40px; border-radius: 10px; }
+      .hero { padding: 16px; margin-bottom: 16px; border-radius: 12px; gap: 12px; }
+      .hero-logo { width: 38px; height: 38px; border-radius: 8px; }
       .hero-text h1 { font-size: 20px; }
       .slogan { font-size: 12px; }
       .toolbar-row { flex-direction: column; align-items: stretch; gap: 10px; }
@@ -372,36 +408,41 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="term-top-bar">
+      <div><span class="term-dot">● LIVE</span><span class="term-cmd">STONKS TERMINAL v2.0</span> // TPE MARKET PORTAL</div>
+      <div>TOTAL: 15 REPORTS</div>
+    </div>
+
     <header class="hero">
       <div class="hero-top">
         <div class="hero-brand">
           <img src="stonk_logo.png" alt="Stonks Logo" class="hero-logo">
           <div class="hero-text">
-            <h1>台股死當 <span class="chip">共 15 份報告</span></h1>
-            <p class="slogan">「死當是常態，看懂是心態。」深度個股對話研究報告，直擊護城河與失效條件。</p>
+            <h1>台股死當 <span class="chip">TOTAL: 15</span></h1>
+            <p class="slogan"><code>[STATUS: ACTIVE]</code> 「死當是常態，看懂是心態。」深度個股對話研究報告，直擊護城河與失效條件。</p>
           </div>
         </div>
       </div>
 
       <div class="search-box">
-        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名、關鍵字（例如：2330、台積電、封裝...）" />
-        <button id="clearSearchBtn" class="clear-btn" title="清空搜尋" aria-label="清空搜尋">✕</button>
+        <span class="cmd-prompt">RUN &gt;</span>
+        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名或關鍵字 (例: 2330, 台積電, CoWoS...) &lt;GO&gt;" />
+        <button id="clearSearchBtn" class="clear-btn" title="清空指令" aria-label="清空指令">✕</button>
       </div>
 
       <div class="toolbar-row">
         <div class="filter-pills" id="filters">
-            <button class="filter-btn active" data-filter="all">全部</button>
-            <button class="filter-btn" data-filter="ai-server">AI伺服器</button>
-            <button class="filter-btn" data-filter="semiconductor">半導體 / 封裝</button>
-            <button class="filter-btn" data-filter="power">電力 / 電源</button>
+            <button class="filter-btn active" data-filter="all">&lt;F1: 全部&gt;</button>
+            <button class="filter-btn" data-filter="ai-server">&lt;F2: AI伺服器&gt;</button>
+            <button class="filter-btn" data-filter="semiconductor">&lt;F3: 半導體 / 封裝&gt;</button>
+            <button class="filter-btn" data-filter="power">&lt;F4: 電力 / 電源&gt;</button>
           <div class="more-filters" id="moreFilters">
-              <button class="filter-btn" data-filter="asic">AI ASIC / TPU</button>
-              <button class="filter-btn" data-filter="materials">材料 / CCL</button>
-              <button class="filter-btn" data-filter="network">網通 / 交換器</button>
-              <button class="filter-btn" data-filter="components">被動元件 / 零組件</button>
+              <button class="filter-btn" data-filter="asic">&lt;F5: AI ASIC / TPU&gt;</button>
+              <button class="filter-btn" data-filter="materials">&lt;F6: 材料 / CCL&gt;</button>
+              <button class="filter-btn" data-filter="network">&lt;F7: 網通 / 交換器&gt;</button>
+              <button class="filter-btn" data-filter="components">&lt;F8: 被動元件 / 零組件&gt;</button>
           </div>
-          <button id="toggleFilterBtn" class="filter-toggle-btn" title="展開更多主題">更多 ▾</button>
+          <button id="toggleFilterBtn" class="filter-toggle-btn" title="展開更多主題">更多 &#9662;</button>
         </div>
         <div class="sort-pills" id="sorts">
           <button class="sort-btn active" data-field="ticker">代號 <span class="sort-indicator">↑</span></button>
@@ -419,18 +460,18 @@
 我先從最基本的開始" data-ticker="1303" data-name="南亞">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-1303</div>
+            <div class="ticker">[TW-1303]</div>
             <div class="company">南亞</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">高階 CCL / Low CTE 玻纖布</div>
         </div>
         <div class="summary">南亞與 PCB、Low CTE 玻纖布、高階 CCL、工程塑膠、AI 資料中心液冷與記憶體資產等多條主線有連動；收盤價 170.5。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-1303_南亞_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-1303_南亞_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="semiconductor power asic network" data-search="2303 聯電 TW-2303 聯電  TW-2303 聯電 深度對話式研究報告
@@ -441,18 +482,18 @@
 我先從最基本的開始" data-ticker="2303" data-name="聯電">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2303</div>
+            <div class="ticker">[TW-2303]</div>
             <div class="company">聯電</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">成熟製程 / 特殊製程</div>
         </div>
         <div class="summary">KG 已將聯電定位在成熟製程、特殊製程、8 吋晶圓代工、DDIC FinFET 化、CPO / 矽光子相關布局脈絡中；收盤價 118。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2303_聯電_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2303_聯電_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server power network components" data-search="2308 台達電 TW-2308 台達電  TW-2308 台達電 深度對話式研究報告
@@ -463,18 +504,18 @@
 我先從最基本的開" data-ticker="2308" data-name="台達電">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2308</div>
+            <div class="ticker">[TW-2308]</div>
             <div class="company">台達電</div>
           </div>
-          <div class="date-chip">2026-08-03</div>
+          <div class="date-chip">DATE: 2026-08-03</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">AI 電力基建 / 電源系統</div>
         </div>
         <div class="summary">KG 將台達電定位為 AI 資料中心電力基礎設施受惠核心公司之一；研究主線集中於：AI 伺服器電源、HVDC / 800VDC、CDU、SOFC / SST、微電網。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button><button class="tag tag-btn" data-tagkey="components">被動元件 / 零組件</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2308_台達電_深度對話式研究報告_2026-08-03.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2308_台達電_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor power asic network" data-search="2317 鴻海 TW-2317 鴻海  TW-2317 鴻海 深度對話式研究報告
@@ -485,18 +526,18 @@
 我先從最基本的開始" data-ticker="2317" data-name="鴻海">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2317</div>
+            <div class="ticker">[TW-2317]</div>
             <div class="company">鴻海</div>
           </div>
-          <div class="date-chip">2026-08-03</div>
+          <div class="date-chip">DATE: 2026-08-03</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">KG 已把鴻海的研究主線從傳統消費電子代工，延伸到 AI 伺服器、rack-scale 整櫃、AI 基建、電動車、人形機器人等方向；收盤價 253。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2317_鴻海_深度對話式研究報告_2026-08-03.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2317_鴻海_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server power network components" data-search="2327 國巨 TW-2327 國巨  TW-2327 國巨 深度對話式研究報告
@@ -507,18 +548,18 @@
 我先從最基本的開始" data-ticker="2327" data-name="國巨">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2327</div>
+            <div class="ticker">[TW-2327]</div>
             <div class="company">國巨</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">MLCC / 被動元件平台</div>
         </div>
         <div class="summary">國巨是全球級被動元件供應商，與 MLCC、電阻、車用、工控、AI 伺服器等需求主線高度連動；收盤價 566。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button><button class="tag tag-btn" data-tagkey="components">被動元件 / 零組件</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2327_國巨_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2327_國巨_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor power asic materials network" data-search="2330 台積電 TW-2330 台積電  TW-2330 台積電 深度對話式研究報告
@@ -529,18 +570,18 @@
 我想先從最笨的問" data-ticker="2330" data-name="台積電">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2330</div>
+            <div class="ticker">[TW-2330]</div>
             <div class="company">台積電</div>
           </div>
-          <div class="date-chip">2026-08-03</div>
+          <div class="date-chip">DATE: 2026-08-03</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">KG 將台積電定位為全球高階晶片製造平台，核心連到：先進製程、先進封裝、CoWoS、GAAFET、BPDN、矽光子、EDA / OIP 生態；收盤價 2370。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2330_台積電_深度對話式研究報告_2026-08-03.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2330_台積電_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor power asic materials network" data-search="2345 智邦 TW-2345 智邦  TW-2345 智邦 深度對話式研究報告
@@ -551,18 +592,18 @@
 我先從最基本的開始" data-ticker="2345" data-name="智邦">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2345</div>
+            <div class="ticker">[TW-2345]</div>
             <div class="company">智邦</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">KG 已將智邦連到 AI CAPEX、資料中心光通訊與網路架構、ASIC server、CPO、NPO 等多條主線；收盤價 2335。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2345_智邦_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2345_智邦_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server asic materials network components" data-search="2382 廣達電腦 TW-2382 廣達電腦  TW-2382 廣達電腦 深度對話式研究報告
@@ -573,18 +614,18 @@
 我先從最基本的" data-ticker="2382" data-name="廣達電腦">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2382</div>
+            <div class="ticker">[TW-2382]</div>
             <div class="company">廣達電腦</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">廣達是大型 ODM / EMS 公司，並且與 AI 伺服器、機櫃級整合、雲端網路與光互連等主線高度連動；收盤價 300.5。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button><button class="tag tag-btn" data-tagkey="components">被動元件 / 零組件</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2382_廣達電腦_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2382_廣達電腦_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor asic materials network" data-search="2383 台光電 TW-2383 台光電  TW-2383 台光電 深度對話式研究報告
@@ -595,18 +636,18 @@
 我先從最基本的開" data-ticker="2383" data-name="台光電">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2383</div>
+            <div class="ticker">[TW-2383]</div>
             <div class="company">台光電</div>
           </div>
-          <div class="date-chip">2026-08-03</div>
+          <div class="date-chip">DATE: 2026-08-03</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">高階 CCL / Low CTE 玻纖布</div>
         </div>
         <div class="summary">KG 已明確將台光電連到 AI CAPEX、OAM、UBB、交換器、高階 CCL 供不應求、AI-RAN、低軌衛星等多條需求主線；收盤價 4980。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2383_台光電_深度對話式研究報告_2026-08-03.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2383_台光電_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor" data-search="2408 南亞科 TW-2408 南亞科  TW-2408 南亞科 深度對話式研究報告
@@ -617,18 +658,18 @@
 我先從最基本的開" data-ticker="2408" data-name="南亞科">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2408</div>
+            <div class="ticker">[TW-2408]</div>
             <div class="company">南亞科</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">DRAM 記憶體 / HBM 外溢</div>
         </div>
         <div class="summary">南亞科是 DRAM 記憶體公司，並與 HBM、成熟 DRAM、記憶體週期等主線高度相關；收盤價 436。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2408_南亞科_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2408_南亞科_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor asic materials network" data-search="2454 聯發科 TW-2454 聯發科  TW-2454 聯發科 深度對話式研究報告
@@ -639,18 +680,18 @@
 我先問最基本的。" data-ticker="2454" data-name="聯發科">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-2454</div>
+            <div class="ticker">[TW-2454]</div>
             <div class="company">聯發科</div>
           </div>
-          <div class="date-chip">2026-08-03</div>
+          <div class="date-chip">DATE: 2026-08-03</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">AI ASIC / 手機與晶片平台</div>
         </div>
         <div class="summary">KG 已明確把聯發科的研究主線，從單純手機 SoC 公司拉向 AI ASIC / TPU / Smart Edge 三層結構；收盤價 3910。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-2454_聯發科_深度對話式研究報告_2026-08-03.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-2454_聯發科_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor power asic materials network components" data-search="3037 欣興 TW-3037 欣興  TW-3037 欣興 深度對話式研究報告
@@ -661,18 +702,18 @@
 我先從最基本的開始" data-ticker="3037" data-name="欣興">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-3037</div>
+            <div class="ticker">[TW-3037]</div>
             <div class="company">欣興</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">ABF 載板 / 先進基板</div>
         </div>
         <div class="summary">KG 已將欣興連到 ABF 載板、CoWoS 需求、Low CTE 玻纖布供給瓶頸、玻璃基板、CoPoS、CPO 等多條主線；收盤價 865。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button><button class="tag tag-btn" data-tagkey="components">被動元件 / 零組件</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-3037_欣興_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-3037_欣興_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor asic materials network" data-search="3711 日月光投控 TW-3711 日月光投控  TW-3711 日月光投控 深度對話式研究報告
@@ -683,18 +724,18 @@
 我先問最基本" data-ticker="3711" data-name="日月光投控">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-3711</div>
+            <div class="ticker">[TW-3711]</div>
             <div class="company">日月光投控</div>
           </div>
-          <div class="date-chip">2026-08-03</div>
+          <div class="date-chip">DATE: 2026-08-03</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">先進封測 / OSAT 平台</div>
         </div>
         <div class="summary">KG 已明確將日月光投控連到 AI 晶片先進封裝 CoWoS 需求、PLP、CPO、玻璃基板、Chiplet、矽光子等多條新技術主線；收盤價 610。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="materials">材料 / CCL</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-3711_日月光投控_深度對話式研究報告_2026-08-03.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-3711_日月光投控_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server asic network" data-search="6669 緯穎 TW-6669 緯穎  TW-6669 緯穎 深度對話式研究報告
@@ -705,18 +746,18 @@
 我先從最基本的開始" data-ticker="6669" data-name="緯穎">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-6669</div>
+            <div class="ticker">[TW-6669]</div>
             <div class="company">緯穎</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">緯穎是高純度資料中心與 AI 伺服器代工公司，與 AWS Trainium、AMD Helios、Vera Rubin / VR200 等平台高度連動；收盤價 6205。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-6669_緯穎_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-6669_緯穎_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
       <article class="card" data-tags="ai-server semiconductor power asic network components" data-search="7769 鴻勁 TW-7769 鴻勁  TW-7769 鴻勁 深度對話式研究報告
@@ -727,18 +768,18 @@
 我先從最基本的開始" data-ticker="7769" data-name="鴻勁">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">TW-7769</div>
+            <div class="ticker">[TW-7769]</div>
             <div class="company">鴻勁</div>
           </div>
-          <div class="date-chip">2026-08-04</div>
+          <div class="date-chip">DATE: 2026-08-04</div>
         </div>
         <div class="core-box">
-          <div class="core-label">核心關鍵字</div>
+          <div class="core-label">CORE // 核心關鍵字</div>
           <div class="core-value">晶片測試設備 / SLT Handler</div>
         </div>
         <div class="summary">鴻勁與半導體測試設備、SLT / FT、CPO / 矽光子測試前移、先進封裝相關主線高度連動；收盤價 6190。</div>
         <div class="tag-row"><button class="tag tag-btn" data-tagkey="ai-server">AI伺服器</button><button class="tag tag-btn" data-tagkey="semiconductor">半導體 / 封裝</button><button class="tag tag-btn" data-tagkey="power">電力 / 電源</button><button class="tag tag-btn" data-tagkey="asic">AI ASIC / TPU</button><button class="tag tag-btn" data-tagkey="network">網通 / 交換器</button><button class="tag tag-btn" data-tagkey="components">被動元件 / 零組件</button></div>
-        <div class="actions"><a class="btn btn-primary" href="TW-7769_鴻勁_深度對話式研究報告_2026-08-04.html">閱讀研究報告</a></div>
+        <div class="actions"><a class="btn btn-primary" href="TW-7769_鴻勁_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
     </section>
 
