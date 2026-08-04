@@ -1,0 +1,15 @@
+﻿# 排除所有 reports 資料夾
+reports/
+
+# Python 快取
+__pycache__/
+*.pyc
+*.pyo
+
+# 環境與編輯器
+.env
+.venv/
+venv/
+.vscode/
+.idea/
+*.DS_Store
