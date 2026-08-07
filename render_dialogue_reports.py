@@ -1438,6 +1438,8 @@ def build_index_html(entries):
       .slogan {{ font-size: 12px; }}
       .toolbar-row {{ flex-direction: column; align-items: stretch; gap: 10px; }}
       .filter-pills {{ overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }}
+      .filter-pills.expanded {{ flex-wrap: wrap; overflow-x: visible; }}
+      .filter-pills.expanded .more-filters {{ display: flex; flex-wrap: wrap; gap: 6px; }}
       .filter-btn {{ flex-shrink: 0; }}
       .sort-pills {{ justify-content: flex-end; }}
       .grid {{ gap: 14px; }}
@@ -1496,6 +1498,7 @@ def build_index_html(entries):
     const clearSearchBtn = document.getElementById('clearSearchBtn');
     const grid = document.getElementById('reportGrid');
     const emptyState = document.getElementById('emptyState');
+    const filtersContainer = document.getElementById('filters');
 
     let activeFilter = 'all';
     let activeSortField = 'ticker';
@@ -1582,6 +1585,9 @@ def build_index_html(entries):
       toggleFilterBtn.addEventListener('click', () => {{
         const isOpen = moreFilters.classList.toggle('open');
         toggleFilterBtn.textContent = isOpen ? '收起 ▴' : '更多 ▾';
+        if (filtersContainer) {{
+          filtersContainer.classList.toggle('expanded', isOpen);
+        }}
       }});
     }}
 
@@ -1602,6 +1608,9 @@ def build_index_html(entries):
         if (targetFilterBtn) {{
           if (moreFilters && moreFilters.contains(targetFilterBtn) && !moreFilters.classList.contains('open')) {{
             moreFilters.classList.add('open');
+            if (filtersContainer) {{
+              filtersContainer.classList.add('expanded');
+            }}
             if (toggleFilterBtn) toggleFilterBtn.textContent = '收起 ▴';
           }}
           filterButtons.forEach(b => b.classList.remove('active'));
