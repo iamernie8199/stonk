@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-6187 萬潤 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-6187.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-6187]</span>
+            <h1 class="company-name" id="top">萬潤</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-07</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-12-估值與市場預期">估值與市場預期</a>
+<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-18-估值與市場預期">估值與市場預期</a>
+<a href="#digest-19-反方壓力測試">反方壓力測試</a>
+<a href="#digest-20-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-21-先進製程與先進封裝">先進製程與先進封裝</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>萬潤最容易被看錯的地方，就是它看起來像一般設備股，但市場其實在看的是它在先進封裝、自動化與特殊製程需求中的位置。</p>
+<p>最白話地講，萬潤不是做晶片、不是做封裝代工，而是做那些讓先進封裝、面板級封裝、共同封裝光學等製程可以被穩定放大的設備與自動化環節。</p>
+<p>所以它不是最上游的技術發明者，但它很可能是量產化、製程落地化、設備鏈前移裡面的受惠者。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>比較準確的說法是：它是先進封裝設備與自動化鏈上的綜合型受惠者。</p>
+<p>它的價值不在單一料號，而在於：<br>- 先進封裝流程變複雜<br>- 設備環節變多<br>- 良率與自動化要求提高<br>- CoWoS / CoPoS / PLP / CPO 等不同技術路線都可能拉到它的需求</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>萬潤最適合放在「高規格零組件 / 材料升級股」這個框架裡，但這裡的升級不是材料，而是設備與自動化密度升級。</p>
+<p>它最值錢的地方，不在單一核心產品絕對最強，而在於：<br>- 多條先進封裝技術路線都會把設備複雜度往上推<br>- 量產化過程裡，自動化與設備整合需求密度提高<br>- 它有機會站在多題材交集處，吃到設備升級與導入放量</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>一句話講：<br>萬潤現在最重要的身份，是先進封裝設備與自動化升級浪潮中的高彈性受惠股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>最直接受惠的主線有四條：<br>- CoWoS<br>- CoPoS<br>- 面板級封裝 PLP / FOPLP<br>- CPO / 矽光子相關設備需求</p>
+<p>這些共同點是：<br>- 製程更複雜<br>- 良率要求更高<br>- 自動化與設備密度更高<br>- 量產導入不是靠一台設備就能解決</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>對，這就是萬潤最迷人的地方之一。</p>
+<p>它不是只押單一標準答案，而是押在「不管哪條封裝路線往前走，設備複雜度都會變高」這件事上。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是先進封裝量產化後對自動化與設備整合需求的提升。這是萬潤最能吃到的主線。</p>
+<p>第二順位，是 CoPoS 與面板級封裝 PLP 這類新封裝路線的設備擴充。</p>
+<p>第三順位，是 CPO / 矽光子這些更前沿但仍帶有較多驗證成分的題材。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>一句話就是：<br>萬潤現在最強的主線，是先進封裝與自動化設備密度提升下的高彈性設備受惠者。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 弘塑：濕製程設備龍頭，角色更明確、更深<br>- 志聖：壓膜 / 貼合 / 烘烤 / bonder 等封裝設備受惠者<br>- 均華：先進封裝精密設備與高階設備鏈代表之一<br>- 萬潤：設備與自動化升級中，高彈性、多題材交集的受惠者</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：弘塑<br>- 誰最廣：萬潤<br>- 誰最穩：弘塑 / 志聖<br>- 誰最有彈性：萬潤<br>- 萬潤卡在哪：多題材交集型高彈性設備受惠股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>對，這句話很準。</p>
+<p>萬潤比較像一個：<br>- 先進封裝<br>- 自動化<br>- PLP<br>- CoPoS<br>- CPO / 矽光子<br>這幾條線交叉受惠的資產。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>最直接的弱點通常是：<br>- 單一核心定位沒有那麼鮮明<br>- 有些敘事更偏未來想像，而不是現在已完全落地<br>- 市場可能會用更高的預期去要求它</p>
+<p>所以萬潤的優勢是想像空間大，但缺點也是：只要成長或驗證節奏不如預期，估值壓縮會很快。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對萬潤這種高估值設備股，我會分三層看。</p>
+<p>第一層是毛利率。<br>這回答的是：<br>- 它賣的設備是不是更高規格<br>- 技術或產品組合有沒有升級<br>- 單位價值有沒有提高</p>
+<p>第二層是營業利益率。<br>這回答的是：<br>- 成長有沒有真的轉成營運槓桿<br>- 研發、銷管、擴產成本有沒有被營收吸收<br>- 公司是不是不只賣得多，而是經營效率也變好</p>
+<p>第三層是淨利率。<br>這回答的是：<br>- 最後股東真正拿到多少利潤<br>- 有沒有業外、一次性收益、稅率或匯兌在扭曲結果</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果只能挑一層，我會說是營業利益率。</p>
+<p>毛利率可以告訴你產品值不值錢，但營業利益率才能告訴你：公司有沒有把這種高規格設備需求，真的轉成高品質成長。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>淨利率當然重要，但我會把它放在最後確認，而不是第一個抓來判斷。</p>
+<p>因為淨利率很容易被業外影響。正確順序是：<br>- 先看毛利率：產品是不是升級<br>- 再看營業利益率：成長有沒有轉成經營效率<br>- 最後看淨利率：股東最後拿到的結果是不是乾淨</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>一句話就是：<br>市場相信萬潤不是只搭到單一封裝題材，而是有機會把多條先進封裝設備升級需求，轉成高品質、高槓桿的營運成長。</p>
+<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 1090<br>- 本益比 44.6<br>- 股價淨值比 15.65<br>- 總市值 1,069 億</p>
+<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,054,680 千元<br>- 年增 73.44%<br>- 月增 4.17%<br>- 近三月合併營收年增 68.81%<br>- 近 12 月營收合併成長 7.47%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 你可以說它受惠 CoWoS<br>- 也可以說它受惠 CoPoS<br>- 還可以說它受惠 PLP、CPO、矽光子<br>- 但這麼多故事，不代表每一個都會同時兌現</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>完全是。</p>
+<p>這種高估值的本質就是：市場願意先相信未來。但只要未來稍微沒那麼快實現，估值就會先修正。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這也是很重要的質疑。</p>
+<p>反方會說：<br>- 弘塑在濕製程設備上的核心性比較明確<br>- 志聖在某些封裝設備流程上的角色也更容易定義<br>- 萬潤雖然題材多，但單點護城河是否足夠深，還要再看</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>對，這句話很到位。</p>
+<p>更完整一點說：萬潤的方向不是錯的，先進封裝、自動化與新封裝路線升級也都可能成立；但市場可能高估了它把多條封裝題材轉成持續設備營收與高品質獲利的速度與幅度，而高估值會讓任何驗證放慢都先反映在評價壓縮上。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>萬潤不是晶片股，也不是封裝代工股，而是先進封裝與自動化設備鏈上的受惠者。</p>
+<p>第二句，講主線：<br>它最重要的主線，是先進封裝流程變複雜之後，設備與自動化密度持續提升。</p>
+<p>第三句，講價值來源：<br>真正值錢的，不是單一題材，而是多條封裝路線最後都會回到量產化、自動化與設備擴充需求。</p>
+<p>第四句，講市場地位：<br>它不是單點最深的設備龍頭，但它站在多題材交集的設備升級位置上。</p>
+<p>第五句，講估值本質：<br>45 倍左右本益比代表市場已經把它當高彈性設備升級股，而不是普通設備股。</p>
+<p>第六句，講驗證框架：<br>真正要追的，是設備導入節奏、題材落地速度、營業利益率與獲利品質。</p>
+<p>第七句，講最強反方：<br>市場可能高估了它把多條封裝題材轉成持續設備營收與高品質獲利的速度與幅度。</p>
+<p>第八句，講最終投資判斷：<br>萬潤真正值不值這個高估值，不是題材多不多，而是看它能不能把題材穩定轉成設備營收與高品質獲利。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。萬潤到底是做什麼的？我知道它跟先進封裝設備有關，可是它不像台積電那麼直觀，也不像弘塑那麼常被提到，為什麼市場會願意給它那麼高的評價？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>萬潤最容易被看錯的地方，就是它看起來像一般設備股，但市場其實在看的是它在先進封裝、自動化與特殊製程需求中的位置。</p>
+<p>最白話地講，萬潤不是做晶片、不是做封裝代工，而是做那些讓先進封裝、面板級封裝、共同封裝光學等製程可以被穩定放大的設備與自動化環節。</p>
+<p>所以它不是最上游的技術發明者，但它很可能是量產化、製程落地化、設備鏈前移裡面的受惠者。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它到底比較像哪一種公司？是設備廠、檢測廠，還是自動化廠？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>比較準確的說法是：它是先進封裝設備與自動化鏈上的綜合型受惠者。</p>
+<p>它的價值不在單一料號，而在於：<br>- 先進封裝流程變複雜<br>- 設備環節變多<br>- 良率與自動化要求提高<br>- CoWoS / CoPoS / PLP / CPO 等不同技術路線都可能拉到它的需求</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果用新版框架看，萬潤到底算哪一類公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>萬潤最適合放在「高規格零組件 / 材料升級股」這個框架裡，但這裡的升級不是材料，而是設備與自動化密度升級。</p>
+<p>它最值錢的地方，不在單一核心產品絕對最強，而在於：<br>- 多條先進封裝技術路線都會把設備複雜度往上推<br>- 量產化過程裡，自動化與設備整合需求密度提高<br>- 它有機會站在多題材交集處，吃到設備升級與導入放量</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果一句話講，萬潤現在最重要的身份是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：<br>萬潤現在最重要的身份，是先進封裝設備與自動化升級浪潮中的高彈性受惠股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那萬潤最直接受惠的是哪一塊？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接受惠的主線有四條：<br>- CoWoS<br>- CoPoS<br>- 面板級封裝 PLP / FOPLP<br>- CPO / 矽光子相關設備需求</p>
+<p>這些共同點是：<br>- 製程更複雜<br>- 良率要求更高<br>- 自動化與設備密度更高<br>- 量產導入不是靠一台設備就能解決</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是單純受惠一個技術，而是受惠很多技術路線同時變複雜？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是萬潤最迷人的地方之一。</p>
+<p>它不是只押單一標準答案，而是押在「不管哪條封裝路線往前走，設備複雜度都會變高」這件事上。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果再更細一點，萬潤在 CoWoS、CoPoS、PLP、CPO 這幾條線裡，到底哪一段最有價值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是先進封裝量產化後對自動化與設備整合需求的提升。這是萬潤最能吃到的主線。</p>
+<p>第二順位，是 CoPoS 與面板級封裝 PLP 這類新封裝路線的設備擴充。</p>
+<p>第三順位，是 CPO / 矽光子這些更前沿但仍帶有較多驗證成分的題材。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，萬潤現在最強的主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>萬潤現在最強的主線，是先進封裝與自動化設備密度提升下的高彈性設備受惠者。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那把萬潤跟志聖、弘塑、均華放在一起看，它到底是哪一種資產？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 弘塑：濕製程設備龍頭，角色更明確、更深<br>- 志聖：壓膜 / 貼合 / 烘烤 / bonder 等封裝設備受惠者<br>- 均華：先進封裝精密設備與高階設備鏈代表之一<br>- 萬潤：設備與自動化升級中，高彈性、多題材交集的受惠者</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照新版比較框架，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：弘塑<br>- 誰最廣：萬潤<br>- 誰最穩：弘塑 / 志聖<br>- 誰最有彈性：萬潤<br>- 萬潤卡在哪：多題材交集型高彈性設備受惠股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以市場看萬潤，不一定是看它某個單一產品最強，而是看它題材交集很多？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很準。</p>
+<p>萬潤比較像一個：<br>- 先進封裝<br>- 自動化<br>- PLP<br>- CoPoS<br>- CPO / 矽光子<br>這幾條線交叉受惠的資產。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟弘塑、志聖相比，最大的弱點是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接的弱點通常是：<br>- 單一核心定位沒有那麼鮮明<br>- 有些敘事更偏未來想像，而不是現在已完全落地<br>- 市場可能會用更高的預期去要求它</p>
+<p>所以萬潤的優勢是想像空間大，但缺點也是：只要成長或驗證節奏不如預期，估值壓縮會很快。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那現在如果不要只講毛利率，完整來看，萬潤這種公司到底該看哪幾層獲利？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對萬潤這種高估值設備股，我會分三層看。</p>
+<p>第一層是毛利率。<br>這回答的是：<br>- 它賣的設備是不是更高規格<br>- 技術或產品組合有沒有升級<br>- 單位價值有沒有提高</p>
+<p>第二層是營業利益率。<br>這回答的是：<br>- 成長有沒有真的轉成營運槓桿<br>- 研發、銷管、擴產成本有沒有被營收吸收<br>- 公司是不是不只賣得多，而是經營效率也變好</p>
+<p>第三層是淨利率。<br>這回答的是：<br>- 最後股東真正拿到多少利潤<br>- 有沒有業外、一次性收益、稅率或匯兌在扭曲結果</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那這三層裡，對萬潤最重要的是哪一層？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只能挑一層，我會說是營業利益率。</p>
+<p>毛利率可以告訴你產品值不值錢，但營業利益率才能告訴你：公司有沒有把這種高規格設備需求，真的轉成高品質成長。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那淨利率呢？淨利率不是大家最後最愛看的嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>淨利率當然重要，但我會把它放在最後確認，而不是第一個抓來判斷。</p>
+<p>因為淨利率很容易被業外影響。正確順序是：<br>- 先看毛利率：產品是不是升級<br>- 再看營業利益率：成長有沒有轉成經營效率<br>- 最後看淨利率：股東最後拿到的結果是不是乾淨</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講，市場為什麼願意給萬潤 45 倍左右本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>市場相信萬潤不是只搭到單一封裝題材，而是有機會把多條先進封裝設備升級需求，轉成高品質、高槓桿的營運成長。</p>
+<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 1090<br>- 本益比 44.6<br>- 股價淨值比 15.65<br>- 總市值 1,069 億</p>
+<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,054,680 千元<br>- 年增 73.44%<br>- 月增 4.17%<br>- 近三月合併營收年增 68.81%<br>- 近 12 月營收合併成長 7.47%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：萬潤會不會其實是市場把很多封裝故事都往它身上疊，所以估值被抬太高？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 你可以說它受惠 CoWoS<br>- 也可以說它受惠 CoPoS<br>- 還可以說它受惠 PLP、CPO、矽光子<br>- 但這麼多故事，不代表每一個都會同時兌現</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是 45 倍本益比代表只要成長稍微不如預期，市場就會修很大？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全是。</p>
+<p>這種高估值的本質就是：市場願意先相信未來。但只要未來稍微沒那麼快實現，估值就會先修正。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是它雖然站在很多題材交會點，但真正最核心的價值可能還是不如弘塑那種更明確的龍頭？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這也是很重要的質疑。</p>
+<p>反方會說：<br>- 弘塑在濕製程設備上的核心性比較明確<br>- 志聖在某些封裝設備流程上的角色也更容易定義<br>- 萬潤雖然題材多，但單點護城河是否足夠深，還要再看</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句最強反方論證，是不是可以這樣講：萬潤不是沒有受惠，而是市場可能高估了它把多條封裝題材轉成持續設備營收與高品質獲利的速度與幅度？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很到位。</p>
+<p>更完整一點說：萬潤的方向不是錯的，先進封裝、自動化與新封裝路線升級也都可能成立；但市場可能高估了它把多條封裝題材轉成持續設備營收與高品質獲利的速度與幅度，而高估值會讓任何驗證放慢都先反映在評價壓縮上。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個萬潤投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>萬潤不是晶片股，也不是封裝代工股，而是先進封裝與自動化設備鏈上的受惠者。</p>
+<p>第二句，講主線：<br>它最重要的主線，是先進封裝流程變複雜之後，設備與自動化密度持續提升。</p>
+<p>第三句，講價值來源：<br>真正值錢的，不是單一題材，而是多條封裝路線最後都會回到量產化、自動化與設備擴充需求。</p>
+<p>第四句，講市場地位：<br>它不是單點最深的設備龍頭，但它站在多題材交集的設備升級位置上。</p>
+<p>第五句，講估值本質：<br>45 倍左右本益比代表市場已經把它當高彈性設備升級股，而不是普通設備股。</p>
+<p>第六句，講驗證框架：<br>真正要追的，是設備導入節奏、題材落地速度、營業利益率與獲利品質。</p>
+<p>第七句，講最強反方：<br>市場可能高估了它把多條封裝題材轉成持續設備營收與高品質獲利的速度與幅度。</p>
+<p>第八句，講最終投資判斷：<br>萬潤真正值不值這個高估值，不是題材多不多，而是看它能不能把題材穩定轉成設備營收與高品質獲利。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-11 17:23</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-5483 中美晶 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-5483.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-5483]</span>
+            <h1 class="company-name" id="top">中美晶</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-10</span><span class="deadline-chip">交易股價：2026-08-07</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-第-1-段">第 1 段</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-第-3-段">第 3 段</a>
+<a href="#digest-4-估值與市場預期">估值與市場預期</a>
+<a href="#digest-5-第-5-段">第 5 段</a>
+<a href="#digest-6-估值與市場預期">估值與市場預期</a>
+<a href="#digest-7-第-7-段">第 7 段</a>
+<a href="#digest-8-第-8-段">第 8 段</a>
+<a href="#digest-9-第-9-段">第 9 段</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-第-11-段">第 11 段</a>
+<a href="#digest-12-估值與市場預期">估值與市場預期</a>
+<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-15-第-15-段">第 15 段</a>
+<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-17-反方壓力測試">反方壓力測試</a>
+<a href="#digest-18-第-18-段">第 18 段</a>
+<a href="#digest-19-反方壓力測試">反方壓力測試</a>
+<a href="#digest-20-估值與市場預期">估值與市場預期</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-第-1-段">
+<div class="digest-title">第 1 段</div>
+<div class="content"><p>這家公司最容易讓人搞混的地方，就是你用單一標籤很難把它講清楚。</p>
+<p>最白話地講，中美晶不是單純的矽晶圓製造公司，它更像一個以矽材料與半導體相關資產為核心、同時帶有綠能與其他業務的控股型資產。</p>
+<p>所以你看中美晶，不能只看一條線。你要同時看：<br>- 本身的業務組合<br>- 它持有的關鍵資產，尤其是環球晶<br>- 景氣循環往上時，市場最終到底願意把哪一塊價值放大</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>很多人會這樣看，但這樣看太粗糙。</p>
+<p>中美晶確實很大程度會受環球晶影響，因為市場很容易把它當成環球晶的控股延伸資產。</p>
+<p>但它又不只是環球晶投資殼。它還有：<br>- 自己的營運主體<br>- 太陽能 / 綠能相關脈絡<br>- 半導體材料與集團延伸布局</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-第-3-段">
+<div class="digest-title">第 3 段</div>
+<div class="content"><p>一句話講：<br>中美晶現在最重要的身份，是矽晶圓景氣循環與集團資產價值共同驅動的控股型半導體材料資產。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 168.5<br>- 單日漲幅 -5.07%<br>- 本益比 21.1<br>- 股價淨值比 2.19<br>- 總市值 1,080 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 6,997,671 千元<br>- 年增 27.72%<br>- 月增 -9.2%<br>- 近三月合併營收年增 12.76%<br>- 近 12 月營收合併成長 2.83%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-第-5-段">
+<div class="digest-title">第 5 段</div>
+<div class="content"><p>最直接受惠的主線有三條：<br>- 矽晶圓供需改善<br>- 環球晶價值提升<br>- 集團內半導體材料 / 綠能相關資產的評價彈性</p>
+<p>其中第一條最核心，第二條最直接，第三條是額外選項。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對，這就是控股型資產的關鍵。</p>
+<p>中美晶本身不是最純的單一產品公司，所以投資人會同時問：<br>- 本業怎麼樣<br>- 持有資產怎麼樣<br>- 有沒有折價 / 溢價修正空間</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-第-7-段">
+<div class="digest-title">第 7 段</div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是環球晶帶來的核心資產價值。這是中美晶最直接、也最容易被市場定價的部分。</p>
+<p>第二順位，是矽晶圓景氣循環上來時，控股型資產的折價修復空間。</p>
+<p>第三順位，才是其他非矽業務或集團延伸業務的選項價值。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-第-8-段">
+<div class="digest-title">第 8 段</div>
+<div class="content"><p>一句話就是：<br>中美晶最強的主線，是矽晶圓循環回升時，環球晶與集團資產價值一起被重新定價。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-第-9-段">
+<div class="digest-title">第 9 段</div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 環球晶：全球級矽晶圓製造主體，景氣循環與擴產邏輯最直接<br>- 台勝科：更純的矽晶圓供需循環股之一<br>- 合晶：也是景氣循環與產品結構改善受惠股<br>- 中美晶：比較像以環球晶為核心、帶有控股與集團屬性的複合型資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：台勝科 / 合晶（若只看產品循環純度）<br>- 誰最廣：中美晶<br>- 誰最穩：環球晶<br>- 誰最有彈性：中美晶（若控股折價修復成立）<br>- 中美晶卡在哪：環球晶核心資產 + 集團控股型半導體材料資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-第-11-段">
+<div class="digest-title">第 11 段</div>
+<div class="content"><p>對，這個講法很準。</p>
+<p>它不像環球晶那樣容易直接看產能、ASP、供需；也不像台勝科、合晶那樣比較單純是產品循環資產。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>最直接的弱點通常是：<br>- 純度不夠高<br>- 估值邏輯比較複雜<br>- 有時候市場會搞不清楚到底要用產品股還是控股股的方式看它</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對中美晶這種複合型資產，我會更小心地分三層看。</p>
+<p>第一層是毛利率。<br>這回答的是：<br>- 本業產品結構有沒有改善<br>- 矽晶圓景氣回升有沒有反映在單位經濟<br>- 集團內核心業務的產品價值有沒有提升</p>
+<p>第二層是營業利益率。<br>這回答的是：<br>- 本業修復有沒有真的轉成營運槓桿<br>- 固定成本、折舊與費用有沒有被營收吸收<br>- 公司本身是不是除了資產重估之外，營運效率也在改善</p>
+<p>第三層是淨利率。<br>這回答的是：<br>- 股東最後真正拿到多少利潤<br>- 有沒有業外、認列、轉投資或評價因素在放大或扭曲結果</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果只能挑一層，我會說是淨利率背後的獲利品質，但拆開來看，最需要先看營業利益率。</p>
+<p>原因是：中美晶不是最純的產品公司，所以市場很容易被最終淨利數字吸引；但如果要判斷它是不是值得被獨立重估，你不能只看最後 EPS，你要先看本業營業利益率有沒有真的改善。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-第-15-段">
+<div class="digest-title">第 15 段</div>
+<div class="content"><p>對，這點非常重要。</p>
+<p>因為控股型或複合型資產，很容易出現：<br>- 轉投資損益<br>- 評價變動<br>- 業外收益<br>- 一次性認列<br>影響最後淨利率。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>一句話就是：<br>市場相信中美晶不只是環球晶影子股，而是有機會把矽晶圓景氣修復與控股資產價值，一起轉成更高品質的獲利與估值框架。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 真正該看的其實是環球晶<br>- 中美晶只是控股延伸<br>- 既然不是最純標的，市場沒有理由給它太高倍數</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-第-18-段">
+<div class="digest-title">第 18 段</div>
+<div class="content"><p>完全可能。</p>
+<p>市場常常在景氣剛轉好時，先去買最純的主體公司，而不是控股型延伸資產。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這也是很重要的質疑。</p>
+<p>反方會說：<br>- 混合型資產常常最怕敘事不夠純<br>- 一旦市場只想交易矽晶圓循環，其他業務反而會變成折價來源<br>- 所以中美晶有時候不是加分，而是因為複雜而被打折</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>中美晶不是最純的矽晶圓產品股，而是帶有控股屬性的半導體材料資產。</p>
+<p>第二句，講主線：<br>它最重要的主線，是矽晶圓景氣循環回升與資產價值重估。</p>
+<p>第三句，講最值錢的地方：<br>它不是靠單一產品線，而是靠環球晶價值與集團資產一起被重估。</p>
+<p>第四句，講市場定位：<br>市場不是只把它當本業公司，而是會把它當控股 / 集團型複合資產看待。</p>
+<p>第五句，講估值本質：<br>接近 21 倍本益比反映市場已經開始把景氣修復與資產價值一起算進去。</p>
+<p>Sixth句，講最強反方：<br>市場可能只願意去買最純的矽晶圓主體公司，而不願意長期給控股型資產高評價。</p>
+<p>第七句，講最重要驗證：<br>本業營業利益率、淨利品質與控股折價修復能不能一起改善。</p>
+<p>第八句，講最終投資分水嶺：<br>中美晶最後要證明的，不只是環球晶漲，而是它本身也值得被獨立重估成高品質複合型材料資產。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="第-1-段">
+<div class="round-title">第 1 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。中美晶到底是做什麼的？我知道它跟環球晶有關，可是它自己到底算矽晶圓股、控股股，還是綠能股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這家公司最容易讓人搞混的地方，就是你用單一標籤很難把它講清楚。</p>
+<p>最白話地講，中美晶不是單純的矽晶圓製造公司，它更像一個以矽材料與半導體相關資產為核心、同時帶有綠能與其他業務的控股型資產。</p>
+<p>所以你看中美晶，不能只看一條線。你要同時看：<br>- 本身的業務組合<br>- 它持有的關鍵資產，尤其是環球晶<br>- 景氣循環往上時，市場最終到底願意把哪一塊價值放大</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我很粗暴地問，中美晶其實是不是在看環球晶就好？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>很多人會這樣看，但這樣看太粗糙。</p>
+<p>中美晶確實很大程度會受環球晶影響，因為市場很容易把它當成環球晶的控股延伸資產。</p>
+<p>但它又不只是環球晶投資殼。它還有：<br>- 自己的營運主體<br>- 太陽能 / 綠能相關脈絡<br>- 半導體材料與集團延伸布局</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-3-段">
+<div class="round-title">第 3 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果一句話講，中美晶現在最重要的身份是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：<br>中美晶現在最重要的身份，是矽晶圓景氣循環與集團資產價值共同驅動的控股型半導體材料資產。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那最新數字看起來怎麼樣？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 168.5<br>- 單日漲幅 -5.07%<br>- 本益比 21.1<br>- 股價淨值比 2.19<br>- 總市值 1,080 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 6,997,671 千元<br>- 年增 27.72%<br>- 月增 -9.2%<br>- 近三月合併營收年增 12.76%<br>- 近 12 月營收合併成長 2.83%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-5-段">
+<div class="round-title">第 5 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那中美晶最直接受惠的是哪一塊？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接受惠的主線有三條：<br>- 矽晶圓供需改善<br>- 環球晶價值提升<br>- 集團內半導體材料 / 綠能相關資產的評價彈性</p>
+<p>其中第一條最核心，第二條最直接，第三條是額外選項。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它值錢的地方，不只是自己賺多少，而是市場怎麼重估它持有的東西？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是控股型資產的關鍵。</p>
+<p>中美晶本身不是最純的單一產品公司，所以投資人會同時問：<br>- 本業怎麼樣<br>- 持有資產怎麼樣<br>- 有沒有折價 / 溢價修正空間</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-7-段">
+<div class="round-title">第 7 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果再更細一點，中美晶在環球晶、台勝科、合晶這些資產裡，到底哪一段最有價值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是環球晶帶來的核心資產價值。這是中美晶最直接、也最容易被市場定價的部分。</p>
+<p>第二順位，是矽晶圓景氣循環上來時，控股型資產的折價修復空間。</p>
+<p>第三順位，才是其他非矽業務或集團延伸業務的選項價值。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-8-段">
+<div class="round-title">第 8 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，中美晶最強的主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>中美晶最強的主線，是矽晶圓循環回升時，環球晶與集團資產價值一起被重新定價。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-9-段">
+<div class="round-title">第 9 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那把中美晶跟環球晶、台勝科、合晶放在一起看，它到底是哪一種資產？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 環球晶：全球級矽晶圓製造主體，景氣循環與擴產邏輯最直接<br>- 台勝科：更純的矽晶圓供需循環股之一<br>- 合晶：也是景氣循環與產品結構改善受惠股<br>- 中美晶：比較像以環球晶為核心、帶有控股與集團屬性的複合型資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照新版比較框架，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：台勝科 / 合晶（若只看產品循環純度）<br>- 誰最廣：中美晶<br>- 誰最穩：環球晶<br>- 誰最有彈性：中美晶（若控股折價修復成立）<br>- 中美晶卡在哪：環球晶核心資產 + 集團控股型半導體材料資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-11-段">
+<div class="round-title">第 11 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以市場看中美晶，不是看它哪條產品線最純，而是看它的總體資產價值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這個講法很準。</p>
+<p>它不像環球晶那樣容易直接看產能、ASP、供需；也不像台勝科、合晶那樣比較單純是產品循環資產。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟環球晶、台勝科、合晶相比，最大的弱點是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接的弱點通常是：<br>- 純度不夠高<br>- 估值邏輯比較複雜<br>- 有時候市場會搞不清楚到底要用產品股還是控股股的方式看它</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果不要只看毛利率，完整來看，中美晶這種控股型資產到底該看哪幾層獲利？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對中美晶這種複合型資產，我會更小心地分三層看。</p>
+<p>第一層是毛利率。<br>這回答的是：<br>- 本業產品結構有沒有改善<br>- 矽晶圓景氣回升有沒有反映在單位經濟<br>- 集團內核心業務的產品價值有沒有提升</p>
+<p>第二層是營業利益率。<br>這回答的是：<br>- 本業修復有沒有真的轉成營運槓桿<br>- 固定成本、折舊與費用有沒有被營收吸收<br>- 公司本身是不是除了資產重估之外，營運效率也在改善</p>
+<p>第三層是淨利率。<br>這回答的是：<br>- 股東最後真正拿到多少利潤<br>- 有沒有業外、認列、轉投資或評價因素在放大或扭曲結果</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那這三層裡，對中美晶最重要的是哪一層？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只能挑一層，我會說是淨利率背後的獲利品質，但拆開來看，最需要先看營業利益率。</p>
+<p>原因是：中美晶不是最純的產品公司，所以市場很容易被最終淨利數字吸引；但如果要判斷它是不是值得被獨立重估，你不能只看最後 EPS，你要先看本業營業利益率有沒有真的改善。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-15-段">
+<div class="round-title">第 15 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以淨利率在這種公司上，反而更容易讓人誤判？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這點非常重要。</p>
+<p>因為控股型或複合型資產，很容易出現：<br>- 轉投資損益<br>- 評價變動<br>- 業外收益<br>- 一次性認列<br>影響最後淨利率。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講，市場為什麼願意給中美晶接近 21 倍本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>市場相信中美晶不只是環球晶影子股，而是有機會把矽晶圓景氣修復與控股資產價值，一起轉成更高品質的獲利與估值框架。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：中美晶會不會其實只是環球晶的影子股，不值得單獨給高評價？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 真正該看的其實是環球晶<br>- 中美晶只是控股延伸<br>- 既然不是最純標的，市場沒有理由給它太高倍數</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-18-段">
+<div class="round-title">第 18 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是它雖然也受惠矽晶圓景氣，但純度不如環球晶，所以最終漲幅可能也不如環球晶？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全可能。</p>
+<p>市場常常在景氣剛轉好時，先去買最純的主體公司，而不是控股型延伸資產。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是綠能或其他非矽業務反而會讓市場分心，導致估值不容易拉高？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這也是很重要的質疑。</p>
+<p>反方會說：<br>- 混合型資產常常最怕敘事不夠純<br>- 一旦市場只想交易矽晶圓循環，其他業務反而會變成折價來源<br>- 所以中美晶有時候不是加分，而是因為複雜而被打折</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個中美晶投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>中美晶不是最純的矽晶圓產品股，而是帶有控股屬性的半導體材料資產。</p>
+<p>第二句，講主線：<br>它最重要的主線，是矽晶圓景氣循環回升與資產價值重估。</p>
+<p>第三句，講最值錢的地方：<br>它不是靠單一產品線，而是靠環球晶價值與集團資產一起被重估。</p>
+<p>第四句，講市場定位：<br>市場不是只把它當本業公司，而是會把它當控股 / 集團型複合資產看待。</p>
+<p>第五句，講估值本質：<br>接近 21 倍本益比反映市場已經開始把景氣修復與資產價值一起算進去。</p>
+<p>Sixth句，講最強反方：<br>市場可能只願意去買最純的矽晶圓主體公司，而不願意長期給控股型資產高評價。</p>
+<p>第七句，講最重要驗證：<br>本業營業利益率、淨利品質與控股折價修復能不能一起改善。</p>
+<p>第八句，講最終投資分水嶺：<br>中美晶最後要證明的，不只是環球晶漲，而是它本身也值得被獨立重估成高品質複合型材料資產。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-11 17:49</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

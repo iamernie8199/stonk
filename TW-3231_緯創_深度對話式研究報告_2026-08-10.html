@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-3231 緯創 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-3231.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-3231]</span>
+            <h1 class="company-name" id="top">緯創</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-10</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-11-晶圓代工與商業模式">晶圓代工與商業模式</a>
+<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果你要一句話先記住，緯創本質上不是賣自有品牌伺服器的公司，而是大型電子代工與系統組裝平台，而且它現在最重要的價值，來自 AI 伺服器與 rack-scale 系統組裝能力正在快速放大。</p>
+<p>也就是說，它不是靠自己設計 GPU，也不是靠自己擁有資料中心，而是站在整個 AI 基礎設施供應鏈裡，扮演把零組件、模組、機櫃、系統真正做成可交付產品的關鍵整合者。</p>
+<p>所以你研究緯創，不能只把它看成一般 EMS / ODM 廠，而要把它看成：<br>- AI 伺服器系統代工平台<br>- rack-scale 組裝與量產執行者<br>- GPU 與 ASIC 多平台切換時代的重要受惠者</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這個方向是對的。</p>
+<p>更精準一點說，緯創賣的不是晶片本身，而是：<br>- 把客戶指定的平台真正做出來<br>- 把 GPU / CPU / 網通 / 散熱 / 電源 / 機構整合成可以出貨的伺服器或整櫃<br>- 把量產、驗證、交付、良率與供應鏈協調做好</p>
+<p>這種能力在傳統 PC 時代很重要，在 AI 伺服器時代更重要。因為整機與整櫃比以前更複雜，交付節點更敏感，客戶對組裝品質與節奏更嚴格。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果只是因為 NVIDIA 很熱，緯創當然會受惠，但市場重估緯創，不只是因為單一 GPU 題材而已。</p>
+<p>現在市場重估緯創，有幾條線一起在發生：<br>- AI CAPEX 持續上升，帶動整機與整櫃需求<br>- L10 / L11 組裝價值量提升，整櫃交付能力比過去更重要<br>- GB200 / GB300、VR200、AMD Helios、ASIC 伺服器等多平台並行<br>- 美國與其他海外產能布局，讓地緣與供應鏈調整更有戰略價值<br>- 市場開始把緯創從傳統 PC ODM，重新定義成 AI 基礎設施代工平台</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話很準。</p>
+<p>如果你要更精準一點，我會這樣說：<br>緯創不是單純的 OEM / ODM 廠，而是受惠於 AI 伺服器、多平台 rack build cycle 與海外擴產的系統整合平台公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣定義：<br>緯創不是單純的傳統 ODM，而是受惠於 AI 伺服器、多平台機櫃交付與海外製造擴張的系統整合平台公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 193 元<br>- 單日漲幅 5.18%<br>- 本益比 12.1 倍<br>- 股價淨值比 3.23 倍<br>- 總市值 6,137 億元</p>
+<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 308,219,198 千元<br>- 年增 60.76%<br>- 月減 4.23%<br>- 近三月合併營收年增 51.03%<br>- 近 12 月營收合併成長 100.01%</p>
+<p>這組數字代表兩件事：<br>第一，緯創已經不是低成長代工廠的數字型態，而是非常明顯的高成長平台。<br>第二，本益比只有 12 倍左右，表示市場雖然看好，但還沒有把它定價到像高純度 AI 零組件股那麼極端。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這就是研究緯創最重要的切入點。</p>
+<p>緯創現在最有趣的地方，不是它有沒有成長，而是：<br>- 成長非常快<br>- 市場也承認 AI 伺服器正在推動它<br>- 但估值還不像高純度 AI 材料 / 散熱 / 零組件股那樣拉滿</p>
+<p>這通常代表市場還在判斷：<br>- 它的高成長能不能持續<br>- 它是短期受惠 AI 拉貨，還是長期 AI 系統平台升級股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>一句話講，就是：<br>緯創最重要的成長主線，是從傳統 PC / 伺服器代工廠，升級成 AI 伺服器與 rack-scale 系統交付平台。</p>
+<p>拆開來看有四層：<br>- AI GPU / CPU / ASIC 平台持續推動整機需求<br>- L10 / L11 組裝與整櫃交付，讓系統整合能力變得更值錢<br>- GB200 / GB300、VR200、AMD Helios 等多平台並行<br>- 海外擴產與美國在地化製造需求，讓供應鏈位置更有戰略價值</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話非常關鍵。</p>
+<p>很多人看緯創，只會看 AI 伺服器出貨量，但市場真正願意重估它的原因，不只是量變，而是：<br>- 整櫃交付比以前更複雜<br>- 多平台切換比以前更頻繁<br>- 客戶更在意量產節奏、良率與供應鏈協調</p>
+<p>也就是說，緯創現在不是只靠多做幾台伺服器賺錢，而是靠自己在 AI 系統交付鏈上的位置變得更重要。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>很重要，因為它直接關係到價值量與市場定價。</p>
+<p>簡單講：<br>- 如果你只做比較前段、比較標準化的組裝，市場給你的想像會比較有限<br>- 但如果你做到更接近整櫃、整系統、測試與交付的環節，你在整個 AI 供應鏈中的價值就會提高</p>
+<p>所以 L10 / L11 的重點，不只是技術名詞，而是代表：<br>緯創到底只是做比較基礎的代工，還是已經往更高價值的系統整合節點移動。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-晶圓代工與商業模式">
+<div class="digest-title">晶圓代工與商業模式</div>
+<div class="content"><p>很好，這才是對的問法。</p>
+<p>你可以先這樣粗分：<br>- 廣達：AI 伺服器龍頭型平台座標，市場定價重點是規模、客戶廣度與穩定執行力<br>- 緯穎：高純度資料中心 / 伺服器平台股，市場定價重點是伺服器主線純度與獲利品質<br>- 鴻海：超大型綜合製造平台，市場定價重點是多產業協同與全球製造平台能力<br>- 緯創：AI 系統整合與多平台切換中的高彈性平台升級股，市場定價重點是成長斜率、交付深度與再定價空間</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：緯穎<br>- 誰最廣：鴻海<br>- 誰最穩：廣達 / 鴻海<br>- 誰最有彈性：緯創<br>- 緯創卡在哪：AI 系統整合與多平台切換中的高彈性平台升級股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果只講一句話：<br>廣達更像 AI 伺服器平台龍頭型座標，而緯創更像在多平台切換與整櫃交付上加速追趕的高彈性平台股。</p>
+<p>也就是說：<br>- 廣達偏龍頭穩定性<br>- 緯創偏平台升級彈性</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，緯穎和緯創都吃到 AI 伺服器紅利，但市場心智有很明顯差異。</p>
+<p>緯穎更像：<br>- 伺服器純度更高<br>- 資料中心資本支出直接映射<br>- 伺服器相關獲利品質更純粹</p>
+<p>緯創則不只伺服器，還有：<br>- 傳統 PC / NB 業務底盤<br>- 多平台切換與系統交付<br>- 海外擴產與客戶結構調整</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最大的優點：<br>- 不像鴻海那樣平台太大、主題太多<br>- 也不像緯穎那樣伺服器純度已經高度被市場定義<br>- 同時有 AI 系統交付、多平台切換、海外擴產、傳統底盤改善幾個故事可以疊加</p>
+<p>所以它是非常典型的平台升級彈性股。</p>
+<p>最大的缺點：<br>- 正因為卡在升級過程中，市場也還沒有完全確信它能不能穩定站上更高品質平台估值<br>- 只要多平台切換、整櫃交付深度、獲利品質有一項沒跟上，資金就可能回頭偏好廣達、緯穎或鴻海</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>因為市場在交易的，是 AI 成長和製造業折價兩件事同時存在。</p>
+<p>市場願意重估它，代表相信：<br>- AI 伺服器需求是真的<br>- 緯創在系統交付鏈中的位置變得更重要<br>- 多平台交付會讓營收與獲利同步提升</p>
+<p>但市場又沒有把它估到很極端，是因為它仍然是：<br>- 代工 / 組裝 / 製造型公司<br>- 毛利率通常不會像上游高規格零組件那麼高<br>- 市場仍在確認 AI 高成長能不能延續到 2027 之後</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話非常準。</p>
+<p>緯創最關鍵的，不只是營收增長，而是：<br>- GB / VR / AMD / ASIC 多平台出貨是否持續<br>- 整櫃交付能力是否真的提高價值量<br>- AI 伺服器成長能否壓過傳統 PC / NB 下滑<br>- 毛利率與營業利益率是否能跟著結構改善</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>營業利益率回答的是：<br>交付深度、平台切換與產品組合，是否真的轉成更高品質的經營槓桿。</p>
+<p>淨利率回答的是：<br>股東最後拿到的利潤，是不是由 AI 系統整合位置提升穩定推升。</p>
+<p>對緯創來說，高品質獲利至少要看到：<br>- AI 伺服器成長不只衝營收<br>- 多平台切換帶來更好 mix<br>- 整櫃與系統交付比重提升<br>- 毛利率、營業利益率與淨利率一起改善</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>估值分水嶺不是營收創不創高，而是交付深度、毛利率、營業利益率、淨利率與平台延續性，能不能一起把緯創從傳統 ODM 框架往 AI 系統整合平台股框架推上去。</p>
+<p>如果可以，12 倍有再定價空間；<br>如果不行，市場就會把它留在傳統代工股框架裡。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這是最強反方之一，而且非常合理。</p>
+<p>反方會說：<br>- 代工廠本質沒有改變<br>- 就算 AI 伺服器很好，價值量大部分仍會被上游晶片、散熱、網通拿走<br>- 緯創可能只是營收放大，但未必能轉成足夠高品質的獲利平台</p>
+<p>這個反方最厲害的地方在於，它不是否認緯創現在成長很強，而是質疑這種成長能不能穿透到估值重估所需要的獲利品質。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果只能選一個最敏感的，我會選：營業利益率能否隨交付深度與平台切換而穩定改善。</p>
+<p>原因很簡單：<br>- 營收可以因 AI 訂單暴增而很好看<br>- 但如果營業利益率沒改善，市場就很難相信這是平台升級，而只會把它當高峰代工股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>傳統代工股，而不是 AI 系統整合平台股。</p>
+<p>差別在於：<br>- 前者看出貨量與短期 AI 訂單<br>- 後者看交付深度、平台切換與長期獲利品質</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最誠實的答案是：它正處在從高峰景氣代工股往高品質平台股過渡的驗證期。</p>
+<p>它確實有高品質平台股的條件：<br>- AI 系統交付位置提升<br>- 多平台切換<br>- 海外擴產<br>- 整櫃交付深度提高</p>
+<p>但今天的本益比也告訴你，市場還沒有完全買單。後面要靠交付深度、獲利品質與平台延續性來證明不只是短期景氣。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，公司本質：<br>緯創不是單純 PC 代工廠，而是 AI 伺服器與系統交付平台。</p>
+<p>第二句，主線：<br>最大的成長主線，是 AI 伺服器、多平台機櫃交付與海外擴產。</p>
+<p>第三句，價值來源：<br>它受惠的不只是 AI 拉貨，而是整櫃系統交付的價值提升。</p>
+<p>第四句，同業定位：<br>廣達偏龍頭平台、緯穎偏伺服器純度、鴻海偏超大型綜合平台，而緯創卡在高彈性 AI 系統整合平台的位置。</p>
+<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與交付深度是否改善。</p>
+<p>第六句，最重要驗證：<br>AI 伺服器出貨、多平台切換、海外交付與獲利品質，能不能一起把平台價值墊高。</p>
+<p>第七句，最強反方：<br>它可能只是 AI 拉貨太猛的代工股，而不是長期高品質平台股。</p>
+<p>第八句，最終投資判斷：<br>緯創真正值不值得市場重新高看，不是看這一季營收多強，而是看交付深度、獲利品質與平台延續性能不能一起做實。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣講：<br>緯創是受惠於 AI 伺服器、多平台 rack-scale 系統交付與海外擴產的系統整合平台公司，但真正決定它值不值得市場重新高看，不是這一季營收有多強，而是交付深度、獲利品質與平台延續性，能不能一起把 2027 之後的獲利平台墊高。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。緯創到底是做什麼的？我知道它是代工廠，也知道現在大家都在講 AI 伺服器，可是我很難分清楚它跟廣達、緯穎、鴻海、英業達到底差在哪裡。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果你要一句話先記住，緯創本質上不是賣自有品牌伺服器的公司，而是大型電子代工與系統組裝平台，而且它現在最重要的價值，來自 AI 伺服器與 rack-scale 系統組裝能力正在快速放大。</p>
+<p>也就是說，它不是靠自己設計 GPU，也不是靠自己擁有資料中心，而是站在整個 AI 基礎設施供應鏈裡，扮演把零組件、模組、機櫃、系統真正做成可交付產品的關鍵整合者。</p>
+<p>所以你研究緯創，不能只把它看成一般 EMS / ODM 廠，而要把它看成：<br>- AI 伺服器系統代工平台<br>- rack-scale 組裝與量產執行者<br>- GPU 與 ASIC 多平台切換時代的重要受惠者</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以緯創不是在賣自己的技術標準，而是在賣大規模量產與系統整合能力？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這個方向是對的。</p>
+<p>更精準一點說，緯創賣的不是晶片本身，而是：<br>- 把客戶指定的平台真正做出來<br>- 把 GPU / CPU / 網通 / 散熱 / 電源 / 機構整合成可以出貨的伺服器或整櫃<br>- 把量產、驗證、交付、良率與供應鏈協調做好</p>
+<p>這種能力在傳統 PC 時代很重要，在 AI 伺服器時代更重要。因為整機與整櫃比以前更複雜，交付節點更敏感，客戶對組裝品質與節奏更嚴格。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那市場現在為什麼這麼重視緯創？只是因為 NVIDIA 伺服器很熱嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只是因為 NVIDIA 很熱，緯創當然會受惠，但市場重估緯創，不只是因為單一 GPU 題材而已。</p>
+<p>現在市場重估緯創，有幾條線一起在發生：<br>- AI CAPEX 持續上升，帶動整機與整櫃需求<br>- L10 / L11 組裝價值量提升，整櫃交付能力比過去更重要<br>- GB200 / GB300、VR200、AMD Helios、ASIC 伺服器等多平台並行<br>- 美國與其他海外產能布局，讓地緣與供應鏈調整更有戰略價值<br>- 市場開始把緯創從傳統 PC ODM，重新定義成 AI 基礎設施代工平台</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講，緯創不是單純 PC 代工股，而是 AI 伺服器與 rack-scale 系統平台股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很準。</p>
+<p>如果你要更精準一點，我會這樣說：<br>緯創不是單純的 OEM / ODM 廠，而是受惠於 AI 伺服器、多平台 rack build cycle 與海外擴產的系統整合平台公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果一句話講緯創現在最重要的身份，你會怎麼定義？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣定義：<br>緯創不是單純的傳統 ODM，而是受惠於 AI 伺服器、多平台機櫃交付與海外製造擴張的系統整合平台公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那最新數字怎麼看？我想先知道市場現在用什麼價格在看它。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 193 元<br>- 單日漲幅 5.18%<br>- 本益比 12.1 倍<br>- 股價淨值比 3.23 倍<br>- 總市值 6,137 億元</p>
+<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 308,219,198 千元<br>- 年增 60.76%<br>- 月減 4.23%<br>- 近三月合併營收年增 51.03%<br>- 近 12 月營收合併成長 100.01%</p>
+<p>這組數字代表兩件事：<br>第一，緯創已經不是低成長代工廠的數字型態，而是非常明顯的高成長平台。<br>第二，本益比只有 12 倍左右，表示市場雖然看好，但還沒有把它定價到像高純度 AI 零組件股那麼極端。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以市場其實在承認它正在變強，但又還沒有完全把它當成高估值 AI 股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是研究緯創最重要的切入點。</p>
+<p>緯創現在最有趣的地方，不是它有沒有成長，而是：<br>- 成長非常快<br>- 市場也承認 AI 伺服器正在推動它<br>- 但估值還不像高純度 AI 材料 / 散熱 / 零組件股那樣拉滿</p>
+<p>這通常代表市場還在判斷：<br>- 它的高成長能不能持續<br>- 它是短期受惠 AI 拉貨，還是長期 AI 系統平台升級股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那緯創現在最重要的成長主線，到底是什麼？一句話怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講，就是：<br>緯創最重要的成長主線，是從傳統 PC / 伺服器代工廠，升級成 AI 伺服器與 rack-scale 系統交付平台。</p>
+<p>拆開來看有四層：<br>- AI GPU / CPU / ASIC 平台持續推動整機需求<br>- L10 / L11 組裝與整櫃交付，讓系統整合能力變得更值錢<br>- GB200 / GB300、VR200、AMD Helios 等多平台並行<br>- 海外擴產與美國在地化製造需求，讓供應鏈位置更有戰略價值</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以緯創最值錢的地方，不只是出貨變多，而是它站在 AI 系統真正交付的關鍵位置？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話非常關鍵。</p>
+<p>很多人看緯創，只會看 AI 伺服器出貨量，但市場真正願意重估它的原因，不只是量變，而是：<br>- 整櫃交付比以前更複雜<br>- 多平台切換比以前更頻繁<br>- 客戶更在意量產節奏、良率與供應鏈協調</p>
+<p>也就是說，緯創現在不是只靠多做幾台伺服器賺錢，而是靠自己在 AI 系統交付鏈上的位置變得更重要。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那 L10 / L11 這種東西真的重要嗎？聽起來很技術，但和投資有什麼關係？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>很重要，因為它直接關係到價值量與市場定價。</p>
+<p>簡單講：<br>- 如果你只做比較前段、比較標準化的組裝，市場給你的想像會比較有限<br>- 但如果你做到更接近整櫃、整系統、測試與交付的環節，你在整個 AI 供應鏈中的價值就會提高</p>
+<p>所以 L10 / L11 的重點，不只是技術名詞，而是代表：<br>緯創到底只是做比較基礎的代工，還是已經往更高價值的系統整合節點移動。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="晶圓代工與商業模式">
+<div class="round-title">晶圓代工與商業模式</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那我們現在就真的把同業比較講清楚。廣達、緯穎、鴻海、緯創，市場到底怎麼分工？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>很好，這才是對的問法。</p>
+<p>你可以先這樣粗分：<br>- 廣達：AI 伺服器龍頭型平台座標，市場定價重點是規模、客戶廣度與穩定執行力<br>- 緯穎：高純度資料中心 / 伺服器平台股，市場定價重點是伺服器主線純度與獲利品質<br>- 鴻海：超大型綜合製造平台，市場定價重點是多產業協同與全球製造平台能力<br>- 緯創：AI 系統整合與多平台切換中的高彈性平台升級股，市場定價重點是成長斜率、交付深度與再定價空間</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照你剛剛那種方式，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：緯穎<br>- 誰最廣：鴻海<br>- 誰最穩：廣達 / 鴻海<br>- 誰最有彈性：緯創<br>- 緯創卡在哪：AI 系統整合與多平台切換中的高彈性平台升級股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那緯創跟廣達最大的差別到底是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只講一句話：<br>廣達更像 AI 伺服器平台龍頭型座標，而緯創更像在多平台切換與整櫃交付上加速追趕的高彈性平台股。</p>
+<p>也就是說：<br>- 廣達偏龍頭穩定性<br>- 緯創偏平台升級彈性</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那緯穎呢？它和緯創都是伺服器強勢股，但市場心智是不是不太一樣？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，緯穎和緯創都吃到 AI 伺服器紅利，但市場心智有很明顯差異。</p>
+<p>緯穎更像：<br>- 伺服器純度更高<br>- 資料中心資本支出直接映射<br>- 伺服器相關獲利品質更純粹</p>
+<p>緯創則不只伺服器，還有：<br>- 傳統 PC / NB 業務底盤<br>- 多平台切換與系統交付<br>- 海外擴產與客戶結構調整</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那最後如果真的要選股，緯創在這組 peer 裡最大的優點跟最大的缺點，各是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最大的優點：<br>- 不像鴻海那樣平台太大、主題太多<br>- 也不像緯穎那樣伺服器純度已經高度被市場定義<br>- 同時有 AI 系統交付、多平台切換、海外擴產、傳統底盤改善幾個故事可以疊加</p>
+<p>所以它是非常典型的平台升級彈性股。</p>
+<p>最大的缺點：<br>- 正因為卡在升級過程中，市場也還沒有完全確信它能不能穩定站上更高品質平台估值<br>- 只要多平台切換、整櫃交付深度、獲利品質有一項沒跟上，資金就可能回頭偏好廣達、緯穎或鴻海</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那現在來最重要的。為什麼市場願意重估緯創，但又沒有把它估到像某些 AI 股那麼高？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為市場在交易的，是 AI 成長和製造業折價兩件事同時存在。</p>
+<p>市場願意重估它，代表相信：<br>- AI 伺服器需求是真的<br>- 緯創在系統交付鏈中的位置變得更重要<br>- 多平台交付會讓營收與獲利同步提升</p>
+<p>但市場又沒有把它估到很極端，是因為它仍然是：<br>- 代工 / 組裝 / 製造型公司<br>- 毛利率通常不會像上游高規格零組件那麼高<br>- 市場仍在確認 AI 高成長能不能延續到 2027 之後</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以緯創最重要的，不只是 revenue curve，而是平台切換、整櫃交付與毛利率能不能一起成立？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話非常準。</p>
+<p>緯創最關鍵的，不只是營收增長，而是：<br>- GB / VR / AMD / ASIC 多平台出貨是否持續<br>- 整櫃交付能力是否真的提高價值量<br>- AI 伺服器成長能否壓過傳統 PC / NB 下滑<br>- 毛利率與營業利益率是否能跟著結構改善</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那營業利益率與淨利率又要怎麼看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>營業利益率回答的是：<br>交付深度、平台切換與產品組合，是否真的轉成更高品質的經營槓桿。</p>
+<p>淨利率回答的是：<br>股東最後拿到的利潤，是不是由 AI 系統整合位置提升穩定推升。</p>
+<p>對緯創來說，高品質獲利至少要看到：<br>- AI 伺服器成長不只衝營收<br>- 多平台切換帶來更好 mix<br>- 整櫃與系統交付比重提升<br>- 毛利率、營業利益率與淨利率一起改善</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那估值分水嶺到底是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>估值分水嶺不是營收創不創高，而是交付深度、毛利率、營業利益率、淨利率與平台延續性，能不能一起把緯創從傳統 ODM 框架往 AI 系統整合平台股框架推上去。</p>
+<p>如果可以，12 倍有再定價空間；<br>如果不行，市場就會把它留在傳統代工股框架裡。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：緯創會不會其實只是 AI 拉貨太猛，所以營收很好，但代工廠終究還是代工廠，毛利率天花板有限？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方之一，而且非常合理。</p>
+<p>反方會說：<br>- 代工廠本質沒有改變<br>- 就算 AI 伺服器很好，價值量大部分仍會被上游晶片、散熱、網通拿走<br>- 緯創可能只是營收放大，但未必能轉成足夠高品質的獲利平台</p>
+<p>這個反方最厲害的地方在於，它不是否認緯創現在成長很強，而是質疑這種成長能不能穿透到估值重估所需要的獲利品質。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果只能選一個最脆弱的驗證數字，你會選哪一個？哪個條件掉了，這篇 thesis 就要重寫？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只能選一個最敏感的，我會選：營業利益率能否隨交付深度與平台切換而穩定改善。</p>
+<p>原因很簡單：<br>- 營收可以因 AI 訂單暴增而很好看<br>- 但如果營業利益率沒改善，市場就很難相信這是平台升級，而只會把它當高峰代工股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那市場最可能把它切回哪個較低級的估值框架？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>傳統代工股，而不是 AI 系統整合平台股。</p>
+<p>差別在於：<br>- 前者看出貨量與短期 AI 訂單<br>- 後者看交付深度、平台切換與長期獲利品質</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以很誠實地講，緯創現在比較像高品質平台股，還是高峰景氣代工股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最誠實的答案是：它正處在從高峰景氣代工股往高品質平台股過渡的驗證期。</p>
+<p>它確實有高品質平台股的條件：<br>- AI 系統交付位置提升<br>- 多平台切換<br>- 海外擴產<br>- 整櫃交付深度提高</p>
+<p>但今天的本益比也告訴你，市場還沒有完全買單。後面要靠交付深度、獲利品質與平台延續性來證明不只是短期景氣。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那如果我要把緯創整個投資邏輯濃縮成幾句話，應該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，公司本質：<br>緯創不是單純 PC 代工廠，而是 AI 伺服器與系統交付平台。</p>
+<p>第二句，主線：<br>最大的成長主線，是 AI 伺服器、多平台機櫃交付與海外擴產。</p>
+<p>第三句，價值來源：<br>它受惠的不只是 AI 拉貨，而是整櫃系統交付的價值提升。</p>
+<p>第四句，同業定位：<br>廣達偏龍頭平台、緯穎偏伺服器純度、鴻海偏超大型綜合平台，而緯創卡在高彈性 AI 系統整合平台的位置。</p>
+<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與交付深度是否改善。</p>
+<p>第六句，最重要驗證：<br>AI 伺服器出貨、多平台切換、海外交付與獲利品質，能不能一起把平台價值墊高。</p>
+<p>第七句，最強反方：<br>它可能只是 AI 拉貨太猛的代工股，而不是長期高品質平台股。</p>
+<p>第八句，最終投資判斷：<br>緯創真正值不值得市場重新高看，不是看這一季營收多強，而是看交付深度、獲利品質與平台延續性能不能一起做實。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要用一句最短的話總結緯創，你會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣講：<br>緯創是受惠於 AI 伺服器、多平台 rack-scale 系統交付與海外擴產的系統整合平台公司，但真正決定它值不值得市場重新高看，不是這一季營收有多強，而是交付深度、獲利品質與平台延續性，能不能一起把 2027 之後的獲利平台墊高。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card">
+<h3>公司本質</h3>
+<ul><li>緯創不是單純 PC 代工廠，而是 AI 伺服器與系統交付平台。</li><li>最值錢的不只是營收增長，而是系統整合位置往更高價值節點移動。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>已知事實</h3>
+<ul><li>收盤價：193 元 (<span style="color: #f87171; font-weight: 700;">+5.18%</span>)</li><li>緯創是台股電子代工 / AI 伺服器主線中的核心公司之一。</li><li>公司研究頁 <code>as_of</code> 為 2026-08-10。</li><li>公司研究頁顯示 AI 伺服器、L10 / L11、GB / VR / AMD / ASIC 多平台與海外擴產是核心主線。</li><li>多家機構對 2026 / 2027 年 EPS 與目標價持續上修，但評價方法分歧仍大。</li><li>本益比 12.1</li><li>股價淨值比 3.23</li><li>總市值 6,137 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">3,082.2 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+60.76%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #34d399; font-weight: 700;">-4.23%</td></tr><tr><td class="tbl-k">近 3 月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+51.03%</td></tr><tr><td class="tbl-k">近 12 月成長</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+100.01%</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="summary-card section-card">
+<h3>同業定位</h3>
+<ul><li>廣達：AI 伺服器龍頭型平台座標，市場定價重點是規模、客戶廣度與穩定執行力。</li><li>緯穎：高純度資料中心 / 伺服器平台股，市場定價重點是伺服器主線純度與獲利品質。</li><li>鴻海：超大型綜合製造平台，市場定價重點是多產業協同與全球製造平台能力。</li><li>緯創：AI 系統整合與多平台切換中的高彈性平台升級股，市場定價重點是成長斜率、交付深度與再定價空間。</li><li>最像的比較對手：廣達。</li><li>最不像的比較對手：鴻海。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>估值五件組</h3>
+<ul><li>毛利率：回答 AI 伺服器成長到底只是量，還是更高價值的系統整合內容在上升。</li><li>營業利益率：回答交付深度、平台切換與產品組合，是否真的轉成更高品質的經營槓桿。</li><li>淨利率：回答股東最後拿到的利潤，是不是由 AI 系統整合位置提升穩定推升。</li><li>獲利品質：關鍵在 AI 伺服器出貨、多平台切換、海外交付與交付深度是否一起成立。</li><li>估值分水嶺：市場會不會把它從傳統代工股框架，往 AI 系統整合平台股重估。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>關鍵推論</h3>
+<ul><li>緯創的核心價值不只是 AI 伺服器出貨增加，而是有機會把自己從傳統 ODM 廠，推向更高價值的 AI 系統整合平台。</li><li>市場目前願意給它比傳統代工股更高的成長評價，但仍保留製造業折價。</li><li>最重要的驗證關鍵，不只是 revenue，而是交付深度、毛利率、營業利益率、淨利率與平台延續性能否一起站住。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>目前最大爭議點</h3>
+<ul><li>緯創到底是長線受惠於 AI 系統交付升級的平台資產，還是 AI 伺服器代工高峰受益股。</li><li>多平台切換與海外擴產，到底多久才能真正反映成更高品質獲利。</li><li>毛利率、營業利益率與淨利率能否隨系統交付深度提高而持續改善。</li><li>當前約 12 倍本益比，到底是在合理反映平台升級，還是市場仍把它當成高峰循環股。</li><li>緯創目前估值是否已經反映平台升級預期，而後續上修空間要靠交付深度與獲利品質更明確落地。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>反方壓力測試</h3>
+<ul><li>最強空方一句話：緯創可能只是 AI 拉貨太猛的代工股，而不是長期高品質平台股。</li><li>最脆弱的驗證數字：營業利益率能否隨交付深度與平台切換而穩定改善。</li><li>最可能被切回去的低級估值框架：傳統代工股，而不是 AI 系統整合平台股。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>最值得追蹤的 3 個指標</h3>
+<ul><li>GB / VR / AMD / ASIC 等多平台出貨與客戶結構是否持續擴大。</li><li>毛利率、營業利益率與淨利率是否隨產品結構與交付深度同步改善。</li><li>海外擴產與整櫃交付能力是否持續轉成營收與獲利優勢。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>thesis 失效條件</h3>
+<ul><li>AI 平台切換放慢，成長無法延續。</li><li>多平台與整櫃交付能力沒有有效轉成更高品質獲利。</li><li>毛利率、營業利益率與淨利率改善停滯。</li><li>市場重新把緯創定價成傳統代工股，而非 AI 系統整合平台股。</li><li>資金持續偏好龍頭、純度更高或規模更大的同組標的，削弱緯創的相對吸引力。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>目前最缺的資料</h3>
+<ul><li>AI 伺服器與非 AI 傳統業務的更細營收拆分。</li><li>緯創與廣達 / 緯穎 / 鴻海在 AI 伺服器與非 AI 業務的更細營收拆分比較。</li><li>L10 / L11 / 整櫃交付在獲利率上的具體差異。</li><li>海外產能擴張後對獲利品質與客戶結構的量化影響。</li><li>海外產能擴張後對中長期毛利率與客戶結構的更細量化證據。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>最短版記法</h3>
+<ul><li>緯創不是單純 AI 拉貨受惠的代工股，而是多平台 rack-scale 系統交付與海外擴產驅動的 AI 系統整合平台；真正關鍵不是營收暴衝，而是交付深度與獲利品質能不能一起升級。</li></ul>
+</section>
+      <div class="footer">Generated at 2026-08-11 15:08</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

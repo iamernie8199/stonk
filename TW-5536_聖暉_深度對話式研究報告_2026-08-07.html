@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-5536 聖暉 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-5536.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-5536]</span>
+            <h1 class="company-name" id="top">聖暉</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-04</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 6 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-第-3-段">第 3 段</a>
+<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-9-第-9-段">第 9 段</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-第-11-段">第 11 段</a>
+<a href="#digest-12-第-12-段">第 12 段</a>
+<a href="#digest-13-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-18-第-18-段">第 18 段</a>
+<a href="#digest-19-反方壓力測試">反方壓力測試</a>
+<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-21-估值與市場預期">估值與市場預期</a>
+<a href="#digest-22-估值與市場預期">估值與市場預期</a>
+<a href="#digest-23-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>這家公司最容易被誤解的地方就在這裡。</p>
+<p>最白話地講，聖暉不是做晶片、不是做設備，也不是做封裝本身，它做的是廠房裡面那些讓先進製程可以真正運作起來的系統工程，例如無塵室、機電整合、空調、製程公用系統，以及某些統包性質的廠務工程。</p>
+<p>你可以把它想成：<br>當大家都在看晶圓廠、記憶體廠、封裝廠蓋新廠時，晶片還沒開始生產之前，廠房本身要先被做出來，而且不是普通大樓，而是能支撐高規格製程的超高標準工業空間。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>兩邊都沾得到，但不能用一般營造股的方式去看它。</p>
+<p>如果你把它當普通建商或一般土木工程公司，會看錯。</p>
+<p>因為它真正值錢的地方不是蓋房子本身，而是能不能滿足：<br>- 無塵等級<br>- 機電整合<br>- 製程公用系統<br>- 特殊客戶驗證<br>- 高規格廠務需求</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-第-3-段">
+<div class="digest-title">第 3 段</div>
+<div class="content"><p>聖暉最適合放在「工程 / 系統整合 / 廠務 / 認列型公司」這個框架裡。</p>
+<p>它跟一般工程公司的最大差別，不在於接不接案，而在於：<br>- 它接的是不是高規格案子<br>- 它能不能通過高科技製程的驗收門檻<br>- 它的 backlog 品質好不好<br>- 它的專案執行與認列節奏穩不穩</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>非常對。看這種公司，第一件事不是背題材，而是先搞清楚：哪些案子真正決定估值，不是所有工程都一樣。</p>
+<p>對聖暉來說，真正決定估值的有三個層級：<br>- 高規格無塵室與機電整合能力<br>- 半導體與先進封裝擴產帶來的長週期接案能見度<br>- 工程品質與認列穩定度</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>最直接受惠的主線有三條：<br>- 晶圓廠擴產<br>- 先進封裝廠與後段廠務需求<br>- 高科技產業無塵室 / 機電整合需求</p>
+<p>這三塊共同點是：<br>不是普通建築工程，而是要能通過高科技製程使用標準的工程。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>對，這點非常重要。</p>
+<p>一般工程市場裡，很多案子比的是價格；但高規格廠務工程裡，能不能做、能不能過驗收、能不能配合製程與機電需求，本身就是門檻。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>先進封裝不是只有設備和材料重要，廠房本身也要對應新的製程條件。</p>
+<p>當先進封裝擴產、後段設備前段化、製程條件越來越嚴格，廠務系統、無塵室、製程公用系統的重要性都會往上走。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>如果從投資價值排序，我會這樣看：<br>- 第一順位：高規格無塵室與機電整合能力<br>- 第二順位：半導體與先進封裝擴產帶來的長週期接案能見度<br>- 第三順位：更廣義的建廠景氣故事</p>
+<p>真正最值錢的，不是工程量大，而是高規格工程門檻夠高。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-第-9-段">
+<div class="digest-title">第 9 段</div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 漢唐：最具代表性的高規格廠務工程大型玩家之一<br>- 帆宣：廠務工程加設備代理與系統整合能力並重<br>- 亞翔：大型 EPC / 統包工程執行能力強<br>- 聖暉：高規格無塵室 / 機電整合與廠務工程受惠者，規模較上述龍頭小，但彈性更直接</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：聖暉（若只看高規格廠務工程彈性）<br>- 誰最廣：漢唐 / 帆宣<br>- 誰最穩：漢唐<br>- 誰最有彈性：聖暉 / 亞翔<br>- 聖暉卡在哪：中型且高彈性的高規格廠務工程受惠者</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-第-11-段">
+<div class="digest-title">第 11 段</div>
+<div class="content"><p>最直接的弱點通常是：<br>- 規模沒有那麼大<br>- 平台廣度沒那麼完整<br>- 在市場心中的龍頭地位也沒有那麼穩</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-第-12-段">
+<div class="digest-title">第 12 段</div>
+<div class="content"><p>對，這句話很準。</p>
+<p>漢唐、帆宣更像大型平台型廠務工程資產，聖暉則更像：<br>- 規模較小<br>- 但能承接高規格工程<br>- 在對的週期裡彈性更直接的工程整合商</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>對工程股來說，接近 20 倍本益比不算便宜。</p>
+<p>市場願意給這個估值，代表它不是把聖暉當成普通工程股看，而是在買：<br>- 高規格無塵室 / 機電整合能力<br>- 半導體與先進封裝擴產的延續性<br>- 接案品質與在手訂單穩定度<br>- 相對一般工程公司更好的獲利品質想像</p>
+<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 1045<br>- 本益比 19.5<br>- 股價淨值比 9.89<br>- 總市值 1,296 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 4,774,283 千元<br>- 年增 24.9%<br>- 月增 5.65%<br>- 近三月合併營收年增 22.67%<br>- 近 12 月營收合併成長 28.49%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>完全正確。</p>
+<p>因為工程公司最容易讓人誤判的地方是：<br>營收可以很好看，但如果專案品質不好、毛利率下來、認列節奏不穩，市場不會給你高評價。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>毛利率對聖暉來說，回答的是：<br>它承接的到底只是工程量，還是高規格、較難取代、較有技術門檻的工程內容。</p>
+<p>如果只是接案多，但高品質專案比例不高，毛利率就很難支撐高估值；如果高規格工程占比持續提升，毛利率就會告訴你：市場願意給較高框架是有依據的。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>聖暉到底是在賺工程量，還是在賺高品質的工程整合利潤。</p>
+<p>如果只是營收變大，但：<br>- 專案執行成本升高<br>- 認列節奏不穩<br>- 高規格工程沒有轉成較好的費用吸收與利潤結構<br>那營業利益率就不一定會同步漂亮。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>淨利率很重要，因為股東最後看的是 EPS。</p>
+<p>但聖暉這種公司更要看：<br>- EPS 成長是不是主要由高規格工程本業推動<br>- 還是只是專案認列節奏碰巧漂亮</p>
+<p>獲利品質最重要看的就是：<br>- 毛利率是不是健康<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- backlog 品質與認列穩定度能不能一起被證明</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-第-18-段">
+<div class="digest-title">第 18 段</div>
+<div class="content"><p>一句話就是：<br>市場相信聖暉不只是普通工程股，而是高規格建廠需求週期中的較高品質受惠者。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這是最強反方，而且非常合理。</p>
+<p>反方會說：<br>- 工程股本質上還是跟資本支出週期走<br>- 專案一旦高峰過去，成長就會放緩<br>- 就算有高規格門檻，也不代表能長期維持高評價</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這是工程股最現實的風險之一。</p>
+<p>營收與獲利有時不是穩穩線性往上，而是會受到：<br>- 專案進度<br>- 驗收時點<br>- 認列節奏<br>- 新案與舊案切換<br>影響。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>完全是。</p>
+<p>對工程股來說，接近 20 倍本益比不算便宜，這代表市場已經先把一部分高規格受惠與成長預期算進去了。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對，這句話很到位。</p>
+<p>更完整一點說：<br>聖暉的方向不是錯的，高規格無塵室與廠務工程需求也可能持續；但市場可能高估了高規格廠務工程門檻對長期估值的支撐力，以及半導體建廠熱潮延續時間，所以高估值對接案與認列節奏非常敏感。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>聖暉不是晶片股，也不是設備股，而是高規格廠務工程整合商。</p>
+<p>第二句，講專案類型：<br>它最重要的不是普通建築案，而是高規格無塵室、機電整合與製程公用系統工程。</p>
+<p>第三句，講主線：<br>最重要的主線，是半導體與先進封裝擴產帶來的高科技廠房需求。</p>
+<p>第四句，講價值來源：<br>真正值錢的不是工程量，而是高規格工程門檻與驗收能力。</p>
+<p>第五句，講估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率、backlog 品質與認列穩定度能不能一起被證明。</p>
+<p>第六句，講最重要驗證：<br>它能不能靠高規格工程能力留在較高品質的估值框架裡。</p>
+<p>第七句，講最強反方：<br>市場可能高估了高規格廠務工程門檻對長期估值的支撐力，以及建廠熱潮延續時間。</p>
+<p>第八句，講最終投資判斷：<br>聖暉真正值不值得高評價，不是看它接單有多強，而是看它能不能把高規格工程門檻、接案品質與獲利品質一起做實。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>我會這樣講：<br>聖暉不是普通工程股，而是高規格廠務工程整合商；真正關鍵不是營收有多強，而是它能不能用高規格工程能力把接案品質與獲利品質一起維持住。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。聖暉到底是做什麼的？我知道它跟半導體廠建設有關，可是它不是設備廠，也不是晶圓廠，為什麼市場會把它跟 AI、先進製程扯在一起？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這家公司最容易被誤解的地方就在這裡。</p>
+<p>最白話地講，聖暉不是做晶片、不是做設備，也不是做封裝本身，它做的是廠房裡面那些讓先進製程可以真正運作起來的系統工程，例如無塵室、機電整合、空調、製程公用系統，以及某些統包性質的廠務工程。</p>
+<p>你可以把它想成：<br>當大家都在看晶圓廠、記憶體廠、封裝廠蓋新廠時，晶片還沒開始生產之前，廠房本身要先被做出來，而且不是普通大樓，而是能支撐高規格製程的超高標準工業空間。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這比較像營造股嗎？還是比較像半導體概念股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>兩邊都沾得到，但不能用一般營造股的方式去看它。</p>
+<p>如果你把它當普通建商或一般土木工程公司，會看錯。</p>
+<p>因為它真正值錢的地方不是蓋房子本身，而是能不能滿足：<br>- 無塵等級<br>- 機電整合<br>- 製程公用系統<br>- 特殊客戶驗證<br>- 高規格廠務需求</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-3-段">
+<div class="round-title">第 3 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果用新版框架看，聖暉到底算哪一類公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>聖暉最適合放在「工程 / 系統整合 / 廠務 / 認列型公司」這個框架裡。</p>
+<p>它跟一般工程公司的最大差別，不在於接不接案，而在於：<br>- 它接的是不是高規格案子<br>- 它能不能通過高科技製程的驗收門檻<br>- 它的 backlog 品質好不好<br>- 它的專案執行與認列節奏穩不穩</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那平台邊界到底在哪？哪些業務真正決定估值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>非常對。看這種公司，第一件事不是背題材，而是先搞清楚：哪些案子真正決定估值，不是所有工程都一樣。</p>
+<p>對聖暉來說，真正決定估值的有三個層級：<br>- 高規格無塵室與機電整合能力<br>- 半導體與先進封裝擴產帶來的長週期接案能見度<br>- 工程品質與認列穩定度</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那聖暉最直接受惠的是哪一塊？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接受惠的主線有三條：<br>- 晶圓廠擴產<br>- 先進封裝廠與後段廠務需求<br>- 高科技產業無塵室 / 機電整合需求</p>
+<p>這三塊共同點是：<br>不是普通建築工程，而是要能通過高科技製程使用標準的工程。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這個行業值錢的地方，不只是接單量，而是門檻？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這點非常重要。</p>
+<p>一般工程市場裡，很多案子比的是價格；但高規格廠務工程裡，能不能做、能不能過驗收、能不能配合製程與機電需求，本身就是門檻。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟先進封裝有什麼直接關係？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先進封裝不是只有設備和材料重要，廠房本身也要對應新的製程條件。</p>
+<p>當先進封裝擴產、後段設備前段化、製程條件越來越嚴格，廠務系統、無塵室、製程公用系統的重要性都會往上走。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果再更細一點，聖暉在這條鏈裡，最有價值的是哪一段？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果從投資價值排序，我會這樣看：<br>- 第一順位：高規格無塵室與機電整合能力<br>- 第二順位：半導體與先進封裝擴產帶來的長週期接案能見度<br>- 第三順位：更廣義的建廠景氣故事</p>
+<p>真正最值錢的，不是工程量大，而是高規格工程門檻夠高。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-9-段">
+<div class="round-title">第 9 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那把聖暉跟漢唐、帆宣、亞翔放在一起看，它到底是哪一種資產？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 漢唐：最具代表性的高規格廠務工程大型玩家之一<br>- 帆宣：廠務工程加設備代理與系統整合能力並重<br>- 亞翔：大型 EPC / 統包工程執行能力強<br>- 聖暉：高規格無塵室 / 機電整合與廠務工程受惠者，規模較上述龍頭小，但彈性更直接</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照新版比較框架，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：聖暉（若只看高規格廠務工程彈性）<br>- 誰最廣：漢唐 / 帆宣<br>- 誰最穩：漢唐<br>- 誰最有彈性：聖暉 / 亞翔<br>- 聖暉卡在哪：中型且高彈性的高規格廠務工程受惠者</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-11-段">
+<div class="round-title">第 11 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟漢唐、帆宣相比，最大的弱點是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接的弱點通常是：<br>- 規模沒有那麼大<br>- 平台廣度沒那麼完整<br>- 在市場心中的龍頭地位也沒有那麼穩</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-12-段">
+<div class="round-title">第 12 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以和漢唐、帆宣相比，聖暉最值錢的地方不是規模，而是彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很準。</p>
+<p>漢唐、帆宣更像大型平台型廠務工程資產，聖暉則更像：<br>- 規模較小<br>- 但能承接高規格工程<br>- 在對的週期裡彈性更直接的工程整合商</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那現在最重要的問題來了。為什麼市場願意給聖暉接近 20 倍左右本益比？對工程股來說這不是不便宜嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對工程股來說，接近 20 倍本益比不算便宜。</p>
+<p>市場願意給這個估值，代表它不是把聖暉當成普通工程股看，而是在買：<br>- 高規格無塵室 / 機電整合能力<br>- 半導體與先進封裝擴產的延續性<br>- 接案品質與在手訂單穩定度<br>- 相對一般工程公司更好的獲利品質想像</p>
+<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 1045<br>- 本益比 19.5<br>- 股價淨值比 9.89<br>- 總市值 1,296 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 4,774,283 千元<br>- 年增 24.9%<br>- 月增 5.65%<br>- 近三月合併營收年增 22.67%<br>- 近 12 月營收合併成長 28.49%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以對聖暉來說，毛利率和獲利品質，比單純營收成長更重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>因為工程公司最容易讓人誤判的地方是：<br>營收可以很好看，但如果專案品質不好、毛利率下來、認列節奏不穩，市場不會給你高評價。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那毛利率對聖暉來說在回答什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>毛利率對聖暉來說，回答的是：<br>它承接的到底只是工程量，還是高規格、較難取代、較有技術門檻的工程內容。</p>
+<p>如果只是接案多，但高品質專案比例不高，毛利率就很難支撐高估值；如果高規格工程占比持續提升，毛利率就會告訴你：市場願意給較高框架是有依據的。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那營業利益率為什麼更重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>聖暉到底是在賺工程量，還是在賺高品質的工程整合利潤。</p>
+<p>如果只是營收變大，但：<br>- 專案執行成本升高<br>- 認列節奏不穩<br>- 高規格工程沒有轉成較好的費用吸收與利潤結構<br>那營業利益率就不一定會同步漂亮。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那淨利率與獲利品質呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>淨利率很重要，因為股東最後看的是 EPS。</p>
+<p>但聖暉這種公司更要看：<br>- EPS 成長是不是主要由高規格工程本業推動<br>- 還是只是專案認列節奏碰巧漂亮</p>
+<p>獲利品質最重要看的就是：<br>- 毛利率是不是健康<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- backlog 品質與認列穩定度能不能一起被證明</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-18-段">
+<div class="round-title">第 18 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，接近 20 倍本益比在反映什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>市場相信聖暉不只是普通工程股，而是高規格建廠需求週期中的較高品質受惠者。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：聖暉會不會其實只是跟著建廠熱潮走，並沒有真正的長期結構優勢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方，而且非常合理。</p>
+<p>反方會說：<br>- 工程股本質上還是跟資本支出週期走<br>- 專案一旦高峰過去，成長就會放緩<br>- 就算有高規格門檻，也不代表能長期維持高評價</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是這種工程公司很容易有專案認列波動？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這是工程股最現實的風險之一。</p>
+<p>營收與獲利有時不是穩穩線性往上，而是會受到：<br>- 專案進度<br>- 驗收時點<br>- 認列節奏<br>- 新案與舊案切換<br>影響。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是 20 倍左右本益比其實也不算便宜？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全是。</p>
+<p>對工程股來說，接近 20 倍本益比不算便宜，這代表市場已經先把一部分高規格受惠與成長預期算進去了。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句最強反方論證，是不是可以這樣講：聖暉不是沒有受惠，而是市場可能高估了高規格廠務工程門檻對長期估值的支撐力，以及建廠熱潮延續時間？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很到位。</p>
+<p>更完整一點說：<br>聖暉的方向不是錯的，高規格無塵室與廠務工程需求也可能持續；但市場可能高估了高規格廠務工程門檻對長期估值的支撐力，以及半導體建廠熱潮延續時間，所以高估值對接案與認列節奏非常敏感。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個聖暉投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>聖暉不是晶片股，也不是設備股，而是高規格廠務工程整合商。</p>
+<p>第二句，講專案類型：<br>它最重要的不是普通建築案，而是高規格無塵室、機電整合與製程公用系統工程。</p>
+<p>第三句，講主線：<br>最重要的主線，是半導體與先進封裝擴產帶來的高科技廠房需求。</p>
+<p>第四句，講價值來源：<br>真正值錢的不是工程量，而是高規格工程門檻與驗收能力。</p>
+<p>第五句，講估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率、backlog 品質與認列穩定度能不能一起被證明。</p>
+<p>第六句，講最重要驗證：<br>它能不能靠高規格工程能力留在較高品質的估值框架裡。</p>
+<p>第七句，講最強反方：<br>市場可能高估了高規格廠務工程門檻對長期估值的支撐力，以及建廠熱潮延續時間。</p>
+<p>第八句，講最終投資判斷：<br>聖暉真正值不值得高評價，不是看它接單有多強，而是看它能不能把高規格工程門檻、接案品質與獲利品質一起做實。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要用一句最短的話總結聖暉，你會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣講：<br>聖暉不是普通工程股，而是高規格廠務工程整合商；真正關鍵不是營收有多強，而是它能不能用高規格工程能力把接案品質與獲利品質一起維持住。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-11 17:11</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-4919 新唐 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-4919.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-4919]</span>
+            <h1 class="company-name" id="top">新唐</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁：已有對應公司頁，現階段以公司頁摘要與市場資料交叉確認</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-第-4-段">第 4 段</a>
+<a href="#digest-5-估值與市場預期">估值與市場預期</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-9-估值與市場預期">估值與市場預期</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-12-第-12-段">第 12 段</a>
+<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-17-第-17-段">第 17 段</a>
+<a href="#digest-18-估值與市場預期">估值與市場預期</a>
+<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-21-反方壓力測試">反方壓力測試</a>
+<a href="#digest-22-第-22-段">第 22 段</a>
+<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這個問題問得很好，因為新唐最容易被誤解的地方，就是大家常常把它當成華邦電的附屬概念股，卻沒有搞清楚它自己的本質。</p>
+<p>最白話地講，新唐是一家做控制晶片、MCU 與平台控制相關 IC 的公司。它不是記憶體本體，也不是 GPU、CPU 那種算力晶片，而是站在：<br>- 微控制器<br>- 平台管理控制<br>- 嵌入式控制<br>- 工控 / 車用 / PC / 伺服器周邊控制<br>這幾條線上。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>MCU 就是微控制器。你可以把它想成很多電子設備裡面的小腦袋。</p>
+<p>它不像 CPU / GPU 那樣追求極致算力，但它負責很多很實際的事情：<br>- 控制設備運作<br>- 管理輸入輸出<br>- 處理感測器訊號<br>- 協調電源、溫度、馬達、面板、周邊裝置</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這個定位很重要。</p>
+<p>新唐不是賣最昂貴的算力晶片，而是賣讓整個系統可以穩定運作、被控制、被管理的那一層。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-第-4-段">
+<div class="digest-title">第 4 段</div>
+<div class="content"><p>一句話講：<br>新唐現在最重要的身份，是控制 IC 與 MCU 生態裡，受惠車用、工控與平台控制需求的嵌入式控制公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 127.5<br>- 本益比：目前資料庫最新一筆為空值，前一個交易日曾出現極高本益比口徑，因此短線不適合直接把 PE 當核心判讀指標<br>- 股價淨值比 4.05<br>- 總市值 535 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,566,187 千元<br>- 年增 7.92%<br>- 月增 -5.35%<br>- 近三月合併營收年增 3.56%<br>- 近 12 月營收合併成長 -2.33%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>如果從現在市場最該看的角度，我會拆成三條主線：<br>- 車用與工控控制需求<br>- MCU / 嵌入式控制產品基本盤<br>- 平台控制與周邊管理功能</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這就是新唐最核心的投資語言。</p>
+<p>它不像高純度 AI 股那樣，一個平台放量就會爆衝；它更像：<br>- 很多控制需求一起撐住基本盤<br>- 某些高規格場景逐步改善產品 mix<br>- 如果車用 / 工控 / 平台控制一起走強，獲利品質就會慢慢往上</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>比較偏邊角，但不能說完全沒關係。</p>
+<p>新唐不像信驊那樣站在 AI 伺服器管理控制的核心位置，也不像資料中心主晶片那樣直接受惠。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>要分開看。</p>
+<p>第一層，是穩定需求底盤。車用與工控通常意味著：<br>- 認證長<br>- 生命週期長<br>- 客戶不容易更換供應商<br>這會讓新唐比純消費性控制 IC 公司更穩。</p>
+<p>第二層，才是估值提升可能。如果這些高規格應用占比持續上升，市場就會開始相信：新唐不是只靠景氣修復，而是在往更高品質控制層資產移動。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 華邦電：多產品線利基型記憶體平台<br>- 信驊：伺服器管理控制層的平台型高毛利資產<br>- 新唐：MCU / 控制 IC / 嵌入式控制生態中的穩健控制層資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這句話很準。</p>
+<p>信驊最值錢的地方在於：<br>- 站在 BMC 這個很關鍵的位置<br>- 平台地位強<br>- 毛利率極高<br>- 市場願意給超高估值</p>
+<p>新唐則比較像：<br>- 控制 IC / MCU 生態的一環<br>- 應用更廣，但單點稀缺性沒那麼極端<br>- 更偏穩定控制層，而不是超高成長平台層</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-第-12-段">
+<div class="digest-title">第 12 段</div>
+<div class="content"><p>我會這樣記：<br>- 華邦電：成熟供給收縮下的多產品線利基型記憶體平台<br>- 信驊：控制層裡最稀缺、最像平台型資產的 BMC 王者<br>- 新唐：控制 IC / MCU / 嵌入式控制生態中的穩健修復型資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>新唐的價值不在於它是最會講夢的公司，而在於：<br>- 產品與應用場景足夠廣<br>- 客戶驗證週期長<br>- 控制層需求黏著度高<br>- 如果車用 / 工控 / 平台控制同時改善，獲利品質會慢慢變好</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>這正是現在看新唐要小心的地方。</p>
+<p>對這種公司，短線 PE 口徑如果受到低基期、一次性因素或分母過小影響，直接拿本益比會很容易失真。</p>
+<p>所以新唐現在更好的看法是：<br>- 先看股價淨值比與市值位置<br>- 再看營收與獲利修復方向<br>- 最後才看本益比是否有連續性與可比性</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>毛利率對新唐來說，回答的是：它賣的控制產品，到底是不是有更高品質的 mix，還是只是一般景氣回溫。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：新唐到底是在賺修復，還是在賺更高品質的控制層利潤。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-第-17-段">
+<div class="digest-title">第 17 段</div>
+<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
+<p>但新唐這種公司更要看：<br>- EPS 改善是不是由本業控制產品推動<br>- 還是只是短期基期效應或口徑扭曲</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>這就是新唐現在最需要小心的地方。短線 PE 口徑失真，通常代表分母端，也就是 EPS，很可能受到低基期、口徑或一次性因素影響。</p>
+<p>所以你不能看到一個空值或極端高值，就直接下結論說這檔股票完全不能看。真正重點是：本益比現在不夠穩，不能單獨當估值主軸。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>完全正確。</p>
+<p>對新唐來說，現在最重要的不是「PE 到底該看幾倍」，而是先問：<br>- 毛利率是不是在改善<br>- 營業利益率是不是在同步改善<br>- 淨利率是不是乾淨地跟上<br>- 車用 / 工控 / 平台控制需求，是否真的讓本業品質變高</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>我會看四個跡象。</p>
+<p>第一，毛利率不是只短暫反彈，而是能穩定站在較好的區間。<br>第二，營業利益率改善速度快於營收，代表經營槓桿開始出現。<br>第三，車用 / 工控 / 平台控制這些高品質需求占比持續上升。<br>第四，市場對它的討論，開始從「景氣修復」轉向「控制層品質升級」。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 你可以說它有車用、工控、平台控制<br>- 但這些市場很多控制 IC 公司都能碰到<br>- 它不像信驊那樣站在超稀缺控制層位置<br>- 也不像華邦電那樣有多產品線記憶體供給真空受惠</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-第-22-段">
+<div class="digest-title">第 22 段</div>
+<div class="content"><p>對，這也是很現實的問題。</p>
+<p>信驊太強、太貴、太稀缺，所以新唐很容易在比較時顯得平。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>完全是。</p>
+<p>如果市場連最基本的獲利可比性都還在搖，那它就很難被快速重估成高品質成長股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>新唐不是記憶體公司，而是 MCU / 控制 IC / 嵌入式控制公司。</p>
+<p>第二句，講主線：<br>它最重要的主線，是車用、工控與平台控制需求帶動的控制層修復。</p>
+<p>第三句，講價值來源：<br>真正值錢的不是單一爆品，而是很多控制需求一起撐住基本盤。</p>
+<p>第四句，講市場定位：<br>它不像信驊那樣稀缺，也不像華邦電那樣是成熟記憶體供給真空受惠股，而是控制層穩定型資產。</p>
+<p>第五句，講估值主軸：<br>在本益比口徑不穩時，要先看股價淨值比、市值位置與本業修復品質。</p>
+<p>第六句，講最強反方：<br>市場可能高估了控制層修復往高品質資產升級的速度。</p>
+<p>第七句，講最重要驗證：<br>毛利率、營業利益率、淨利率與高品質需求占比能不能一起改善。</p>
+<p>第八句，講最終投資分水嶺：<br>新唐最後要證明的，不是它有沒有反彈，而是它能不能從控制層修復股，逐步走向更高品質的嵌入式控制資產。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。新唐到底是做什麼的？我常常看到它跟華邦電一起被提到，但它明明不是記憶體公司，為什麼大家會把它們放在一起看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這個問題問得很好，因為新唐最容易被誤解的地方，就是大家常常把它當成華邦電的附屬概念股，卻沒有搞清楚它自己的本質。</p>
+<p>最白話地講，新唐是一家做控制晶片、MCU 與平台控制相關 IC 的公司。它不是記憶體本體，也不是 GPU、CPU 那種算力晶片，而是站在：<br>- 微控制器<br>- 平台管理控制<br>- 嵌入式控制<br>- 工控 / 車用 / PC / 伺服器周邊控制<br>這幾條線上。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那 MCU 到底是什麼？為什麼它會重要到值得單獨研究一家公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>MCU 就是微控制器。你可以把它想成很多電子設備裡面的小腦袋。</p>
+<p>它不像 CPU / GPU 那樣追求極致算力，但它負責很多很實際的事情：<br>- 控制設備運作<br>- 管理輸入輸出<br>- 處理感測器訊號<br>- 協調電源、溫度、馬達、面板、周邊裝置</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以新唐不是最前沿 AI 晶片股，而是更偏控制層的公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這個定位很重要。</p>
+<p>新唐不是賣最昂貴的算力晶片，而是賣讓整個系統可以穩定運作、被控制、被管理的那一層。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-4-段">
+<div class="round-title">第 4 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果一句話講，新唐現在最重要的身份是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：<br>新唐現在最重要的身份，是控制 IC 與 MCU 生態裡，受惠車用、工控與平台控制需求的嵌入式控制公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那最新數字看起來怎麼樣？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 127.5<br>- 本益比：目前資料庫最新一筆為空值，前一個交易日曾出現極高本益比口徑，因此短線不適合直接把 PE 當核心判讀指標<br>- 股價淨值比 4.05<br>- 總市值 535 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,566,187 千元<br>- 年增 7.92%<br>- 月增 -5.35%<br>- 近三月合併營收年增 3.56%<br>- 近 12 月營收合併成長 -2.33%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那新唐最直接受惠的是哪一塊？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果從現在市場最該看的角度，我會拆成三條主線：<br>- 車用與工控控制需求<br>- MCU / 嵌入式控制產品基本盤<br>- 平台控制與周邊管理功能</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它的價值，不是靠單一大題材，而是靠很多控制需求慢慢堆起來？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是新唐最核心的投資語言。</p>
+<p>它不像高純度 AI 股那樣，一個平台放量就會爆衝；它更像：<br>- 很多控制需求一起撐住基本盤<br>- 某些高規格場景逐步改善產品 mix<br>- 如果車用 / 工控 / 平台控制一起走強，獲利品質就會慢慢往上</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟 AI 的關係強嗎？還是只是很邊角？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>比較偏邊角，但不能說完全沒關係。</p>
+<p>新唐不像信驊那樣站在 AI 伺服器管理控制的核心位置，也不像資料中心主晶片那樣直接受惠。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那車用 / 工控 / 平台控制這三塊，對新唐到底只是穩定需求，還是能真的改變估值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>要分開看。</p>
+<p>第一層，是穩定需求底盤。車用與工控通常意味著：<br>- 認證長<br>- 生命週期長<br>- 客戶不容易更換供應商<br>這會讓新唐比純消費性控制 IC 公司更穩。</p>
+<p>第二層，才是估值提升可能。如果這些高規格應用占比持續上升，市場就會開始相信：新唐不是只靠景氣修復，而是在往更高品質控制層資產移動。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那把新唐跟信驊、華邦電放在一起看，它到底是哪一種資產？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 華邦電：多產品線利基型記憶體平台<br>- 信驊：伺服器管理控制層的平台型高毛利資產<br>- 新唐：MCU / 控制 IC / 嵌入式控制生態中的穩健控制層資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以新唐和信驊最大的差別，是不是信驊更稀缺、更高毛利、更像平台，而新唐更廣、更穩，但也沒那麼性感？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很準。</p>
+<p>信驊最值錢的地方在於：<br>- 站在 BMC 這個很關鍵的位置<br>- 平台地位強<br>- 毛利率極高<br>- 市場願意給超高估值</p>
+<p>新唐則比較像：<br>- 控制 IC / MCU 生態的一環<br>- 應用更廣，但單點稀缺性沒那麼極端<br>- 更偏穩定控制層，而不是超高成長平台層</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-12-段">
+<div class="round-title">第 12 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果把華邦電也拉進來一起比較，最實戰的記法是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣記：<br>- 華邦電：成熟供給收縮下的多產品線利基型記憶體平台<br>- 信驊：控制層裡最稀缺、最像平台型資產的 BMC 王者<br>- 新唐：控制 IC / MCU / 嵌入式控制生態中的穩健修復型資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以新唐和一般 MCU / 控制 IC 公司差在哪？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>新唐的價值不在於它是最會講夢的公司，而在於：<br>- 產品與應用場景足夠廣<br>- 客戶驗證週期長<br>- 控制層需求黏著度高<br>- 如果車用 / 工控 / 平台控制同時改善，獲利品質會慢慢變好</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果看估值，新唐現在最該怎麼看？本益比看起來很怪，有時候高得不合理，有時候又空值。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這正是現在看新唐要小心的地方。</p>
+<p>對這種公司，短線 PE 口徑如果受到低基期、一次性因素或分母過小影響，直接拿本益比會很容易失真。</p>
+<p>所以新唐現在更好的看法是：<br>- 先看股價淨值比與市值位置<br>- 再看營收與獲利修復方向<br>- 最後才看本益比是否有連續性與可比性</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那毛利率對新唐來說在回答什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>毛利率對新唐來說，回答的是：它賣的控制產品，到底是不是有更高品質的 mix，還是只是一般景氣回溫。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那營業利益率為什麼更重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：新唐到底是在賺修復，還是在賺更高品質的控制層利潤。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-17-段">
+<div class="round-title">第 17 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那淨利率與獲利品質呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
+<p>但新唐這種公司更要看：<br>- EPS 改善是不是由本業控制產品推動<br>- 還是只是短期基期效應或口徑扭曲</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那本益比為什麼會一會兒空值、一會兒又高得誇張？這會不會讓人完全沒辦法看估值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這就是新唐現在最需要小心的地方。短線 PE 口徑失真，通常代表分母端，也就是 EPS，很可能受到低基期、口徑或一次性因素影響。</p>
+<p>所以你不能看到一個空值或極端高值，就直接下結論說這檔股票完全不能看。真正重點是：本益比現在不夠穩，不能單獨當估值主軸。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以新唐現在真正的估值分水嶺，不是在於本益比數字本身，而是在於獲利品質能不能先被證明？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>對新唐來說，現在最重要的不是「PE 到底該看幾倍」，而是先問：<br>- 毛利率是不是在改善<br>- 營業利益率是不是在同步改善<br>- 淨利率是不是乾淨地跟上<br>- 車用 / 工控 / 平台控制需求，是否真的讓本業品質變高</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果市場真的開始重新評價新唐，什麼跡象最值得看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會看四個跡象。</p>
+<p>第一，毛利率不是只短暫反彈，而是能穩定站在較好的區間。<br>第二，營業利益率改善速度快於營收，代表經營槓桿開始出現。<br>第三，車用 / 工控 / 平台控制這些高品質需求占比持續上升。<br>第四，市場對它的討論，開始從「景氣修復」轉向「控制層品質升級」。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：新唐會不會其實只是一般控制 IC / MCU 景氣修復股，根本沒有什麼特別？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 你可以說它有車用、工控、平台控制<br>- 但這些市場很多控制 IC 公司都能碰到<br>- 它不像信驊那樣站在超稀缺控制層位置<br>- 也不像華邦電那樣有多產品線記憶體供給真空受惠</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-22-段">
+<div class="round-title">第 22 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是它和信驊對照下會顯得沒那麼有吸引力？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這也是很現實的問題。</p>
+<p>信驊太強、太貴、太稀缺，所以新唐很容易在比較時顯得平。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是如果本益比口徑都不穩，市場很難給它更高級的框架？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全是。</p>
+<p>如果市場連最基本的獲利可比性都還在搖，那它就很難被快速重估成高品質成長股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個新唐投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>新唐不是記憶體公司，而是 MCU / 控制 IC / 嵌入式控制公司。</p>
+<p>第二句，講主線：<br>它最重要的主線，是車用、工控與平台控制需求帶動的控制層修復。</p>
+<p>第三句，講價值來源：<br>真正值錢的不是單一爆品，而是很多控制需求一起撐住基本盤。</p>
+<p>第四句，講市場定位：<br>它不像信驊那樣稀缺，也不像華邦電那樣是成熟記憶體供給真空受惠股，而是控制層穩定型資產。</p>
+<p>第五句，講估值主軸：<br>在本益比口徑不穩時，要先看股價淨值比、市值位置與本業修復品質。</p>
+<p>第六句，講最強反方：<br>市場可能高估了控制層修復往高品質資產升級的速度。</p>
+<p>第七句，講最重要驗證：<br>毛利率、營業利益率、淨利率與高品質需求占比能不能一起改善。</p>
+<p>第八句，講最終投資分水嶺：<br>新唐最後要證明的，不是它有沒有反彈，而是它能不能從控制層修復股，逐步走向更高品質的嵌入式控制資產。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-11 17:44</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

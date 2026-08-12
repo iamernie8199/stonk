@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-6515 穎崴 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-6515.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-6515]</span>
+            <h1 class="company-name" id="top">穎崴</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-11</span><span class="deadline-chip">交易股價：2026-08-11</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-5-估值與市場預期">估值與市場預期</a>
+<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-9-第-9-段">第 9 段</a>
+<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-13-估值與市場預期">估值與市場預期</a>
+<a href="#digest-14-估值與市場預期">估值與市場預期</a>
+<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-18-估值與市場預期">估值與市場預期</a>
+<a href="#digest-19-估值與市場預期">估值與市場預期</a>
+<a href="#digest-20-估值與市場預期">估值與市場預期</a>
+<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>如果一句話先記住，穎崴不是只在賣測試座，它是在賣高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試管理能力。</p>
+<p>以前大家可能把它看成 Test Socket 廠，但現在更準確的理解是：<br>它是站在高階測試介面、MEMS 探針卡、KGD 與先進封裝測試交界處的高價值測試平台公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>對。它不像旺矽那樣更偏探針卡與量測，也不像鴻勁那種更偏測試設備。穎崴最核心的優勢，在於：<br>- 高階 AI / HPC 晶片測試介面能力<br>- Test Socket / HyperSocket / MEMS 探針卡布局<br>- KGD / Chiplet 測試路線與先進封裝測試連動</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>一句話講：<br>穎崴現在最核心的身份，是高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試平台公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會先把它濃縮成三條。</p>
+<p>第一條，是 AI GPU / CPU / TPU 測試介面與 Test Socket / HyperSocket 基本盤。<br>第二條，是 MEMS 探針卡與 KGD / Chiplet 測試複雜度提升。<br>第三條，是 CPO / 車用 ASIC / 新應用接力。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 6,920 元<br>- 單日漲幅 1.32%<br>- 本益比 72.6 倍<br>- 股價淨值比 38.75 倍<br>- 總市值 2,519 億元</p>
+<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,600,351 千元<br>- 年增 155.57%<br>- 月增 9.6%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>市場不是只在買測試座需求，而是在買三件事：<br>- AI 晶片測試介面需求與規格升級<br>- HyperSocket / MEMS 探針卡 / KGD / Chiplet 內容值提高<br>- 穎崴能不能從 Test Socket 廠往更完整的測試平台公司走</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話很關鍵。</p>
+<p>如果只是測試介面出貨量回來，那市場最後還是只會把它看成高成長一陣子的測試座股；但如果每一顆高階 AI 晶片的測試介面難度與內容值都在往上抬，那估值框架就不一樣了。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>完全正確。</p>
+<p>如果 Test Socket / HyperSocket 只是短線放量，市場會把它看成高成長一陣子的測試介面股；但如果 Test Socket / HyperSocket 是整個高階 AI 晶片測試管理升級的一部分，那它的定位就會往平台公司靠近。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-第-9-段">
+<div class="digest-title">第 9 段</div>
+<div class="content"><p>因為這條線真正值錢的，不只是測試介面變多，而是測試複雜度升級：<br>- MEMS 探針卡<br>- KGD<br>- Chiplet<br>- 高階封裝前後的測試要求提升</p>
+<p>這些不是單純量增，而是測試難度升級帶來的內容值增加。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話非常重要。</p>
+<p>市場願意給穎崴高於一般測試零組件股的估值，不是因為測試座出貨量而已，而是因為高階 AI / HPC 晶片測試介面、探針卡與 KGD / Chiplet 測試內容值在升級。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>完全正確。</p>
+<p>如果 KGD / Chiplet 只是題材，那市場會提早反映又提早修正；但如果它們真的成為高階 AI / HPC 晶片量產前的必要測試節點，那穎崴的定位就會被重估。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>第三條主線是外延。</p>
+<p>如果前兩條主線代表今天最受關注的 AI 測試成長，那第三條主線代表的是：<br>公司不是只有 Test Socket / MEMS 探針卡，而是還在往 CPO、車用 ASIC 與其他新應用測試介面延伸。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>完全正確。</p>
+<p>CPO、車用 ASIC、新應用短期不是主體營收，但它們會影響市場願不願意給穎崴比較高的估值框架，因為那代表公司不是只守住測試座，而是真的在往更完整的測試平台路線靠近。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
+<p>如果 CPO、車用 ASIC、新應用最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>這家公司也很容易被錯比。</p>
+<p>它不像旺矽那種更偏探針卡量測，也不像鴻勁那種測試設備路線，更不像致茂那種量測平台。它比較像是站在高階 AI 測試介面與先進封裝測試中間層的平台供應商。</p>
+<p>所以比較時要分層：<br>- 跟旺矽比：探針卡與高階測試座標<br>- 跟鴻勁比：測試設備與測試介面座標<br>- 跟致茂比：量測平台與驗證座標</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：穎崴（若只看高階 AI / HPC 測試介面主線）<br>- 誰最廣：致茂<br>- 誰最穩：致茂 / 大型測試驗證平台型公司<br>- 誰最有彈性：穎崴<br>- 穎崴卡在哪：高階 AI / HPC 測試介面、MEMS 探針卡與 KGD / Chiplet 測試平台公司<br>- 最像的比較對手：旺矽<br>- 最不像的比較對手：傳統成熟封測廠</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>因為市場不是把它當一般測試座股，而是把它當：<br>- AI 測試介面升級受惠股<br>- MEMS 探針卡 / KGD / Chiplet 內容值提升股<br>- 帶有 CPO / 車用 ASIC 新應用選擇權的公司</p>
+<p>### 毛利率<br>毛利率在回答的是：<br>穎崴賣的到底是不是越來越高價值測試介面，而不只是測試座出貨變多。</p>
+<p>### 營業利益率<br>營業利益率回答的是：<br>HyperSocket / MEMS 探針卡 / KGD 放量時，公司能不能把規模效應轉成真正的獲利槓桿。</p>
+<p>### 淨利率<br>淨利率是結果，但市場真正在看的，是這些高階測試介面能不能形成可持續的獲利平台。</p>
+<p>### 獲利品質<br>獲利品質的重點在於：<br>這些成長是不是來自可延續的 AI 測試需求與測試複雜度升級，而不是短線急單或單一平台切換。</p>
+<p>### 估值分水嶺<br>一句話就是：<br>穎崴值不值得維持高於一般測試零組件股的估值，不是看單月營收，而是看高階 AI 測試介面與 KGD / Chiplet 內容值能不能持續提升。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>完全正確。</p>
+<p>這就是穎崴目前的估值本質：<br>- 如果它只是高成長一陣子的測試介面股，那 72 倍本益比很貴<br>- 如果它真的是高階測試平台股，那目前的估值就還有被解釋的空間</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
+<p>如果 Test Socket、HyperSocket、MEMS 探針卡只是某幾個平台短線放量，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>有可能。如果市場最後發現：<br>- AI 測試介面放量沒有持續擴張<br>- KGD / Chiplet / MEMS 探針卡沒有持續墊高內容值<br>- 新平台與新應用沒有打開能力邊界<br>那穎崴就可能被切回「高成長一陣子的測試介面股」，而不是高階測試平台公司。</p>
+<p>### 哪個數字 / 哪個條件掉了 thesis 就要重寫？<br>如果下面幾件事其中兩件以上同時發生，穎崴的 thesis 就要重寫：<br>- Test Socket / HyperSocket / MEMS 探針卡放量節奏不如預期<br>- KGD / Chiplet / CPO 新應用進度遞延<br>- 毛利率 / 營業利益率沒有隨高規格產品組合升級而改善<br>- 車用 ASIC / 新應用外延沒有轉成實際平台能力<br>- 市場重新把它切回一般測試座零組件股框架</p>
+<p>### 市場最可能把它切回哪個較低級的估值框架？<br>如果 thesis 失靈，市場最可能把穎崴切回：<br>- 一般高階測試介面股<br>- 或短中期 AI 測試滲透受惠股</p>
+<p>這會讓估值方式從「高階測試平台股」回落成「成長型測試零組件股」。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>你先記 8 句。</p>
+<p>第一句，講公司本質：<br>穎崴不是一般測試座廠，而是 AI / HPC 測試介面、MEMS 探針卡與 KGD / Chiplet 測試平台公司。</p>
+<p>第二句，講主線：<br>它最重要的主線，是 Test Socket / HyperSocket 放量、MEMS 探針卡 / KGD / Chiplet 接棒，以及 CPO / 車用 ASIC 新應用外延。</p>
+<p>第三句，講價值來源：<br>真正值錢的，不是多賣幾個測試座，而是 AI 晶片每一次規格升級都讓測試介面的內容值更高。</p>
+<p>第四句，講市場定位：<br>穎崴是高階 AI / HPC 測試鏈裡，高價值中間層平台供應商。</p>
+<p>第五句，講估值本質：<br>市場不是只在交易單一測試平台放量，而是在交易高階測試平台能力能不能持續成立。</p>
+<p>第六句，講最強反方：<br>市場可能過度把 KGD / Chiplet / CPO / 車用 ASIC 這些選擇權，提早算進今天的評價裡。</p>
+<p>第七句，講最重要驗證：<br>毛利率、營業利益率與高規格測試介面產品占比能不能一起往上。</p>
+<p>第八句，講最終投資分水嶺：<br>穎崴最後要證明的，不是它有沒有吃到 AI 測試單，而是它能不能從測試座廠升級成高階測試平台公司。</p>
+<p>### 最短版記法<br>穎崴不是多賣幾個測試座而已，而是要靠 HyperSocket、MEMS 探針卡、KGD / Chiplet 與新應用外延，把自己從測試介面廠往高階測試平台公司推上去。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先問最基本的。穎崴到底是什麼公司？我知道大家會講測試座、探針卡、KGD、Chiplet，可是它到底該怎麼理解？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果一句話先記住，穎崴不是只在賣測試座，它是在賣高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試管理能力。</p>
+<p>以前大家可能把它看成 Test Socket 廠，但現在更準確的理解是：<br>它是站在高階測試介面、MEMS 探針卡、KGD 與先進封裝測試交界處的高價值測試平台公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是像旺矽那種探針卡主體，也不是像鴻勁那種設備邏輯？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。它不像旺矽那樣更偏探針卡與量測，也不像鴻勁那種更偏測試設備。穎崴最核心的優勢，在於：<br>- 高階 AI / HPC 晶片測試介面能力<br>- Test Socket / HyperSocket / MEMS 探針卡布局<br>- KGD / Chiplet 測試路線與先進封裝測試連動</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講，穎崴最核心的身份是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：<br>穎崴現在最核心的身份，是高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試平台公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那穎崴這一輪最重要的投資主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會先把它濃縮成三條。</p>
+<p>第一條，是 AI GPU / CPU / TPU 測試介面與 Test Socket / HyperSocket 基本盤。<br>第二條，是 MEMS 探針卡與 KGD / Chiplet 測試複雜度提升。<br>第三條，是 CPO / 車用 ASIC / 新應用接力。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>先不要只講概念，市場現在到底是用什麼價格在看它？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 6,920 元<br>- 單日漲幅 1.32%<br>- 本益比 72.6 倍<br>- 股價淨值比 38.75 倍<br>- 總市值 2,519 億元</p>
+<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,600,351 千元<br>- 年增 155.57%<br>- 月增 9.6%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>72 倍本益比很誇張，市場到底在買什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>市場不是只在買測試座需求，而是在買三件事：<br>- AI 晶片測試介面需求與規格升級<br>- HyperSocket / MEMS 探針卡 / KGD / Chiplet 內容值提高<br>- 穎崴能不能從 Test Socket 廠往更完整的測試平台公司走</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以 Test Socket / HyperSocket 這條線的核心，不只是量出來，而是單位測試內容值有沒有一起往上？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很關鍵。</p>
+<p>如果只是測試介面出貨量回來，那市場最後還是只會把它看成高成長一陣子的測試座股；但如果每一顆高階 AI 晶片的測試介面難度與內容值都在往上抬，那估值框架就不一樣了。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第一條主線的核心爭論，不是 Test Socket / HyperSocket 有沒有單，而是它會不會把穎崴從零組件供應商往方案供應商推上去？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>如果 Test Socket / HyperSocket 只是短線放量，市場會把它看成高成長一陣子的測試介面股；但如果 Test Socket / HyperSocket 是整個高階 AI 晶片測試管理升級的一部分，那它的定位就會往平台公司靠近。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-9-段">
+<div class="round-title">第 9 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第二條主線為什麼重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為這條線真正值錢的，不只是測試介面變多，而是測試複雜度升級：<br>- MEMS 探針卡<br>- KGD<br>- Chiplet<br>- 高階封裝前後的測試要求提升</p>
+<p>這些不是單純量增，而是測試難度升級帶來的內容值增加。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是只賣更多測試座，而是吃更高價值的測試內容？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話非常重要。</p>
+<p>市場願意給穎崴高於一般測試零組件股的估值，不是因為測試座出貨量而已，而是因為高階 AI / HPC 晶片測試介面、探針卡與 KGD / Chiplet 測試內容值在升級。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這條線的核心爭論，不是有沒有 KGD / Chiplet，而是它們會不會把穎崴變成更深的測試平台？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>如果 KGD / Chiplet 只是題材，那市場會提早反映又提早修正；但如果它們真的成為高階 AI / HPC 晶片量產前的必要測試節點，那穎崴的定位就會被重估。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第三條主線呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>第三條主線是外延。</p>
+<p>如果前兩條主線代表今天最受關注的 AI 測試成長，那第三條主線代表的是：<br>公司不是只有 Test Socket / MEMS 探針卡，而是還在往 CPO、車用 ASIC 與其他新應用測試介面延伸。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這條線不是現在主體營收，但會影響市場怎麼看它？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>CPO、車用 ASIC、新應用短期不是主體營收，但它們會影響市場願不願意給穎崴比較高的估值框架，因為那代表公司不是只守住測試座，而是真的在往更完整的測試平台路線靠近。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這條線的核心爭論，不是有沒有新應用，而是它們會不會變成真正的平台外延？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
+<p>如果 CPO、車用 ASIC、新應用最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果把穎崴放進整個研究宇宙，它到底該跟誰比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這家公司也很容易被錯比。</p>
+<p>它不像旺矽那種更偏探針卡量測，也不像鴻勁那種測試設備路線，更不像致茂那種量測平台。它比較像是站在高階 AI 測試介面與先進封裝測試中間層的平台供應商。</p>
+<p>所以比較時要分層：<br>- 跟旺矽比：探針卡與高階測試座標<br>- 跟鴻勁比：測試設備與測試介面座標<br>- 跟致茂比：量測平台與驗證座標</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照新版比較框架，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：穎崴（若只看高階 AI / HPC 測試介面主線）<br>- 誰最廣：致茂<br>- 誰最穩：致茂 / 大型測試驗證平台型公司<br>- 誰最有彈性：穎崴<br>- 穎崴卡在哪：高階 AI / HPC 測試介面、MEMS 探針卡與 KGD / Chiplet 測試平台公司<br>- 最像的比較對手：旺矽<br>- 最不像的比較對手：傳統成熟封測廠</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那市場為什麼願意給它 72 倍本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為市場不是把它當一般測試座股，而是把它當：<br>- AI 測試介面升級受惠股<br>- MEMS 探針卡 / KGD / Chiplet 內容值提升股<br>- 帶有 CPO / 車用 ASIC 新應用選擇權的公司</p>
+<p>### 毛利率<br>毛利率在回答的是：<br>穎崴賣的到底是不是越來越高價值測試介面，而不只是測試座出貨變多。</p>
+<p>### 營業利益率<br>營業利益率回答的是：<br>HyperSocket / MEMS 探針卡 / KGD 放量時，公司能不能把規模效應轉成真正的獲利槓桿。</p>
+<p>### 淨利率<br>淨利率是結果，但市場真正在看的，是這些高階測試介面能不能形成可持續的獲利平台。</p>
+<p>### 獲利品質<br>獲利品質的重點在於：<br>這些成長是不是來自可延續的 AI 測試需求與測試複雜度升級，而不是短線急單或單一平台切換。</p>
+<p>### 估值分水嶺<br>一句話就是：<br>穎崴值不值得維持高於一般測試零組件股的估值，不是看單月營收，而是看高階 AI 測試介面與 KGD / Chiplet 內容值能不能持續提升。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以真正的估值辯論，不只是單月營收有沒有創高，而是它到底是測試座股，還是高階測試平台股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>這就是穎崴目前的估值本質：<br>- 如果它只是高成長一陣子的測試介面股，那 72 倍本益比很貴<br>- 如果它真的是高階測試平台股，那目前的估值就還有被解釋的空間</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：這會不會只是幾個 AI 測試平台在短期拉貨，把它推高？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
+<p>如果 Test Socket、HyperSocket、MEMS 探針卡只是某幾個平台短線放量，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是 KGD / Chiplet / CPO 這些都還太早，市場先反映太多？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是最後還是會被市場切回一般測試座股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>有可能。如果市場最後發現：<br>- AI 測試介面放量沒有持續擴張<br>- KGD / Chiplet / MEMS 探針卡沒有持續墊高內容值<br>- 新平台與新應用沒有打開能力邊界<br>那穎崴就可能被切回「高成長一陣子的測試介面股」，而不是高階測試平台公司。</p>
+<p>### 哪個數字 / 哪個條件掉了 thesis 就要重寫？<br>如果下面幾件事其中兩件以上同時發生，穎崴的 thesis 就要重寫：<br>- Test Socket / HyperSocket / MEMS 探針卡放量節奏不如預期<br>- KGD / Chiplet / CPO 新應用進度遞延<br>- 毛利率 / 營業利益率沒有隨高規格產品組合升級而改善<br>- 車用 ASIC / 新應用外延沒有轉成實際平台能力<br>- 市場重新把它切回一般測試座零組件股框架</p>
+<p>### 市場最可能把它切回哪個較低級的估值框架？<br>如果 thesis 失靈，市場最可能把穎崴切回：<br>- 一般高階測試介面股<br>- 或短中期 AI 測試滲透受惠股</p>
+<p>這會讓估值方式從「高階測試平台股」回落成「成長型測試零組件股」。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個穎崴投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你先記 8 句。</p>
+<p>第一句，講公司本質：<br>穎崴不是一般測試座廠，而是 AI / HPC 測試介面、MEMS 探針卡與 KGD / Chiplet 測試平台公司。</p>
+<p>第二句，講主線：<br>它最重要的主線，是 Test Socket / HyperSocket 放量、MEMS 探針卡 / KGD / Chiplet 接棒，以及 CPO / 車用 ASIC 新應用外延。</p>
+<p>第三句，講價值來源：<br>真正值錢的，不是多賣幾個測試座，而是 AI 晶片每一次規格升級都讓測試介面的內容值更高。</p>
+<p>第四句，講市場定位：<br>穎崴是高階 AI / HPC 測試鏈裡，高價值中間層平台供應商。</p>
+<p>第五句，講估值本質：<br>市場不是只在交易單一測試平台放量，而是在交易高階測試平台能力能不能持續成立。</p>
+<p>第六句，講最強反方：<br>市場可能過度把 KGD / Chiplet / CPO / 車用 ASIC 這些選擇權，提早算進今天的評價裡。</p>
+<p>第七句，講最重要驗證：<br>毛利率、營業利益率與高規格測試介面產品占比能不能一起往上。</p>
+<p>第八句，講最終投資分水嶺：<br>穎崴最後要證明的，不是它有沒有吃到 AI 測試單，而是它能不能從測試座廠升級成高階測試平台公司。</p>
+<p>### 最短版記法<br>穎崴不是多賣幾個測試座而已，而是要靠 HyperSocket、MEMS 探針卡、KGD / Chiplet 與新應用外延，把自己從測試介面廠往高階測試平台公司推上去。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-12 11:01</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

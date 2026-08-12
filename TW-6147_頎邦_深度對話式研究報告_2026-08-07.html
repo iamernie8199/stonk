@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-6147 頎邦 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-6147.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-6147]</span>
+            <h1 class="company-name" id="top">頎邦</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-07</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-第-1-段">第 1 段</a>
+<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-3-第-3-段">第 3 段</a>
+<a href="#digest-4-第-4-段">第 4 段</a>
+<a href="#digest-5-第-5-段">第 5 段</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-第-7-段">第 7 段</a>
+<a href="#digest-8-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-12-第-12-段">第 12 段</a>
+<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-15-第-15-段">第 15 段</a>
+<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-17-反方壓力測試">反方壓力測試</a>
+<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
+<a href="#digest-19-反方壓力測試">反方壓力測試</a>
+<a href="#digest-20-估值與市場預期">估值與市場預期</a>
+<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-22-第-22-段">第 22 段</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-第-1-段">
+<div class="digest-title">第 1 段</div>
+<div class="content"><p>頎邦最值得研究的地方，就是它不是那種什麼都做的大型 OSAT，而是在特定封測領域有很深的積累，特別是驅動 IC、COF、面板相關封裝測試，以及部分高階封測延伸機會。</p>
+<p>最白話地講，頎邦不是靠「最大規模」取勝，而是靠「在自己熟的封測細分市場裡做得夠深」。</p>
+<p>所以你如果只用大平台封測龍頭的框架看它，會看錯；它比較像一個在成熟但仍有升級機會的細分封測環節裡，持續受惠的公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>這就是現在頎邦最有意思的地方。</p>
+<p>表面上看，它確實不像先進封裝龍頭那樣直接綁 AI 最前線，也不像 HPC 封測鏈那樣有最純的高端敘事。</p>
+<p>但市場最近願意把它往上抬，代表現在不只把它當成穩定成熟封測股，而是在想：<br>- 顯示器與驅動 IC 封測是不是已經走出谷底<br>- 高階封測與特殊應用需求是否能帶來結構改善<br>- CPO / 矽光子等新題材會不會讓它有額外選項價值</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-第-3-段">
+<div class="digest-title">第 3 段</div>
+<div class="content"><p>頎邦最適合放在「高規格零組件 / 材料升級股」這個框架裡，但不是材料升級，而是封測環節裡的細分深度升級股。</p>
+<p>它最值錢的地方，不在於規模最大，而在於：<br>- 驅動 IC / 顯示封測基本盤很深<br>- 細分封測環節穩定而可驗證<br>- 如果本業修復成立，還能多長出一層高階封測與新應用延伸價值</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-第-4-段">
+<div class="digest-title">第 4 段</div>
+<div class="content"><p>一句話講：<br>頎邦現在最重要的身份，是驅動 IC 與顯示封測基本盤之上，帶著高階封測延伸選項的細分封測公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-第-5-段">
+<div class="digest-title">第 5 段</div>
+<div class="content"><p>最直接受惠的主線還是：<br>- 驅動 IC 封測<br>- COF 相關需求<br>- 顯示器產業鏈回溫<br>- 成熟製程 / 成熟封測景氣修復</p>
+<p>這些是它最核心、最可驗證、也是最直接的本業來源。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>對，這就是它的基本盤。</p>
+<p>頎邦不是那種每一個人都會先想到的技術旗艦，但它在驅動 IC 和相關封測環節的積累，讓它在景氣回來時可以先受惠。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-第-7-段">
+<div class="digest-title">第 7 段</div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是驅動 IC / 顯示封測基本盤的修復能力。這是最核心、最直接、也最容易驗證的部分。</p>
+<p>第二順位，是在成熟封測之外，往更高階封測或特殊應用延伸的可能性。這部分不是現在最大宗，但會影響市場是否願意給更高評價。</p>
+<p>第三順位，才是 CPO / 矽光子這種新題材帶來的選項價值。現階段更像額外加分，而不是本體。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>一句話就是：<br>頎邦最強的主線，是驅動 IC 與顯示封測景氣回升下的細分封測獲利修復。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 日月光：全球大型 OSAT，先進封裝與大平台能力最強<br>- 力成：記憶體與高階封測鏈裡的重要玩家<br>- 南茂：也在顯示 / 驅動 IC 封測鏈裡，但資產定位和市場評價不同<br>- 頎邦：驅動 IC / 顯示封測基本盤最鮮明，且帶有高階延伸選項的細分封測股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：頎邦 / 南茂（若只看顯示 / 驅動 IC 封測純度）<br>- 誰最廣：日月光<br>- 誰最穩：日月光 / 力成<br>- 誰最有彈性：頎邦<br>- 頎邦卡在哪：細分封測專家型資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>最直接的弱點通常是：<br>- 平台廣度不如日月光<br>- AI / HPC 敘事純度不如力成或先進封裝鏈玩家<br>- 容易被市場先歸類成成熟封測而不是高成長封測</p>
+<p>所以頎邦的挑戰是：<br>它要證明自己不只是穩定成熟封測股，而是能在景氣修復之外，再多一點高階延伸價值。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-第-12-段">
+<div class="digest-title">第 12 段</div>
+<div class="content"><p>對，這就是差異。</p>
+<p>日月光比較像大平台、全能型資產；<br>力成比較像高階封測與記憶體封測鏈的重要玩家；<br>南茂與頎邦都跟顯示 / 驅動 IC 封測有關，但頎邦現在的市場敘事更容易往「基本盤修復 + 延伸選項」走。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對頎邦這種細分封測股，我也會拆成三層看。</p>
+<p>第一層是毛利率。<br>這回答的是：<br>- 驅動 IC / 顯示封測報價與產品組合有沒有改善<br>- 高階封測延伸是不是讓單位經濟變好</p>
+<p>第二層是營業利益率。<br>這回答的是：<br>- 營收修復有沒有真的轉成營運槓桿<br>- 固定成本與費用有沒有被更高的營收吸收<br>- 公司是不是不只景氣變好，而是經營效率也跟著改善</p>
+<p>第三層是淨利率。<br>這回答的是：<br>- 股東最後真正拿到多少利潤<br>- 有沒有業外、匯兌、一次性項目影響最後數字</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果只能挑一層，我會說也是營業利益率。</p>
+<p>原因是：<br>頎邦現在最需要證明的，不是它能不能接到單，而是景氣修復有沒有真的轉成更高品質的獲利。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-第-15-段">
+<div class="digest-title">第 15 段</div>
+<div class="content"><p>當然重要，但我還是會把它放在最後確認。</p>
+<p>因為淨利率可能被：<br>- 匯兌<br>- 業外收益<br>- 稅率波動<br>- 一次性認列<br>影響。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>一句話就是：<br>市場相信頎邦不只是成熟封測景氣回升股，而是有機會把細分封測修復，逐步轉成更高品質的獲利與估值框架。</p>
+<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 154<br>- 本益比 29.3<br>- 股價淨值比 2.45<br>- 總市值 1,147 億</p>
+<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,522,679 千元<br>- 年增 39.18%<br>- 月增 10.24%<br>- 近三月合併營收年增 28.45%<br>- 近 12 月營收合併成長 12.7%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 驅動 IC / 顯示封測本來就有景氣循環<br>- 現在營收改善不一定代表長期升級<br>- 市場可能只是把景氣修復誤當成結構性成長</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
+<div class="digest-title">先進製程與先進封裝</div>
+<div class="content"><p>完全是。</p>
+<p>對一檔不是純 AI、也不是純先進封裝龍頭的封測股來說，30 倍左右本益比其實不低。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>這也是很重要的質疑。</p>
+<p>反方會說：<br>- CPO / 矽光子題材當然可以沾<br>- 但若沒有足夠大的營收占比與明確落地進度<br>- 市場最後還是會把主角留給更純、更新的標的</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對，這句話很到位。</p>
+<p>更完整一點說：<br>頎邦的方向不是錯的，驅動 IC / 顯示封測修復與高階延伸也都可能成立；但市場可能高估了它從成熟封測景氣股往較高品質細分封測股升級的速度與幅度，而 CPO / 矽光子目前更多仍是選項，不足以單獨支撐長期高估值。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>頎邦不是封測平台龍頭，而是驅動 IC 與顯示封測基本盤很深的細分封測公司。</p>
+<p>第二句，講主線：<br>它最重要的主線，是驅動 IC / 顯示封測景氣回升帶來的獲利修復。</p>
+<p>第三句，講最值錢的地方：<br>它不是題材最炫，而是基本盤夠清楚、細分環節夠深。</p>
+<p>第四句，講價值來源：<br>真正值錢的，不是最前沿題材，而是成熟封測基本盤修復後，能不能多長出一層高階封測價值。</p>
+<p>第五句，講估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與高階延伸能不能一起被證明。</p>
+<p>第六句，講最重要驗證：<br>它能不能在穩定基本盤上，多長出一層高階封測價值，並把這層價值轉成更高品質獲利。</p>
+<p>第七句，講最強反方：<br>市場可能高估了它從成熟封測景氣股往較高品質細分封測股升級的速度與幅度。</p>
+<p>第八句，講最終投資判斷：<br>頎邦真正值不值得高評價，不是看景氣回來沒，而是看它能不能把基本盤修復轉成更高品質的估值框架。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-第-22-段">
+<div class="digest-title">第 22 段</div>
+<div class="content"><p>我會這樣講：<br>頎邦不是大平台封測股，而是驅動 IC 與顯示封測很深的細分封測公司；真正關鍵不是景氣有沒有回來，而是修復能不能長出一層高階封測價值。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="第-1-段">
+<div class="round-title">第 1 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。頎邦到底是做什麼的？我知道它是封測公司，可是市場平常比較愛談日月光、力成這種名字，頎邦為什麼也值得研究？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>頎邦最值得研究的地方，就是它不是那種什麼都做的大型 OSAT，而是在特定封測領域有很深的積累，特別是驅動 IC、COF、面板相關封裝測試，以及部分高階封測延伸機會。</p>
+<p>最白話地講，頎邦不是靠「最大規模」取勝，而是靠「在自己熟的封測細分市場裡做得夠深」。</p>
+<p>所以你如果只用大平台封測龍頭的框架看它，會看錯；它比較像一個在成熟但仍有升級機會的細分封測環節裡，持續受惠的公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它比較像成熟製程 / 成熟封測的公司？這樣為什麼市場願意給它接近 30 倍本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這就是現在頎邦最有意思的地方。</p>
+<p>表面上看，它確實不像先進封裝龍頭那樣直接綁 AI 最前線，也不像 HPC 封測鏈那樣有最純的高端敘事。</p>
+<p>但市場最近願意把它往上抬，代表現在不只把它當成穩定成熟封測股，而是在想：<br>- 顯示器與驅動 IC 封測是不是已經走出谷底<br>- 高階封測與特殊應用需求是否能帶來結構改善<br>- CPO / 矽光子等新題材會不會讓它有額外選項價值</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-3-段">
+<div class="round-title">第 3 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果用新版框架看，頎邦到底算哪一類公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>頎邦最適合放在「高規格零組件 / 材料升級股」這個框架裡，但不是材料升級，而是封測環節裡的細分深度升級股。</p>
+<p>它最值錢的地方，不在於規模最大，而在於：<br>- 驅動 IC / 顯示封測基本盤很深<br>- 細分封測環節穩定而可驗證<br>- 如果本業修復成立，還能多長出一層高階封測與新應用延伸價值</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-4-段">
+<div class="round-title">第 4 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，頎邦現在最重要的身份是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：<br>頎邦現在最重要的身份，是驅動 IC 與顯示封測基本盤之上，帶著高階封測延伸選項的細分封測公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-5-段">
+<div class="round-title">第 5 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那頎邦最直接受惠的是哪一塊？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接受惠的主線還是：<br>- 驅動 IC 封測<br>- COF 相關需求<br>- 顯示器產業鏈回溫<br>- 成熟製程 / 成熟封測景氣修復</p>
+<p>這些是它最核心、最可驗證、也是最直接的本業來源。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它值錢的地方，不是很炫的技術，而是它在某些細分封測環節很穩？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是它的基本盤。</p>
+<p>頎邦不是那種每一個人都會先想到的技術旗艦，但它在驅動 IC 和相關封測環節的積累，讓它在景氣回來時可以先受惠。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-7-段">
+<div class="round-title">第 7 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果再更細一點，頎邦在南茂、日月光、力成這幾種資產中，最有價值的是哪一段？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是驅動 IC / 顯示封測基本盤的修復能力。這是最核心、最直接、也最容易驗證的部分。</p>
+<p>第二順位，是在成熟封測之外，往更高階封測或特殊應用延伸的可能性。這部分不是現在最大宗，但會影響市場是否願意給更高評價。</p>
+<p>第三順位，才是 CPO / 矽光子這種新題材帶來的選項價值。現階段更像額外加分，而不是本體。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，頎邦最強的主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>頎邦最強的主線，是驅動 IC 與顯示封測景氣回升下的細分封測獲利修復。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那把頎邦跟南茂、日月光、力成放在一起看，它到底是哪一種資產？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 日月光：全球大型 OSAT，先進封裝與大平台能力最強<br>- 力成：記憶體與高階封測鏈裡的重要玩家<br>- 南茂：也在顯示 / 驅動 IC 封測鏈裡，但資產定位和市場評價不同<br>- 頎邦：驅動 IC / 顯示封測基本盤最鮮明，且帶有高階延伸選項的細分封測股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照新版比較框架，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：頎邦 / 南茂（若只看顯示 / 驅動 IC 封測純度）<br>- 誰最廣：日月光<br>- 誰最穩：日月光 / 力成<br>- 誰最有彈性：頎邦<br>- 頎邦卡在哪：細分封測專家型資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟日月光、力成相比，最大的弱點是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接的弱點通常是：<br>- 平台廣度不如日月光<br>- AI / HPC 敘事純度不如力成或先進封裝鏈玩家<br>- 容易被市場先歸類成成熟封測而不是高成長封測</p>
+<p>所以頎邦的挑戰是：<br>它要證明自己不只是穩定成熟封測股，而是能在景氣修復之外，再多一點高階延伸價值。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-12-段">
+<div class="round-title">第 12 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它和南茂、日月光、力成的差異，不是誰題材最多，而是誰的基本盤與升級路線最合理？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是差異。</p>
+<p>日月光比較像大平台、全能型資產；<br>力成比較像高階封測與記憶體封測鏈的重要玩家；<br>南茂與頎邦都跟顯示 / 驅動 IC 封測有關，但頎邦現在的市場敘事更容易往「基本盤修復 + 延伸選項」走。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果不要只看毛利率，完整來看，頎邦這種公司到底該看哪幾層獲利？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對頎邦這種細分封測股，我也會拆成三層看。</p>
+<p>第一層是毛利率。<br>這回答的是：<br>- 驅動 IC / 顯示封測報價與產品組合有沒有改善<br>- 高階封測延伸是不是讓單位經濟變好</p>
+<p>第二層是營業利益率。<br>這回答的是：<br>- 營收修復有沒有真的轉成營運槓桿<br>- 固定成本與費用有沒有被更高的營收吸收<br>- 公司是不是不只景氣變好，而是經營效率也跟著改善</p>
+<p>第三層是淨利率。<br>這回答的是：<br>- 股東最後真正拿到多少利潤<br>- 有沒有業外、匯兌、一次性項目影響最後數字</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那這三層裡，對頎邦最重要的是哪一層？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只能挑一層，我會說也是營業利益率。</p>
+<p>原因是：<br>頎邦現在最需要證明的，不是它能不能接到單，而是景氣修復有沒有真的轉成更高品質的獲利。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-15-段">
+<div class="round-title">第 15 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那淨利率呢？淨利率對這種公司是不是也很重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>當然重要，但我還是會把它放在最後確認。</p>
+<p>因為淨利率可能被：<br>- 匯兌<br>- 業外收益<br>- 稅率波動<br>- 一次性認列<br>影響。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講，市場為什麼願意給頎邦接近 30 倍本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>市場相信頎邦不只是成熟封測景氣回升股，而是有機會把細分封測修復，逐步轉成更高品質的獲利與估值框架。</p>
+<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 154<br>- 本益比 29.3<br>- 股價淨值比 2.45<br>- 總市值 1,147 億</p>
+<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,522,679 千元<br>- 年增 39.18%<br>- 月增 10.24%<br>- 近三月合併營收年增 28.45%<br>- 近 12 月營收合併成長 12.7%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：頎邦會不會其實只是景氣回升股，不是真正結構升級股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方，而且很合理。</p>
+<p>反方會說：<br>- 驅動 IC / 顯示封測本來就有景氣循環<br>- 現在營收改善不一定代表長期升級<br>- 市場可能只是把景氣修復誤當成結構性成長</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="先進製程與先進封裝">
+<div class="round-title">先進製程與先進封裝</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是 30 倍左右本益比對這種公司來說其實不便宜？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全是。</p>
+<p>對一檔不是純 AI、也不是純先進封裝龍頭的封測股來說，30 倍左右本益比其實不低。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是它雖然也沾到 CPO / 矽光子，但最後市場還是會把重心放在更純的公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這也是很重要的質疑。</p>
+<p>反方會說：<br>- CPO / 矽光子題材當然可以沾<br>- 但若沒有足夠大的營收占比與明確落地進度<br>- 市場最後還是會把主角留給更純、更新的標的</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句最強反方論證，是不是可以這樣講：頎邦不是沒有修復，而是市場可能高估了它從成熟封測景氣股往較高品質細分封測股升級的速度與幅度？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很到位。</p>
+<p>更完整一點說：<br>頎邦的方向不是錯的，驅動 IC / 顯示封測修復與高階延伸也都可能成立；但市場可能高估了它從成熟封測景氣股往較高品質細分封測股升級的速度與幅度，而 CPO / 矽光子目前更多仍是選項，不足以單獨支撐長期高估值。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個頎邦投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>頎邦不是封測平台龍頭，而是驅動 IC 與顯示封測基本盤很深的細分封測公司。</p>
+<p>第二句，講主線：<br>它最重要的主線，是驅動 IC / 顯示封測景氣回升帶來的獲利修復。</p>
+<p>第三句，講最值錢的地方：<br>它不是題材最炫，而是基本盤夠清楚、細分環節夠深。</p>
+<p>第四句，講價值來源：<br>真正值錢的，不是最前沿題材，而是成熟封測基本盤修復後，能不能多長出一層高階封測價值。</p>
+<p>第五句，講估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與高階延伸能不能一起被證明。</p>
+<p>第六句，講最重要驗證：<br>它能不能在穩定基本盤上，多長出一層高階封測價值，並把這層價值轉成更高品質獲利。</p>
+<p>第七句，講最強反方：<br>市場可能高估了它從成熟封測景氣股往較高品質細分封測股升級的速度與幅度。</p>
+<p>第八句，講最終投資判斷：<br>頎邦真正值不值得高評價，不是看景氣回來沒，而是看它能不能把基本盤修復轉成更高品質的估值框架。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-22-段">
+<div class="round-title">第 22 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要用一句最短的話總結頎邦，你會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣講：<br>頎邦不是大平台封測股，而是驅動 IC 與顯示封測很深的細分封測公司；真正關鍵不是景氣有沒有回來，而是修復能不能長出一層高階封測價值。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-11 17:11</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

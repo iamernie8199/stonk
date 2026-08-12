@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-3260 威剛 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-3260.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-3260]</span>
+            <h1 class="company-name" id="top">威剛</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-07-29</span><span class="deadline-chip">交易股價：2026-08-07</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-第-1-段">第 1 段</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-4-估值與市場預期">估值與市場預期</a>
+<a href="#digest-5-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-8-第-8-段">第 8 段</a>
+<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-10-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-11-第-11-段">第 11 段</a>
+<a href="#digest-12-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-14-第-14-段">第 14 段</a>
+<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-20-風險與失效條件">風險與失效條件</a>
+<a href="#digest-21-估值與市場預期">估值與市場預期</a>
+<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-第-1-段">
+<div class="digest-title">第 1 段</div>
+<div class="content"><p>不一樣，這個差別非常重要。</p>
+<p>最白話地講，威剛不是上游記憶體晶片原廠，而是記憶體模組與品牌通路公司。</p>
+<p>也就是說，像南亞科、華邦電這些公司比較偏上游，是在做記憶體晶片本身；威剛則更像是把上游顆粒拿來做成模組、SSD、記憶卡，再賣給消費性、企業級或工控客戶的那一層。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>一句話講：<br>威剛是高循環、高庫存敏感度的記憶體模組 / 儲存品牌公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>因為它介在上游顆粒價格與下游客戶需求之間，獲利對記憶體價格循環非常敏感。</p>
+<p>你可以這樣理解：<br>- 如果它在低價時拿到很多庫存，後面價格大漲，它會非常賺<br>- 如果它在高價時補了很多貨，後面價格反轉，庫存評價就會很難看</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 416<br>- 單日漲幅 -1.19%<br>- 本益比 3.4<br>- 股價淨值比 5.03<br>- 總市值 1,392 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 18,379,079 千元<br>- 年增 331.29%<br>- 月增 25.36%<br>- 近三月合併營收年增 250.24%<br>- 近 12 月營收合併成長 152.79%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>第一個問題通常不是「它技術領先多少」，而是：<br>- DRAM / NAND 現在在循環哪一段<br>- 模組廠現在吃到的是低價庫存紅利，還是高價補貨壓力<br>- 市場在交易的是高峰獲利，還是更長一段超級循環</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>最直接受惠的就是：<br>- DRAM 漲價<br>- NAND 漲價<br>- 模組產品 ASP 上升<br>- 低價庫存轉成高毛利出貨</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對。</p>
+<p>在威剛這種公司上，量當然重要，但真正決定短期獲利爆發力的，通常是價格循環和庫存成本。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-第-8-段">
+<div class="digest-title">第 8 段</div>
+<div class="content"><p>兩邊都強，而且這就是這輪很特別的地方。</p>
+<p>目前的記憶體景氣不是單一產品小反彈，而是 DRAM、NAND 都進入很強的上行循環。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>一句話就是：<br>威剛現在最強的主線，是記憶體超級循環中，模組廠靠低價庫存與價格上升吃到的高獲利槓桿。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 創見：品牌型記憶體 / SSD 公司，也很受惠記憶體循環，但形象偏穩一些<br>- 宜鼎：更偏工控 / 工業級記憶體與儲存，品質與長期性更強<br>- 宇瞻：同樣是模組 / 儲存品牌玩家，但市場關注度與規模通常較低<br>- 威剛：記憶體超級循環裡，高彈性、高槓桿、最容易爆發獲利的模組股之一</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-第-11-段">
+<div class="digest-title">第 11 段</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：威剛（若只看記憶體循環彈性）<br>- 誰最廣：創見 / 宜鼎<br>- 誰最穩：宜鼎<br>- 誰最有彈性：威剛<br>- 威剛卡在哪：記憶體超級循環中的高彈性模組 / 品牌資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這就是它最典型的市場定位。</p>
+<p>市場看威剛時，不是先看它像不像高品質長期成長股，而是先看它是不是這一輪記憶體價格上行裡，獲利放大最快的模組廠之一。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>弱點通常就在「品質感」三個字。</p>
+<p>宜鼎比較容易被市場視為：<br>- 工控比重高<br>- 產品生命週期較長<br>- 客戶結構較穩<br>- 獲利品質比較能延續</p>
+<p>威剛則比較容易被市場視為：<br>- 更吃景氣循環<br>- 更吃庫存與價格變動<br>- 高峰時很賺，但持續性比較容易被懷疑</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-第-14-段">
+<div class="digest-title">第 14 段</div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是記憶體價格快速上行時的庫存紅利。這是威剛最直接、也最有爆發力的價值來源。</p>
+<p>第二順位，是它作為模組 / 品牌通路公司，能把 DRAM 與 NAND 兩邊的上行循環一起吃進來。</p>
+<p>第三順位，才是品牌與通路本身的穩定性。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>因為市場不是沒看到它現在很賺，而是很懷疑這個獲利能不能持續。</p>
+<p>換句話說，3~4 倍本益比在反映的不是忽略，而是折價。</p>
+<p>市場在想的是：<br>- 這是高峰獲利<br>- 模組廠高毛利大多來自低價庫存紅利<br>- 一旦進入高價補貨階段，後面毛利率可能很快收斂<br>- 所以現在的 EPS 不能用一般穩定公司那種方式去乘倍數</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>完全正確。</p>
+<p>因為威剛這種公司最可怕的地方是：營收可以還很漂亮，但獲利品質已經開始轉弱。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>一句話就是：<br>市場相信威剛現在很賺，但不相信這個高峰獲利能維持太久。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>我會先看三件事。</p>
+<p>第一，DRAM / NAND 的漲價節奏能不能延續得比市場預期更久。<br>第二，高價補貨壓力有沒有明顯侵蝕毛利率。<br>第三，市場是否開始相信這不是一季兩季的高峰，而是比較長的超級循環。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>這是最強反方，而且幾乎就是市場現在的主流懷疑。</p>
+<p>反方會說：<br>- 本益比只有 3.4 倍，就是因為市場知道這不是穩定 EPS<br>- 只要記憶體價格漲勢放緩，模組廠高獲利就會迅速收斂<br>- 低價庫存紅利是一次性的，不可能永遠複製</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-風險與失效條件">
+<div class="digest-title">風險與失效條件</div>
+<div class="content"><p>對，這是模組廠最現實的風險之一。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>完全正確。</p>
+<p>低本益比不是忽略，而是折價。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>威剛不是上游記憶體晶片原廠，而是記憶體模組 / SSD / 品牌通路公司。</p>
+<p>第二句，講主線：<br>它現在最重要的主線，是 DRAM / NAND 超級循環中，模組廠靠低價庫存與價格上升吃到的高獲利槓桿。</p>
+<p>第三句，講最值錢的地方：<br>它不是最穩的公司，但在記憶體價格上行時，彈性會非常直接。</p>
+<p>第四句，講市場定位：<br>市場現在不是沒看見它賺很多，而是把它當高峰獲利股在看。</p>
+<p>第五句，講估值本質：<br>3.4 倍本益比不是單純便宜，而是市場在折價這個高峰 EPS 的可持續性。</p>
+<p>第六句，講最強反方：<br>市場可能高估了低價庫存紅利與超級循環持續時間。</p>
+<p>第七句，講最重要驗證：<br>DRAM / NAND 報價、庫存成本結構與毛利率能不能一起維持高檔。</p>
+<p>第八句，講最終投資分水嶺：<br>威剛最後要證明的，不是它能不能再賺一季，而是這輪超級循環能不能比市場預期撐得更久。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="第-1-段">
+<div class="round-title">第 1 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先從最基本的開始。威剛到底是做什麼的？我知道它賣記憶體跟 SSD，可是它跟南亞科、華邦電這種記憶體公司是一樣的嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>不一樣，這個差別非常重要。</p>
+<p>最白話地講，威剛不是上游記憶體晶片原廠，而是記憶體模組與品牌通路公司。</p>
+<p>也就是說，像南亞科、華邦電這些公司比較偏上游，是在做記憶體晶片本身；威剛則更像是把上游顆粒拿來做成模組、SSD、記憶卡，再賣給消費性、企業級或工控客戶的那一層。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講，威剛的本質是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：<br>威剛是高循環、高庫存敏感度的記憶體模組 / 儲存品牌公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那為什麼大家會說這種公司波動很大？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為它介在上游顆粒價格與下游客戶需求之間，獲利對記憶體價格循環非常敏感。</p>
+<p>你可以這樣理解：<br>- 如果它在低價時拿到很多庫存，後面價格大漲，它會非常賺<br>- 如果它在高價時補了很多貨，後面價格反轉，庫存評價就會很難看</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那最新數字看起來怎麼樣？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 416<br>- 單日漲幅 -1.19%<br>- 本益比 3.4<br>- 股價淨值比 5.03<br>- 總市值 1,392 億</p>
+<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 18,379,079 千元<br>- 年增 331.29%<br>- 月增 25.36%<br>- 近三月合併營收年增 250.24%<br>- 近 12 月營收合併成長 152.79%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以投資威剛，最重要的是看什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>第一個問題通常不是「它技術領先多少」，而是：<br>- DRAM / NAND 現在在循環哪一段<br>- 模組廠現在吃到的是低價庫存紅利，還是高價補貨壓力<br>- 市場在交易的是高峰獲利，還是更長一段超級循環</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那威剛現在最直接受惠的是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接受惠的就是：<br>- DRAM 漲價<br>- NAND 漲價<br>- 模組產品 ASP 上升<br>- 低價庫存轉成高毛利出貨</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以威剛現在最重要的，不是需求量而已，而是價格循環位置？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>在威剛這種公司上，量當然重要，但真正決定短期獲利爆發力的，通常是價格循環和庫存成本。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-8-段">
+<div class="round-title">第 8 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那這一波是只有 DRAM，還是 NAND 也一起強？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>兩邊都強，而且這就是這輪很特別的地方。</p>
+<p>目前的記憶體景氣不是單一產品小反彈，而是 DRAM、NAND 都進入很強的上行循環。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，威剛現在最強的主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>威剛現在最強的主線，是記憶體超級循環中，模組廠靠低價庫存與價格上升吃到的高獲利槓桿。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那把威剛跟創見、宜鼎、宇瞻放在一起看，它到底是哪一種資產？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果粗分，我會這樣看：<br>- 創見：品牌型記憶體 / SSD 公司，也很受惠記憶體循環，但形象偏穩一些<br>- 宜鼎：更偏工控 / 工業級記憶體與儲存，品質與長期性更強<br>- 宇瞻：同樣是模組 / 儲存品牌玩家，但市場關注度與規模通常較低<br>- 威剛：記憶體超級循環裡，高彈性、高槓桿、最容易爆發獲利的模組股之一</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-11-段">
+<div class="round-title">第 11 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照新版比較框架，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：威剛（若只看記憶體循環彈性）<br>- 誰最廣：創見 / 宜鼎<br>- 誰最穩：宜鼎<br>- 誰最有彈性：威剛<br>- 威剛卡在哪：記憶體超級循環中的高彈性模組 / 品牌資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我想買「記憶體景氣爆發力」，很多人第一時間會想到威剛？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是它最典型的市場定位。</p>
+<p>市場看威剛時，不是先看它像不像高品質長期成長股，而是先看它是不是這一輪記憶體價格上行裡，獲利放大最快的模組廠之一。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那跟宜鼎比，威剛最大的弱點是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>弱點通常就在「品質感」三個字。</p>
+<p>宜鼎比較容易被市場視為：<br>- 工控比重高<br>- 產品生命週期較長<br>- 客戶結構較穩<br>- 獲利品質比較能延續</p>
+<p>威剛則比較容易被市場視為：<br>- 更吃景氣循環<br>- 更吃庫存與價格變動<br>- 高峰時很賺，但持續性比較容易被懷疑</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-14-段">
+<div class="round-title">第 14 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果再更細一點，威剛在這條鏈裡，最有價值的是哪一段？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
+<p>第一順位，是記憶體價格快速上行時的庫存紅利。這是威剛最直接、也最有爆發力的價值來源。</p>
+<p>第二順位，是它作為模組 / 品牌通路公司，能把 DRAM 與 NAND 兩邊的上行循環一起吃進來。</p>
+<p>第三順位，才是品牌與通路本身的穩定性。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那現在最重要的問題來了。為什麼市場只給威剛 3~4 倍左右本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為市場不是沒看到它現在很賺，而是很懷疑這個獲利能不能持續。</p>
+<p>換句話說，3~4 倍本益比在反映的不是忽略，而是折價。</p>
+<p>市場在想的是：<br>- 這是高峰獲利<br>- 模組廠高毛利大多來自低價庫存紅利<br>- 一旦進入高價補貨階段，後面毛利率可能很快收斂<br>- 所以現在的 EPS 不能用一般穩定公司那種方式去乘倍數</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以對威剛來說，毛利率和獲利品質，比營收還重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>因為威剛這種公司最可怕的地方是：營收可以還很漂亮，但獲利品質已經開始轉弱。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果一句話講，3.4 倍本益比在反映什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話就是：<br>市場相信威剛現在很賺，但不相信這個高峰獲利能維持太久。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果之後要看這個估值會不會修復，你會先看什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會先看三件事。</p>
+<p>第一，DRAM / NAND 的漲價節奏能不能延續得比市場預期更久。<br>第二，高價補貨壓力有沒有明顯侵蝕毛利率。<br>第三，市場是否開始相信這不是一季兩季的高峰，而是比較長的超級循環。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演反方，我第一個問題會是：威剛會不會其實只是這一輪記憶體高峰股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這是最強反方，而且幾乎就是市場現在的主流懷疑。</p>
+<p>反方會說：<br>- 本益比只有 3.4 倍，就是因為市場知道這不是穩定 EPS<br>- 只要記憶體價格漲勢放緩，模組廠高獲利就會迅速收斂<br>- 低價庫存紅利是一次性的，不可能永遠複製</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="風險與失效條件">
+<div class="round-title">風險與失效條件</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個反方，是不是它太吃庫存成本，讓獲利品質很難長期看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這是模組廠最現實的風險之一。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個反方，是不是 3 倍多本益比不代表便宜，反而代表市場很不信任這個獲利？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>低本益比不是忽略，而是折價。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要把整個威剛投資邏輯濃縮成幾句話，該怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，講公司本質：<br>威剛不是上游記憶體晶片原廠，而是記憶體模組 / SSD / 品牌通路公司。</p>
+<p>第二句，講主線：<br>它現在最重要的主線，是 DRAM / NAND 超級循環中，模組廠靠低價庫存與價格上升吃到的高獲利槓桿。</p>
+<p>第三句，講最值錢的地方：<br>它不是最穩的公司，但在記憶體價格上行時，彈性會非常直接。</p>
+<p>第四句，講市場定位：<br>市場現在不是沒看見它賺很多，而是把它當高峰獲利股在看。</p>
+<p>第五句，講估值本質：<br>3.4 倍本益比不是單純便宜，而是市場在折價這個高峰 EPS 的可持續性。</p>
+<p>第六句，講最強反方：<br>市場可能高估了低價庫存紅利與超級循環持續時間。</p>
+<p>第七句，講最重要驗證：<br>DRAM / NAND 報價、庫存成本結構與毛利率能不能一起維持高檔。</p>
+<p>第八句，講最終投資分水嶺：<br>威剛最後要證明的，不是它能不能再賺一季，而是這輪超級循環能不能比市場預期撐得更久。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      
+      <div class="footer">Generated at 2026-08-11 17:46</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

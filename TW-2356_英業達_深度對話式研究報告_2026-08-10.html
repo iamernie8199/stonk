@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-2356 英業達 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-2356.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-2356]</span>
+            <h1 class="company-name" id="top">英業達</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-07</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-5-估值與市場預期">估值與市場預期</a>
+<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-11-晶圓代工與商業模式">晶圓代工與商業模式</a>
+<a href="#digest-12-晶圓代工與商業模式">晶圓代工與商業模式</a>
+<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-14-估值與市場預期">估值與市場預期</a>
+<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這個懷疑很合理，而且你這個問題比一開始就問本益比有用得多。</p>
+<p>因為研究英業達，第一步不是問它便不便宜，而是先問：它現在到底還是不是你腦中那家以筆電代工為主的公司。</p>
+<p>如果你要一句話先記住，英業達當然還保留傳統 NB / PC 代工底盤，但市場現在之所以重新評估它，是因為它正處在一個結構轉換點：伺服器，尤其是 AI 伺服器與更高附加價值的 L10 / L11 組裝，正在把它從成熟 ODM 公司往平台型伺服器 ODM 推。</p>
+<p>所以最關鍵的不是「它有沒有做 AI」，而是「AI 與伺服器占比變大之後，會不會改寫它的獲利結構與估值框架」。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>你這個問題問對了，而且這就是平台型公司和一般成熟代工股的分水嶺。</p>
+<p>如果 ODM 只是單純做低附加價值組裝，那市場當然只會用成熟代工、景氣循環、低毛利框架去看它。但英業達現在比較值得研究的地方，在於它不是只有接更多單，而是接到的內容開始改變：<br>- AI 伺服器比重提高<br>- 一般伺服器需求同步強<br>- L6 往 L10 / L11 高附加價值組裝升級<br>- 美國 / 泰國等產能布局提供更高附加價值平台能力</p>
+<p>所以現在市場在看英業達，不是只問它今年賣多少台筆電，而是在問：它能不能從單純靠量的代工公司，往更吃平台能力、組裝深度與客戶黏性的公司走。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這個問題一點都不菜，反而是很關鍵的基本功。</p>
+<p>你可以先很粗略理解：<br>- L6 比較接近板端或半成品模組組裝<br>- L10 / L11 更接近整機、機櫃或更高層級的系統整合與最終組裝</p>
+<p>投資上為什麼重要？因為從 L6 往 L10 / L11 升級，不只是工序增加而已，而是代表：<br>- 客戶把更高價值量的工作交給你<br>- 你的組裝深度變深<br>- 你在整體系統裡的角色更靠近整機價值而不是單點零件</p>
+<p>所以市場會追問：英業達到底只是吃到 AI 伺服器出貨量，還是它真的在產品階梯上往上走。如果是後者，估值才比較有機會往平台型資產靠攏。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話已經很接近可以拿去做投資會議開場了。</p>
+<p>再幫你修得更準一點：<br>英業達不是被 AI 題材憑空改寫，而是在原有 ODM 底座上，因為伺服器尤其 AI 伺服器與 L10 / L11 組裝升級，開始出現獲利結構被重估的可能。</p>
+<p>所以研究英業達，第一個問題永遠不是股價，而是：<br>這家公司的公司本質有沒有正在變。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 66 元<br>- 單日漲幅 3.13%<br>- 本益比 21.6 倍<br>- 股價淨值比 3.22 倍<br>- 總市值 2,368 億元</p>
+<p>再看最新月營收，依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 90,190,327 千元<br>- 年增 65.73%<br>- 月減 11.8%<br>- 近三月合併營收年增 53.86%<br>- 近 12 月營收合併成長 21.21%</p>
+<p>如果你只看這組數字，直覺會覺得：很強，尤其年增非常猛。但做研究不能停在這裡，因為英業達真正難的地方在於：營收強，不等於估值一定有繼續上修空間。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這就是典型菜鳥會掉進去的坑，而且你現在問出來很好。</p>
+<p>營收成長很重要，但對英業達這種公司，市場真正關心的是兩件事：<br>1. 這個成長是不是結構性的<br>2. 這個成長能不能轉成更高品質的利潤</p>
+<p>因為代工股最常見的陷阱就是：<br>- 營收很大<br>- 出貨很強<br>- 但毛利率沒有上來<br>- 營業利益率沒有改善<br>- 最後市場只把它當大量出貨、低附加價值的成熟代工公司</p>
+<p>所以英業達現在真正要看的，不是單一營收高點，而是伺服器占比、AI 伺服器比重、L10 / L11 深度，能不能一起改變市場對它的理解。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>一句話講，就是：<br>英業達最重要的成長主線，是 AI 伺服器、一般伺服器與 L10 / L11 高附加價值組裝升級，把它從成熟 ODM 公司往更高價值的平台型代工公司推上去。</p>
+<p>拆開來看，大概有四層：<br>- AI 伺服器需求很強<br>- 一般伺服器也不弱<br>- L6 往 L10 / L11 升級<br>- 2027 年伺服器占比還有進一步拉升空間</p>
+<p>這四層不是各自獨立，而是一起決定市場願不願意把它從成熟股往平台股看。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這就是主線的本質。</p>
+<p>很多人看到英業達，只會說它是 AI 伺服器受惠股，但這種講法太淺。真正要講的是：<br>- 伺服器占比提高<br>- AI 伺服器提高<br>- L10 / L11 高附加價值組裝增加<br>- 美國機櫃產品與海外平台布局擴大</p>
+<p>這些加在一起，才是市場願意重新估它值多少的原因。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>不是只是一起漲，差異很大。</p>
+<p>緯創更偏 AI 伺服器與系統整合純度，廣達更偏成熟龍頭型 AI / server ODM 平台，而英業達現在最特別的是它處在「結構改善」這個位置。</p>
+<p>也就是說，英業達現在最吸引市場的，不是它已經是最強龍頭，也不是它是最純的 AI server 股，而是市場在想：<br>這家公司如果真的把伺服器與高附加價值組裝比重再往上拉，它的估值框架可能會整個換檔。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話非常重要。</p>
+<p>投資上最有意思的公司，通常不是市場完全沒看懂，也不是市場已經全都看懂，而是這種：<br>- 原本被歸在成熟股<br>- 但基本面開始顯示它其實沒那麼成熟<br>- 市場開始重新分類<br>- 可是還沒有完全重定價完</p>
+<p>英業達現在就是這種類型。所以它不是典型的「純 AI 高估值股」，也不是單純便宜成熟股，而是結構改善型平台資產。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-晶圓代工與商業模式">
+<div class="digest-title">晶圓代工與商業模式</div>
+<div class="content"><p>很好，這才是對的問法。你不要只問「誰跟誰比」，而是要問「市場拿誰做哪種比較」。</p>
+<p>如果把鴻海、廣達、緯創、英業達放在一起看，我會先這樣粗分：<br>- 鴻海：超大型製造平台資產，平台廣度最大<br>- 廣達：成熟龍頭型 AI / server ODM 平台<br>- 緯創：AI 伺服器與系統整合純度較高的平台型 ODM<br>- 英業達：AI 伺服器、一般伺服器、NB 與 L10 / L11 組裝升級交叉的結構改善型 ODM 平台</p>
+<p>這四個定位一旦分清楚，後面大部分估值與股價表現你都比較不會看錯。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-晶圓代工與商業模式">
+<div class="digest-title">晶圓代工與商業模式</div>
+<div class="content"><p>對，這個整理已經很接近實戰版了，我幫你再修一點字。</p>
+<ul><li>誰最廣：鴻海</li></ul>
+<ul><li>誰最穩：廣達</li></ul>
+<ul><li>誰最純：緯創</li></ul>
+<ul><li>誰最有改善彈性：英業達</li></ul></div>
+</section>
+<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最大的優點：<br>它剛好站在一個很有張力的位置。<br>- 它不像鴻海那樣平台過大、題材太多<br>- 也不像廣達那樣已經是成熟龍頭<br>- 也不像緯創那樣市場已經很明確知道要用 AI server 純度框架去看它<br>- 它是少數同時卡在 NB、AI 伺服器、一般伺服器與 L10 / L11 升級交叉點上的平台型公司</p>
+<p>所以市場最容易在它身上看到的是：結構改善 + 再分類空間。</p>
+<p>最大的缺點：<br>- 不像緯創那樣有更高的 AI 伺服器純度<br>- 不像廣達那樣有更清楚的龍頭平台定價權<br>- 不像鴻海那樣有超大型平台的資源與全球配置優勢<br>- 高營收成長若無法有效轉成毛利率與獲利品質改善，市場會很快懷疑這個升級故事</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>你就記這 5 句：<br>- 鴻海：最廣<br>- 廣達：最穩<br>- 緯創：最純<br>- 英業達：最有結構改善彈性<br>- 真正的差別，不在誰營收最大，而在市場拿什麼估值框架看它</p>
+<p>這是同業比較最重要的結論。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>你這句話正好點到這篇最重要的地方。研究英業達，不能只看營收，也不能只看本益比，必須把估值五件組拆開來看：<br>1. 毛利率<br>2. 營業利益率<br>3. 淨利率<br>4. 獲利品質<br>5. 估值分水嶺</p>
+<p>因為代工股最容易出現的錯覺就是：營收很漂亮，但利潤品質沒有同步升級。只要這件事發生，市場就不會願意持續給更高評價。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這就是典型初學者的簡化，但不能這樣停下來。</p>
+<p>毛利率對英業達來說，回答的是：<br>它接到的伺服器與 AI 伺服器業務，到底有沒有真的帶來比較高價值的收入組合。</p>
+<p>如果伺服器營收占比上升，但因為大量低毛利整機 / 機櫃出貨，反而稀釋毛利率，那市場就會說：<br>你只是營收大了，不是品質變好了。</p>
+<p>所以毛利率不是看絕對值而已，而是看：<br>- 高附加價值組裝有沒有讓產品組合改善<br>- AI 伺服器占比上升後，是否至少沒有把毛利結構拖壞</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>因為營業利益率比較接近市場真正的問題：<br>英業達到底是在賺高營收，還是在賺高品質獲利。</p>
+<p>如果只是營收放大，但費用率、營運成本、管理成本也一起上去，那營業利益率不會明顯改善。這樣市場就會懷疑：<br>- 平台升級是不是只停在表面<br>- 組裝深度變深，是不是沒有真的轉成營運槓桿</p>
+<p>所以毛利率是第一層，營業利益率是第二層，也是更接近「你到底有沒有升級成功」的驗證。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>這又是另一個常見誤區。EPS 漲，不一定代表獲利品質高。</p>
+<p>淨利率在看的是股東最後拿到的利潤；但獲利品質要進一步問：<br>- 這個利潤是不是來自本業<br>- 是不是來自健康的產品組合改善<br>- 還是有短期業外、匯率、非經常性項目幫忙</p>
+<p>對英業達這種公司來說，高品質獲利至少要滿足：<br>- 伺服器占比上升<br>- L10 / L11 深度增加<br>- 毛利率沒有被稀釋<br>- 營業利益率有跟著改善<br>- 淨利率不是只靠非本業撐起來</p>
+<p>這樣市場才會相信：這不是一波單純出貨景氣，而是獲利結構真的升級。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>你這個卡住非常正常，而且這正是估值分水嶺。</p>
+<p>21 倍左右本益比的意思不是單純便宜或貴，而是：<br>市場已經承認英業達不是單純成熟 NB 代工股，但也還沒有完全把它當最高級的平台型 AI 伺服器資產。</p>
+<p>所以它的估值分水嶺就在這裡：<br>- 如果伺服器占比持續提高、AI 伺服器與 L10 / L11 深度放大、毛利率與營業利益率改善，那 21 倍可以被視為還有上修空間的過渡估值<br>- 但如果後面證明只是營收變強、品質沒有升級，那 21 倍也可能已經不便宜</p>
+<p>所以不要問「這個倍數絕對值高不高」，要問「這個倍數內含了什麼期待，而公司能不能做到」。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>你就記這 5 句：<br>- 毛利率：高附加價值組裝有沒有真的改善產品組合<br>- 營業利益率：高營收有沒有轉成營運槓桿<br>- 淨利率：股東拿到的利潤是不是乾淨<br>- 獲利品質：成長是不是來自本業而且可持續<br>- 估值分水嶺：市場會不會把它從成熟 ODM 股，升級成平台型伺服器 ODM 資產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>夠強，而且這就是最應該先處理的反方。</p>
+<p>最強空方一句話可以這樣講：<br>英業達不是平台型伺服器 ODM 升級股，它只是成熟代工公司在 AI 伺服器週期下短暫吃到訂單紅利。</p>
+<p>這句話為什麼強？因為它不是否定英業達現在數字很好，而是質疑這些數字到底能不能改寫公司本質。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這就是更硬的一版。</p>
+<p>而且如果我是空方，我甚至會再往下壓一句：<br>英業達最大的風險不是營收掉，而是市場突然發現這家公司雖然營收很猛，但獲利品質並沒有升級，所以估值框架不該再提高。</p>
+<p>也就是說，真正會殺估值的，不一定是成長消失，而是「成長沒有你想像的那麼值錢」。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果只能選一個最敏感的，我會選：營業利益率。</p>
+<p>原因很簡單：<br>- 營收可以因為平台切換、季節性、客戶拉貨而很強<br>- 毛利率有時還能被短期產品 mix 解釋<br>- 但營業利益率如果長期沒有改善，就很難說服市場這是一家真正升級成功的平台型資產</p>
+<p>所以一旦你看到：<br>- 伺服器占比升了<br>- 營收也很漂亮<br>- 但營業利益率沒有往上<br>那 thesis 就要很小心。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣講：<br>如果伺服器占比提升、AI 伺服器與 L10 / L11 深度放大，卻沒有把毛利率、營業利益率、淨利率與獲利品質一起帶上去，那英業達就很可能不是平台升級，而只是景氣拉貨下的成熟 ODM 股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，公司本質：<br>英業達不是只做筆電代工，而是正往平台型伺服器 ODM 升級的中大型代工公司。</p>
+<p>第二句，主線：<br>最大的成長主線，是 AI 伺服器、一般伺服器與 L10 / L11 高附加價值組裝升級。</p>
+<p>第三句，為什麼市場開始重看：<br>因為市場在交易它能不能從成熟 ODM 股，變成更高價值的伺服器平台資產。</p>
+<p>第四句，同業定位：<br>鴻海最廣、廣達最穩、緯創最純、英業達最有結構改善彈性。</p>
+<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與獲利品質。</p>
+<p>第六句，最重要的驗證：<br>伺服器占比、AI 伺服器深度與 L10 / L11 組裝升級，能不能真的改寫利潤結構。</p>
+<p>第七句，最強反方：<br>它可能只是成熟代工公司短暫吃到 AI 伺服器紅利，而不是平台型資產升級。</p>
+<p>第八句，最終分水嶺：<br>如果獲利品質跟不上，21 倍本益比未必便宜；如果獲利品質真的升級，這個估值框架還有再往上調的空間。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣講：<br>英業達是受惠於 AI 伺服器、一般伺服器與 L10 / L11 組裝升級的平台型 ODM 公司，但真正決定它值不值得市場持續高看，不是這一季營收有多好，而是伺服器占比、組裝深度、毛利率、營業利益率、淨利率與獲利品質，能不能一起把 2027 之後的獲利平台墊高。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先講我現在最直覺的印象，你糾正我。英業達不就是老牌筆電代工廠嗎？現在大家突然一直講它的 AI 伺服器，我有點懷疑是不是只是因為 AI 很紅，所以什麼公司都可以被包裝成 AI 股。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這個懷疑很合理，而且你這個問題比一開始就問本益比有用得多。</p>
+<p>因為研究英業達，第一步不是問它便不便宜，而是先問：它現在到底還是不是你腦中那家以筆電代工為主的公司。</p>
+<p>如果你要一句話先記住，英業達當然還保留傳統 NB / PC 代工底盤，但市場現在之所以重新評估它，是因為它正處在一個結構轉換點：伺服器，尤其是 AI 伺服器與更高附加價值的 L10 / L11 組裝，正在把它從成熟 ODM 公司往平台型伺服器 ODM 推。</p>
+<p>所以最關鍵的不是「它有沒有做 AI」，而是「AI 與伺服器占比變大之後，會不會改寫它的獲利結構與估值框架」。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>可是在我腦中，ODM 就是代工，代工不是通常毛利率都很薄、很難有太高評價嗎？那英業達到底是怎麼從一個成熟代工股，變成市場願意重新討論的平台股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你這個問題問對了，而且這就是平台型公司和一般成熟代工股的分水嶺。</p>
+<p>如果 ODM 只是單純做低附加價值組裝，那市場當然只會用成熟代工、景氣循環、低毛利框架去看它。但英業達現在比較值得研究的地方，在於它不是只有接更多單，而是接到的內容開始改變：<br>- AI 伺服器比重提高<br>- 一般伺服器需求同步強<br>- L6 往 L10 / L11 高附加價值組裝升級<br>- 美國 / 泰國等產能布局提供更高附加價值平台能力</p>
+<p>所以現在市場在看英業達，不是只問它今年賣多少台筆電，而是在問：它能不能從單純靠量的代工公司，往更吃平台能力、組裝深度與客戶黏性的公司走。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>等一下，我可能問一個很菜的問題。L10、L11 到底是什麼？為什麼你一直說這很重要？我以前只覺得那是供應鏈 jargon。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這個問題一點都不菜，反而是很關鍵的基本功。</p>
+<p>你可以先很粗略理解：<br>- L6 比較接近板端或半成品模組組裝<br>- L10 / L11 更接近整機、機櫃或更高層級的系統整合與最終組裝</p>
+<p>投資上為什麼重要？因為從 L6 往 L10 / L11 升級，不只是工序增加而已，而是代表：<br>- 客戶把更高價值量的工作交給你<br>- 你的組裝深度變深<br>- 你在整體系統裡的角色更靠近整機價值而不是單點零件</p>
+<p>所以市場會追問：英業達到底只是吃到 AI 伺服器出貨量，還是它真的在產品階梯上往上走。如果是後者，估值才比較有機會往平台型資產靠攏。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以我可不可以這樣記：英業達現在不是突然從筆電股變 AI 股，而是原本就有代工底盤，現在因為伺服器占比拉高、組裝深度變深，所以市場開始懷疑它可能不是原本那種成熟代工股了？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話已經很接近可以拿去做投資會議開場了。</p>
+<p>再幫你修得更準一點：<br>英業達不是被 AI 題材憑空改寫，而是在原有 ODM 底座上，因為伺服器尤其 AI 伺服器與 L10 / L11 組裝升級，開始出現獲利結構被重估的可能。</p>
+<p>所以研究英業達，第一個問題永遠不是股價，而是：<br>這家公司的公司本質有沒有正在變。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那我們先看數字。現在市場到底是在什麼數字基礎上開始重看它？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 66 元<br>- 單日漲幅 3.13%<br>- 本益比 21.6 倍<br>- 股價淨值比 3.22 倍<br>- 總市值 2,368 億元</p>
+<p>再看最新月營收，依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 90,190,327 千元<br>- 年增 65.73%<br>- 月減 11.8%<br>- 近三月合併營收年增 53.86%<br>- 近 12 月營收合併成長 21.21%</p>
+<p>如果你只看這組數字，直覺會覺得：很強，尤其年增非常猛。但做研究不能停在這裡，因為英業達真正難的地方在於：營收強，不等於估值一定有繼續上修空間。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>等一下，我又想問一個可能很笨的問題。月營收不是都很強了嗎？那是不是只要繼續成長，英業達股價自然就會上去？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這就是典型菜鳥會掉進去的坑，而且你現在問出來很好。</p>
+<p>營收成長很重要，但對英業達這種公司，市場真正關心的是兩件事：<br>1. 這個成長是不是結構性的<br>2. 這個成長能不能轉成更高品質的利潤</p>
+<p>因為代工股最常見的陷阱就是：<br>- 營收很大<br>- 出貨很強<br>- 但毛利率沒有上來<br>- 營業利益率沒有改善<br>- 最後市場只把它當大量出貨、低附加價值的成熟代工公司</p>
+<p>所以英業達現在真正要看的，不是單一營收高點，而是伺服器占比、AI 伺服器比重、L10 / L11 深度，能不能一起改變市場對它的理解。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那這家公司現在最重要的成長主線，你要我一句話怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講，就是：<br>英業達最重要的成長主線，是 AI 伺服器、一般伺服器與 L10 / L11 高附加價值組裝升級，把它從成熟 ODM 公司往更高價值的平台型代工公司推上去。</p>
+<p>拆開來看，大概有四層：<br>- AI 伺服器需求很強<br>- 一般伺服器也不弱<br>- L6 往 L10 / L11 升級<br>- 2027 年伺服器占比還有進一步拉升空間</p>
+<p>這四層不是各自獨立，而是一起決定市場願不願意把它從成熟股往平台股看。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以市場現在買英業達，不只是買 AI 題材，而是買它的產品組合正在往更值錢的方向走？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是主線的本質。</p>
+<p>很多人看到英業達，只會說它是 AI 伺服器受惠股，但這種講法太淺。真正要講的是：<br>- 伺服器占比提高<br>- AI 伺服器提高<br>- L10 / L11 高附加價值組裝增加<br>- 美國機櫃產品與海外平台布局擴大</p>
+<p>這些加在一起，才是市場願意重新估它值多少的原因。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它跟緯創、廣達那些也是伺服器 ODM 的公司比，現在主線有什麼差別？還是其實只是一起漲？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>不是只是一起漲，差異很大。</p>
+<p>緯創更偏 AI 伺服器與系統整合純度，廣達更偏成熟龍頭型 AI / server ODM 平台，而英業達現在最特別的是它處在「結構改善」這個位置。</p>
+<p>也就是說，英業達現在最吸引市場的，不是它已經是最強龍頭，也不是它是最純的 AI server 股，而是市場在想：<br>這家公司如果真的把伺服器與高附加價值組裝比重再往上拉，它的估值框架可能會整個換檔。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這家公司真正迷人的地方，不是它現在已經證明自己是最好，而是它還有被改寫分類的空間？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話非常重要。</p>
+<p>投資上最有意思的公司，通常不是市場完全沒看懂，也不是市場已經全都看懂，而是這種：<br>- 原本被歸在成熟股<br>- 但基本面開始顯示它其實沒那麼成熟<br>- 市場開始重新分類<br>- 可是還沒有完全重定價完</p>
+<p>英業達現在就是這種類型。所以它不是典型的「純 AI 高估值股」，也不是單純便宜成熟股，而是結構改善型平台資產。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="晶圓代工與商業模式">
+<div class="round-title">晶圓代工與商業模式</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那你直接幫我把同業比較講清楚。我不想只知道誰是同業，我想知道這幾家公司在市場心中的分工。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>很好，這才是對的問法。你不要只問「誰跟誰比」，而是要問「市場拿誰做哪種比較」。</p>
+<p>如果把鴻海、廣達、緯創、英業達放在一起看，我會先這樣粗分：<br>- 鴻海：超大型製造平台資產，平台廣度最大<br>- 廣達：成熟龍頭型 AI / server ODM 平台<br>- 緯創：AI 伺服器與系統整合純度較高的平台型 ODM<br>- 英業達：AI 伺服器、一般伺服器、NB 與 L10 / L11 組裝升級交叉的結構改善型 ODM 平台</p>
+<p>這四個定位一旦分清楚，後面大部分估值與股價表現你都比較不會看錯。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="晶圓代工與商業模式">
+<div class="round-title">晶圓代工與商業模式</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先試著整理。是不是可以說：<br>- 鴻海最廣<br>- 廣達最穩<br>- 緯創最純<br>- 英業達最有改善彈性<br>這樣對嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這個整理已經很接近實戰版了，我幫你再修一點字。</p>
+<ul><li>誰最廣：鴻海</li></ul>
+<ul><li>誰最穩：廣達</li></ul>
+<ul><li>誰最純：緯創</li></ul>
+<ul><li>誰最有改善彈性：英業達</li></ul></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果真的要選股，英業達在這組 peer 裡最大的優點跟最大的缺點，各是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最大的優點：<br>它剛好站在一個很有張力的位置。<br>- 它不像鴻海那樣平台過大、題材太多<br>- 也不像廣達那樣已經是成熟龍頭<br>- 也不像緯創那樣市場已經很明確知道要用 AI server 純度框架去看它<br>- 它是少數同時卡在 NB、AI 伺服器、一般伺服器與 L10 / L11 升級交叉點上的平台型公司</p>
+<p>所以市場最容易在它身上看到的是：結構改善 + 再分類空間。</p>
+<p>最大的缺點：<br>- 不像緯創那樣有更高的 AI 伺服器純度<br>- 不像廣達那樣有更清楚的龍頭平台定價權<br>- 不像鴻海那樣有超大型平台的資源與全球配置優勢<br>- 高營收成長若無法有效轉成毛利率與獲利品質改善，市場會很快懷疑這個升級故事</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要用最短的方式記這組 peer comparison，你會怎麼教我？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你就記這 5 句：<br>- 鴻海：最廣<br>- 廣達：最穩<br>- 緯創：最純<br>- 英業達：最有結構改善彈性<br>- 真正的差別，不在誰營收最大，而在市場拿什麼估值框架看它</p>
+<p>這是同業比較最重要的結論。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，現在來你剛剛一直強調的重點。我以前看這種股票都很直覺：營收強、題材對、股價就有戲。你一直說不能這樣看，那到底應該怎麼拆？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你這句話正好點到這篇最重要的地方。研究英業達，不能只看營收，也不能只看本益比，必須把估值五件組拆開來看：<br>1. 毛利率<br>2. 營業利益率<br>3. 淨利率<br>4. 獲利品質<br>5. 估值分水嶺</p>
+<p>因為代工股最容易出現的錯覺就是：營收很漂亮，但利潤品質沒有同步升級。只要這件事發生，市場就不會願意持續給更高評價。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那毛利率在回答什麼？我以前都覺得毛利率高就是好、低就是不好。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這就是典型初學者的簡化，但不能這樣停下來。</p>
+<p>毛利率對英業達來說，回答的是：<br>它接到的伺服器與 AI 伺服器業務，到底有沒有真的帶來比較高價值的收入組合。</p>
+<p>如果伺服器營收占比上升，但因為大量低毛利整機 / 機櫃出貨，反而稀釋毛利率，那市場就會說：<br>你只是營收大了，不是品質變好了。</p>
+<p>所以毛利率不是看絕對值而已，而是看：<br>- 高附加價值組裝有沒有讓產品組合改善<br>- AI 伺服器占比上升後，是否至少沒有把毛利結構拖壞</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那營業利益率呢？為什麼你說這比單看毛利率更重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為營業利益率比較接近市場真正的問題：<br>英業達到底是在賺高營收，還是在賺高品質獲利。</p>
+<p>如果只是營收放大，但費用率、營運成本、管理成本也一起上去，那營業利益率不會明顯改善。這樣市場就會懷疑：<br>- 平台升級是不是只停在表面<br>- 組裝深度變深，是不是沒有真的轉成營運槓桿</p>
+<p>所以毛利率是第一層，營業利益率是第二層，也是更接近「你到底有沒有升級成功」的驗證。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那淨利率跟獲利品質又要怎麼看？是不是 EPS 漲就代表沒問題？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這又是另一個常見誤區。EPS 漲，不一定代表獲利品質高。</p>
+<p>淨利率在看的是股東最後拿到的利潤；但獲利品質要進一步問：<br>- 這個利潤是不是來自本業<br>- 是不是來自健康的產品組合改善<br>- 還是有短期業外、匯率、非經常性項目幫忙</p>
+<p>對英業達這種公司來說，高品質獲利至少要滿足：<br>- 伺服器占比上升<br>- L10 / L11 深度增加<br>- 毛利率沒有被稀釋<br>- 營業利益率有跟著改善<br>- 淨利率不是只靠非本業撐起來</p>
+<p>這樣市場才會相信：這不是一波單純出貨景氣，而是獲利結構真的升級。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那現在 21 倍左右本益比到底便宜還是不便宜？我每次看到這種數字就卡住，因為和很多 AI 股比，好像不高；但和傳統代工股比，又不算低。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你這個卡住非常正常，而且這正是估值分水嶺。</p>
+<p>21 倍左右本益比的意思不是單純便宜或貴，而是：<br>市場已經承認英業達不是單純成熟 NB 代工股，但也還沒有完全把它當最高級的平台型 AI 伺服器資產。</p>
+<p>所以它的估值分水嶺就在這裡：<br>- 如果伺服器占比持續提高、AI 伺服器與 L10 / L11 深度放大、毛利率與營業利益率改善，那 21 倍可以被視為還有上修空間的過渡估值<br>- 但如果後面證明只是營收變強、品質沒有升級，那 21 倍也可能已經不便宜</p>
+<p>所以不要問「這個倍數絕對值高不高」，要問「這個倍數內含了什麼期待，而公司能不能做到」。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要很簡單地記住英業達的估值五件組，你會怎麼幫我記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你就記這 5 句：<br>- 毛利率：高附加價值組裝有沒有真的改善產品組合<br>- 營業利益率：高營收有沒有轉成營運槓桿<br>- 淨利率：股東拿到的利潤是不是乾淨<br>- 獲利品質：成長是不是來自本業而且可持續<br>- 估值分水嶺：市場會不會把它從成熟 ODM 股，升級成平台型伺服器 ODM 資產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那我來扮演反方。我最直覺的空方版本是：英業達其實還是很大程度靠筆電與傳統代工，只是 AI 伺服器需求太強，暫時把大家注意力都吸走了。這個反方夠強嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>夠強，而且這就是最應該先處理的反方。</p>
+<p>最強空方一句話可以這樣講：<br>英業達不是平台型伺服器 ODM 升級股，它只是成熟代工公司在 AI 伺服器週期下短暫吃到訂單紅利。</p>
+<p>這句話為什麼強？因為它不是否定英業達現在數字很好，而是質疑這些數字到底能不能改寫公司本質。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果我要把這個空方再講得更尖一點，是不是可以說：營收創高根本不重要，如果毛利率、營業利益率、淨利率沒有持續改善，市場最後還是只會把它當成大出貨但低品質的代工股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是更硬的一版。</p>
+<p>而且如果我是空方，我甚至會再往下壓一句：<br>英業達最大的風險不是營收掉，而是市場突然發現這家公司雖然營收很猛，但獲利品質並沒有升級，所以估值框架不該再提高。</p>
+<p>也就是說，真正會殺估值的，不一定是成長消失，而是「成長沒有你想像的那麼值錢」。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那這篇 thesis 最脆弱的數字是哪一個？如果掉了，我們就該承認看法要收斂？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只能選一個最敏感的，我會選：營業利益率。</p>
+<p>原因很簡單：<br>- 營收可以因為平台切換、季節性、客戶拉貨而很強<br>- 毛利率有時還能被短期產品 mix 解釋<br>- 但營業利益率如果長期沒有改善，就很難說服市場這是一家真正升級成功的平台型資產</p>
+<p>所以一旦你看到：<br>- 伺服器占比升了<br>- 營收也很漂亮<br>- 但營業利益率沒有往上<br>那 thesis 就要很小心。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要用一句最短的話記住這篇的風險，你會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣講：<br>如果伺服器占比提升、AI 伺服器與 L10 / L11 深度放大，卻沒有把毛利率、營業利益率、淨利率與獲利品質一起帶上去，那英業達就很可能不是平台升級，而只是景氣拉貨下的成熟 ODM 股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那如果我要把整篇報告壓縮成我真的能拿去投資判斷的版本，你會怎麼教我記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，公司本質：<br>英業達不是只做筆電代工，而是正往平台型伺服器 ODM 升級的中大型代工公司。</p>
+<p>第二句，主線：<br>最大的成長主線，是 AI 伺服器、一般伺服器與 L10 / L11 高附加價值組裝升級。</p>
+<p>第三句，為什麼市場開始重看：<br>因為市場在交易它能不能從成熟 ODM 股，變成更高價值的伺服器平台資產。</p>
+<p>第四句，同業定位：<br>鴻海最廣、廣達最穩、緯創最純、英業達最有結構改善彈性。</p>
+<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與獲利品質。</p>
+<p>第六句，最重要的驗證：<br>伺服器占比、AI 伺服器深度與 L10 / L11 組裝升級，能不能真的改寫利潤結構。</p>
+<p>第七句，最強反方：<br>它可能只是成熟代工公司短暫吃到 AI 伺服器紅利，而不是平台型資產升級。</p>
+<p>第八句，最終分水嶺：<br>如果獲利品質跟不上，21 倍本益比未必便宜；如果獲利品質真的升級，這個估值框架還有再往上調的空間。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要用一句最短的方式記住英業達，你會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣講：<br>英業達是受惠於 AI 伺服器、一般伺服器與 L10 / L11 組裝升級的平台型 ODM 公司，但真正決定它值不值得市場持續高看，不是這一季營收有多好，而是伺服器占比、組裝深度、毛利率、營業利益率、淨利率與獲利品質，能不能一起把 2027 之後的獲利平台墊高。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card">
+<h3>公司本質</h3>
+<ul><li>英業達不是單純傳統 NB 代工廠，而是伺服器占比持續提高、正往平台型伺服器 ODM 升級的中大型電子代工公司。</li><li>市場重看它的原因，不是單純 AI 題材，而是產品組合與組裝深度可能改變獲利結構。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>已知事實</h3>
+<ul><li>收盤價：66 元 (<span style="color: #f87171; font-weight: 700;">+3.13%</span>)</li><li>英業達是台灣 NB / 伺服器 ODM 主線中的重要公司之一。</li><li>公司研究頁 <code>as_of</code> 為 2026-08-07。</li><li>研究頁顯示 AI 伺服器、一般伺服器、L10 / L11 組裝、NB / AI PC 與美國 / 泰國平台布局為核心主線。</li><li>本益比 21.6</li><li>股價淨值比 3.22</li><li>總市值 2,368 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">901.9 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+65.73%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #34d399; font-weight: 700;">-11.8%</td></tr><tr><td class="tbl-k">近 3 月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+53.86%</td></tr><tr><td class="tbl-k">近 12 月成長</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+21.21%</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="summary-card section-card">
+<h3>同業定位</h3>
+<ul><li>鴻海：超大型製造平台資產，平台廣度最大。</li><li>廣達：成熟龍頭型 AI / server ODM 平台。</li><li>緯創：AI 伺服器與系統整合純度較高的平台型 ODM。</li><li>英業達：AI 伺服器、一般伺服器、NB 與 L10 / L11 組裝升級交叉的結構改善型 ODM 平台。</li><li>最像的比較對手：緯創。</li><li>最不像的比較對手：鴻海。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>估值五件組</h3>
+<ul><li>毛利率：要看高附加價值組裝有沒有真的改善產品組合，而不是只放大營收。</li><li>營業利益率：是判斷平台升級是否成功的最敏感指標。</li><li>淨利率：要確認股東拿到的利潤是不是來自本業、而且夠乾淨。</li><li>獲利品質：成長不能只來自出貨放量，必須來自更好的產品結構與經營效率。</li><li>估值分水嶺：市場會不會把它從成熟 ODM 股，升級成平台型伺服器 ODM 資產。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>關鍵推論</h3>
+<ul><li>英業達的核心價值不只是成熟 ODM 與 NB 代工，而是有機會把自己從傳統代工公司推向平台型伺服器 ODM 公司。</li><li>市場願意給它高於一般成熟 ODM 的估值，代表在交易更長期的平台升級與產品組合改善可能。</li><li>真正的驗證關鍵不只是 revenue，而是伺服器占比、毛利率、營業利益率、淨利率與獲利品質能否一起站住。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>目前最大爭議點</h3>
+<ul><li>英業達能否持續證明自己不只是成熟 ODM 股，而是平台型伺服器 ODM 資產。</li><li>龍頭平台（廣達）、超大型平台（鴻海）與高純度 AI 伺服器平台（緯創）之間的資金偏好，是否會壓縮市場給英業達的額外溢價空間。</li><li>英業達目前估值是否已大致反映 AI 伺服器與 L10 / L11 平台升級預期，而後續上修空間要靠伺服器占比、組裝深度與高品質獲利更明確落地。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>反方壓力測試</h3>
+<ul><li>最強空方一句話：英業達不是平台型伺服器 ODM 升級股，它只是成熟代工公司在 AI 伺服器週期下短暫吃到訂單紅利。</li><li>最脆弱的驗證點：營業利益率。</li><li>最容易被切回去的低級估值框架：成熟 ODM / 代工景氣循環股。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>最值得追蹤的 3 個指標</h3>
+<ul><li>伺服器營收占比是否持續提升。</li><li>AI 伺服器與 L10 / L11 組裝深度是否真正擴大。</li><li>毛利率、營業利益率與淨利率是否在產品組合改善後持續走高。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>thesis 失效條件</h3>
+<ul><li>伺服器占比提升不如預期。</li><li>AI 伺服器與高附加價值組裝沒有持續擴大。</li><li>毛利率與獲利品質無法持續改善。</li><li>市場持續偏好更高純度 AI 伺服器平台或更大型平台資產，削弱英業達的相對吸引力。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>目前最缺的資料</h3>
+<ul><li>英業達與緯創 / 廣達 / 鴻海在各自主線中的營收與產品拆分比較。</li><li>美國 / 泰國產能布局對中長期獲利率的量化影響。</li><li>組裝深度提升如何轉成更高毛利與更高營業利益率的更細證據。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>最短版記法</h3>
+<ul><li>英業達不是只靠筆電代工的成熟 ODM 股，而是 AI 伺服器、一般伺服器與 L10 / L11 組裝升級下，最有結構改善彈性的伺服器 ODM 平台股之一。</li></ul>
+</section>
+      <div class="footer">Generated at 2026-08-11 11:48</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

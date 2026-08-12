@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-2379 瑞昱 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-2379.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-2379]</span>
+            <h1 class="company-name" id="top">瑞昱</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-10</span><span class="deadline-chip">交易股價：2026-08-10</span><span class="deadline-chip">月營收：2026 年 7 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-第-1-段">第 1 段</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-第-4-段">第 4 段</a>
+<a href="#digest-5-估值與市場預期">估值與市場預期</a>
+<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-8-第-8-段">第 8 段</a>
+<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-13-第-13-段">第 13 段</a>
+<a href="#digest-14-估值與市場預期">估值與市場預期</a>
+<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-21-反方壓力測試">反方壓力測試</a>
+<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-27-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-第-1-段">
+<div class="digest-title">第 1 段</div>
+<div class="content"><p>這個問題問得很好，因為研究瑞昱最大的陷阱，就是一直用舊印象看它。</p>
+<p>如果你要一句話先記住，瑞昱不是單純做 PC 網卡或音效晶片的老牌 IC 設計公司，而是一家橫跨乙太網路、Wi-Fi、藍牙、音效、多媒體與車用 / 工業連接晶片的平台型通訊 IC 設計公司。</p>
+<p>也就是說，它最值錢的地方不只是某一顆爆款晶片，而是它長期站在資料傳輸、裝置連接、邊緣運算與終端通訊規格升級的交叉點上。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>對，這樣看才比較接近現在市場真正會重新定價它的原因。</p>
+<p>更精準一點說，瑞昱最重要的幾塊能力是：<br>- 乙太網路控制晶片<br>- Wi-Fi / 藍牙等無線連接晶片<br>- 音效 / 多媒體 SoC<br>- 車用乙太網與智慧座艙連接能力<br>- 邊緣運算與高階網通升級相關的 I/O 與連接能力</p>
+<p>所以瑞昱賣的不只是單點產品，而是一整套裝置如何連上網路、如何在不同終端之間高速傳輸資料的能力。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這個懷疑非常合理，而且如果你不先處理這個問題，後面很容易被「AI 什麼都能受惠」的敘事帶著走。</p>
+<p>瑞昱真正被重新評估，不只是因為 AI 題材熱，而是因為幾條主線開始疊加：<br>- AI 伺服器與交換器升級，推動高速網通晶片需求<br>- Wi-Fi 7 / Wi-Fi 8 與高速乙太網路升規<br>- 車用乙太網、智慧座艙與連接晶片滲透率提升<br>- 邊緣 AI 裝置需要更高效能、更低延遲、更穩定的連接解決方案</p>
+<p>所以市場不是單純把瑞昱包裝成 AI 股，而是在重新問：<br>它會不會從成熟連接 IC 公司，升級成平台型通訊 IC 公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-第-4-段">
+<div class="digest-title">第 4 段</div>
+<div class="content"><p>對，這句話很接近我會用的版本。</p>
+<p>再幫你修得更準一點：<br>瑞昱是一家受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置規格升級的通訊 SoC / 連接平台型 IC 設計公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 758 元<br>- 單日漲幅 1.07%<br>- 本益比 24.1 倍<br>- 股價淨值比 8.64 倍<br>- 總市值 3,908 億元</p>
+<p>再看最新月營收，依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 12,895,149 千元<br>- 年增 32.54%<br>- 月增 4.75%<br>- 近三月合併營收年增 24.88%<br>- 近 12 月營收合併成長 8.01%</p>
+<p>這組數字代表瑞昱目前營運不是只有題材而已，營收動能本身也在明顯轉強。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這就是研究瑞昱最重要的地方。</p>
+<p>市場現在願意給瑞昱 24 倍左右本益比，不是因為它沒有問題，而是因為市場相信：<br>- 瑞昱不是只靠 PC 與消費性電子循環<br>- 高階網通、Wi-Fi、車用與邊緣 AI 主線還能支撐未來成長<br>- 它具備平台型 IC 設計公司的特質，而不是單一產品週期股</p>
+<p>但市場又沒有給更高估值，也代表它還在擔心：<br>- 毛利率回落<br>- 記憶體與封測成本壓力<br>- PC 需求疲弱<br>- 產品漲價與成本轉嫁效果能不能持續</p>
+<p>所以瑞昱現在很典型地處在：<br>市場願意承認它是平台型成長股，但又還不敢完全無視短期獲利壓力。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>一句話講，就是：<br>瑞昱最重要的成長主線，是高速乙太網路、Wi-Fi 規格升級、邊緣運算與車用連接晶片，把它從傳統網通 IC 公司往更高價值的通訊平台推上去。</p>
+<p>拆開來看，大概有四層：<br>- 高階網通升級<br>- Wi-Fi 7 / Wi-Fi 8 與裝置側無線規格提升<br>- 車用乙太網與智慧座艙連接需求增加<br>- 邊緣 AI 與新型裝置帶動通訊 / 連接晶片價值上升</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-第-8-段">
+<div class="digest-title">第 8 段</div>
+<div class="content"><p>完全正確。</p>
+<p>很多人看瑞昱，還停在它就是一堆連接晶片這個印象，但市場真正願意重新定價它，不只是因為出貨量，而是因為：<br>- 規格升級<br>- 產品組合改善<br>- 高階網通與車用比重上升<br>- 連接平台的橫向滲透越來越深</p>
+<p>也就是說，瑞昱現在不是單純賣便宜晶片，而是在賣越來越重要的網路連接入口。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這就是瑞昱最有意思的地方。</p>
+<p>如果只看短期獲利，市場確實可能先把故事講太多；但如果從中長期來看，這幾條線很重要，因為它們代表瑞昱正在嘗試從成熟 PC / 消費性連接市場，往更新、更高價值、更有成長空間的應用移動。</p>
+<p>例如：<br>- 車用乙太網不是只是一顆晶片，而是整個汽車連接架構升級<br>- 智慧座艙需要更複雜的傳輸與通訊能力<br>- 邊緣 AI 需要裝置端更低延遲、更高頻寬、更穩定的連接能力</p>
+<p>所以這些不只是題材，而是瑞昱中長期平台化的方向。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>我會這樣定義：<br>瑞昱不是單純的傳統網卡 / 音效 IC 公司，而是受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置規格升級的通訊連接平台型 IC 設計公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>很好，這才是對的問法。</p>
+<p>你可以先這樣粗分：<br>- 聯發科：大型 SoC / 通訊平台龍頭，平台廣度最強<br>- 聯詠：顯示驅動 / 顯示 SoC 平台，偏顯示與影像介面邏輯<br>- Marvell：高階資料中心互連 / SerDes / CXL / 光互連平台<br>- 瑞昱：乙太網、Wi-Fi、車用連接與邊緣裝置連接平台</p>
+<p>這樣看，你就知道它們不是只是「都叫 IC 設計公司」而已。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：Marvell（如果你定義純度是高階資料中心互連）<br>- 誰最廣：聯發科<br>- 誰最穩：聯發科<br>- 誰最有彈性：瑞昱<br>- 瑞昱卡在哪：通訊連接與規格升級入口的平台型公司</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-第-13-段">
+<div class="digest-title">第 13 段</div>
+<div class="content"><p>如果只講一句話：<br>聯發科更像大型平台型 SoC / 通訊晶片龍頭，而瑞昱更像通訊連接與乙太網 / Wi-Fi / 邊緣裝置橫向滲透更強的中大型連接平台股。</p>
+<p>也就是說：<br>- 聯發科偏大型平台廣度<br>- 瑞昱偏裝置連接入口與通訊橫向滲透</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>聯詠很重要，因為它讓你看到另一種平台型 IC 設計公司的邏輯。</p>
+<p>聯詠比較偏向：<br>- 顯示驅動與 SoC<br>- 面板、顯示器、OLED、工業顯示等應用<br>- 產品邏輯更接近顯示介面與影像輸出端</p>
+<p>而瑞昱比較偏向：<br>- 網路連接<br>- 資料傳輸<br>- 乙太網 / Wi-Fi / 車用通訊<br>- 邊緣裝置與工業端的連接能力</p>
+<p>所以如果只講最像與最不像：<br>- 最像的比較對手：Marvell（因為都更接近通訊連接邏輯）<br>- 最不像的比較對手：聯詠（因為應用與估值邏輯明顯偏顯示介面）</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不像聯發科那樣已經是巨型平台龍頭、敘事成熟<br>- 不像聯詠那樣較偏顯示與面板週期邏輯<br>- 不像 Marvell 那樣已高度綁定高階資料中心互連純度<br>- 而是同時卡在乙太網、Wi-Fi、車用連接、邊緣裝置升級交叉點上的平台型公司</p>
+<p>所以它很典型地代表了「平台型通訊連接 IC 股」。</p>
+<p>最大的缺點：<br>- 不像聯發科那樣有絕對平台龍頭定價權<br>- 不像 Marvell 那樣擁有高階資料中心互連純度溢價<br>- 短期還受 PC 與成熟產品線、記憶體成本與毛利率壓力牽制</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>這個問題問得非常對，因為瑞昱的關鍵就在這裡。</p>
+<p>24 倍本益比不是在賭單一數字，而是在賭四層事情能串起來：<br>1. 高階網通與連接主線持續成立<br>2. 產品組合升級<br>3. 獲利品質修復<br>4. 平台型通訊 IC 的估值框架不掉下來</p>
+<p>白話講就是：<br>市場不只在賭瑞昱賣更多晶片，而是在賭它賣得更高階、賣得更值錢、而且賺得更漂亮。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>毛利率在瑞昱這裡，回答的是：<br>高階網通、Wi-Fi 7 / Wi-Fi 8、車用乙太網與邊緣 AI 相關產品，是否真的讓它賣得更值錢。</p>
+<p>如果營收強，但毛利率沒有修回來，市場就會開始懷疑：<br>- 高階產品占比是不是沒有想像中高<br>- 記憶體與封測成本壓力是不是還在<br>- 這是不是只是題材拉動，而不是結構性升級</p>
+<p>所以毛利率是第一層驗證。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>因為營業利益率更接近市場真正想知道的事：<br>瑞昱到底是在賺高營收，還是在賺高品質獲利。</p>
+<p>如果只是營收變強，但費用率、成本壓力把利潤吃掉，市場就不會長期給更高倍數。</p>
+<p>所以營業利益率是在驗證：<br>- 高階產品占比提升<br>- 規模放大<br>- 這兩件事有沒有真的轉成經營槓桿</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>淨利率回答股東最後拿到多少利潤；<br>獲利品質則要進一步問：<br>- 這個利潤是不是來自本業<br>- 是不是來自高階產品組合改善<br>- 還是有短期業外或成本波動因素干擾</p>
+<p>對瑞昱來說，高品質獲利至少要看到：<br>- 高階網通與車用產品占比提升<br>- 成本壓力逐步緩解<br>- 毛利率、營業利益率、淨利率同步修復<br>- 不是只靠短期題材帶動</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>估值分水嶺不是營收創不創高，而是高階網通、Wi-Fi、車用與邊緣 AI 主線，能不能一起把毛利率、營業利益率、淨利率與獲利品質帶上去。</p>
+<p>如果可以，24 倍有合理性；<br>如果不行，市場就會開始懷疑它仍然只是成熟產品線公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-反方壓力測試">
+<div class="digest-title">反方壓力測試</div>
+<div class="content"><p>夠強，而且這就是最應該先處理的空方版本。</p>
+<p>最強空方一句話可以這樣講：<br>瑞昱不是長期平台型通訊 IC 資產，它只是成熟連接 IC 公司在規格升級週期下，暫時被市場高估的成長股。</p>
+<p>這句話最厲害的地方在於，它不是否定瑞昱現在很好，而是質疑這種好能不能從規格升級題材，變成真正的平台資產。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這是第二層更現實的反方。</p>
+<p>市場願意長期給高倍數的，通常還是：<br>- 平台龍頭<br>- 不可替代連接標準或高純度互連資產<br>- 或已經證明自己能把規格升級穩定轉成高品質獲利的公司</p>
+<p>如果瑞昱只是：<br>- 題材很對<br>- 產品線很多<br>- 但利潤品質沒有修回來<br>那市場很容易說：<br>它只是成熟公司搭上了短期升級熱潮。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率能否修復並穩住。</p>
+<p>原因很簡單：<br>- 營收可以靠規格升級與短期拉貨變強<br>- 高階產品占比可以講故事<br>- 但如果毛利率始終修不回來，市場就很難相信這是高品質平台升級，而不是題材遮住成本壓力</p>
+<p>所以最脆弱的驗證，不是單月營收，而是毛利率 / 獲利品質的修復。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>成熟連接 IC 公司，而不是平台型通訊 IC 資產。</p>
+<p>差別在於：<br>- 前者看成熟產品線穩定出貨與景氣循環<br>- 後者看規格升級、平台滲透與中長期獲利品質提升</p>
+<p>一旦切回前者，24 倍左右本益比就會很難維持。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最誠實的答案是：它兩者都有，但更偏後者。</p>
+<p>它確實有高品質成長股的條件：<br>- 站在乙太網、Wi-Fi、車用與邊緣 AI 的升級主線上<br>- 平台型連接能力橫向延伸<br>- 營收動能不弱</p>
+<p>但它還在證明自己：<br>- 高階產品占比是否足夠大<br>- 毛利率與獲利品質是否真的修回來<br>- 市場是否會持續給平台型通訊 IC 溢價</p></div>
+</section>
+<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，公司本質：<br>瑞昱不是只做老式 PC 網卡與音效 IC，而是通訊連接平台型 IC 設計公司。</p>
+<p>第二句，主線：<br>最大的成長主線，是高速乙太網、Wi-Fi 升級、車用連接與邊緣 AI。</p>
+<p>第三句，價值來源：<br>它受惠的不只是出貨變多，而是規格升級與平台橫向滲透變深。</p>
+<p>第四句，同業定位：<br>聯發科最廣、Marvell 最純、聯詠最偏顯示介面，而瑞昱卡在通訊連接入口平台位置。</p>
+<p>第五句，估值關鍵：<br>不能只看營收，要一起看高階產品占比、毛利率、營業利益率、淨利率與獲利品質。</p>
+<p>第六句，最重要驗證：<br>高階網通、Wi-Fi 7 / Wi-Fi 8、車用與邊緣 AI 主線，能不能一起把獲利平台墊高。</p>
+<p>第七句，最強反方：<br>它可能只是成熟連接 IC 公司，在規格升級週期下暫時被市場高估的成長股。</p>
+<p>第八句，最終投資判斷：<br>瑞昱真正值不值得市場持續高看，不是看這一季營收多強，而是看高階產品占比、成本轉嫁與獲利品質能不能一起做實。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-27-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣講：<br>瑞昱是受惠於乙太網、Wi-Fi、車用連接與邊緣 AI 規格升級的通訊平台型 IC 設計公司，但真正決定它值不值得市場持續高看，不是這一季營收有多好，而是高階網通產品占比、毛利率、營業利益率、淨利率與獲利品質，能不能一起把 2027 之後的獲利平台墊高。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="第-1-段">
+<div class="round-title">第 1 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先講我最直覺的印象，你幫我糾正。瑞昱不就是以前做網卡、音效晶片的老牌 IC 設計公司嗎？這種公司聽起來很成熟，為什麼現在市場還會重新討論它？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這個問題問得很好，因為研究瑞昱最大的陷阱，就是一直用舊印象看它。</p>
+<p>如果你要一句話先記住，瑞昱不是單純做 PC 網卡或音效晶片的老牌 IC 設計公司，而是一家橫跨乙太網路、Wi-Fi、藍牙、音效、多媒體與車用 / 工業連接晶片的平台型通訊 IC 設計公司。</p>
+<p>也就是說，它最值錢的地方不只是某一顆爆款晶片，而是它長期站在資料傳輸、裝置連接、邊緣運算與終端通訊規格升級的交叉點上。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以瑞昱不能只看成 PC 周邊 IC 公司，而要把它看成通訊連接平台？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這樣看才比較接近現在市場真正會重新定價它的原因。</p>
+<p>更精準一點說，瑞昱最重要的幾塊能力是：<br>- 乙太網路控制晶片<br>- Wi-Fi / 藍牙等無線連接晶片<br>- 音效 / 多媒體 SoC<br>- 車用乙太網與智慧座艙連接能力<br>- 邊緣運算與高階網通升級相關的 I/O 與連接能力</p>
+<p>所以瑞昱賣的不只是單點產品，而是一整套裝置如何連上網路、如何在不同終端之間高速傳輸資料的能力。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>可是我還是有點懷疑。這些連接晶片聽起來很重要沒錯，但會不會只是 AI 題材很熱，所以所有跟網通、車用、邊緣裝置扯得上邊的公司都被重新講一遍？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這個懷疑非常合理，而且如果你不先處理這個問題，後面很容易被「AI 什麼都能受惠」的敘事帶著走。</p>
+<p>瑞昱真正被重新評估，不只是因為 AI 題材熱，而是因為幾條主線開始疊加：<br>- AI 伺服器與交換器升級，推動高速網通晶片需求<br>- Wi-Fi 7 / Wi-Fi 8 與高速乙太網路升規<br>- 車用乙太網、智慧座艙與連接晶片滲透率提升<br>- 邊緣 AI 裝置需要更高效能、更低延遲、更穩定的連接解決方案</p>
+<p>所以市場不是單純把瑞昱包裝成 AI 股，而是在重新問：<br>它會不會從成熟連接 IC 公司，升級成平台型通訊 IC 公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-4-段">
+<div class="round-title">第 4 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以一句話講，瑞昱不是純 AI 股，也不是傳統 PC 股，而是站在網通、連接與邊緣 AI 交叉點的平台股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很接近我會用的版本。</p>
+<p>再幫你修得更準一點：<br>瑞昱是一家受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置規格升級的通訊 SoC / 連接平台型 IC 設計公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那先看數字吧。市場現在到底是在什麼基本面上，願意用這個角度看它？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 758 元<br>- 單日漲幅 1.07%<br>- 本益比 24.1 倍<br>- 股價淨值比 8.64 倍<br>- 總市值 3,908 億元</p>
+<p>再看最新月營收，依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 12,895,149 千元<br>- 年增 32.54%<br>- 月增 4.75%<br>- 近三月合併營收年增 24.88%<br>- 近 12 月營收合併成長 8.01%</p>
+<p>這組數字代表瑞昱目前營運不是只有題材而已，營收動能本身也在明顯轉強。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>可是 24 倍本益比看起來也不算便宜。我如果很菜地看，會覺得：不是超純 AI、又不是最便宜，那為什麼市場還願意給它這種定價？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這就是研究瑞昱最重要的地方。</p>
+<p>市場現在願意給瑞昱 24 倍左右本益比，不是因為它沒有問題，而是因為市場相信：<br>- 瑞昱不是只靠 PC 與消費性電子循環<br>- 高階網通、Wi-Fi、車用與邊緣 AI 主線還能支撐未來成長<br>- 它具備平台型 IC 設計公司的特質，而不是單一產品週期股</p>
+<p>但市場又沒有給更高估值，也代表它還在擔心：<br>- 毛利率回落<br>- 記憶體與封測成本壓力<br>- PC 需求疲弱<br>- 產品漲價與成本轉嫁效果能不能持續</p>
+<p>所以瑞昱現在很典型地處在：<br>市場願意承認它是平台型成長股，但又還不敢完全無視短期獲利壓力。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那瑞昱最重要的成長主線，一句話怎麼記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講，就是：<br>瑞昱最重要的成長主線，是高速乙太網路、Wi-Fi 規格升級、邊緣運算與車用連接晶片，把它從傳統網通 IC 公司往更高價值的通訊平台推上去。</p>
+<p>拆開來看，大概有四層：<br>- 高階網通升級<br>- Wi-Fi 7 / Wi-Fi 8 與裝置側無線規格提升<br>- 車用乙太網與智慧座艙連接需求增加<br>- 邊緣 AI 與新型裝置帶動通訊 / 連接晶片價值上升</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-8-段">
+<div class="round-title">第 8 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以瑞昱最值錢的地方，不只是出貨變多，而是通訊規格變高、平台橫向更廣？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>很多人看瑞昱，還停在它就是一堆連接晶片這個印象，但市場真正願意重新定價它，不只是因為出貨量，而是因為：<br>- 規格升級<br>- 產品組合改善<br>- 高階網通與車用比重上升<br>- 連接平台的橫向滲透越來越深</p>
+<p>也就是說，瑞昱現在不是單純賣便宜晶片，而是在賣越來越重要的網路連接入口。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那車用乙太網、智慧座艙、邊緣 AI 這些題材，真的對瑞昱這麼重要嗎？會不會只是市場先講太多未來？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這就是瑞昱最有意思的地方。</p>
+<p>如果只看短期獲利，市場確實可能先把故事講太多；但如果從中長期來看，這幾條線很重要，因為它們代表瑞昱正在嘗試從成熟 PC / 消費性連接市場，往更新、更高價值、更有成長空間的應用移動。</p>
+<p>例如：<br>- 車用乙太網不是只是一顆晶片，而是整個汽車連接架構升級<br>- 智慧座艙需要更複雜的傳輸與通訊能力<br>- 邊緣 AI 需要裝置端更低延遲、更高頻寬、更穩定的連接能力</p>
+<p>所以這些不只是題材，而是瑞昱中長期平台化的方向。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果一句話講瑞昱現在最重要的身份，你會怎麼定義？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣定義：<br>瑞昱不是單純的傳統網卡 / 音效 IC 公司，而是受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置規格升級的通訊連接平台型 IC 設計公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那把同業真正講清楚。聯發科、聯詠、Marvell、瑞昱，市場到底怎麼把它們分工？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>很好，這才是對的問法。</p>
+<p>你可以先這樣粗分：<br>- 聯發科：大型 SoC / 通訊平台龍頭，平台廣度最強<br>- 聯詠：顯示驅動 / 顯示 SoC 平台，偏顯示與影像介面邏輯<br>- Marvell：高階資料中心互連 / SerDes / CXL / 光互連平台<br>- 瑞昱：乙太網、Wi-Fi、車用連接與邊緣裝置連接平台</p>
+<p>這樣看，你就知道它們不是只是「都叫 IC 設計公司」而已。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果照你剛剛那種方式，你直接幫我下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>可以，最短版是：<br>- 誰最純：Marvell（如果你定義純度是高階資料中心互連）<br>- 誰最廣：聯發科<br>- 誰最穩：聯發科<br>- 誰最有彈性：瑞昱<br>- 瑞昱卡在哪：通訊連接與規格升級入口的平台型公司</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-13-段">
+<div class="round-title">第 13 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那瑞昱跟聯發科最大的差別到底是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只講一句話：<br>聯發科更像大型平台型 SoC / 通訊晶片龍頭，而瑞昱更像通訊連接與乙太網 / Wi-Fi / 邊緣裝置橫向滲透更強的中大型連接平台股。</p>
+<p>也就是說：<br>- 聯發科偏大型平台廣度<br>- 瑞昱偏裝置連接入口與通訊橫向滲透</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那聯詠呢？很多人會把它也放進這種平台型 IC 設計公司一起看。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>聯詠很重要，因為它讓你看到另一種平台型 IC 設計公司的邏輯。</p>
+<p>聯詠比較偏向：<br>- 顯示驅動與 SoC<br>- 面板、顯示器、OLED、工業顯示等應用<br>- 產品邏輯更接近顯示介面與影像輸出端</p>
+<p>而瑞昱比較偏向：<br>- 網路連接<br>- 資料傳輸<br>- 乙太網 / Wi-Fi / 車用通訊<br>- 邊緣裝置與工業端的連接能力</p>
+<p>所以如果只講最像與最不像：<br>- 最像的比較對手：Marvell（因為都更接近通訊連接邏輯）<br>- 最不像的比較對手：聯詠（因為應用與估值邏輯明顯偏顯示介面）</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果真的要選股，瑞昱放在聯發科、聯詠、Marvell 這組 peer 裡，最大的優點跟最大的缺點，各是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不像聯發科那樣已經是巨型平台龍頭、敘事成熟<br>- 不像聯詠那樣較偏顯示與面板週期邏輯<br>- 不像 Marvell 那樣已高度綁定高階資料中心互連純度<br>- 而是同時卡在乙太網、Wi-Fi、車用連接、邊緣裝置升級交叉點上的平台型公司</p>
+<p>所以它很典型地代表了「平台型通訊連接 IC 股」。</p>
+<p>最大的缺點：<br>- 不像聯發科那樣有絕對平台龍頭定價權<br>- 不像 Marvell 那樣擁有高階資料中心互連純度溢價<br>- 短期還受 PC 與成熟產品線、記憶體成本與毛利率壓力牽制</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，我現在想問很直白的問題。24 倍本益比到底是在交易什麼？我怕自己只是看到題材，沒看懂估值。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這個問題問得非常對，因為瑞昱的關鍵就在這裡。</p>
+<p>24 倍本益比不是在賭單一數字，而是在賭四層事情能串起來：<br>1. 高階網通與連接主線持續成立<br>2. 產品組合升級<br>3. 獲利品質修復<br>4. 平台型通訊 IC 的估值框架不掉下來</p>
+<p>白話講就是：<br>市場不只在賭瑞昱賣更多晶片，而是在賭它賣得更高階、賣得更值錢、而且賺得更漂亮。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我以前都只看毛利率。那毛利率在瑞昱這裡到底回答什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>毛利率在瑞昱這裡，回答的是：<br>高階網通、Wi-Fi 7 / Wi-Fi 8、車用乙太網與邊緣 AI 相關產品，是否真的讓它賣得更值錢。</p>
+<p>如果營收強，但毛利率沒有修回來，市場就會開始懷疑：<br>- 高階產品占比是不是沒有想像中高<br>- 記憶體與封測成本壓力是不是還在<br>- 這是不是只是題材拉動，而不是結構性升級</p>
+<p>所以毛利率是第一層驗證。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那營業利益率為什麼更重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為營業利益率更接近市場真正想知道的事：<br>瑞昱到底是在賺高營收，還是在賺高品質獲利。</p>
+<p>如果只是營收變強，但費用率、成本壓力把利潤吃掉，市場就不會長期給更高倍數。</p>
+<p>所以營業利益率是在驗證：<br>- 高階產品占比提升<br>- 規模放大<br>- 這兩件事有沒有真的轉成經營槓桿</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那淨利率跟獲利品質又要怎麼看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>淨利率回答股東最後拿到多少利潤；<br>獲利品質則要進一步問：<br>- 這個利潤是不是來自本業<br>- 是不是來自高階產品組合改善<br>- 還是有短期業外或成本波動因素干擾</p>
+<p>對瑞昱來說，高品質獲利至少要看到：<br>- 高階網通與車用產品占比提升<br>- 成本壓力逐步緩解<br>- 毛利率、營業利益率、淨利率同步修復<br>- 不是只靠短期題材帶動</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那估值分水嶺到底是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>估值分水嶺不是營收創不創高，而是高階網通、Wi-Fi、車用與邊緣 AI 主線，能不能一起把毛利率、營業利益率、淨利率與獲利品質帶上去。</p>
+<p>如果可以，24 倍有合理性；<br>如果不行，市場就會開始懷疑它仍然只是成熟產品線公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="反方壓力測試">
+<div class="round-title">反方壓力測試</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那我來扮演空方。我最強的一句話大概會是：瑞昱本質上還是成熟連接 IC 公司，現在只是高階網通、車用與邊緣 AI 題材暫時把舊問題蓋住。這夠強嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>夠強，而且這就是最應該先處理的空方版本。</p>
+<p>最強空方一句話可以這樣講：<br>瑞昱不是長期平台型通訊 IC 資產，它只是成熟連接 IC 公司在規格升級週期下，暫時被市場高估的成長股。</p>
+<p>這句話最厲害的地方在於，它不是否定瑞昱現在很好，而是質疑這種好能不能從規格升級題材，變成真正的平台資產。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果我要把空方再講得更硬一點，是不是可以說：就算高階網通、Wi-Fi 7、車用乙太網很重要，但如果毛利率、營業利益率與淨利率回不來，市場就沒有理由一直把它當平台股看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這是第二層更現實的反方。</p>
+<p>市場願意長期給高倍數的，通常還是：<br>- 平台龍頭<br>- 不可替代連接標準或高純度互連資產<br>- 或已經證明自己能把規格升級穩定轉成高品質獲利的公司</p>
+<p>如果瑞昱只是：<br>- 題材很對<br>- 產品線很多<br>- 但利潤品質沒有修回來<br>那市場很容易說：<br>它只是成熟公司搭上了短期升級熱潮。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果只能選一個最脆弱的驗證數字，你會選哪一個？哪個條件掉了，這篇 thesis 就要重寫？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率能否修復並穩住。</p>
+<p>原因很簡單：<br>- 營收可以靠規格升級與短期拉貨變強<br>- 高階產品占比可以講故事<br>- 但如果毛利率始終修不回來，市場就很難相信這是高品質平台升級，而不是題材遮住成本壓力</p>
+<p>所以最脆弱的驗證，不是單月營收，而是毛利率 / 獲利品質的修復。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那市場最可能把它切回哪個較低級的估值框架？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>成熟連接 IC 公司，而不是平台型通訊 IC 資產。</p>
+<p>差別在於：<br>- 前者看成熟產品線穩定出貨與景氣循環<br>- 後者看規格升級、平台滲透與中長期獲利品質提升</p>
+<p>一旦切回前者，24 倍左右本益比就會很難維持。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以很誠實地講，瑞昱現在比較像高品質成長股，還是高品質但還在證明自己的平台股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最誠實的答案是：它兩者都有，但更偏後者。</p>
+<p>它確實有高品質成長股的條件：<br>- 站在乙太網、Wi-Fi、車用與邊緣 AI 的升級主線上<br>- 平台型連接能力橫向延伸<br>- 營收動能不弱</p>
+<p>但它還在證明自己：<br>- 高階產品占比是否足夠大<br>- 毛利率與獲利品質是否真的修回來<br>- 市場是否會持續給平台型通訊 IC 溢價</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那如果我要把瑞昱整篇報告壓縮成我真的能拿去投資判斷的版本，你會怎麼教我記？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>你記 8 句就夠。</p>
+<p>第一句，公司本質：<br>瑞昱不是只做老式 PC 網卡與音效 IC，而是通訊連接平台型 IC 設計公司。</p>
+<p>第二句，主線：<br>最大的成長主線，是高速乙太網、Wi-Fi 升級、車用連接與邊緣 AI。</p>
+<p>第三句，價值來源：<br>它受惠的不只是出貨變多，而是規格升級與平台橫向滲透變深。</p>
+<p>第四句，同業定位：<br>聯發科最廣、Marvell 最純、聯詠最偏顯示介面，而瑞昱卡在通訊連接入口平台位置。</p>
+<p>第五句，估值關鍵：<br>不能只看營收，要一起看高階產品占比、毛利率、營業利益率、淨利率與獲利品質。</p>
+<p>第六句，最重要驗證：<br>高階網通、Wi-Fi 7 / Wi-Fi 8、車用與邊緣 AI 主線，能不能一起把獲利平台墊高。</p>
+<p>第七句，最強反方：<br>它可能只是成熟連接 IC 公司，在規格升級週期下暫時被市場高估的成長股。</p>
+<p>第八句，最終投資判斷：<br>瑞昱真正值不值得市場持續高看，不是看這一季營收多強，而是看高階產品占比、成本轉嫁與獲利品質能不能一起做實。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果我要用一句最短的話總結瑞昱，你會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣講：<br>瑞昱是受惠於乙太網、Wi-Fi、車用連接與邊緣 AI 規格升級的通訊平台型 IC 設計公司，但真正決定它值不值得市場持續高看，不是這一季營收有多好，而是高階網通產品占比、毛利率、營業利益率、淨利率與獲利品質，能不能一起把 2027 之後的獲利平台墊高。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card">
+<h3>公司本質</h3>
+<ul><li>瑞昱不是只做老式 PC 網卡與音效 IC，而是受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置升級的通訊連接平台型 IC 設計公司。</li><li>最值錢的不只是單顆晶片，而是它長期站在資料傳輸與裝置連接升級的入口位置。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>已知事實</h3>
+<ul><li>收盤價：758 元 (<span style="color: #f87171; font-weight: 700;">+1.07%</span>)</li><li>瑞昱是台灣大型 IC 設計公司之一，核心產品涵蓋乙太網路、Wi-Fi、藍牙、音效與多媒體 SoC。</li><li>公司研究頁 <code>as_of</code> 為 2026-08-10。</li><li>研究頁顯示高階網通、Wi-Fi 7 / Wi-Fi 8、車用乙太網、智慧座艙、邊緣 AI 與工業裝置為核心主線。</li><li>多數機構在 2Q26 財報後對短期獲利看法轉保守，但仍承認中長期通訊平台升級方向存在。</li><li>本益比 24.1</li><li>股價淨值比 8.64</li><li>總市值 3,908 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">129.0 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+32.54%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+4.75%</td></tr><tr><td class="tbl-k">近 3 月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+24.88%</td></tr><tr><td class="tbl-k">近 12 月成長</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+8.01%</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<section class="summary-card section-card">
+<h3>同業定位</h3>
+<ul><li>聯發科：大型 SoC / 通訊平台龍頭，平台廣度最強。</li><li>聯詠：顯示驅動 / 顯示 SoC 平台，偏顯示與影像介面邏輯。</li><li>Marvell：高階資料中心互連 / SerDes / CXL / 光互連平台。</li><li>瑞昱：乙太網、Wi-Fi、車用連接與邊緣裝置連接平台。</li><li>最像的比較對手：Marvell。</li><li>最不像的比較對手：聯詠。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>估值五件組</h3>
+<ul><li>毛利率：回答高階網通、Wi-Fi 7 / Wi-Fi 8、車用與邊緣 AI 相關產品，是否真的讓它賣得更值錢。</li><li>營業利益率：回答高營收有沒有真的轉成經營槓桿與本業效率。</li><li>淨利率：回答股東最後拿到的利潤是否由本業穩定推升。</li><li>獲利品質：重點在高階產品占比、成本壓力緩解與平台化能力能否一起成立。</li><li>估值分水嶺：市場會不會把它留在平台型通訊 IC 資產框架，而不是切回成熟連接 IC 公司。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>關鍵推論</h3>
+<ul><li>瑞昱的核心價值不只是成熟網通與音效產品，而是有機會把自己從傳統連接 IC 公司推向平台型通訊 IC 設計公司。</li><li>市場願意給它高於一般成熟 IC 公司的估值，代表在交易更長期的規格升級與平台升級可能。</li><li>真正的驗證關鍵不只是 revenue，而是高階產品占比、毛利率、營業利益率、淨利率與獲利品質能否一起站住。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>目前最大爭議點</h3>
+<ul><li>瑞昱能否持續證明自己不只是成熟連接 IC 公司，而是平台型通訊 IC 資產。</li><li>大平台龍頭（聯發科）、高階互連純度股（Marvell）與顯示介面平台（聯詠）之間的資金偏好，是否會壓縮市場給瑞昱的額外溢價空間。</li><li>瑞昱目前估值是否已大致反映高階網通、車用與邊緣 AI 平台升級預期，而後續上修空間要靠高階產品占比、成本轉嫁與高品質獲利更明確落地。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>反方壓力測試</h3>
+<ul><li>最強空方一句話：瑞昱不是長期平台型通訊 IC 資產，它只是成熟連接 IC 公司在規格升級週期下，暫時被市場高估的成長股。</li><li>最脆弱的驗證數字：毛利率能否修復並穩住。</li><li>最可能被切回去的低級估值框架：成熟連接 IC 公司，而不是平台型通訊 IC 資產。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>最值得追蹤的 3 個指標</h3>
+<ul><li>高階網通與車用連接產品占比是否持續提升。</li><li>Wi-Fi 7 / Wi-Fi 8、車用乙太網與邊緣 AI 相關產品是否真正放量。</li><li>毛利率、營業利益率與淨利率是否在成本壓力緩解後重新走高。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>thesis 失效條件</h3>
+<ul><li>高階網通、車用與邊緣 AI 主線成長不如預期。</li><li>成本轉嫁失敗，毛利率與獲利品質持續受壓。</li><li>市場持續偏好大型平台龍頭或高階互連純度股，削弱瑞昱的相對吸引力。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>目前最缺的資料</h3>
+<ul><li>瑞昱與聯發科 / 聯詠 / Marvell 在各自主線中的營收與產品拆分比較。</li><li>高階網通、車用乙太網與邊緣 AI 各主線對中長期獲利率的量化影響。</li><li>高階產品占比提升如何轉成更高毛利與更高營業利益率的更細證據。</li></ul>
+</section>
+<section class="summary-card section-card">
+<h3>最短版記法</h3>
+<ul><li>瑞昱不是只靠老牌網卡與音效 IC 賺錢的成熟公司，而是乙太網、Wi-Fi、車用連接與邊緣 AI 升級下的通訊平台型 IC 設計股。</li></ul>
+</section>
+      <div class="footer">Generated at 2026-08-11 13:28</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>
