@@ -1138,7 +1138,7 @@ def build_index_html(entries):
             f'<button class="tag tag-btn" data-tagkey="{html.escape(k)}">{html.escape(lbl)}</button>'
             for k, lbl in zip(e['tags'], e['tag_labels'])
         )
-        cards_html.append(f'''      <article class="card" data-tags="{html.escape(tags_attr)}" data-search="{html.escape(e['search'])}" data-ticker="{html.escape(e['ticker'])}" data-name="{html.escape(e['company'])}">
+        cards_html.append(f'''      <article class="card" data-tags="{html.escape(tags_attr)}" data-core-bucket="{html.escape(e['core_bucket'])}" data-search="{html.escape(e['search'])}" data-ticker="{html.escape(e['ticker'])}" data-name="{html.escape(e['company'])}">
         <div class="card-top">
           <div class="ticker-box">
             <div class="ticker">[TW-{html.escape(e['ticker'])}]</div>
@@ -1146,8 +1146,8 @@ def build_index_html(entries):
           </div>
           <div class="date-chip">DATE: {html.escape(e['date'])}</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="{html.escape(e['core_bucket'])}" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">{html.escape(e['core'])}</div>
         </div>
         <div class="summary">{html.escape(e['summary'])}</div>
@@ -1402,6 +1402,43 @@ def build_index_html(entries):
       display: flex;
       gap: 6px;
     }}
+    .filter-status-row {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 4px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+    }}
+    .reset-btn {{
+      appearance: none;
+      border: 1px dashed var(--amber);
+      background: rgba(255, 183, 0, 0.1);
+      color: var(--amber);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
+    }}
+    .reset-btn:hover {{
+      background: rgba(255, 183, 0, 0.25);
+      border-style: solid;
+      box-shadow: 0 2px 8px rgba(255, 183, 0, 0.3);
+    }}
+    .kbd-hint {{
+      display: inline-block;
+      padding: 1px 5px;
+      font-size: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      margin-left: 4px;
+    }}
     mark.hl {{
       background: rgba(255, 183, 0, 0.25);
       color: var(--amber);
@@ -1472,6 +1509,12 @@ def build_index_html(entries):
       border: 1px solid rgba(0, 230, 118, 0.2);
       border-radius: 8px;
       padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+    .core-box:hover {{
+      background: rgba(0, 230, 118, 0.12);
+      border-color: var(--accent-emerald);
     }}
     .core-label {{
       color: var(--accent-emerald);
@@ -1594,7 +1637,7 @@ def build_index_html(entries):
 
       <div class="search-box">
         <span class="cmd-prompt">RUN &gt;</span>
-        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名或關鍵字 (例: 2330, 台積電, CoWoS...) &lt;GO&gt;" />
+        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名或關鍵字 (按 '/' 鍵快速搜尋) &lt;GO&gt;" />
         <button id="clearSearchBtn" class="clear-btn" title="清空指令" aria-label="清空指令">✕</button>
       </div>
 
@@ -1609,6 +1652,10 @@ def build_index_html(entries):
       </div>
       <div class="core-filter-row" id="coreFilters">
 {core_filter_buttons}
+      </div>
+      <div class="filter-status-row">
+        <div>已顯示 <strong id="visibleCount" style="color: var(--accent);">{total}</strong> / <span id="totalCount">{total}</span> 份報告</div>
+        <button id="resetFiltersBtn" class="reset-btn" style="display: none;" title="重置全部條件 (Esc)">⟲ 重置條件 <span class="kbd-hint">Esc</span></button>
       </div>
     </header>
 
@@ -1630,6 +1677,8 @@ def build_index_html(entries):
     const grid = document.getElementById('reportGrid');
     const emptyState = document.getElementById('emptyState');
     const filtersContainer = document.getElementById('filters');
+    const visibleCountEl = document.getElementById('visibleCount');
+    const resetFiltersBtn = document.getElementById('resetFiltersBtn');
 
     let activeFilter = 'all';
     let activeCoreFilter = 'all-core';
@@ -1709,7 +1758,34 @@ def build_index_html(entries):
 
       sortedCards.forEach(card => grid.appendChild(card));
       emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+
+      if (visibleCountEl) {{
+        visibleCountEl.textContent = visibleCount;
+      }}
+
+      const isFiltered = activeFilter !== 'all' || activeCoreFilter !== 'all-core' || searchTerm !== '';
+      if (resetFiltersBtn) {{
+        resetFiltersBtn.style.display = isFiltered ? 'inline-flex' : 'none';
+      }}
+
       updateSortButtons();
+    }}
+
+    function resetAllFilters() {{
+      activeFilter = 'all';
+      activeCoreFilter = 'all-core';
+      searchTerm = '';
+      if (searchInput) searchInput.value = '';
+      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+
+      filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+      coreFilterButtons.forEach(b => b.classList.toggle('active', b.dataset.coreFilter === 'all-core'));
+
+      applyFilterAndSort();
+    }}
+
+    if (resetFiltersBtn) {{
+      resetFiltersBtn.addEventListener('click', resetAllFilters);
     }}
 
     const toggleFilterBtn = document.getElementById('toggleFilterBtn');
@@ -1740,6 +1816,22 @@ def build_index_html(entries):
         btn.classList.add('active');
         activeCoreFilter = btn.dataset.coreFilter;
         applyFilterAndSort();
+      }});
+    }});
+
+    document.querySelectorAll('.core-box').forEach(box => {{
+      box.addEventListener('click', (e) => {{
+        e.stopPropagation();
+        const bucket = box.dataset.coreBucket;
+        if (!bucket) return;
+        const targetBtn = coreFilterButtons.find(b => b.dataset.coreFilter === bucket);
+        if (targetBtn) {{
+          coreFilterButtons.forEach(b => b.classList.remove('active'));
+          targetBtn.classList.add('active');
+          activeCoreFilter = bucket;
+          applyFilterAndSort();
+          window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
       }});
     }});
 
@@ -1790,6 +1882,16 @@ def build_index_html(entries):
       clearSearchBtn.style.display = 'none';
       searchInput.focus();
       applyFilterAndSort();
+    }});
+
+    document.addEventListener('keydown', (e) => {{
+      if (e.key === '/' && document.activeElement !== searchInput) {{
+        e.preventDefault();
+        if (searchInput) searchInput.focus();
+      }} else if (e.key === 'Escape') {{
+        resetAllFilters();
+        if (searchInput) searchInput.blur();
+      }}
     }});
 
     applyFilterAndSort();
