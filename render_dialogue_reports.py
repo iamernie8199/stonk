@@ -9,6 +9,13 @@ OUT_DIR = REPORTS_DIR / "html"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 INDEX_PATH = OUT_DIR / "index.html"
 
+CORE_OVERRIDES = {
+    '3017': 'AI 散熱 / 液冷熱管理',
+    '3293': '遊戲 / 授權平台 / 高現金流',
+    '2395': '工業電腦 / 邊緣 AI',
+    '2376': 'AI 伺服器 / GPU 平台週期',
+}
+
 SKIP_META_PREFIXES = (
     '- 角色 A：',
     '- 角色 B：',
@@ -26,10 +33,25 @@ TAG_RULES = [
     ('asic', 'AI ASIC / TPU', ('ASIC', 'TPU', 'SoC')),
     ('materials', '材料 / CCL', ('材料', 'CCL', '載板', '玻纖', 'ABF', '基板')),
     ('network', '網通 / 交換器', ('交換器', '網通', '800G', '1.6T', '光互連', 'CPO')),
-    ('components', '被動元件 / 零組件', ('被動元件', 'MLCC', '零組件', '測試設備', '電阻')),
+    ('components', '被動元件 / 零組件', ('被動元件', 'MLCC', '晶片電阻', '電容')),
 ]
 
 CORE_CATEGORY_RULES = [
+    {
+        'label': 'AI 散熱 / 液冷熱管理',
+        'keywords': [('散熱', 6), ('液冷', 6), ('熱管理', 6), ('熱交換', 5), ('均熱板', 5), ('冷板', 5), ('CDU', 5), ('快接頭', 5), ('風扇', 4), ('水冷', 5)],
+        'require_any': ['散熱', '液冷', '熱管理', '熱交換', '冷板', 'CDU', '水冷'],
+    },
+    {
+        'label': 'AI 伺服器 / GPU 平台週期',
+        'keywords': [('GPU 平台', 6), ('NVIDIA', 6), ('GB300', 6), ('Rubin', 6), ('AI Server', 6), ('AI伺服器', 5), ('整櫃', 5), ('液冷', 5)],
+        'require_any': ['GPU 平台', 'NVIDIA', 'GB300', 'Rubin', 'AI Server', 'AI伺服器'],
+    },
+    {
+        'label': '遊戲 / 授權平台 / 高現金流',
+        'keywords': [('線上博弈', 6), ('授權收入', 6), ('授權輸出', 6), ('遊戲軟體', 5), ('高現金流', 6), ('股東回饋', 4), ('平台化能力', 5), ('內容池', 4)],
+        'require_any': ['線上博弈', '授權收入', '授權輸出', '遊戲軟體', '高現金流'],
+    },
     {
         'label': '先進製程 / 先進封裝 (CoWoS)',
         'keywords': [('CoWoS', 6), ('先進封裝', 5), ('2nm', 4), ('3nm', 4), ('GAAFET', 4), ('BPDN', 4), ('先進製程', 3)],
@@ -90,10 +112,21 @@ CORE_CATEGORY_RULES = [
         'keywords': [('SLT', 6), ('Handler', 6), ('測試設備', 5), ('FT/SLT', 6), ('測試分選機', 6), ('鴻勁', 4)],
         'require_any': ['SLT', 'Handler', '分選機', '測試設備'],
     },
+    {
+        'label': '工業電腦 / 邊緣 AI',
+        'keywords': [('工業電腦', 6), ('邊緣AI', 6), ('Edge AI', 6), ('邊緣運算', 5), ('嵌入式', 5), ('自動化', 4), ('工業', 3)],
+        'require_any': ['工業電腦', '邊緣AI', 'Edge AI', '邊緣運算', '嵌入式'],
+    },
 ]
 
 
 def extract_core_keywords(title, meta, rounds, summary_sections, company):
+    ticker_match = re.search(r'TW-(\d{4})', title)
+    if ticker_match:
+        override = CORE_OVERRIDES.get(ticker_match.group(1))
+        if override:
+            return override
+
     # 1. Explicit metadata check (優先讀取手動前置標註)
     for line in meta:
         m = re.search(r'-\s*(?:核心關鍵字|核心主題)[：:]\s*(.+)', line)
@@ -131,7 +164,45 @@ def extract_core_keywords(title, meta, rounds, summary_sections, company):
             best_score = score
             best_label = rule['label']
 
-    return best_label if best_label else company
+    if best_label and best_label != company:
+        return best_label
+
+    fallback_candidates = [
+        ('AI 伺服器 / 資料中心', ('AI伺服器', '資料中心', 'GPU', '伺服器', '機櫃', 'Rack-scale')),
+        ('先進封裝 / CoWoS', ('CoWoS', '先進封裝', 'CoPoS', 'FOPLP', '玻璃基板', '封裝')),
+        ('網通 / 乙太網 / Wi-Fi', ('網通', '乙太網', 'Wi-Fi', '交換器', '光通訊', 'CPO')),
+        ('車用 / 邊緣裝置', ('車用', '智慧座艙', '邊緣AI', '工業電腦', '工業')),
+        ('材料 / 載板 / CCL', ('CCL', '載板', 'ABF', '玻纖布', '銅箔基板', '材料')),
+        ('散熱 / 電源 / 電力', ('散熱', '熱交換', '電源', '供電', 'HVDC', '800VDC')),
+        ('估值 / 驗證框架', ('估值', '本益比', '獲利品質', '毛利率', '營業利益率', '淨利率')),
+    ]
+
+    title_hits = []
+    for round_info in rounds:
+        round_title = round_info.get('title', '')
+        merged = ' '.join(seg[1] for seg in round_info.get('segments', []))
+        heading = infer_section_label(round_title, merged)
+        if heading and heading != company and not re.fullmatch(r'第\s*\d+\s*段', heading):
+            title_hits.append(heading)
+
+    title_priority = [
+        '遊戲 / 授權平台 / 高現金流',
+        'AI 驅動與產業脈絡',
+        '先進製程與先進封裝',
+        'HVDC 與供電架構',
+        '晶圓代工與商業模式',
+    ]
+    for preferred in title_priority:
+        if preferred in title_hits:
+            return preferred
+
+    combined_text = ' '.join(text for text, _ in weighted_sections)
+    for label, keywords in fallback_candidates:
+        hit_count = sum(combined_text.count(keyword) for keyword in keywords)
+        if hit_count >= 2:
+            return label
+
+    return ''
 
 
 INDEX_FILTERS = [
@@ -144,6 +215,36 @@ INDEX_FILTERS = [
     ('network', '網通 / 交換器'),
     ('components', '被動元件 / 零組件'),
 ]
+
+CORE_BUCKETS = [
+    ('all-core', '全部主線'),
+    ('core-ai-server', 'AI伺服器 / GPU'),
+    ('core-packaging', '先進封裝 / 封測'),
+    ('core-network', '網通 / CPO'),
+    ('core-materials', '材料 / 載板 / CCL'),
+    ('core-memory', '記憶體 / HBM'),
+    ('core-power', '電力 / 電源'),
+    ('core-industrial', '工業 / 邊緣AI'),
+    ('core-gaming', '遊戲 / 授權平台'),
+]
+
+
+def classify_core_bucket(core_text: str) -> str:
+    core_text = core_text or ''
+    mapping = [
+        (('AI 伺服器', 'GPU 平台', '整機整櫃', '液冷熱管理'), 'core-ai-server'),
+        (('先進封裝', 'CoWoS', 'OSAT', 'SLT Handler'), 'core-packaging'),
+        (('高速交換器', 'CPO', '矽光子', 'Wi-Fi', '乙太網'), 'core-network'),
+        (('CCL', '玻纖布', 'ABF', '載板', '材料'), 'core-materials'),
+        (('DRAM', 'HBM', '記憶體'), 'core-memory'),
+        (('電力', '電源', 'HVDC'), 'core-power'),
+        (('工業電腦', '邊緣 AI'), 'core-industrial'),
+        (('遊戲', '授權平台', '高現金流'), 'core-gaming'),
+    ]
+    for keywords, bucket in mapping:
+        if any(keyword in core_text for keyword in keywords):
+            return bucket
+    return 'all-core'
 
 
 def convert_inline(text: str) -> str:
@@ -920,16 +1021,27 @@ def infer_index_entry(md_path: Path):
     summary_text = ' '.join(' '.join(section['items']) for section in summary_sections)
     combined = ' '.join([full_text, summary_text])
 
-    tags = []
-    tag_labels = []
+    tag_scores = []
     for key, label, keywords in TAG_RULES:
-        if any(keyword in combined for keyword in keywords):
-            tags.append(key)
-            tag_labels.append(label)
+        hit_count = sum(combined.count(keyword) for keyword in keywords)
+        min_hits = 2 if key in {'ai-server', 'semiconductor', 'components', 'power'} else 1
+        if hit_count >= min_hits:
+            tag_scores.append((key, label, hit_count))
 
-    if not tags:
-        tags = ['components']
-        tag_labels = ['被動元件 / 零組件']
+    # 保留最有代表性的主題分類，避免首頁每檔掛太多泛用 tag
+    priority_order = {
+        'ai-server': 0,
+        'semiconductor': 1,
+        'power': 2,
+        'asic': 3,
+        'materials': 4,
+        'network': 5,
+        'components': 6,
+    }
+    tag_scores.sort(key=lambda item: (-item[2], priority_order.get(item[0], 99)))
+    selected = tag_scores[:3]
+    tags = [key for key, _, _ in selected]
+    tag_labels = [label for _, label, _ in selected]
 
     summary = ''
     if summary_sections:
@@ -972,11 +1084,12 @@ def infer_index_entry(md_path: Path):
         'company': company,
         'date': date_str,
         'tags': tags,
-        'search': search,
-        'summary': summary or f'{company} 深度個股對話研究報告。',
+        'search': ' '.join([ticker, company, title, summary, combined])[:3000],
+        'summary': summary,
         'tag_labels': tag_labels,
-        'core': core,
-        'href': md_path.stem + '.html',
+        'core': extract_core_keywords(title, meta, rounds, summary_sections, company),
+        'core_bucket': classify_core_bucket(extract_core_keywords(title, meta, rounds, summary_sections, company)),
+        'href': md_path.stem + '.html'
     }
 
 
@@ -1006,6 +1119,12 @@ def build_index_html(entries):
         extra_btns.append(f'              <button class="filter-btn" data-filter="{key}">{label}</button>')
     extra_btns_str = '\n'.join(extra_btns)
 
+    core_filter_btns = []
+    for key, label in CORE_BUCKETS:
+        cls = "core-filter-btn active" if key == "all-core" else "core-filter-btn"
+        core_filter_btns.append(f'          <button class="{cls}" data-core-filter="{key}">{label}</button>')
+    core_filter_buttons = '\n'.join(core_filter_btns)
+
     filter_buttons = f'''{main_btns_str}
           <div class="more-filters" id="moreFilters">
 {extra_btns_str}
@@ -1028,7 +1147,7 @@ def build_index_html(entries):
           <div class="date-chip">DATE: {html.escape(e['date'])}</div>
         </div>
         <div class="core-box">
-          <div class="core-label">CORE // 核心關鍵字</div>
+          <div class="core-label">THESIS // 投資主線</div>
           <div class="core-value">{html.escape(e['core'])}</div>
         </div>
         <div class="summary">{html.escape(e['summary'])}</div>
@@ -1221,6 +1340,14 @@ def build_index_html(entries):
       gap: 6px;
       align-items: center;
     }}
+    .core-filter-row {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    }}
     .more-filters {{
       display: none;
       gap: 6px;
@@ -1247,7 +1374,7 @@ def build_index_html(entries):
       background: rgba(0, 240, 255, 0.2);
       border-color: var(--accent);
     }}
-    .filter-btn, .sort-btn {{
+    .filter-btn, .sort-btn, .core-filter-btn {{
       appearance: none;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.3);
@@ -1260,12 +1387,12 @@ def build_index_html(entries):
       transition: all 0.2s ease;
       font-family: var(--font-mono);
     }}
-    .filter-btn:hover, .sort-btn:hover {{
+    .filter-btn:hover, .sort-btn:hover, .core-filter-btn:hover {{
       background: rgba(0, 240, 255, 0.12);
       color: var(--text);
       border-color: var(--accent);
     }}
-    .filter-btn.active, .sort-btn.active {{
+    .filter-btn.active, .sort-btn.active, .core-filter-btn.active {{
       background: rgba(255, 183, 0, 0.18);
       color: var(--amber);
       border-color: var(--amber);
@@ -1480,6 +1607,9 @@ def build_index_html(entries):
           <button class="sort-btn" data-field="name">名稱 <span class="sort-indicator">↓</span></button>
         </div>
       </div>
+      <div class="core-filter-row" id="coreFilters">
+{core_filter_buttons}
+      </div>
     </header>
 
     <section class="grid" id="reportGrid">
@@ -1494,6 +1624,7 @@ def build_index_html(entries):
     const cards = Array.from(document.querySelectorAll('.card'));
     const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
     const sortButtons = Array.from(document.querySelectorAll('.sort-btn'));
+    const coreFilterButtons = Array.from(document.querySelectorAll('.core-filter-btn'));
     const searchInput = document.getElementById('searchInput');
     const clearSearchBtn = document.getElementById('clearSearchBtn');
     const grid = document.getElementById('reportGrid');
@@ -1501,6 +1632,7 @@ def build_index_html(entries):
     const filtersContainer = document.getElementById('filters');
 
     let activeFilter = 'all';
+    let activeCoreFilter = 'all-core';
     let activeSortField = 'ticker';
     let activeSortDirection = 'asc';
     let searchTerm = '';
@@ -1552,9 +1684,11 @@ def build_index_html(entries):
       let visibleCount = 0;
       cards.forEach(card => {{
         const tags = (card.dataset.tags || '').split(' ');
+        const coreBucket = card.dataset.coreBucket || 'all-core';
         const matchFilter = activeFilter === 'all' || tags.includes(activeFilter);
+        const matchCore = activeCoreFilter === 'all-core' || coreBucket === activeCoreFilter;
         const matchSearch = matchesSearch(card);
-        const show = matchFilter && matchSearch;
+        const show = matchFilter && matchCore && matchSearch;
         card.hidden = !show;
         if (show) {{
           visibleCount += 1;
@@ -1596,6 +1730,15 @@ def build_index_html(entries):
         filterButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         activeFilter = btn.dataset.filter;
+        applyFilterAndSort();
+      }});
+    }});
+
+    coreFilterButtons.forEach(btn => {{
+      btn.addEventListener('click', () => {{
+        coreFilterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCoreFilter = btn.dataset.coreFilter;
         applyFilterAndSort();
       }});
     }});
