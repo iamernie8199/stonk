@@ -244,6 +244,43 @@
       display: flex;
       gap: 6px;
     }
+    .filter-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 4px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+    }
+    .reset-btn {
+      appearance: none;
+      border: 1px dashed var(--amber);
+      background: rgba(255, 183, 0, 0.1);
+      color: var(--amber);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
+    }
+    .reset-btn:hover {
+      background: rgba(255, 183, 0, 0.25);
+      border-style: solid;
+      box-shadow: 0 2px 8px rgba(255, 183, 0, 0.3);
+    }
+    .kbd-hint {
+      display: inline-block;
+      padding: 1px 5px;
+      font-size: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      margin-left: 4px;
+    }
     mark.hl {
       background: rgba(255, 183, 0, 0.25);
       color: var(--amber);
@@ -314,6 +351,12 @@
       border: 1px solid rgba(0, 230, 118, 0.2);
       border-radius: 8px;
       padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .core-box:hover {
+      background: rgba(0, 230, 118, 0.12);
+      border-color: var(--accent-emerald);
     }
     .core-label {
       color: var(--accent-emerald);
@@ -436,7 +479,7 @@
 
       <div class="search-box">
         <span class="cmd-prompt">RUN &gt;</span>
-        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名或關鍵字 (例: 2330, 台積電, CoWoS...) &lt;GO&gt;" />
+        <input id="searchInput" class="search-input" type="text" placeholder="搜尋股票代號、公司名或關鍵字 (按 '/' 鍵快速搜尋) &lt;GO&gt;" />
         <button id="clearSearchBtn" class="clear-btn" title="清空指令" aria-label="清空指令">✕</button>
       </div>
 
@@ -470,10 +513,14 @@
           <button class="core-filter-btn" data-core-filter="core-industrial">工業 / 邊緣AI</button>
           <button class="core-filter-btn" data-core-filter="core-gaming">遊戲 / 授權平台</button>
       </div>
+      <div class="filter-status-row">
+        <div>已顯示 <strong id="visibleCount" style="color: var(--accent);">63</strong> / <span id="totalCount">63</span> 份報告</div>
+        <button id="resetFiltersBtn" class="reset-btn" style="display: none;" title="重置全部條件 (Esc)">⟲ 重置條件 <span class="kbd-hint">Esc</span></button>
+      </div>
     </header>
 
     <section class="grid" id="reportGrid">
-      <article class="card" data-tags="materials ai-server semiconductor" data-search="1303 南亞 TW-1303 南亞 深度對話式研究報告 這個問題很好，因為南亞就是那種不能只用一個標籤看待的公司。 最白話地講，南亞的核心仍然是大型石化與材料公司，但它不是只有傳統塑化景氣循環。它的業務橫跨： - 一般塑化 / 石化材料 - 電子材料 - 銅箔基板相關材料 - TW-1303 南亞 深度對話式研究報告
+      <article class="card" data-tags="materials ai-server semiconductor" data-core-bucket="core-materials" data-search="1303 南亞 TW-1303 南亞 深度對話式研究報告 這個問題很好，因為南亞就是那種不能只用一個標籤看待的公司。 最白話地講，南亞的核心仍然是大型石化與材料公司，但它不是只有傳統塑化景氣循環。它的業務橫跨： - 一般塑化 / 石化材料 - 電子材料 - 銅箔基板相關材料 - TW-1303 南亞 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-07-31
   - daily DB 股價資料：最新台灣交易日為 2026-08-04
@@ -611,8 +658,8 @@
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高階 CCL / Low CTE 玻纖布</div>
         </div>
         <div class="summary">這個問題很好，因為南亞就是那種不能只用一個標籤看待的公司。 最白話地講，南亞的核心仍然是大型石化與材料公司，但它不是只有傳統塑化景氣循環。它的業務橫跨： - 一般塑化 / 石化材料 - 電子材料 - 銅箔基板相關材料 -</div>
@@ -620,7 +667,7 @@
         <div class="actions"><a class="btn btn-primary" href="TW-1303_南亞_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server semiconductor materials" data-search="2059 川湖 TW-2059 川湖 深度對話式研究報告 這正是川湖最值得研究的地方。 最白話地講，川湖不是做晶片、不是做主機板，也不是做整機代工，它做的是伺服器機櫃裡很關鍵、但容易被外行忽略的機構件，尤其是高階滑軌與相關配件。 你可以把它想成： 當 AI 伺服器越來越重、越來 TW-2059 川湖 深度對話式研究報告
+      <article class="card" data-tags="ai-server semiconductor materials" data-core-bucket="core-ai-server" data-search="2059 川湖 TW-2059 川湖 深度對話式研究報告 這正是川湖最值得研究的地方。 最白話地講，川湖不是做晶片、不是做主機板，也不是做整機代工，它做的是伺服器機櫃裡很關鍵、但容易被外行忽略的機構件，尤其是高階滑軌與相關配件。 你可以把它想成： 當 AI 伺服器越來越重、越來 TW-2059 川湖 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -775,8 +822,8 @@ Rack-scale 的本質是：
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">這正是川湖最值得研究的地方。 最白話地講，川湖不是做晶片、不是做主機板，也不是做整機代工，它做的是伺服器機櫃裡很關鍵、但容易被外行忽略的機構件，尤其是高階滑軌與相關配件。 你可以把它想成： 當 AI 伺服器越來越重、越來</div>
@@ -784,7 +831,7 @@ Rack-scale 的本質是：
         <div class="actions"><a class="btn btn-primary" href="TW-2059_川湖_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="power ai-server" data-search="2301 光寶科 TW-2301 光寶科 深度對話式研究報告 如果一句話先記住，光寶科不是只在賣電源供應器，它是在賣 AI 資料中心電力升級過程裡越來越高價值的 power content。 以前大家可能把它看成傳統電源廠，但現在更準確的理解是： 它是站在 PSU、BBU、Powe TW-2301 光寶科 深度對話式研究報告
+      <article class="card" data-tags="power ai-server" data-core-bucket="core-power" data-search="2301 光寶科 TW-2301 光寶科 深度對話式研究報告 如果一句話先記住，光寶科不是只在賣電源供應器，它是在賣 AI 資料中心電力升級過程裡越來越高價值的 power content。 以前大家可能把它看成傳統電源廠，但現在更準確的理解是： 它是站在 PSU、BBU、Powe TW-2301 光寶科 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -907,8 +954,8 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-power" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 電力基建 / 電源系統</div>
         </div>
         <div class="summary">如果一句話先記住，光寶科不是只在賣電源供應器，它是在賣 AI 資料中心電力升級過程裡越來越高價值的 power content。 以前大家可能把它看成傳統電源廠，但現在更準確的理解是： 它是站在 PSU、BBU、Powe</div>
@@ -916,7 +963,7 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
         <div class="actions"><a class="btn btn-primary" href="TW-2301_光寶科_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network asic" data-search="2303 聯電 TW-2303 聯電 深度對話式研究報告 最白話地講，聯電是成熟製程與特殊製程為主的晶圓代工廠。它跟台積電一樣，都是幫客戶製造晶片，不自己做品牌晶片；但差別在於，它不是主要靠最前沿的 3 奈米、2 奈米吃飯，而是靠： - 成熟製程 - 特殊製程 - 長尾應用 - TW-2303 聯電 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network asic" data-core-bucket="all-core" data-search="2303 聯電 TW-2303 聯電 深度對話式研究報告 最白話地講，聯電是成熟製程與特殊製程為主的晶圓代工廠。它跟台積電一樣，都是幫客戶製造晶片，不自己做品牌晶片；但差別在於，它不是主要靠最前沿的 3 奈米、2 奈米吃飯，而是靠： - 成熟製程 - 特殊製程 - 長尾應用 - TW-2303 聯電 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -1063,8 +1110,8 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">成熟製程 / 特殊製程</div>
         </div>
         <div class="summary">最白話地講，聯電是成熟製程與特殊製程為主的晶圓代工廠。它跟台積電一樣，都是幫客戶製造晶片，不自己做品牌晶片；但差別在於，它不是主要靠最前沿的 3 奈米、2 奈米吃飯，而是靠： - 成熟製程 - 特殊製程 - 長尾應用 -</div>
@@ -1072,7 +1119,7 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
         <div class="actions"><a class="btn btn-primary" href="TW-2303_聯電_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="power ai-server" data-search="2308 台達電 TW-2308 台達電 深度對話式研究報告 台達電不是單純電源供應器公司，而是 AI 資料中心供電架構升級中的關鍵系統級供應商。；最值錢的不是單一 PSU，而是它卡在多個供電升級節點交會處 TW-2308 台達電 深度對話式研究報告
+      <article class="card" data-tags="power ai-server" data-core-bucket="core-power" data-search="2308 台達電 TW-2308 台達電 深度對話式研究報告 台達電不是單純電源供應器公司，而是 AI 資料中心供電架構升級中的關鍵系統級供應商。；最值錢的不是單一 PSU，而是它卡在多個供電升級節點交會處 TW-2308 台達電 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -1182,8 +1229,8 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
           </div>
           <div class="date-chip">DATE: 2026-08-03</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-power" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 電力基建 / 電源系統</div>
         </div>
         <div class="summary">台達電不是單純電源供應器公司，而是 AI 資料中心供電架構升級中的關鍵系統級供應商。；最值錢的不是單一 PSU，而是它卡在多個供電升級節點交會處</div>
@@ -1191,7 +1238,7 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
         <div class="actions"><a class="btn btn-primary" href="TW-2308_台達電_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network ai-server materials" data-search="2313 華通 TW-2313 華通 深度對話式研究報告 如果你要一句話先記住，華通本質上不是只做傳統手機板的 PCB 廠，而是從 HDI、軟硬板一路延伸到低軌衛星板、AI 伺服器板、交換器板與光模組 mSAP 製程的重要高階板供應商。 也就是說，它最值錢的地方，不是單純板子做。 TW-2313 華通 深度對話式研究報告
+      <article class="card" data-tags="network ai-server materials" data-core-bucket="core-network" data-search="2313 華通 TW-2313 華通 深度對話式研究報告 如果你要一句話先記住，華通本質上不是只做傳統手機板的 PCB 廠，而是從 HDI、軟硬板一路延伸到低軌衛星板、AI 伺服器板、交換器板與光模組 mSAP 製程的重要高階板供應商。 也就是說，它最值錢的地方，不是單純板子做。 TW-2313 華通 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -1316,8 +1363,8 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">如果你要一句話先記住，華通本質上不是只做傳統手機板的 PCB 廠，而是從 HDI、軟硬板一路延伸到低軌衛星板、AI 伺服器板、交換器板與光模組 mSAP 製程的重要高階板供應商。 也就是說，它最值錢的地方，不是單純板子做。</div>
@@ -1325,7 +1372,7 @@ Power Rack / HVDC 放量時，公司能不能把規模效應轉成真正的獲�
         <div class="actions"><a class="btn btn-primary" href="TW-2313_華通_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server semiconductor power" data-search="2317 鴻海 TW-2317 鴻海 深度對話式研究報告 鴻海不是單純 iPhone 代工廠，而是全球最強的電子製造、供應鏈協調與系統交付平台之一。；最值錢的不是單純組裝，而是能把龐大供應鏈與複雜系統交付整合起來 TW-2317 鴻海 深度對話式研究報告
+      <article class="card" data-tags="ai-server semiconductor power" data-core-bucket="core-ai-server" data-search="2317 鴻海 TW-2317 鴻海 深度對話式研究報告 鴻海不是單純 iPhone 代工廠，而是全球最強的電子製造、供應鏈協調與系統交付平台之一。；最值錢的不是單純組裝，而是能把龐大供應鏈與複雜系統交付整合起來 TW-2317 鴻海 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-03
   - daily DB 股價資料：最新台灣交易日為 2026-08-03
@@ -1454,8 +1501,8 @@ AI 對鴻海來說，最大的投資問題不是「有沒有受惠」，這已�
           </div>
           <div class="date-chip">DATE: 2026-08-03</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">鴻海不是單純 iPhone 代工廠，而是全球最強的電子製造、供應鏈協調與系統交付平台之一。；最值錢的不是單純組裝，而是能把龐大供應鏈與複雜系統交付整合起來</div>
@@ -1463,7 +1510,7 @@ AI 對鴻海來說，最大的投資問題不是「有沒有受惠」，這已�
         <div class="actions"><a class="btn btn-primary" href="TW-2317_鴻海_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="components ai-server power" data-search="2327 國巨 TW-2327 國巨 深度對話式研究報告 這個問題很好，因為國巨最難的地方就在於： 它賣的東西看起來小、舊、沒那麼性感，但其實是每一台電子設備都少不了的基礎零件。 最白話地講，國巨是一家全球級的被動元件公司，核心產品包括： - MLCC - 電阻 - 電感相關產 TW-2327 國巨 深度對話式研究報告
+      <article class="card" data-tags="components ai-server power" data-core-bucket="all-core" data-search="2327 國巨 TW-2327 國巨 深度對話式研究報告 這個問題很好，因為國巨最難的地方就在於： 它賣的東西看起來小、舊、沒那麼性感，但其實是每一台電子設備都少不了的基礎零件。 最白話地講，國巨是一家全球級的被動元件公司，核心產品包括： - MLCC - 電阻 - 電感相關產 TW-2327 國巨 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -1636,8 +1683,8 @@ AI 伺服器、加速卡、電源管理、網通設備，都會用到大量被�
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">MLCC / 被動元件平台</div>
         </div>
         <div class="summary">這個問題很好，因為國巨最難的地方就在於： 它賣的東西看起來小、舊、沒那麼性感，但其實是每一台電子設備都少不了的基礎零件。 最白話地講，國巨是一家全球級的被動元件公司，核心產品包括： - MLCC - 電阻 - 電感相關產</div>
@@ -1645,7 +1692,7 @@ AI 伺服器、加速卡、電源管理、網通設備，都會用到大量被�
         <div class="actions"><a class="btn btn-primary" href="TW-2327_國巨_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor asic ai-server" data-search="2330 台積電 TW-2330 台積電 深度對話式研究報告 台積電不是單純晶圓廠，而是 AI 時代最核心的高階晶片製造、先進封裝與量產平台之一。；最值錢的不只是技術領先，而是技術、良率、產能配置、客戶導入與生態協作一起形成的系統級優勢 TW-2330 台積電 深度對話式研究報告
+      <article class="card" data-tags="semiconductor asic ai-server" data-core-bucket="core-packaging" data-search="2330 台積電 TW-2330 台積電 深度對話式研究報告 台積電不是單純晶圓廠，而是 AI 時代最核心的高階晶片製造、先進封裝與量產平台之一。；最值錢的不只是技術領先，而是技術、良率、產能配置、客戶導入與生態協作一起形成的系統級優勢 TW-2330 台積電 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -1740,8 +1787,8 @@ AI 晶片時代，前段晶圓與後段封裝越綁越緊。這讓台積電吃�
           </div>
           <div class="date-chip">DATE: 2026-08-03</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">台積電不是單純晶圓廠，而是 AI 時代最核心的高階晶片製造、先進封裝與量產平台之一。；最值錢的不只是技術領先，而是技術、良率、產能配置、客戶導入與生態協作一起形成的系統級優勢</div>
@@ -1749,7 +1796,7 @@ AI 晶片時代，前段晶圓與後段封裝越綁越緊。這讓台積電吃�
         <div class="actions"><a class="btn btn-primary" href="TW-2330_台積電_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network" data-search="2344 華邦電 TW-2344 華邦電 深度對話式研究報告 華邦電最容易被看錯的地方，就是很多人一聽到記憶體股，就自動把它想成標準型 DRAM 或高頻寬記憶體玩家。 但華邦電不是那種路線。 最白話地講，華邦電是一家台灣利基型記憶體 IDM，核心產品不是 HBM，也不是主流標準型。 TW-2344 華邦電 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network" data-core-bucket="core-memory" data-search="2344 華邦電 TW-2344 華邦電 深度對話式研究報告 華邦電最容易被看錯的地方，就是很多人一聽到記憶體股，就自動把它想成標準型 DRAM 或高頻寬記憶體玩家。 但華邦電不是那種路線。 最白話地講，華邦電是一家台灣利基型記憶體 IDM，核心產品不是 HBM，也不是主流標準型。 TW-2344 華邦電 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -1889,8 +1936,8 @@ AI 晶片時代，前段晶圓與後段封裝越綁越緊。這讓台積電吃�
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-memory" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">DRAM 記憶體 / HBM 外溢</div>
         </div>
         <div class="summary">華邦電最容易被看錯的地方，就是很多人一聽到記憶體股，就自動把它想成標準型 DRAM 或高頻寬記憶體玩家。 但華邦電不是那種路線。 最白話地講，華邦電是一家台灣利基型記憶體 IDM，核心產品不是 HBM，也不是主流標準型。</div>
@@ -1898,7 +1945,7 @@ AI 晶片時代，前段晶圓與後段封裝越綁越緊。這讓台積電吃�
         <div class="actions"><a class="btn btn-primary" href="TW-2344_華邦電_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network ai-server asic" data-search="2345 智邦 TW-2345 智邦 深度對話式研究報告 最白話地講，智邦是高速網通設備與資料中心網路設備的重要供應商。它最核心的角色，不是做 AI 晶片本身，而是把 AI 伺服器、GPU、ASIC 叢集之間要傳的龐大資料，透過高階交換器、網路設備與光互連架構串起來。 所以如果 TW-2345 智邦 深度對話式研究報告
+      <article class="card" data-tags="network ai-server asic" data-core-bucket="core-network" data-search="2345 智邦 TW-2345 智邦 深度對話式研究報告 最白話地講，智邦是高速網通設備與資料中心網路設備的重要供應商。它最核心的角色，不是做 AI 晶片本身，而是把 AI 伺服器、GPU、ASIC 叢集之間要傳的龐大資料，透過高階交換器、網路設備與光互連架構串起來。 所以如果 TW-2345 智邦 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2051,8 +2098,8 @@ Celestica：
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">最白話地講，智邦是高速網通設備與資料中心網路設備的重要供應商。它最核心的角色，不是做 AI 晶片本身，而是把 AI 伺服器、GPU、ASIC 叢集之間要傳的龐大資料，透過高階交換器、網路設備與光互連架構串起來。 所以如果</div>
@@ -2060,7 +2107,7 @@ Celestica：
         <div class="actions"><a class="btn btn-primary" href="TW-2345_智邦_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server" data-search="2356 英業達 TW-2356 英業達 深度對話式研究報告 英業達不是單純傳統 NB 代工廠，而是伺服器占比持續提高、正往平台型伺服器 ODM 升級的中大型電子代工公司。；市場重看它的原因，不是單純 AI 題材，而是產品組合與組裝深度可能改變獲利結構 TW-2356 英業達 深度對話式研究報告
+      <article class="card" data-tags="ai-server" data-core-bucket="core-ai-server" data-search="2356 英業達 TW-2356 英業達 深度對話式研究報告 英業達不是單純傳統 NB 代工廠，而是伺服器占比持續提高、正往平台型伺服器 ODM 升級的中大型電子代工公司。；市場重看它的原因，不是單純 AI 題材，而是產品組合與組裝深度可能改變獲利結構 TW-2356 英業達 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2180,8 +2227,8 @@ Celestica：
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">英業達不是單純傳統 NB 代工廠，而是伺服器占比持續提高、正往平台型伺服器 ODM 升級的中大型電子代工公司。；市場重看它的原因，不是單純 AI 題材，而是產品組合與組裝深度可能改變獲利結構</div>
@@ -2189,7 +2236,7 @@ Celestica：
         <div class="actions"><a class="btn btn-primary" href="TW-2356_英業達_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network power" data-search="2360 致茂 TW-2360 致茂 深度對話式研究報告 如果你要一句話先記住，致茂本質上不是做晶片製造，而是做測試與量測設備，幫客戶把電源、半導體、光電、封裝與系統產品測得出來、驗得出來、量得出來。 也就是說，它賣的不是晶片，也不是設備廠裡最前段的製程機台，而是站在「產品能不。 TW-2360 致茂 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network power" data-core-bucket="core-packaging" data-search="2360 致茂 TW-2360 致茂 深度對話式研究報告 如果你要一句話先記住，致茂本質上不是做晶片製造，而是做測試與量測設備，幫客戶把電源、半導體、光電、封裝與系統產品測得出來、驗得出來、量得出來。 也就是說，它賣的不是晶片，也不是設備廠裡最前段的製程機台，而是站在「產品能不。 TW-2360 致茂 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2315,8 +2362,8 @@ Teradyne 是另一個很重要的全球座標，但和致茂的市場心智還�
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">晶片測試設備 / SLT Handler</div>
         </div>
         <div class="summary">如果你要一句話先記住，致茂本質上不是做晶片製造，而是做測試與量測設備，幫客戶把電源、半導體、光電、封裝與系統產品測得出來、驗得出來、量得出來。 也就是說，它賣的不是晶片，也不是設備廠裡最前段的製程機台，而是站在「產品能不。</div>
@@ -2324,7 +2371,7 @@ Teradyne 是另一個很重要的全球座標，但和致茂的市場心智還�
         <div class="actions"><a class="btn btn-primary" href="TW-2360_致茂_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server" data-search="2376 技嘉 TW-2376 技嘉 深度對話式研究報告 技嘉現在最值得研究的地方，就是它已經不能只用傳統 PC 品牌廠的框架看了。 如果你還只把它當主機板、顯卡、電競品牌，會低估它現在真正被市場重估的那一塊。 更精準的說法是：技嘉是一家從板卡 / 顯卡 / 主機板基礎能力往 TW-2376 技嘉 深度對話式研究報告
+      <article class="card" data-tags="ai-server" data-core-bucket="core-ai-server" data-search="2376 技嘉 TW-2376 技嘉 深度對話式研究報告 技嘉現在最值得研究的地方，就是它已經不能只用傳統 PC 品牌廠的框架看了。 如果你還只把它當主機板、顯卡、電競品牌，會低估它現在真正被市場重估的那一塊。 更精準的說法是：技嘉是一家從板卡 / 顯卡 / 主機板基礎能力往 TW-2376 技嘉 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2468,8 +2515,8 @@ AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / GPU 平台週期</div>
         </div>
         <div class="summary">技嘉現在最值得研究的地方，就是它已經不能只用傳統 PC 品牌廠的框架看了。 如果你還只把它當主機板、顯卡、電競品牌，會低估它現在真正被市場重估的那一塊。 更精準的說法是：技嘉是一家從板卡 / 顯卡 / 主機板基礎能力往</div>
@@ -2477,7 +2524,7 @@ AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 
         <div class="actions"><a class="btn btn-primary" href="TW-2376_技嘉_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network asic ai-server" data-search="2379 瑞昱 TW-2379 瑞昱 深度對話式研究報告 瑞昱不是只做老式 PC 網卡與音效 IC，而是受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置升級的通訊連接平台型 IC 設計公司。；最值錢的不只是單顆晶片，而是它長期站在資料傳輸與裝置連接升級的入口位置 TW-2379 瑞昱 深度對話式研究報告
+      <article class="card" data-tags="network asic ai-server" data-core-bucket="core-industrial" data-search="2379 瑞昱 TW-2379 瑞昱 深度對話式研究報告 瑞昱不是只做老式 PC 網卡與音效 IC，而是受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置升級的通訊連接平台型 IC 設計公司。；最值錢的不只是單顆晶片，而是它長期站在資料傳輸與裝置連接升級的入口位置 TW-2379 瑞昱 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2605,8 +2652,8 @@ AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-industrial" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">工業電腦 / 邊緣 AI</div>
         </div>
         <div class="summary">瑞昱不是只做老式 PC 網卡與音效 IC，而是受惠於乙太網路、Wi-Fi、車用連接與邊緣裝置升級的通訊連接平台型 IC 設計公司。；最值錢的不只是單顆晶片，而是它長期站在資料傳輸與裝置連接升級的入口位置</div>
@@ -2614,7 +2661,7 @@ AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 
         <div class="actions"><a class="btn btn-primary" href="TW-2379_瑞昱_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server network asic" data-search="2382 廣達電腦 TW-2382 廣達電腦 深度對話式研究報告 廣達不是單純 NB 代工廠，而是大型 ODM / 系統整合公司。；真正最有價值的部分，是機櫃級系統整合能力，而不是單一零件或單點技術 TW-2382 廣達電腦 深度對話式研究報告
+      <article class="card" data-tags="ai-server network asic" data-core-bucket="core-ai-server" data-search="2382 廣達電腦 TW-2382 廣達電腦 深度對話式研究報告 廣達不是單純 NB 代工廠，而是大型 ODM / 系統整合公司。；真正最有價值的部分，是機櫃級系統整合能力，而不是單一零件或單點技術 TW-2382 廣達電腦 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2774,8 +2821,8 @@ AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">廣達不是單純 NB 代工廠，而是大型 ODM / 系統整合公司。；真正最有價值的部分，是機櫃級系統整合能力，而不是單一零件或單點技術</div>
@@ -2783,7 +2830,7 @@ AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 
         <div class="actions"><a class="btn btn-primary" href="TW-2382_廣達電腦_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials ai-server network" data-search="2383 台光電 TW-2383 台光電 深度對話式研究報告 最白話地講，台光電是做高階銅箔基板，也就是 CCL 的。你可以把 CCL 想成 PCB 的上游核心材料之一。沒有好的 CCL，就做不出高階 PCB；沒有高階 PCB，就撐不起 AI 伺服器、交換器、高速網通模組這些高頻高 TW-2383 台光電 深度對話式研究報告
+      <article class="card" data-tags="materials ai-server network" data-core-bucket="core-materials" data-search="2383 台光電 TW-2383 台光電 深度對話式研究報告 最白話地講，台光電是做高階銅箔基板，也就是 CCL 的。你可以把 CCL 想成 PCB 的上游核心材料之一。沒有好的 CCL，就做不出高階 PCB；沒有高階 PCB，就撐不起 AI 伺服器、交換器、高速網通模組這些高頻高 TW-2383 台光電 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -2924,8 +2971,8 @@ AI 伺服器、交換器與 ASIC 平台升級，正在把高階 CCL 從一般板
           </div>
           <div class="date-chip">DATE: 2026-08-03</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高階 CCL / Low CTE 玻纖布</div>
         </div>
         <div class="summary">最白話地講，台光電是做高階銅箔基板，也就是 CCL 的。你可以把 CCL 想成 PCB 的上游核心材料之一。沒有好的 CCL，就做不出高階 PCB；沒有高階 PCB，就撐不起 AI 伺服器、交換器、高速網通模組這些高頻高</div>
@@ -2933,7 +2980,7 @@ AI 伺服器、交換器與 ASIC 平台升級，正在把高階 CCL 從一般板
         <div class="actions"><a class="btn btn-primary" href="TW-2383_台光電_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="" data-search="2395 研華 TW-2395 研華 深度對話式研究報告 研華不是單純賣工業電腦，而是工業現場運算與產業應用平台公司。；最值錢的不是單一機器人題材，而是多場景平台能力 TW-2395 研華 深度對話式研究報告
+      <article class="card" data-tags="" data-core-bucket="core-industrial" data-search="2395 研華 TW-2395 研華 深度對話式研究報告 研華不是單純賣工業電腦，而是工業現場運算與產業應用平台公司。；最值錢的不是單一機器人題材，而是多場景平台能力 TW-2395 研華 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -3118,8 +3165,8 @@ AI 伺服器、交換器與 ASIC 平台升級，正在把高階 CCL 從一般板
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-industrial" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">工業電腦 / 邊緣 AI</div>
         </div>
         <div class="summary">研華不是單純賣工業電腦，而是工業現場運算與產業應用平台公司。；最值錢的不是單一機器人題材，而是多場景平台能力</div>
@@ -3127,7 +3174,7 @@ AI 伺服器、交換器與 ASIC 平台升級，正在把高階 CCL 從一般板
         <div class="actions"><a class="btn btn-primary" href="TW-2395_研華_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor ai-server" data-search="2408 南亞科 TW-2408 南亞科 深度對話式研究報告 最白話地講，南亞科是一家 DRAM 記憶體公司。 它不是像晶圓代工廠那樣幫客戶代工，也不是像設計公司那樣賣平台晶片，而是自己生產、銷售 DRAM 這種記憶體晶片。 所以如果你把半導體拆開看： - 晶圓代工：負責製造 - TW-2408 南亞科 深度對話式研究報告
+      <article class="card" data-tags="semiconductor ai-server" data-core-bucket="core-memory" data-search="2408 南亞科 TW-2408 南亞科 深度對話式研究報告 最白話地講，南亞科是一家 DRAM 記憶體公司。 它不是像晶圓代工廠那樣幫客戶代工，也不是像設計公司那樣賣平台晶片，而是自己生產、銷售 DRAM 這種記憶體晶片。 所以如果你把半導體拆開看： - 晶圓代工：負責製造 - TW-2408 南亞科 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -3278,8 +3325,8 @@ DRAM 是電腦、伺服器、手機、AI 加速器在運算時暫時存放資料
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-memory" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">DRAM 記憶體 / HBM 外溢</div>
         </div>
         <div class="summary">最白話地講，南亞科是一家 DRAM 記憶體公司。 它不是像晶圓代工廠那樣幫客戶代工，也不是像設計公司那樣賣平台晶片，而是自己生產、銷售 DRAM 這種記憶體晶片。 所以如果你把半導體拆開看： - 晶圓代工：負責製造 -</div>
@@ -3287,7 +3334,7 @@ DRAM 是電腦、伺服器、手機、AI 加速器在運算時暫時存放資料
         <div class="actions"><a class="btn btn-primary" href="TW-2408_南亞科_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic semiconductor ai-server" data-search="2449 京元電子 TW-2449 京元電子 深度對話式研究報告 如果你要一句話先記住，京元電子本質上不是像日月光那樣封裝測試一把抓的整合 OSAT，而是更偏測試服務，尤其是高階 IC 最後測試這一段很重要的公司。 也就是說，它最值錢的地方，不是把晶片封成一個完整成品，而是幫客戶把高複。 TW-2449 京元電子 深度對話式研究報告
+      <article class="card" data-tags="asic semiconductor ai-server" data-core-bucket="core-packaging" data-search="2449 京元電子 TW-2449 京元電子 深度對話式研究報告 如果你要一句話先記住，京元電子本質上不是像日月光那樣封裝測試一把抓的整合 OSAT，而是更偏測試服務，尤其是高階 IC 最後測試這一段很重要的公司。 也就是說，它最值錢的地方，不是把晶片封成一個完整成品，而是幫客戶把高複。 TW-2449 京元電子 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -3419,8 +3466,8 @@ DRAM 是電腦、伺服器、手機、AI 加速器在運算時暫時存放資料
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進封測 / OSAT 平台</div>
         </div>
         <div class="summary">如果你要一句話先記住，京元電子本質上不是像日月光那樣封裝測試一把抓的整合 OSAT，而是更偏測試服務，尤其是高階 IC 最後測試這一段很重要的公司。 也就是說，它最值錢的地方，不是把晶片封成一個完整成品，而是幫客戶把高複。</div>
@@ -3428,7 +3475,7 @@ DRAM 是電腦、伺服器、手機、AI 加速器在運算時暫時存放資料
         <div class="actions"><a class="btn btn-primary" href="TW-2449_京元電子_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic ai-server" data-search="2454 聯發科 TW-2454 聯發科 深度對話式研究報告 聯發科不能再只用手機晶片公司框架理解。；手機 SoC 是現金流基本盤，AI ASIC / TPU 是重估引擎，Smart Edge 是中間過渡層 TW-2454 聯發科 深度對話式研究報告
+      <article class="card" data-tags="asic ai-server" data-core-bucket="all-core" data-search="2454 聯發科 TW-2454 聯發科 深度對話式研究報告 聯發科不能再只用手機晶片公司框架理解。；手機 SoC 是現金流基本盤，AI ASIC / TPU 是重估引擎，Smart Edge 是中間過渡層 TW-2454 聯發科 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -3550,8 +3597,8 @@ ASIC 是 Application-Specific Integrated Circuit，特定應用晶片。
           </div>
           <div class="date-chip">DATE: 2026-08-03</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI ASIC / 手機與晶片平台</div>
         </div>
         <div class="summary">聯發科不能再只用手機晶片公司框架理解。；手機 SoC 是現金流基本盤，AI ASIC / TPU 是重估引擎，Smart Edge 是中間過渡層</div>
@@ -3559,7 +3606,7 @@ ASIC 是 Application-Specific Integrated Circuit，特定應用晶片。
         <div class="actions"><a class="btn btn-primary" href="TW-2454_聯發科_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor materials network" data-search="2467 志聖 TW-2467 志聖 深度對話式研究報告 志聖不是單純機台供應商，而是受惠於 CoWoS、CoPoS、玻璃基板與面板級封裝導入的先進封裝設備平台股。；最值錢的不只是設備出貨，而是封裝製程升級讓設備內容價值提高 TW-2467 志聖 深度對話式研究報告
+      <article class="card" data-tags="semiconductor materials network" data-core-bucket="core-packaging" data-search="2467 志聖 TW-2467 志聖 深度對話式研究報告 志聖不是單純機台供應商，而是受惠於 CoWoS、CoPoS、玻璃基板與面板級封裝導入的先進封裝設備平台股。；最值錢的不只是設備出貨，而是封裝製程升級讓設備內容價值提高 TW-2467 志聖 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-04
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -3699,8 +3746,8 @@ ASIC 是 Application-Specific Integrated Circuit，特定應用晶片。
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">志聖不是單純機台供應商，而是受惠於 CoWoS、CoPoS、玻璃基板與面板級封裝導入的先進封裝設備平台股。；最值錢的不只是設備出貨，而是封裝製程升級讓設備內容價值提高</div>
@@ -3708,7 +3755,7 @@ ASIC 是 Application-Specific Integrated Circuit，特定應用晶片。
         <div class="actions"><a class="btn btn-primary" href="TW-2467_志聖_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="components ai-server power" data-search="2492 華新科 TW-2492 華新科 深度對話式研究報告 它們同屬被動元件族群，但不能直接當成同一家公司看。 最白話地講，華新科是一家以 MLCC 為核心的被動元件公司，和國巨一樣都站在電子系統最底層、最基礎的零件供應位置。 只是市場在看兩家公司時，通常會給不同框架： - 國巨。 TW-2492 華新科 深度對話式研究報告
+      <article class="card" data-tags="components ai-server power" data-core-bucket="all-core" data-search="2492 華新科 TW-2492 華新科 深度對話式研究報告 它們同屬被動元件族群，但不能直接當成同一家公司看。 最白話地講，華新科是一家以 MLCC 為核心的被動元件公司，和國巨一樣都站在電子系統最底層、最基礎的零件供應位置。 只是市場在看兩家公司時，通常會給不同框架： - 國巨。 TW-2492 華新科 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -3869,8 +3916,8 @@ MLCC 全名是多層陶瓷電容，你可以把它理解成電子系統裡最常
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">MLCC / 被動元件平台</div>
         </div>
         <div class="summary">它們同屬被動元件族群，但不能直接當成同一家公司看。 最白話地講，華新科是一家以 MLCC 為核心的被動元件公司，和國巨一樣都站在電子系統最底層、最基礎的零件供應位置。 只是市場在看兩家公司時，通常會給不同框架： - 國巨。</div>
@@ -3878,7 +3925,7 @@ MLCC 全名是多層陶瓷電容，你可以把它理解成電子系統裡最常
         <div class="actions"><a class="btn btn-primary" href="TW-2492_華新科_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server asic semiconductor" data-search="3017 奇鋐 TW-3017 奇鋐 深度對話式研究報告 奇鋐不是單純傳統散熱廠，而是 AI 伺服器高功耗時代的高階熱管理與液冷升級核心供應商。；最值錢的不只是散熱件出貨，而是跟著平台升級一起提高的內容價值與技術門檻 TW-3017 奇鋐 深度對話式研究報告
+      <article class="card" data-tags="ai-server asic semiconductor" data-core-bucket="core-ai-server" data-search="3017 奇鋐 TW-3017 奇鋐 深度對話式研究報告 奇鋐不是單純傳統散熱廠，而是 AI 伺服器高功耗時代的高階熱管理與液冷升級核心供應商。；最值錢的不只是散熱件出貨，而是跟著平台升級一起提高的內容價值與技術門檻 TW-3017 奇鋐 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-06
   - daily DB 股價資料：最新台灣交易日為 2026-08-06
@@ -4010,8 +4057,8 @@ ASIC 平台的重要性在於：
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 散熱 / 液冷熱管理</div>
         </div>
         <div class="summary">奇鋐不是單純傳統散熱廠，而是 AI 伺服器高功耗時代的高階熱管理與液冷升級核心供應商。；最值錢的不只是散熱件出貨，而是跟著平台升級一起提高的內容價值與技術門檻</div>
@@ -4019,7 +4066,7 @@ ASIC 平台的重要性在於：
         <div class="actions"><a class="btn btn-primary" href="TW-3017_奇鋐_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="power ai-server" data-search="3023 信邦 TW-3023 信邦 深度對話式研究報告_2026-08-11 如果一句話先記住，信邦不是只在賣線材，它是在賣高可靠度電源 / 訊號 / 連接整合方案。 以前大家可能把它看成工控線束廠，但現在更準確的理解是： 它是站在工控、醫療、能源、車用與新機器人設備之間的高附加價值連接平台公司 TW-3023 信邦 深度對話式研究報告_2026-08-11
+      <article class="card" data-tags="power ai-server" data-core-bucket="core-ai-server" data-search="3023 信邦 TW-3023 信邦 深度對話式研究報告_2026-08-11 如果一句話先記住，信邦不是只在賣線材，它是在賣高可靠度電源 / 訊號 / 連接整合方案。 以前大家可能把它看成工控線束廠，但現在更準確的理解是： 它是站在工控、醫療、能源、車用與新機器人設備之間的高附加價值連接平台公司 TW-3023 信邦 深度對話式研究報告_2026-08-11
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -4153,8 +4200,8 @@ ASIC 平台的重要性在於：
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 散熱 / 液冷熱管理</div>
         </div>
         <div class="summary">如果一句話先記住，信邦不是只在賣線材，它是在賣高可靠度電源 / 訊號 / 連接整合方案。 以前大家可能把它看成工控線束廠，但現在更準確的理解是： 它是站在工控、醫療、能源、車用與新機器人設備之間的高附加價值連接平台公司</div>
@@ -4162,7 +4209,7 @@ ASIC 平台的重要性在於：
         <div class="actions"><a class="btn btn-primary" href="TW-3023_信邦_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic semiconductor" data-search="3035 智原 TW-3035 智原 深度對話式研究報告 如果你要一句話先記住，智原本質上不是一般 IC 設計公司，也不是純 IP 授權商，而是更偏 ASIC / SoC 設計服務平台，幫客戶把晶片從設計、整合、導入代工平台，一路推到量產。 也就是說，它最值錢的地方，不是自己做。 TW-3035 智原 深度對話式研究報告
+      <article class="card" data-tags="asic semiconductor" data-core-bucket="all-core" data-search="3035 智原 TW-3035 智原 深度對話式研究報告 如果你要一句話先記住，智原本質上不是一般 IC 設計公司，也不是純 IP 授權商，而是更偏 ASIC / SoC 設計服務平台，幫客戶把晶片從設計、整合、導入代工平台，一路推到量產。 也就是說，它最值錢的地方，不是自己做。 TW-3035 智原 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-06
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -4283,8 +4330,8 @@ ASIC 平台的重要性在於：
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">成熟製程 / 特殊製程</div>
         </div>
         <div class="summary">如果你要一句話先記住，智原本質上不是一般 IC 設計公司，也不是純 IP 授權商，而是更偏 ASIC / SoC 設計服務平台，幫客戶把晶片從設計、整合、導入代工平台，一路推到量產。 也就是說，它最值錢的地方，不是自己做。</div>
@@ -4292,7 +4339,7 @@ ASIC 平台的重要性在於：
         <div class="actions"><a class="btn btn-primary" href="TW-3035_智原_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials semiconductor network" data-search="3037 欣興 TW-3037 欣興 深度對話式研究報告 最白話地講，欣興是做高階 IC 載板與 PCB 的公司，特別是在 ABF 載板這一塊，是台灣最重要的玩家之一。你可以把它理解成： - 晶片不是只做出來就好 - 還要有高階載板去承接晶片、記憶體、訊號與電源路徑 - 才能讓 TW-3037 欣興 深度對話式研究報告
+      <article class="card" data-tags="materials semiconductor network" data-core-bucket="core-materials" data-search="3037 欣興 TW-3037 欣興 深度對話式研究報告 最白話地講，欣興是做高階 IC 載板與 PCB 的公司，特別是在 ABF 載板這一塊，是台灣最重要的玩家之一。你可以把它理解成： - 晶片不是只做出來就好 - 還要有高階載板去承接晶片、記憶體、訊號與電源路徑 - 才能讓 TW-3037 欣興 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-04
   - daily DB 股價資料：最新台灣交易日為 2026-08-03
@@ -4437,8 +4484,8 @@ ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停�
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">ABF 載板 / 先進基板</div>
         </div>
         <div class="summary">最白話地講，欣興是做高階 IC 載板與 PCB 的公司，特別是在 ABF 載板這一塊，是台灣最重要的玩家之一。你可以把它理解成： - 晶片不是只做出來就好 - 還要有高階載板去承接晶片、記憶體、訊號與電源路徑 - 才能讓</div>
@@ -4446,7 +4493,7 @@ ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停�
         <div class="actions"><a class="btn btn-primary" href="TW-3037_欣興_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network materials ai-server" data-search="3081 聯亞 TW-3081 聯亞 深度對話式研究報告 聯亞不是終端光模組品牌，而是高速光通訊 / 矽光升級中的上游關鍵供應者。；最值錢的不只是短期營收創高，而是它能否在高規格產品與供應鏈門檻上持續站穩 TW-3081 聯亞 深度對話式研究報告
+      <article class="card" data-tags="network materials ai-server" data-core-bucket="core-network" data-search="3081 聯亞 TW-3081 聯亞 深度對話式研究報告 聯亞不是終端光模組品牌，而是高速光通訊 / 矽光升級中的上游關鍵供應者。；最值錢的不只是短期營收創高，而是它能否在高規格產品與供應鏈門檻上持續站穩 TW-3081 聯亞 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -4576,8 +4623,8 @@ ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">聯亞不是終端光模組品牌，而是高速光通訊 / 矽光升級中的上游關鍵供應者。；最值錢的不只是短期營收創高，而是它能否在高規格產品與供應鏈門檻上持續站穩</div>
@@ -4585,7 +4632,7 @@ ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停�
         <div class="actions"><a class="btn btn-primary" href="TW-3081_聯亞_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor materials network" data-search="3105 穩懋 TW-3105 穩懋 深度對話式研究報告 穩懋不是終端品牌，而是高頻高功率通訊元件的 GaAs / GaN 晶圓代工平台。；最值錢的不只是營收回升，而是多主線能不能同時成立 TW-3105 穩懋 深度對話式研究報告
+      <article class="card" data-tags="semiconductor materials network" data-core-bucket="core-network" data-search="3105 穩懋 TW-3105 穩懋 深度對話式研究報告 穩懋不是終端品牌，而是高頻高功率通訊元件的 GaAs / GaN 晶圓代工平台。；最值錢的不只是營收回升，而是多主線能不能同時成立 TW-3105 穩懋 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -4721,8 +4768,8 @@ ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">穩懋不是終端品牌，而是高頻高功率通訊元件的 GaAs / GaN 晶圓代工平台。；最值錢的不只是營收回升，而是多主線能不能同時成立</div>
@@ -4730,7 +4777,7 @@ ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停�
         <div class="actions"><a class="btn btn-primary" href="TW-3105_穩懋_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials ai-server asic" data-search="3189 景碩 TW-3189 景碩 深度對話式研究報告 如果最白話地講，景碩是高階 IC 載板公司，而且它最值得研究的地方不是「它也是載板廠」這件事，而是它剛好站在這一輪 ABF 與 BT 載板雙重重估的交叉點。 很多人第一眼會把景碩當成和欣興、南電差不多的載板股，但這樣看太。 TW-3189 景碩 深度對話式研究報告
+      <article class="card" data-tags="materials ai-server asic" data-core-bucket="core-materials" data-search="3189 景碩 TW-3189 景碩 深度對話式研究報告 如果最白話地講，景碩是高階 IC 載板公司，而且它最值得研究的地方不是「它也是載板廠」這件事，而是它剛好站在這一輪 ABF 與 BT 載板雙重重估的交叉點。 很多人第一眼會把景碩當成和欣興、南電差不多的載板股，但這樣看太。 TW-3189 景碩 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -4849,8 +4896,8 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">ABF 載板 / 先進基板</div>
         </div>
         <div class="summary">如果最白話地講，景碩是高階 IC 載板公司，而且它最值得研究的地方不是「它也是載板廠」這件事，而是它剛好站在這一輪 ABF 與 BT 載板雙重重估的交叉點。 很多人第一眼會把景碩當成和欣興、南電差不多的載板股，但這樣看太。</div>
@@ -4858,7 +4905,7 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
         <div class="actions"><a class="btn btn-primary" href="TW-3189_景碩_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server asic network" data-search="3231 緯創 TW-3231 緯創 深度對話式研究報告 緯創不是單純 PC 代工廠，而是 AI 伺服器與系統交付平台。；最值錢的不只是營收增長，而是系統整合位置往更高價值節點移動 TW-3231 緯創 深度對話式研究報告
+      <article class="card" data-tags="ai-server asic network" data-core-bucket="core-ai-server" data-search="3231 緯創 TW-3231 緯創 深度對話式研究報告 緯創不是單純 PC 代工廠，而是 AI 伺服器與系統交付平台。；最值錢的不只是營收增長，而是系統整合位置往更高價值節點移動 TW-3231 緯創 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -4982,8 +5029,8 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / 整機整櫃 (Rack-scale)</div>
         </div>
         <div class="summary">緯創不是單純 PC 代工廠，而是 AI 伺服器與系統交付平台。；最值錢的不只是營收增長，而是系統整合位置往更高價值節點移動</div>
@@ -4991,7 +5038,7 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
         <div class="actions"><a class="btn btn-primary" href="TW-3231_緯創_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor" data-search="3260 威剛 TW-3260 威剛 深度對話式研究報告 不一樣，這個差別非常重要。 最白話地講，威剛不是上游記憶體晶片原廠，而是記憶體模組與品牌通路公司。 也就是說，像南亞科、華邦電這些公司比較偏上游，是在做記憶體晶片本身；威剛則更像是把上游顆粒拿來做成模組、SSD、記憶卡 TW-3260 威剛 深度對話式研究報告
+      <article class="card" data-tags="semiconductor" data-core-bucket="core-memory" data-search="3260 威剛 TW-3260 威剛 深度對話式研究報告 不一樣，這個差別非常重要。 最白話地講，威剛不是上游記憶體晶片原廠，而是記憶體模組與品牌通路公司。 也就是說，像南亞科、華邦電這些公司比較偏上游，是在做記憶體晶片本身；威剛則更像是把上游顆粒拿來做成模組、SSD、記憶卡 TW-3260 威剛 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-07-29
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -5144,8 +5191,8 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-memory" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">DRAM 記憶體 / HBM 外溢</div>
         </div>
         <div class="summary">不一樣，這個差別非常重要。 最白話地講，威剛不是上游記憶體晶片原廠，而是記憶體模組與品牌通路公司。 也就是說，像南亞科、華邦電這些公司比較偏上游，是在做記憶體晶片本身；威剛則更像是把上游顆粒拿來做成模組、SSD、記憶卡</div>
@@ -5153,7 +5200,7 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
         <div class="actions"><a class="btn btn-primary" href="TW-3260_威剛_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="" data-search="3293 鈊象 TW-3293 鈊象 深度對話式研究報告 鈊象不是只靠單一爆款的遊戲公司，而是線上博弈內容、授權輸出與高現金流結合得很成熟的軟體平台型資產。；最值錢的不只是會賺錢，而是商業結構越來越輕、越來越高品質 TW-3293 鈊象 深度對話式研究報告
+      <article class="card" data-tags="" data-core-bucket="core-gaming" data-search="3293 鈊象 TW-3293 鈊象 深度對話式研究報告 鈊象不是只靠單一爆款的遊戲公司，而是線上博弈內容、授權輸出與高現金流結合得很成熟的軟體平台型資產。；最值錢的不只是會賺錢，而是商業結構越來越輕、越來越高品質 TW-3293 鈊象 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-03
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -5290,8 +5337,8 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-gaming" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">遊戲 / 授權平台 / 高現金流</div>
         </div>
         <div class="summary">鈊象不是只靠單一爆款的遊戲公司，而是線上博弈內容、授權輸出與高現金流結合得很成熟的軟體平台型資產。；最值錢的不只是會賺錢，而是商業結構越來越輕、越來越高品質</div>
@@ -5299,7 +5346,7 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
         <div class="actions"><a class="btn btn-primary" href="TW-3293_鈊象_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic semiconductor network" data-search="3443 創意電子 TW-3443 創意電子 深度對話式研究報告 創意不是普通 IC 設計公司，而是 ASIC Turnkey / NRE 設計服務平台。；最值錢的不只是設計工時，而是把高難度客製化晶片從設計推進到量產的能力 TW-3443 創意電子 深度對話式研究報告
+      <article class="card" data-tags="asic semiconductor network" data-core-bucket="all-core" data-search="3443 創意電子 TW-3443 創意電子 深度對話式研究報告 創意不是普通 IC 設計公司，而是 ASIC Turnkey / NRE 設計服務平台。；最值錢的不只是設計工時，而是把高難度客製化晶片從設計推進到量產的能力 TW-3443 創意電子 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -5418,8 +5465,8 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI ASIC / 手機與晶片平台</div>
         </div>
         <div class="summary">創意不是普通 IC 設計公司，而是 ASIC Turnkey / NRE 設計服務平台。；最值錢的不只是設計工時，而是把高難度客製化晶片從設計推進到量產的能力</div>
@@ -5427,7 +5474,7 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
         <div class="actions"><a class="btn btn-primary" href="TW-3443_創意電子_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network materials" data-search="3491 昇達科 TW-3491 昇達科 深度對話式研究報告 如果一句話先記住，昇達科不是在賣「衛星夢」，它是在賣衛星與高頻通訊系統裡那些少量、但價值很高、而且規格門檻很高的微波元件。 很多人一聽低軌衛星就會想到火箭、衛星本體、終端天線，但昇達科不是那一層。它比較像是站在高頻訊號鏈 TW-3491 昇達科 深度對話式研究報告
+      <article class="card" data-tags="network materials" data-core-bucket="all-core" data-search="3491 昇達科 TW-3491 昇達科 深度對話式研究報告 如果一句話先記住，昇達科不是在賣「衛星夢」，它是在賣衛星與高頻通訊系統裡那些少量、但價值很高、而且規格門檻很高的微波元件。 很多人一聽低軌衛星就會想到火箭、衛星本體、終端天線，但昇達科不是那一層。它比較像是站在高頻訊號鏈 TW-3491 昇達科 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -5558,8 +5605,8 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 驅動與產業脈絡</div>
         </div>
         <div class="summary">如果一句話先記住，昇達科不是在賣「衛星夢」，它是在賣衛星與高頻通訊系統裡那些少量、但價值很高、而且規格門檻很高的微波元件。 很多人一聽低軌衛星就會想到火箭、衛星本體、終端天線，但昇達科不是那一層。它比較像是站在高頻訊號鏈</div>
@@ -5567,7 +5614,7 @@ ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，�
         <div class="actions"><a class="btn btn-primary" href="TW-3491_昇達科_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor asic" data-search="3529 力旺 TW-3529 力旺 深度對話式研究報告 力旺不是賣晶片，而是賣被嵌進客戶晶片裡的 NVM / 安全 IP。；最值錢的不只是高毛利，而是它卡在設計流程很前端、很難被替換 TW-3529 力旺 深度對話式研究報告
+      <article class="card" data-tags="semiconductor asic" data-core-bucket="core-packaging" data-search="3529 力旺 TW-3529 力旺 深度對話式研究報告 力旺不是賣晶片，而是賣被嵌進客戶晶片裡的 NVM / 安全 IP。；最值錢的不只是高毛利，而是它卡在設計流程很前端、很難被替換 TW-3529 力旺 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-06
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -5682,8 +5729,8 @@ M31 更像通用介面 IP / PHY / SerDes 等較廣泛矽智財平台的代表，
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">力旺不是賣晶片，而是賣被嵌進客戶晶片裡的 NVM / 安全 IP。；最值錢的不只是高毛利，而是它卡在設計流程很前端、很難被替換</div>
@@ -5691,7 +5738,7 @@ M31 更像通用介面 IP / PHY / SerDes 等較廣泛矽智財平台的代表，
         <div class="actions"><a class="btn btn-primary" href="TW-3529_力旺_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor ai-server" data-search="3653 健策 TW-3653 健策 深度對話式研究報告 如果一句話先記住，健策不是在賣普通散熱件，它是在賣 AI 晶片封裝裡面越來越高價值的散熱與結構件。 以前大家可能會把它當成高階均熱片廠，但現在更準確的理解是： 它是站在 package-level thermal、封裝剛 TW-3653 健策 深度對話式研究報告
+      <article class="card" data-tags="semiconductor ai-server" data-core-bucket="core-ai-server" data-search="3653 健策 TW-3653 健策 深度對話式研究報告 如果一句話先記住，健策不是在賣普通散熱件，它是在賣 AI 晶片封裝裡面越來越高價值的散熱與結構件。 以前大家可能會把它當成高階均熱片廠，但現在更準確的理解是： 它是站在 package-level thermal、封裝剛 TW-3653 健策 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -5800,8 +5847,8 @@ Stiffener 解決的是封裝變大後的剛性與 warpage 問題；Removable Lid
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 散熱 / 液冷熱管理</div>
         </div>
         <div class="summary">如果一句話先記住，健策不是在賣普通散熱件，它是在賣 AI 晶片封裝裡面越來越高價值的散熱與結構件。 以前大家可能會把它當成高階均熱片廠，但現在更準確的理解是： 它是站在 package-level thermal、封裝剛</div>
@@ -5809,7 +5856,7 @@ Stiffener 解決的是封裝變大後的剛性與 warpage 問題；Removable Lid
         <div class="actions"><a class="btn btn-primary" href="TW-3653_健策_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic semiconductor" data-search="3661 世芯-KY TW-3661 世芯-KY 深度對話式研究報告 如果一句話先記住，世芯-KY不是只在賣 IC 設計服務，它是在賣高階 AI / HPC ASIC 專案從設計、實作到量產導入的整體能力。 以前大家可能把它看成 ASIC 設計服務商，但現在更準確的理解是： 它是站在高階設 TW-3661 世芯-KY 深度對話式研究報告
+      <article class="card" data-tags="asic semiconductor" data-core-bucket="core-packaging" data-search="3661 世芯-KY TW-3661 世芯-KY 深度對話式研究報告 如果一句話先記住，世芯-KY不是只在賣 IC 設計服務，它是在賣高階 AI / HPC ASIC 專案從設計、實作到量產導入的整體能力。 以前大家可能把它看成 ASIC 設計服務商，但現在更準確的理解是： 它是站在高階設 TW-3661 世芯-KY 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -5925,8 +5972,8 @@ Stiffener 解決的是封裝變大後的剛性與 warpage 問題；Removable Lid
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">如果一句話先記住，世芯-KY不是只在賣 IC 設計服務，它是在賣高階 AI / HPC ASIC 專案從設計、實作到量產導入的整體能力。 以前大家可能把它看成 ASIC 設計服務商，但現在更準確的理解是： 它是站在高階設</div>
@@ -5934,7 +5981,7 @@ Stiffener 解決的是封裝變大後的剛性與 warpage 問題；Removable Lid
         <div class="actions"><a class="btn btn-primary" href="TW-3661_世芯-KY_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network ai-server power" data-search="3665 貿聯-KY TW-3665 貿聯-KY 深度對話式研究報告 如果一句話先記住，貿聯-KY 不是在賣普通線材，它是在賣 AI 資料中心裡面越來越高價值的互連與配電方案。 以前大家可能會把它當成一般線束廠，但現在更準確的理解是： 它是站在高速資料互連、高功率配電與未來光通訊切換交界處 TW-3665 貿聯-KY 深度對話式研究報告
+      <article class="card" data-tags="network ai-server power" data-core-bucket="core-network" data-search="3665 貿聯-KY TW-3665 貿聯-KY 深度對話式研究報告 如果一句話先記住，貿聯-KY 不是在賣普通線材，它是在賣 AI 資料中心裡面越來越高價值的互連與配電方案。 以前大家可能會把它當成一般線束廠，但現在更準確的理解是： 它是站在高速資料互連、高功率配電與未來光通訊切換交界處 TW-3665 貿聯-KY 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -6039,8 +6086,8 @@ Stiffener 解決的是封裝變大後的剛性與 warpage 問題；Removable Lid
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">如果一句話先記住，貿聯-KY 不是在賣普通線材，它是在賣 AI 資料中心裡面越來越高價值的互連與配電方案。 以前大家可能會把它當成一般線束廠，但現在更準確的理解是： 它是站在高速資料互連、高功率配電與未來光通訊切換交界處</div>
@@ -6048,7 +6095,7 @@ Stiffener 解決的是封裝變大後的剛性與 warpage 問題；Removable Lid
         <div class="actions"><a class="btn btn-primary" href="TW-3665_貿聯-KY_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network materials" data-search="3711 日月光投控 TW-3711 日月光投控 深度對話式研究報告 最白話地講，日月光投控就是全球最重要的半導體封裝與測試公司之一。晶片不是晶圓代工把晶圓做好就結束了，後面還要： - 切割 - 封裝 - 接腳 / 互連 - 散熱 / 保護 - 測試 最後晶片才能真正進到手機、伺服器、車用 TW-3711 日月光投控 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network materials" data-core-bucket="core-packaging" data-search="3711 日月光投控 TW-3711 日月光投控 深度對話式研究報告 最白話地講，日月光投控就是全球最重要的半導體封裝與測試公司之一。晶片不是晶圓代工把晶圓做好就結束了，後面還要： - 切割 - 封裝 - 接腳 / 互連 - 散熱 / 保護 - 測試 最後晶片才能真正進到手機、伺服器、車用 TW-3711 日月光投控 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -6188,8 +6235,8 @@ JCET：
           </div>
           <div class="date-chip">DATE: 2026-08-03</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進封測 / OSAT 平台</div>
         </div>
         <div class="summary">最白話地講，日月光投控就是全球最重要的半導體封裝與測試公司之一。晶片不是晶圓代工把晶圓做好就結束了，後面還要： - 切割 - 封裝 - 接腳 / 互連 - 散熱 / 保護 - 測試 最後晶片才能真正進到手機、伺服器、車用</div>
@@ -6197,7 +6244,7 @@ JCET：
         <div class="actions"><a class="btn btn-primary" href="TW-3711_日月光投控_深度對話式研究報告_2026-08-03.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server" data-search="4919 新唐 TW-4919 新唐 深度對話式研究報告 這個問題問得很好，因為新唐最容易被誤解的地方，就是大家常常把它當成華邦電的附屬概念股，卻沒有搞清楚它自己的本質。 最白話地講，新唐是一家做控制晶片、MCU 與平台控制相關 IC 的公司。它不是記憶體本體，也不是 GPU TW-4919 新唐 深度對話式研究報告
+      <article class="card" data-tags="ai-server" data-core-bucket="core-industrial" data-search="4919 新唐 TW-4919 新唐 深度對話式研究報告 這個問題問得很好，因為新唐最容易被誤解的地方，就是大家常常把它當成華邦電的附屬概念股，卻沒有搞清楚它自己的本質。 最白話地講，新唐是一家做控制晶片、MCU 與平台控制相關 IC 的公司。它不是記憶體本體，也不是 GPU TW-4919 新唐 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁：已有對應公司頁，現階段以公司頁摘要與市場資料交叉確認
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -6338,8 +6385,8 @@ MCU 就是微控制器。你可以把它想成很多電子設備裡面的小腦�
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-industrial" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">工業電腦 / 邊緣 AI</div>
         </div>
         <div class="summary">這個問題問得很好，因為新唐最容易被誤解的地方，就是大家常常把它當成華邦電的附屬概念股，卻沒有搞清楚它自己的本質。 最白話地講，新唐是一家做控制晶片、MCU 與平台控制相關 IC 的公司。它不是記憶體本體，也不是 GPU</div>
@@ -6347,7 +6394,7 @@ MCU 就是微控制器。你可以把它想成很多電子設備裡面的小腦�
         <div class="actions"><a class="btn btn-primary" href="TW-4919_新唐_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic" data-search="5269 祥碩 TW-5269 祥碩 深度對話式研究報告_2026-08-11 如果一句話先記住，祥碩不是只在賣主機板周邊控制晶片，它是在賣高速傳輸介面、平台控制晶片與邊緣運算擴充能力。 以前大家可能把它看成 AMD 平台的配套晶片廠，但現在更準確的理解是： 它是站在 USB / PCIe 高速傳輸 TW-5269 祥碩 深度對話式研究報告_2026-08-11
+      <article class="card" data-tags="asic" data-core-bucket="core-industrial" data-search="5269 祥碩 TW-5269 祥碩 深度對話式研究報告_2026-08-11 如果一句話先記住，祥碩不是只在賣主機板周邊控制晶片，它是在賣高速傳輸介面、平台控制晶片與邊緣運算擴充能力。 以前大家可能把它看成 AMD 平台的配套晶片廠，但現在更準確的理解是： 它是站在 USB / PCIe 高速傳輸 TW-5269 祥碩 深度對話式研究報告_2026-08-11
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -6467,8 +6514,8 @@ PCIe Switch / USB4 / 高附加價值新品放量時，公司能不能把規模�
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-industrial" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">工業電腦 / 邊緣 AI</div>
         </div>
         <div class="summary">如果一句話先記住，祥碩不是只在賣主機板周邊控制晶片，它是在賣高速傳輸介面、平台控制晶片與邊緣運算擴充能力。 以前大家可能把它看成 AMD 平台的配套晶片廠，但現在更準確的理解是： 它是站在 USB / PCIe 高速傳輸</div>
@@ -6476,7 +6523,7 @@ PCIe Switch / USB4 / 高附加價值新品放量時，公司能不能把規模�
         <div class="actions"><a class="btn btn-primary" href="TW-5269_祥碩_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server asic semiconductor" data-search="5274 信驊 TW-5274 信驊 深度對話式研究報告 信驊不是一般小眾 IC 設計公司，而是 AI 與雲端資料中心擴張下，伺服器管理晶片與附屬管理控制架構的核心受益者。；最值錢的不只是 BMC 本體，而是它把一個看起來很小的控制晶片市場，做成接近平台型資產 TW-5274 信驊 深度對話式研究報告
+      <article class="card" data-tags="ai-server asic semiconductor" data-core-bucket="all-core" data-search="5274 信驊 TW-5274 信驊 深度對話式研究報告 信驊不是一般小眾 IC 設計公司，而是 AI 與雲端資料中心擴張下，伺服器管理晶片與附屬管理控制架構的核心受益者。；最值錢的不只是 BMC 本體，而是它把一個看起來很小的控制晶片市場，做成接近平台型資產 TW-5274 信驊 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -6589,8 +6636,8 @@ PCIe Switch / USB4 / 高附加價值新品放量時，公司能不能把規模�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI ASIC / 手機與晶片平台</div>
         </div>
         <div class="summary">信驊不是一般小眾 IC 設計公司，而是 AI 與雲端資料中心擴張下，伺服器管理晶片與附屬管理控制架構的核心受益者。；最值錢的不只是 BMC 本體，而是它把一個看起來很小的控制晶片市場，做成接近平台型資產</div>
@@ -6598,7 +6645,7 @@ PCIe Switch / USB4 / 高附加價值新品放量時，公司能不能把規模�
         <div class="actions"><a class="btn btn-primary" href="TW-5274_信驊_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server semiconductor" data-search="5289 宜鼎 TW-5289 宜鼎 深度對話式研究報告 宜鼎不是單純記憶體模組股，而是工業用儲存與嵌入式方案平台。；最值錢的不只是高 EPS，而是景氣高點獲利能不能轉成高品質平台獲利 TW-5289 宜鼎 深度對話式研究報告
+      <article class="card" data-tags="ai-server semiconductor" data-core-bucket="core-industrial" data-search="5289 宜鼎 TW-5289 宜鼎 深度對話式研究報告 宜鼎不是單純記憶體模組股，而是工業用儲存與嵌入式方案平台。；最值錢的不只是高 EPS，而是景氣高點獲利能不能轉成高品質平台獲利 TW-5289 宜鼎 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -6733,8 +6780,8 @@ PCIe Switch / USB4 / 高附加價值新品放量時，公司能不能把規模�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-industrial" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">工業電腦 / 邊緣 AI</div>
         </div>
         <div class="summary">宜鼎不是單純記憶體模組股，而是工業用儲存與嵌入式方案平台。；最值錢的不只是高 EPS，而是景氣高點獲利能不能轉成高品質平台獲利</div>
@@ -6742,7 +6789,7 @@ PCIe Switch / USB4 / 高附加價值新品放量時，公司能不能把規模�
         <div class="actions"><a class="btn btn-primary" href="TW-5289_宜鼎_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor power ai-server" data-search="5347 世界先進 TW-5347 世界先進 深度對話式研究報告 世界先進不是先進製程王者，而是 8 吋晶圓代工與成熟特殊製程平台。；最值錢的不只是出貨量，而是高稼動率、ASP 提升與更高品質產品組合 TW-5347 世界先進 深度對話式研究報告
+      <article class="card" data-tags="semiconductor power ai-server" data-core-bucket="all-core" data-search="5347 世界先進 TW-5347 世界先進 深度對話式研究報告 世界先進不是先進製程王者，而是 8 吋晶圓代工與成熟特殊製程平台。；最值錢的不只是出貨量，而是高稼動率、ASP 提升與更高品質產品組合 TW-5347 世界先進 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-05
   - daily DB 股價資料：最新台灣交易日為 2026-08-06
@@ -6868,8 +6915,8 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">成熟製程 / 特殊製程</div>
         </div>
         <div class="summary">世界先進不是先進製程王者，而是 8 吋晶圓代工與成熟特殊製程平台。；最值錢的不只是出貨量，而是高稼動率、ASP 提升與更高品質產品組合</div>
@@ -6877,7 +6924,7 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
         <div class="actions"><a class="btn btn-primary" href="TW-5347_世界先進_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials semiconductor" data-search="5483 中美晶 TW-5483 中美晶 深度對話式研究報告 這家公司最容易讓人搞混的地方，就是你用單一標籤很難把它講清楚。 最白話地講，中美晶不是單純的矽晶圓製造公司，它更像一個以矽材料與半導體相關資產為核心、同時帶有綠能與其他業務的控股型資產。 所以你看中美晶，不能只看一條線。 TW-5483 中美晶 深度對話式研究報告
+      <article class="card" data-tags="materials semiconductor" data-core-bucket="core-materials" data-search="5483 中美晶 TW-5483 中美晶 深度對話式研究報告 這家公司最容易讓人搞混的地方，就是你用單一標籤很難把它講清楚。 最白話地講，中美晶不是單純的矽晶圓製造公司，它更像一個以矽材料與半導體相關資產為核心、同時帶有綠能與其他業務的控股型資產。 所以你看中美晶，不能只看一條線。 TW-5483 中美晶 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -7035,8 +7082,8 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">材料 / 載板 / CCL</div>
         </div>
         <div class="summary">這家公司最容易讓人搞混的地方，就是你用單一標籤很難把它講清楚。 最白話地講，中美晶不是單純的矽晶圓製造公司，它更像一個以矽材料與半導體相關資產為核心、同時帶有綠能與其他業務的控股型資產。 所以你看中美晶，不能只看一條線。</div>
@@ -7044,7 +7091,7 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
         <div class="actions"><a class="btn btn-primary" href="TW-5483_中美晶_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor materials" data-search="5536 聖暉 TW-5536 聖暉 深度對話式研究報告 這家公司最容易被誤解的地方就在這裡。 最白話地講，聖暉不是做晶片、不是做設備，也不是做封裝本身，它做的是廠房裡面那些讓先進製程可以真正運作起來的系統工程，例如無塵室、機電整合、空調、製程公用系統，以及某些統包性質的廠務工 TW-5536 聖暉 深度對話式研究報告
+      <article class="card" data-tags="semiconductor materials" data-core-bucket="core-packaging" data-search="5536 聖暉 TW-5536 聖暉 深度對話式研究報告 這家公司最容易被誤解的地方就在這裡。 最白話地講，聖暉不是做晶片、不是做設備，也不是做封裝本身，它做的是廠房裡面那些讓先進製程可以真正運作起來的系統工程，例如無塵室、機電整合、空調、製程公用系統，以及某些統包性質的廠務工 TW-5536 聖暉 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-04
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -7197,8 +7244,8 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">這家公司最容易被誤解的地方就在這裡。 最白話地講，聖暉不是做晶片、不是做設備，也不是做封裝本身，它做的是廠房裡面那些讓先進製程可以真正運作起來的系統工程，例如無塵室、機電整合、空調、製程公用系統，以及某些統包性質的廠務工</div>
@@ -7206,7 +7253,7 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
         <div class="actions"><a class="btn btn-primary" href="TW-5536_聖暉_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network materials" data-search="6147 頎邦 TW-6147 頎邦 深度對話式研究報告 頎邦最值得研究的地方，就是它不是那種什麼都做的大型 OSAT，而是在特定封測領域有很深的積累，特別是驅動 IC、COF、面板相關封裝測試，以及部分高階封測延伸機會。 最白話地講，頎邦不是靠「最大規模」取勝，而是靠「在自己 TW-6147 頎邦 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network materials" data-core-bucket="core-packaging" data-search="6147 頎邦 TW-6147 頎邦 深度對話式研究報告 頎邦最值得研究的地方，就是它不是那種什麼都做的大型 OSAT，而是在特定封測領域有很深的積累，特別是驅動 IC、COF、面板相關封裝測試，以及部分高階封測延伸機會。 最白話地講，頎邦不是靠「最大規模」取勝，而是靠「在自己 TW-6147 頎邦 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -7352,8 +7399,8 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進封測 / OSAT 平台</div>
         </div>
         <div class="summary">頎邦最值得研究的地方，就是它不是那種什麼都做的大型 OSAT，而是在特定封測領域有很深的積累，特別是驅動 IC、COF、面板相關封裝測試，以及部分高階封測延伸機會。 最白話地講，頎邦不是靠「最大規模」取勝，而是靠「在自己</div>
@@ -7361,7 +7408,7 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
         <div class="actions"><a class="btn btn-primary" href="TW-6147_頎邦_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network materials" data-search="6187 萬潤 TW-6187 萬潤 深度對話式研究報告 萬潤最容易被看錯的地方，就是它看起來像一般設備股，但市場其實在看的是它在先進封裝、自動化與特殊製程需求中的位置。 最白話地講，萬潤不是做晶片、不是做封裝代工，而是做那些讓先進封裝、面板級封裝、共同封裝光學等製程可以被穩定 TW-6187 萬潤 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network materials" data-core-bucket="core-packaging" data-search="6187 萬潤 TW-6187 萬潤 深度對話式研究報告 萬潤最容易被看錯的地方，就是它看起來像一般設備股，但市場其實在看的是它在先進封裝、自動化與特殊製程需求中的位置。 最白話地講，萬潤不是做晶片、不是做封裝代工，而是做那些讓先進封裝、面板級封裝、共同封裝光學等製程可以被穩定 TW-6187 萬潤 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -7513,8 +7560,8 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">萬潤最容易被看錯的地方，就是它看起來像一般設備股，但市場其實在看的是它在先進封裝、自動化與特殊製程需求中的位置。 最白話地講，萬潤不是做晶片、不是做封裝代工，而是做那些讓先進封裝、面板級封裝、共同封裝光學等製程可以被穩定</div>
@@ -7522,7 +7569,7 @@ VSMC 很重要，因為它代表世界先進不只是在 8 吋成熟製程裡做
         <div class="actions"><a class="btn btn-primary" href="TW-6187_萬潤_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network ai-server" data-search="6223 旺矽 TW-6223 旺矽 深度對話式研究報告 旺矽不是普通測試耗材股，而是高階探針卡與測試升級供應商。；最值錢的不只是探針卡出貨，而是測試複雜度全面上升讓單位內容價值提高 TW-6223 旺矽 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network ai-server" data-core-bucket="core-network" data-search="6223 旺矽 TW-6223 旺矽 深度對話式研究報告 旺矽不是普通測試耗材股，而是高階探針卡與測試升級供應商。；最值錢的不只是探針卡出貨，而是測試複雜度全面上升讓單位內容價值提高 TW-6223 旺矽 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-06
   - daily DB 股價資料：最新台灣交易日為 2026-08-06
@@ -7649,8 +7696,8 @@ CPO Insertion 測試相關設備預估 2027 年開始貢獻營收。
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">旺矽不是普通測試耗材股，而是高階探針卡與測試升級供應商。；最值錢的不只是探針卡出貨，而是測試複雜度全面上升讓單位內容價值提高</div>
@@ -7658,7 +7705,7 @@ CPO Insertion 測試相關設備預估 2027 年開始貢獻營收。
         <div class="actions"><a class="btn btn-primary" href="TW-6223_旺矽_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor materials" data-search="6239 力成 TW-6239 力成 深度對話式研究報告 如果一句話先記住，力成不是只做成熟封測，它是在賣記憶體封裝測試基本盤，並且試圖往更高階先進封裝延伸的能力。 以前大家比較容易把力成看成記憶體封測廠，但現在更準確的理解是： 它是站在 DRAM / NAND 後段封測與次世 TW-6239 力成 深度對話式研究報告
+      <article class="card" data-tags="semiconductor materials" data-core-bucket="core-packaging" data-search="6239 力成 TW-6239 力成 深度對話式研究報告 如果一句話先記住，力成不是只做成熟封測，它是在賣記憶體封裝測試基本盤，並且試圖往更高階先進封裝延伸的能力。 以前大家比較容易把力成看成記憶體封測廠，但現在更準確的理解是： 它是站在 DRAM / NAND 後段封測與次世 TW-6239 力成 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -7786,8 +7833,8 @@ FOPLP / 玻璃基板這些東西，短期不是拿來解釋每個月營收的；
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進封測 / OSAT 平台</div>
         </div>
         <div class="summary">如果一句話先記住，力成不是只做成熟封測，它是在賣記憶體封裝測試基本盤，並且試圖往更高階先進封裝延伸的能力。 以前大家比較容易把力成看成記憶體封測廠，但現在更準確的理解是： 它是站在 DRAM / NAND 後段封測與次世</div>
@@ -7795,7 +7842,7 @@ FOPLP / 玻璃基板這些東西，短期不是拿來解釋每個月營收的；
         <div class="actions"><a class="btn btn-primary" href="TW-6239_力成_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials network asic" data-search="6274 台燿 TW-6274 台燿 深度對話式研究報告 如果你要一句話先記住，台燿本質上是一家高階 CCL，也就是覆銅板材料供應商，而它現在被市場重估的原因，是因為它不只是賣一般板材，而是在 AI 伺服器與高速網通板卡升級裡，站在更高價值的材料層位置。 白話講，覆銅板就是 P TW-6274 台燿 深度對話式研究報告
+      <article class="card" data-tags="materials network asic" data-core-bucket="core-materials" data-search="6274 台燿 TW-6274 台燿 深度對話式研究報告 如果你要一句話先記住，台燿本質上是一家高階 CCL，也就是覆銅板材料供應商，而它現在被市場重估的原因，是因為它不只是賣一般板材，而是在 AI 伺服器與高速網通板卡升級裡，站在更高價值的材料層位置。 白話講，覆銅板就是 P TW-6274 台燿 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-06
@@ -7916,8 +7963,8 @@ CCL 的本質，是電路板的關鍵基材。當你要做高頻高速、高層�
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高階 CCL / Low CTE 玻纖布</div>
         </div>
         <div class="summary">如果你要一句話先記住，台燿本質上是一家高階 CCL，也就是覆銅板材料供應商，而它現在被市場重估的原因，是因為它不只是賣一般板材，而是在 AI 伺服器與高速網通板卡升級裡，站在更高價值的材料層位置。 白話講，覆銅板就是 P</div>
@@ -7925,7 +7972,7 @@ CCL 的本質，是電路板的關鍵基材。當你要做高頻高速、高層�
         <div class="actions"><a class="btn btn-primary" href="TW-6274_台燿_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network ai-server" data-search="6285 啟碁 TW-6285 啟碁 深度對話式研究報告_2026-08-11 如果一句話先記住，啟碁不是只在做網通代工，它是在賣低軌衛星地面終端、無線寬頻設備與高階網路設備整合能力。 以前大家可能把它看成傳統 CPE / 路由器 ODM，但現在更準確的理解是： 它是站在低軌衛星地面終端、5G FW TW-6285 啟碁 深度對話式研究報告_2026-08-11
+      <article class="card" data-tags="network ai-server" data-core-bucket="core-network" data-search="6285 啟碁 TW-6285 啟碁 深度對話式研究報告_2026-08-11 如果一句話先記住，啟碁不是只在做網通代工，它是在賣低軌衛星地面終端、無線寬頻設備與高階網路設備整合能力。 以前大家可能把它看成傳統 CPE / 路由器 ODM，但現在更準確的理解是： 它是站在低軌衛星地面終端、5G FW TW-6285 啟碁 深度對話式研究報告_2026-08-11
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -8048,8 +8095,8 @@ OCS、AI-RAN、車用通訊短期不是主體營收，但它們會影響市場�
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">如果一句話先記住，啟碁不是只在做網通代工，它是在賣低軌衛星地面終端、無線寬頻設備與高階網路設備整合能力。 以前大家可能把它看成傳統 CPE / 路由器 ODM，但現在更準確的理解是： 它是站在低軌衛星地面終端、5G FW</div>
@@ -8057,7 +8104,7 @@ OCS、AI-RAN、車用通訊短期不是主體營收，但它們會影響市場�
         <div class="actions"><a class="btn btn-primary" href="TW-6285_啟碁_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server power semiconductor" data-search="6415 矽力-KY TW-6415 矽力-KY 深度對話式研究報告 矽力-KY 不是運算核心公司，而是 PMIC / 類比 IC 設計公司。；最值錢的不只是出貨量，而是產品組合升級、毛利率修復與議價能力提升 TW-6415 矽力-KY 深度對話式研究報告
+      <article class="card" data-tags="ai-server power semiconductor" data-core-bucket="core-power" data-search="6415 矽力-KY TW-6415 矽力-KY 深度對話式研究報告 矽力-KY 不是運算核心公司，而是 PMIC / 類比 IC 設計公司。；最值錢的不只是出貨量，而是產品組合升級、毛利率修復與議價能力提升 TW-6415 矽力-KY 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-07
   - daily DB 股價資料：最新台灣交易日為 2026-08-07
@@ -8187,8 +8234,8 @@ PMIC 就是在處理這些事情。你可以把它想成不是引擎本身，而
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-power" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 電力基建 / 電源系統</div>
         </div>
         <div class="summary">矽力-KY 不是運算核心公司，而是 PMIC / 類比 IC 設計公司。；最值錢的不只是出貨量，而是產品組合升級、毛利率修復與議價能力提升</div>
@@ -8196,7 +8243,7 @@ PMIC 就是在處理這些事情。你可以把它想成不是引擎本身，而
         <div class="actions"><a class="btn btn-primary" href="TW-6415_矽力-KY_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor materials ai-server" data-search="6488 環球晶 TW-6488 環球晶 深度對話式研究報告 環球晶不是晶片公司，而是矽晶圓與半導體材料平台。；最值錢的不只是基礎材料供應，而是當 12 吋供需翻上去時，價格、長約與供應安全邏輯一起改善的獲利彈性 TW-6488 環球晶 深度對話式研究報告
+      <article class="card" data-tags="semiconductor materials ai-server" data-core-bucket="core-packaging" data-search="6488 環球晶 TW-6488 環球晶 深度對話式研究報告 環球晶不是晶片公司，而是矽晶圓與半導體材料平台。；最值錢的不只是基礎材料供應，而是當 12 吋供需翻上去時，價格、長約與供應安全邏輯一起改善的獲利彈性 TW-6488 環球晶 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-05
   - daily DB 股價資料：最新台灣交易日為 2026-08-06
@@ -8339,8 +8386,8 @@ PMIC 就是在處理這些事情。你可以把它想成不是引擎本身，而
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">先進製程 / 先進封裝 (CoWoS)</div>
         </div>
         <div class="summary">環球晶不是晶片公司，而是矽晶圓與半導體材料平台。；最值錢的不只是基礎材料供應，而是當 12 吋供需翻上去時，價格、長約與供應安全邏輯一起改善的獲利彈性</div>
@@ -8348,7 +8395,7 @@ PMIC 就是在處理這些事情。你可以把它想成不是引擎本身，而
         <div class="actions"><a class="btn btn-primary" href="TW-6488_環球晶_深度對話式研究報告_2026-08-07.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="asic network semiconductor" data-search="6515 穎崴 TW-6515 穎崴 深度對話式研究報告_2026-08-11 如果一句話先記住，穎崴不是只在賣測試座，它是在賣高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試管理能力。 以前大家可能把它看成 Test Socket 廠，但現在更準確的理解是： 它是站在高階測 TW-6515 穎崴 深度對話式研究報告_2026-08-11
+      <article class="card" data-tags="asic network semiconductor" data-core-bucket="core-network" data-search="6515 穎崴 TW-6515 穎崴 深度對話式研究報告_2026-08-11 如果一句話先記住，穎崴不是只在賣測試座，它是在賣高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試管理能力。 以前大家可能把它看成 Test Socket 廠，但現在更準確的理解是： 它是站在高階測 TW-6515 穎崴 深度對話式研究報告_2026-08-11
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -8464,8 +8511,8 @@ Hyper" data-ticker="6515" data-name="穎崴">
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-network" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">高速交換器 / CPO 矽光子</div>
         </div>
         <div class="summary">如果一句話先記住，穎崴不是只在賣測試座，它是在賣高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試管理能力。 以前大家可能把它看成 Test Socket 廠，但現在更準確的理解是： 它是站在高階測</div>
@@ -8473,7 +8520,7 @@ Hyper" data-ticker="6515" data-name="穎崴">
         <div class="actions"><a class="btn btn-primary" href="TW-6515_穎崴_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials semiconductor ai-server" data-search="6548 長科 TW-6548 長科_深度對話式研究報告_2026-08-11 如果一句話先記住，長科*不是只在賣成熟導線架，它是在賣高階封裝金屬材料與高規格封裝所需的可靠度平台。 以前大家可能把它看成景氣循環型材料股，但現在更準確的理解是： 它是站在電源管理 IC、高壓應用、工控 / 車用，以及 TW-6548 長科_深度對話式研究報告_2026-08-11
+      <article class="card" data-tags="materials semiconductor ai-server" data-core-bucket="all-core" data-search="6548 長科 TW-6548 長科_深度對話式研究報告_2026-08-11 如果一句話先記住，長科*不是只在賣成熟導線架，它是在賣高階封裝金屬材料與高規格封裝所需的可靠度平台。 以前大家可能把它看成景氣循環型材料股，但現在更準確的理解是： 它是站在電源管理 IC、高壓應用、工控 / 車用，以及 TW-6548 長科_深度對話式研究報告_2026-08-11
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -8514,6 +8561,10 @@ Hyper" data-ticker="6515" data-name="穎崴">
 - QFN / aQFN 供需吃緊與調價能力
 - 工控 / 車用 / 高壓應用回補
 - AI 伺服器、高壓與新終端需求能不能讓產品組合升級
+所以 QFN / aQFN 這條線的核心，不只是量回來，而是高階封裝材料內容值有沒有一起往上？
+對，這句話很關鍵。
+
+如果只是景氣回補，那市場最後還是只會把它看成導線架景氣股；但如果高階導線架的交期、規格與應用深度都在往上抬，那估值框架就不一樣了。
 所以第二條主線為什麼重要？
 因為這條線真正值錢的，不只是庫存回補，而是高電壓、大電流與高腳數應用的規格升級：
 - 工控
@@ -8524,9 +8575,13 @@ Hyper" data-ticker="6515" data-name="穎崴">
 
 這些不是單純量增，而是規格升級帶來的內容值增加。
 所以它不是只賣更多導線架，而是吃更高價值的封裝材料內容？
-對，這句話很關鍵。
+對，這句話非常重要。
 
 市場願意給長科*高於一般成熟材料股的估值，不是因為出貨量而已，而是因為高階導線架供需、規格升級與調價能力把內容值往上推。
+所以這條線的核心爭論，不是有沒有工控 / 車用回補，而是它們會不會把長科*變成更深的封裝材料平台？
+完全正確。
+
+如果工控 / 車用 / 高壓只是短線回補，那市場會提早反映又提早修正；但如果它們真的成為高階封裝金屬材料長週期升級的一部分，長科*的定位就會被重估。
 那第三條主線呢？
 第三條主線是外延。
 
@@ -8536,6 +8591,10 @@ Hyper" data-ticker="6515" data-name="穎崴">
 完全正確。
 
 AI 伺服器、低軌衛星、人形機器人短期不是主體營收，但它們會影響市場願不願意給長科*比較高的估值框架，因為那代表公司不是只守住成熟導線架，而是真的在往更完整的高階封裝材料平台路線靠近。
+所以這條線的核心爭論，不是有沒有新終端，而是它們會不會變成真正的平台外延？
+對。這就是第三條線真正的驗證點。
+
+如果 AI 伺服器、低軌衛星、人形機器人最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。
 那如果把長科*放進整個研究宇宙，它到底該跟誰比？
 這家公司也很容易被錯比。
 
@@ -8578,29 +8637,14 @@ QFN / aQFN 與高附加價值應用放量時，公司能不能把規模效應轉
 ### 估值分水嶺
 一句話就是：
 長科*值不值得維持高於一般成熟材料股的估值，不是看單月營收，而是看高階導線架與 AI / 高壓 / 新終端內容值能不能持續提升。
+所以真正的估值辯論，不只是單月營收有沒有創高，而是它到底是導線架股，還是封裝材料平台股？
+完全正確。
+
+這就是長科*目前的估值本質：
+- 如果它只是高成長一陣子的導線架股，那 14 倍本益比便宜有其理由
+- 如果它真的是封裝材料平台股，那目前的估值就還有被解釋的空間
 如果我要扮演反方，我第一個問題會是：這會不會只是工控 / 車用庫存回補，新應用其實還很小？
-非常合理，而且這就是最需要防的風險。
-
-如果 AI 伺服器、高壓、低軌衛星、人形機器人只是零星需求，後面沒有形成更穩的滲透曲線，那高估值就很難維持。
-第二個反方，是不是 AI 伺服器 / 高壓 / 低軌衛星這些都還太早，市場先反映太多？
-對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。
-第三個反方，是不是最後還是會被市場切回一般導線架股？
-有可能。如果市場最後發現：
-- 工控 / 車用 / 高壓基本盤沒有持續擴張
-- AI 伺服器與高壓產品占比沒有持續墊高內容值
-- 新平台與新終端沒有打開能力邊界
-那長科*就可能被切回「高成長一陣子的導線架股」，而不是平台公司。
-
-### 哪個數字 / 哪個條件掉了 thesis 就要重寫？
-如果下面幾件事其中兩件以上同時發生，長科*的 thesis 就要重寫：
-- QFN / aQFN 供需緩解或交期明顯縮短
-- AI 伺服器 / 高壓產品占比提升不如預期
-- 毛利率 / 營業利益率沒有隨高規格產品組合升級而改善
-- 低軌衛星 / 人形機器人新終端進度遞延
-- 市場重新把它切回單純景氣循環導線架股框架
-
-### 市場最可能把它切回哪個較低級的估值框架？
-" data-ticker="6548" data-name="長科">
+非常合理，" data-ticker="6548" data-name="長科">
         <div class="card-top">
           <div class="ticker-box">
             <div class="ticker">[TW-6548]</div>
@@ -8608,8 +8652,8 @@ QFN / aQFN 與高附加價值應用放量時，公司能不能把規模效應轉
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="all-core" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 驅動與產業脈絡</div>
         </div>
         <div class="summary">如果一句話先記住，長科*不是只在賣成熟導線架，它是在賣高階封裝金屬材料與高規格封裝所需的可靠度平台。 以前大家可能把它看成景氣循環型材料股，但現在更準確的理解是： 它是站在電源管理 IC、高壓應用、工控 / 車用，以及</div>
@@ -8617,7 +8661,7 @@ QFN / aQFN 與高附加價值應用放量時，公司能不能把規模效應轉
         <div class="actions"><a class="btn btn-primary" href="TW-6548_長科_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server asic network" data-search="6669 緯穎 TW-6669 緯穎 深度對話式研究報告 最白話地講，緯穎是一家高純度的資料中心與 AI 伺服器代工公司。 如果你把它放在整個伺服器供應鏈裡看，它不是賣晶片，不是賣記憶體，也不是做單一零件，而是替大型雲端客戶把高階伺服器、AI 機櫃、整體系統真正組起來、交出去的 TW-6669 緯穎 深度對話式研究報告
+      <article class="card" data-tags="ai-server asic network" data-core-bucket="core-ai-server" data-search="6669 緯穎 TW-6669 緯穎 深度對話式研究報告 最白話地講，緯穎是一家高純度的資料中心與 AI 伺服器代工公司。 如果你把它放在整個伺服器供應鏈裡看，它不是賣晶片，不是賣記憶體，也不是做單一零件，而是替大型雲端客戶把高階伺服器、AI 機櫃、整體系統真正組起來、交出去的 TW-6669 緯穎 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -8770,8 +8814,8 @@ Helios 對緯穎的重要性在於，它是第二個很強的成長選項。
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 伺服器 / GPU 平台週期</div>
         </div>
         <div class="summary">最白話地講，緯穎是一家高純度的資料中心與 AI 伺服器代工公司。 如果你把它放在整個伺服器供應鏈裡看，它不是賣晶片，不是賣記憶體，也不是做單一零件，而是替大型雲端客戶把高階伺服器、AI 機櫃、整體系統真正組起來、交出去的</div>
@@ -8779,7 +8823,7 @@ Helios 對緯穎的重要性在於，它是第二個很強的成長選項。
         <div class="actions"><a class="btn btn-primary" href="TW-6669_緯穎_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="network ai-server asic" data-search="6805 富世達 TW-6805 富世達 深度對話式研究報告 如果一句話先記住，富世達不是只在賣鉸鏈，它是在賣 AI 液冷系統與高精密機構件裡那些越來越高價值的接口與樞紐零組件。 以前大家可能先從摺疊手機樞紐認識它，但現在更準確的理解是： 它是站在液冷快接頭、水冷接口與高階機構件切 TW-6805 富世達 深度對話式研究報告
+      <article class="card" data-tags="network ai-server asic" data-core-bucket="core-ai-server" data-search="6805 富世達 TW-6805 富世達 深度對話式研究報告 如果一句話先記住，富世達不是只在賣鉸鏈，它是在賣 AI 液冷系統與高精密機構件裡那些越來越高價值的接口與樞紐零組件。 以前大家可能先從摺疊手機樞紐認識它，但現在更準確的理解是： 它是站在液冷快接頭、水冷接口與高階機構件切 TW-6805 富世達 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -8903,8 +8947,8 @@ QD / " data-ticker="6805" data-name="富世達">
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 散熱 / 液冷熱管理</div>
         </div>
         <div class="summary">如果一句話先記住，富世達不是只在賣鉸鏈，它是在賣 AI 液冷系統與高精密機構件裡那些越來越高價值的接口與樞紐零組件。 以前大家可能先從摺疊手機樞紐認識它，但現在更準確的理解是： 它是站在液冷快接頭、水冷接口與高階機構件切</div>
@@ -8912,7 +8956,7 @@ QD / " data-ticker="6805" data-name="富世達">
         <div class="actions"><a class="btn btn-primary" href="TW-6805_富世達_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="semiconductor network power" data-search="7769 鴻勁 TW-7769 鴻勁 深度對話式研究報告 最白話地講，鴻勁是半導體測試設備公司。 它不是做晶片本身，也不是幫客戶代工生產晶片，而是做讓晶片在出貨前能被測試、分類、驗證的設備。 如果你把半導體鏈拆開： - 台積電：製造晶片 - 聯發科 / Google TPU /。 TW-7769 鴻勁 深度對話式研究報告
+      <article class="card" data-tags="semiconductor network power" data-core-bucket="core-packaging" data-search="7769 鴻勁 TW-7769 鴻勁 深度對話式研究報告 最白話地講，鴻勁是半導體測試設備公司。 它不是做晶片本身，也不是幫客戶代工生產晶片，而是做讓晶片在出貨前能被測試、分類、驗證的設備。 如果你把半導體鏈拆開： - 台積電：製造晶片 - 聯發科 / Google TPU /。 TW-7769 鴻勁 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-03
   - daily DB 股價資料：最新台灣交易日為 2026-08-04
@@ -9060,8 +9104,8 @@ AI 晶片和一般晶片最大的差別，不只是運算能力更強，而是�
           </div>
           <div class="date-chip">DATE: 2026-08-04</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-packaging" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">晶片測試設備 / SLT Handler</div>
         </div>
         <div class="summary">最白話地講，鴻勁是半導體測試設備公司。 它不是做晶片本身，也不是幫客戶代工生產晶片，而是做讓晶片在出貨前能被測試、分類、驗證的設備。 如果你把半導體鏈拆開： - 台積電：製造晶片 - 聯發科 / Google TPU /。</div>
@@ -9069,7 +9113,7 @@ AI 晶片和一般晶片最大的差別，不只是運算能力更強，而是�
         <div class="actions"><a class="btn btn-primary" href="TW-7769_鴻勁_深度對話式研究報告_2026-08-04.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="materials semiconductor ai-server" data-search="8046 南電 TW-8046 南電 深度對話式研究報告 這很正常，因為南電最容易讓人搞混的地方，就是它不是一般 PCB 廠，也不是單純傳統電子零件廠。 最白話地講，南電是高階 IC 載板供應商，而且它最關鍵的價值，來自 ABF 與 BT 這兩大載板線在 AI 伺服器、CPU TW-8046 南電 深度對話式研究報告
+      <article class="card" data-tags="materials semiconductor ai-server" data-core-bucket="core-materials" data-search="8046 南電 TW-8046 南電 深度對話式研究報告 這很正常，因為南電最容易讓人搞混的地方，就是它不是一般 PCB 廠，也不是單純傳統電子零件廠。 最白話地講，南電是高階 IC 載板供應商，而且它最關鍵的價值，來自 ABF 與 BT 這兩大載板線在 AI 伺服器、CPU TW-8046 南電 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-10
   - daily DB 股價資料：最新台灣交易日為 2026-08-10
@@ -9217,8 +9261,8 @@ Ibiden 則是全球級標竿龍頭。它的重要性在於：
           </div>
           <div class="date-chip">DATE: 2026-08-10</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-materials" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">ABF 載板 / 先進基板</div>
         </div>
         <div class="summary">這很正常，因為南電最容易讓人搞混的地方，就是它不是一般 PCB 廠，也不是單純傳統電子零件廠。 最白話地講，南電是高階 IC 載板供應商，而且它最關鍵的價值，來自 ABF 與 BT 這兩大載板線在 AI 伺服器、CPU</div>
@@ -9226,7 +9270,7 @@ Ibiden 則是全球級標竿龍頭。它的重要性在於：
         <div class="actions"><a class="btn btn-primary" href="TW-8046_南電_深度對話式研究報告_2026-08-10.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server asic" data-search="8210 勤誠 TW-8210 勤誠 深度對話式研究報告 這就是理解勤誠最重要的起點。 如果用舊框架看，勤誠確實就是 server chassis 廠，也就是伺服器機殼與機構件供應商。但如果你還停在這一層，就會低估這家公司這兩年真正被市場重估的原因。 現在更準確的說法是： 勤誠 TW-8210 勤誠 深度對話式研究報告
+      <article class="card" data-tags="ai-server asic" data-core-bucket="core-ai-server" data-search="8210 勤誠 TW-8210 勤誠 深度對話式研究報告 這就是理解勤誠最重要的起點。 如果用舊框架看，勤誠確實就是 server chassis 廠，也就是伺服器機殼與機構件供應商。但如果你還停在這一層，就會低估這家公司這兩年真正被市場重估的原因。 現在更準確的說法是： 勤誠 TW-8210 勤誠 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-11
   - daily DB 股價資料：最新台灣交易日為 2026-08-11
@@ -9355,8 +9399,8 @@ AMD Helios 為什麼那麼重要？
           </div>
           <div class="date-chip">DATE: 2026-08-11</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-ai-server" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">AI 散熱 / 液冷熱管理</div>
         </div>
         <div class="summary">這就是理解勤誠最重要的起點。 如果用舊框架看，勤誠確實就是 server chassis 廠，也就是伺服器機殼與機構件供應商。但如果你還停在這一層，就會低估這家公司這兩年真正被市場重估的原因。 現在更準確的說法是： 勤誠</div>
@@ -9364,7 +9408,7 @@ AMD Helios 為什麼那麼重要？
         <div class="actions"><a class="btn btn-primary" href="TW-8210_勤誠_深度對話式研究報告_2026-08-11.html">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>
 
-      <article class="card" data-tags="ai-server semiconductor" data-search="8299 群聯 TW-8299 群聯 深度對話式研究報告 如果你要一句話先記住，群聯本質上是一家記憶體控制晶片與 SSD 解決方案公司，核心不是自己去做 NAND 晶片，而是把 NAND 這種原始儲存媒介，透過控制器、韌體、模組整合與系統設計，變成可在消費性、工業級與企業級場景 TW-8299 群聯 深度對話式研究報告
+      <article class="card" data-tags="ai-server semiconductor" data-core-bucket="core-memory" data-search="8299 群聯 TW-8299 群聯 深度對話式研究報告 如果你要一句話先記住，群聯本質上是一家記憶體控制晶片與 SSD 解決方案公司，核心不是自己去做 NAND 晶片，而是把 NAND 這種原始儲存媒介，透過控制器、韌體、模組整合與系統設計，變成可在消費性、工業級與企業級場景 TW-8299 群聯 深度對話式研究報告
 - 資料截止日：
   - 公司研究頁 `as_of`: 2026-08-05
   - daily DB 股價資料：最新台灣交易日為 2026-08-06
@@ -9482,8 +9526,8 @@ PCIe Gen6 代表的是：
           </div>
           <div class="date-chip">DATE: 2026-08-07</div>
         </div>
-        <div class="core-box">
-          <div class="core-label">THESIS // 投資主線</div>
+        <div class="core-box" data-core-bucket="core-memory" title="點擊依此主線進行篩選">
+          <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">DRAM 記憶體 / HBM 外溢</div>
         </div>
         <div class="summary">如果你要一句話先記住，群聯本質上是一家記憶體控制晶片與 SSD 解決方案公司，核心不是自己去做 NAND 晶片，而是把 NAND 這種原始儲存媒介，透過控制器、韌體、模組整合與系統設計，變成可在消費性、工業級與企業級場景</div>
@@ -9506,6 +9550,8 @@ PCIe Gen6 代表的是：
     const grid = document.getElementById('reportGrid');
     const emptyState = document.getElementById('emptyState');
     const filtersContainer = document.getElementById('filters');
+    const visibleCountEl = document.getElementById('visibleCount');
+    const resetFiltersBtn = document.getElementById('resetFiltersBtn');
 
     let activeFilter = 'all';
     let activeCoreFilter = 'all-core';
@@ -9585,7 +9631,34 @@ PCIe Gen6 代表的是：
 
       sortedCards.forEach(card => grid.appendChild(card));
       emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+
+      if (visibleCountEl) {
+        visibleCountEl.textContent = visibleCount;
+      }
+
+      const isFiltered = activeFilter !== 'all' || activeCoreFilter !== 'all-core' || searchTerm !== '';
+      if (resetFiltersBtn) {
+        resetFiltersBtn.style.display = isFiltered ? 'inline-flex' : 'none';
+      }
+
       updateSortButtons();
+    }
+
+    function resetAllFilters() {
+      activeFilter = 'all';
+      activeCoreFilter = 'all-core';
+      searchTerm = '';
+      if (searchInput) searchInput.value = '';
+      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+
+      filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+      coreFilterButtons.forEach(b => b.classList.toggle('active', b.dataset.coreFilter === 'all-core'));
+
+      applyFilterAndSort();
+    }
+
+    if (resetFiltersBtn) {
+      resetFiltersBtn.addEventListener('click', resetAllFilters);
     }
 
     const toggleFilterBtn = document.getElementById('toggleFilterBtn');
@@ -9616,6 +9689,22 @@ PCIe Gen6 代表的是：
         btn.classList.add('active');
         activeCoreFilter = btn.dataset.coreFilter;
         applyFilterAndSort();
+      });
+    });
+
+    document.querySelectorAll('.core-box').forEach(box => {
+      box.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const bucket = box.dataset.coreBucket;
+        if (!bucket) return;
+        const targetBtn = coreFilterButtons.find(b => b.dataset.coreFilter === bucket);
+        if (targetBtn) {
+          coreFilterButtons.forEach(b => b.classList.remove('active'));
+          targetBtn.classList.add('active');
+          activeCoreFilter = bucket;
+          applyFilterAndSort();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       });
     });
 
@@ -9666,6 +9755,16 @@ PCIe Gen6 代表的是：
       clearSearchBtn.style.display = 'none';
       searchInput.focus();
       applyFilterAndSort();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        if (searchInput) searchInput.focus();
+      } else if (e.key === 'Escape') {
+        resetAllFilters();
+        if (searchInput) searchInput.blur();
+      }
     });
 
     applyFilterAndSort();
