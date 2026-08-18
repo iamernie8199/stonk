@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-6173 信昌電 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-6173.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-6173]</span>
+            <h1 class="company-name" id="top">信昌電</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><div class="meta-chip">- 本次重點：把 initial、expansion 1、expansion 2 整合成正式版，收斂為「高壓 / 大尺寸 MLCC 基本盤 → AI 電源架構升級帶來的高階 MLCC 升級 → 產能擴張與高階供需缺口延續」三層主線，並把估值五件組、反方壓力測試與投資收斂整理成可跨篇比較的最終版本。</div>
+<section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-07-23</span><span class="deadline-chip">結構化市場資料：最新台灣交易日為 2026-08-13</span><span class="deadline-chip">月營收：最新為 2026 年 6 月營收，公告日 2026-08-09</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-第-1-段">第 1 段</a>
+<a href="#digest-2-hvdc-與供電架構">HVDC 與供電架構</a>
+<a href="#digest-3-第-3-段">第 3 段</a>
+<a href="#digest-4-估值與市場預期">估值與市場預期</a>
+<a href="#digest-5-第-5-段">第 5 段</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-hvdc-與供電架構">HVDC 與供電架構</a>
+<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-12-第-12-段">第 12 段</a>
+<a href="#digest-13-風險與失效條件">風險與失效條件</a>
+<a href="#digest-14-第-14-段">第 14 段</a>
+<a href="#digest-15-第-15-段">第 15 段</a>
+<a href="#digest-16-第-16-段">第 16 段</a>
+<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-19-估值與市場預期">估值與市場預期</a>
+<a href="#digest-20-第-20-段">第 20 段</a>
+<a href="#digest-21-第-21-段">第 21 段</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-第-1-段">
+<div class="digest-title">第 1 段</div>
+<div class="content"><p>如果它只是一般 MLCC 廠，就沒那麼值得寫。</p>
+<p>信昌電最特別的地方，是它主攻高壓、高功率、大尺寸 MLCC，而且還能自製陶瓷粉末，這讓它在高階利基市場的定位跟一般被動元件廠不一樣。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-hvdc-與供電架構">
+<div class="digest-title">HVDC 與供電架構</div>
+<div class="content"><p>對，它不是靠大量標準品，而是靠高規格利基產品。</p>
+<p>尤其 AI 伺服器、HVDC、高功率電源這些場景，對高壓大尺寸 MLCC 的需求和一般消費電子完全不一樣。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-第-3-段">
+<div class="digest-title">第 3 段</div>
+<div class="content"><p>很明確，就是「高規格零組件 / 材料升級股」。</p>
+<p>因為市場如果願意重估它，不是因為它賣更多 MLCC，而是因為它賣的是更高價值、更高門檻的 MLCC。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 210 元<br>- 本益比 26.2 倍<br>- 股價淨值比 4.03 倍<br>- 總市值約 360 億元</p>
+<p>最新月營收為 2026 年 6 月，公告日 2026-08-09：<br>- 單月合併營收 537,222 千元<br>- 年增 47.87%<br>- 月增 6.62%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-第-5-段">
+<div class="digest-title">第 5 段</div>
+<div class="content"><p>所以市場已經不是把它當普通 MLCC 廠在看。</p>
+<p>第一層基本盤是：<br>- 高壓 MLCC<br>- 大尺寸 MLCC<br>- Stacked MLCC<br>- 自製陶瓷粉末垂直整合</p>
+<p>這一層證明它不是 commodity 路線，而是利基高規格產品路線。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>對。</p>
+<p>第一層證明公司已經在對的位置上，但如果只停在這裡，市場最後還是可能把它當成利基型 MLCC 股，而不是高規格升級股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-hvdc-與供電架構">
+<div class="digest-title">HVDC 與供電架構</div>
+<div class="content"><p>對，第二層才是核心。</p>
+<p>真正影響估值的，不是「有沒有 AI 題材」，而是：<br>- AI 伺服器 PSU / Power Shelf / BBU / HVDC 對高壓大尺寸 MLCC 的需求能不能持續放大<br>- 高階產品占比能不能持續提升<br>- 毛利率與營業利益率能不能因為產品 mix 而上升</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>完全不是。</p>
+<p>如果你只看營收年增，很容易把它看成景氣不錯的被動元件股。</p>
+<p>但市場真正要驗證的是，AI 電源升級是不是讓它從利基元件供應商，往更高階的電源材料升級股走。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>就是：信昌電是不是能從「利基 MLCC 股」，升級成「AI 高功率供電關鍵被動元件股」。</p>
+<p>如果答案是可以，26 倍 PE 還有機會被接受；如果答案不行，評價就可能維持脆弱。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，這句話很準。</p>
+<p>第二層真正要回答的是：AI 高功率供電帶來的需求，是短期缺貨，還是結構升級。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，但不是單純擴產而已，而是「高階需求能不能撐住擴產後的價格與獲利品質」。</p>
+<p>公司頁最重要的幾個點是：<br>- 高階產品交期從 8 週拉長到 16 週<br>- 高階 MLCC 營收占比還有提升空間<br>- 六甲高階粉末新廠預計 2027 年 Q3 投產</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-第-12-段">
+<div class="digest-title">第 12 段</div>
+<div class="content"><p>擴產本身不是自動利多。</p>
+<p>如果擴產代表：<br>- 高階需求持續強<br>- 交期維持高檔<br>- 高階占比持續上升<br>那是利多。</p>
+<p>但如果擴產後供給變多、價格鬆掉，市場就會懷疑現在的高評價撐不撐得住。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-風險與失效條件">
+<div class="digest-title">風險與失效條件</div>
+<div class="content"><p>對，這就是第三層的風險。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-第-14-段">
+<div class="digest-title">第 14 段</div>
+<div class="content"><p>不能只跟面板股比，也不能只看通路股。</p>
+<p>比較合理的是：<br>- 高壓 / 大尺寸 MLCC 供應商<br>- 其他高規格被動元件廠<br>- 電源架構升級鏈上的材料與元件公司</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-第-15-段">
+<div class="digest-title">第 15 段</div>
+<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：信昌電在高壓 / 大尺寸 / Stacked MLCC 這條路很純<br>- 誰最廣：大型日系被動元件廠更廣<br>- 誰最穩：產品線更多元的大型被動元件廠更穩<br>- 誰最有彈性：信昌電這種利基高規格 MLCC 股彈性更大<br>- 本公司卡在哪裡：它卡在「利基被動元件股」與「高規格電源材料升級股」兩種框架交界<br>- 最像的比較對手：高規格被動元件與高壓 MLCC 供應商<br>- 最不像的比較對手：友達、群創這種面板平台型公司</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-第-16-段">
+<div class="digest-title">第 16 段</div>
+<div class="content"><p>對一般 MLCC 廠來說不便宜，但對高規格利基元件股來說，市場是在賭高階產品 mix、交期與供需延續。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>正式版我會這樣回答。</p>
+<p>1. 毛利率<br>- 重點在高階產品占比能不能持續提高。<br>- 如果高壓 / 大尺寸 / Stacked MLCC 比重持續提升，毛利率才有結構性上行的可能。</p>
+<p>2. 營業利益率<br>- 如果高壓 / 大尺寸 MLCC 比重持續提升，營業利益率才有上修空間。</p>
+<p>3. 淨利率<br>- 淨利率最後要看高價值產品是否真的轉成 EPS。</p>
+<p>4. 獲利品質<br>- 獲利品質重點不只是需求強，而是高階產品、交期延長與供需緊缺是否具有持續性。</p>
+<p>5. 估值分水嶺<br>- 市場是把它當利基被動元件股，還是把它當高規格電源材料升級股，這就是估值分水嶺。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣翻：</p>
+<ul><li>第一層：高壓 / 大尺寸 MLCC 基本盤</li><li>這層證明公司站在正確規格位置，但比較像底盤與起點</li></ul>
+<ul><li>第二層：AI 電源架構升級帶來的高階 MLCC 升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
+<ul><li>第三層：產能擴張與高階供需缺口延續</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
+<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是一個便宜的被動元件股，而是一個市場已經先把高規格 MLCC 需求與高階 mix 想很滿的利基股；只要需求正常化，估值就會先修。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-第-20-段">
+<div class="digest-title">第 20 段</div>
+<div class="content"><p>最重要的幾個驗證點：<br>- 高階 MLCC 需求不如預期<br>- 高階產品占比沒有持續上升<br>- 交期從 16 週快速回落<br>- 六甲新廠擴產後供需轉鬆</p>
+<p>只要這些掉下去，市場就會把它切回普通利基 MLCC 股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-第-21-段">
+<div class="digest-title">第 21 段</div>
+<div class="content"><p>最可能切回「普通利基 MLCC 股」框架。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="第-1-段">
+<div class="round-title">第 1 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>信昌電不就是 MLCC 廠嗎？這有什麼特別？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果它只是一般 MLCC 廠，就沒那麼值得寫。</p>
+<p>信昌電最特別的地方，是它主攻高壓、高功率、大尺寸 MLCC，而且還能自製陶瓷粉末，這讓它在高階利基市場的定位跟一般被動元件廠不一樣。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="hvdc-與供電架構">
+<div class="round-title">HVDC 與供電架構</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是單純靠規模？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，它不是靠大量標準品，而是靠高規格利基產品。</p>
+<p>尤其 AI 伺服器、HVDC、高功率電源這些場景，對高壓大尺寸 MLCC 的需求和一般消費電子完全不一樣。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-3-段">
+<div class="round-title">第 3 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那你會把它歸哪一類？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>很明確，就是「高規格零組件 / 材料升級股」。</p>
+<p>因為市場如果願意重估它，不是因為它賣更多 MLCC，而是因為它賣的是更高價值、更高門檻的 MLCC。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>先看正式數字。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 210 元<br>- 本益比 26.2 倍<br>- 股價淨值比 4.03 倍<br>- 總市值約 360 億元</p>
+<p>最新月營收為 2026 年 6 月，公告日 2026-08-09：<br>- 單月合併營收 537,222 千元<br>- 年增 47.87%<br>- 月增 6.62%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-5-段">
+<div class="round-title">第 5 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>26 倍本益比對 MLCC 廠好像不低。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>所以市場已經不是把它當普通 MLCC 廠在看。</p>
+<p>第一層基本盤是：<br>- 高壓 MLCC<br>- 大尺寸 MLCC<br>- Stacked MLCC<br>- 自製陶瓷粉末垂直整合</p>
+<p>這一層證明它不是 commodity 路線，而是利基高規格產品路線。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第一層比較像「站在正確規格位置上」？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>第一層證明公司已經在對的位置上，但如果只停在這裡，市場最後還是可能把它當成利基型 MLCC 股，而不是高規格升級股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="hvdc-與供電架構">
+<div class="round-title">HVDC 與供電架構</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那真正最關鍵的是第二層？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，第二層才是核心。</p>
+<p>真正影響估值的，不是「有沒有 AI 題材」，而是：<br>- AI 伺服器 PSU / Power Shelf / BBU / HVDC 對高壓大尺寸 MLCC 的需求能不能持續放大<br>- 高階產品占比能不能持續提升<br>- 毛利率與營業利益率能不能因為產品 mix 而上升</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以不是只看營收年增？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全不是。</p>
+<p>如果你只看營收年增，很容易把它看成景氣不錯的被動元件股。</p>
+<p>但市場真正要驗證的是，AI 電源升級是不是讓它從利基元件供應商，往更高階的電源材料升級股走。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第二層如果翻成估值語言，是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>就是：信昌電是不是能從「利基 MLCC 股」，升級成「AI 高功率供電關鍵被動元件股」。</p>
+<p>如果答案是可以，26 倍 PE 還有機會被接受；如果答案不行，評價就可能維持脆弱。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第二層比較像，市場在驗證它能不能真的變成高獲利高規格 MLCC 股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很準。</p>
+<p>第二層真正要回答的是：AI 高功率供電帶來的需求，是短期缺貨，還是結構升級。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第三層是產能？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，但不是單純擴產而已，而是「高階需求能不能撐住擴產後的價格與獲利品質」。</p>
+<p>公司頁最重要的幾個點是：<br>- 高階產品交期從 8 週拉長到 16 週<br>- 高階 MLCC 營收占比還有提升空間<br>- 六甲高階粉末新廠預計 2027 年 Q3 投產</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-12-段">
+<div class="round-title">第 12 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>擴產不是好事嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>擴產本身不是自動利多。</p>
+<p>如果擴產代表：<br>- 高階需求持續強<br>- 交期維持高檔<br>- 高階占比持續上升<br>那是利多。</p>
+<p>但如果擴產後供給變多、價格鬆掉，市場就會懷疑現在的高評價撐不撐得住。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="風險與失效條件">
+<div class="round-title">風險與失效條件</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第三層最有長期價值，但也最容易從利多變成風險？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是第三層的風險。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-14-段">
+<div class="round-title">第 14 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那信昌電要跟誰比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>不能只跟面板股比，也不能只看通路股。</p>
+<p>比較合理的是：<br>- 高壓 / 大尺寸 MLCC 供應商<br>- 其他高規格被動元件廠<br>- 電源架構升級鏈上的材料與元件公司</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-15-段">
+<div class="round-title">第 15 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>照你的固定框架怎麼下？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：信昌電在高壓 / 大尺寸 / Stacked MLCC 這條路很純<br>- 誰最廣：大型日系被動元件廠更廣<br>- 誰最穩：產品線更多元的大型被動元件廠更穩<br>- 誰最有彈性：信昌電這種利基高規格 MLCC 股彈性更大<br>- 本公司卡在哪裡：它卡在「利基被動元件股」與「高規格電源材料升級股」兩種框架交界<br>- 最像的比較對手：高規格被動元件與高壓 MLCC 供應商<br>- 最不像的比較對手：友達、群創這種面板平台型公司</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-16-段">
+<div class="round-title">第 16 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>26 倍本益比怎麼看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對一般 MLCC 廠來說不便宜，但對高規格利基元件股來說，市場是在賭高階產品 mix、交期與供需延續。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>五件組怎麼立？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>正式版我會這樣回答。</p>
+<p>1. 毛利率<br>- 重點在高階產品占比能不能持續提高。<br>- 如果高壓 / 大尺寸 / Stacked MLCC 比重持續提升，毛利率才有結構性上行的可能。</p>
+<p>2. 營業利益率<br>- 如果高壓 / 大尺寸 MLCC 比重持續提升，營業利益率才有上修空間。</p>
+<p>3. 淨利率<br>- 淨利率最後要看高價值產品是否真的轉成 EPS。</p>
+<p>4. 獲利品質<br>- 獲利品質重點不只是需求強，而是高階產品、交期延長與供需緊缺是否具有持續性。</p>
+<p>5. 估值分水嶺<br>- 市場是把它當利基被動元件股，還是把它當高規格電源材料升級股，這就是估值分水嶺。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果把三層結構翻成估值辯論呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣翻：</p>
+<ul><li>第一層：高壓 / 大尺寸 MLCC 基本盤</li><li>這層證明公司站在正確規格位置，但比較像底盤與起點</li></ul>
+<ul><li>第二層：AI 電源架構升級帶來的高階 MLCC 升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
+<ul><li>第三層：產能擴張與高階供需缺口延續</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
+<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要站在空方，最狠一句話是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是一個便宜的被動元件股，而是一個市場已經先把高規格 MLCC 需求與高階 mix 想很滿的利基股；只要需求正常化，估值就會先修。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-20-段">
+<div class="round-title">第 20 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那哪個條件掉了，thesis 就要重寫？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最重要的幾個驗證點：<br>- 高階 MLCC 需求不如預期<br>- 高階產品占比沒有持續上升<br>- 交期從 16 週快速回落<br>- 六甲新廠擴產後供需轉鬆</p>
+<p>只要這些掉下去，市場就會把它切回普通利基 MLCC 股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-21-段">
+<div class="round-title">第 21 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那市場最可能把它切回哪個較低級框架？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最可能切回「普通利基 MLCC 股」框架。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card"><h3>公司本質</h3><ul><li>信昌電是少數能自製陶瓷粉末、主攻高壓 / 大尺寸 / Stacked MLCC 的高規格被動元件公司。</li><li>最值錢的，不是營收有沒有成長，而是高階產品 mix、交期與供需優勢能不能持續改善獲利品質。</li></ul></section>
+<section class="summary-card section-card"><h3>已知事實</h3><ul><li>收盤價：86.4 元</li><li>信昌電目前的核心身分，是 AI 高功率供電用高壓 / 大尺寸 / Stacked MLCC 升級股，而不是普通利基 MLCC 股。</li><li>目前研究主線集中於：高壓 / 大尺寸 MLCC 基本盤、AI 電源架構升級帶來的高階 MLCC 需求，以及產能擴張與供需缺口延續。</li><li>市場目前交易的不只是一段景氣，而是在交易它能不能穩穩站在 AI 高功率供電用高規格被動元件的位置上。</li><li>本益比 24.9 倍</li><li>股價淨值比 2.84 倍</li><li>總市值約 129 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">6.41 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+22.53%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+3.21%</td></tr>
+  </tbody>
+</table>
+</div></section>
+<section class="summary-card section-card"><h3>同業定位</h3><ul><li>信昌電：AI 高功率供電用高壓 / 大尺寸 / Stacked MLCC 升級股。</li><li>普通利基 MLCC 股：景氣敏感度較高，但高階產品 mix 與供需優勢較弱。</li><li>高規格被動元件公司：同樣受惠於 AI 電源架構升級，但未必像信昌電一樣同時具備自製陶瓷粉末與高壓 / 大尺寸 / Stacked MLCC 純度。</li><li>最像的比較對手：高規格 MLCC / 被動元件同業。</li><li>最不像的比較對手：普通低附加價值利基 MLCC 股。</li></ul></section>
+<section class="summary-card section-card"><h3>估值五件組</h3><ul><li>毛利率：回答高階產品 mix，是否真的在推升內容價值。</li><li>營業利益率：回答 AI 電源架構升級，是否真的轉成更高效率的平台利潤。</li><li>淨利率：回答股東最後拿到的利潤，是否由高價值 MLCC 需求穩定推升。</li><li>獲利品質：重點在高階產品 mix、交期與供需優勢，能否持續把營收轉成高品質現金流。</li><li>估值分水嶺：市場會不會持續把它留在 AI 高功率供電用高規格被動元件的位置，而不是切回普通利基 MLCC 股。</li></ul></section>
+<section class="summary-card section-card"><h3>關鍵推論</h3><ul><li>信昌電的價值不只是 MLCC 景氣，而是高規格被動元件平台能力。</li><li>高壓 / 大尺寸 MLCC 基本盤是底，AI 電源架構升級帶來的高階需求是主線，產能擴張與供需缺口延續是更高價值的延伸。</li><li>市場現在交易的不是單一拉貨，而是它能不能把高階產品 mix、交期與供需優勢一起做實。</li><li>最大投資風險不是沒有需求，而是如果高階需求、交期與供需缺口撐不住，市場最後還是會把它切回普通利基 MLCC 股。</li></ul></section>
+<section class="summary-card section-card"><h3>目前最大爭議點</h3><ul><li>高階產品 mix 能否持續提升。</li><li>產能擴張與供需缺口能否延續。</li><li>毛利率、營業利益率與淨利率能否持續改善。</li><li>市場是否會繼續把它留在高規格被動元件框架，而不是切回普通利基 MLCC 股。</li></ul></section>
+<section class="summary-card section-card"><h3>反方壓力測試</h3><ul><li>最強空方一句話：如果高階需求、交期與供需缺口撐不住，市場最後還是會把它切回普通利基 MLCC 股。</li><li>最脆弱的驗證數字：高階產品 mix、交期與供需優勢能不能持續改善獲利品質。</li><li>最可能被切回去的低級估值框架：普通利基 MLCC 股，而不是 AI 高功率供電用高規格被動元件股。</li></ul></section>
+<section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階產品 mix 提升不如預期。</li><li>產能擴張與供需缺口延續不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高規格被動元件地位的評價。</li></ul></section>
+<section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階產品 mix 是否持續提升。</li><li>產能擴張與供需缺口是否持續延續。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
+<section class="summary-card section-card"><h3>最短版記法</h3><ul><li>信昌電不是普通 MLCC 股，而是 AI 高功率供電用高壓 / 大尺寸 / Stacked MLCC 升級股；真正關鍵不是題材，而是高階產品 mix、交期與供需缺口能不能撐住。</li></ul></section>
+      <div class="footer">Generated at 2026-08-18 20:04</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

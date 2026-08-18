@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-6271 同欣電 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-6271.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-6271]</span>
+            <h1 class="company-name" id="top">同欣電</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><div class="meta-chip">- 本次重點：把 initial、expansion 1、expansion 2 整合成正式版，收斂為「車用 CIS 封裝底盤 → 800G 光通訊 / RF 模組 / 陶瓷基板升級 → 產品線外延與第二成長曲線」三層主線，並把估值五件組、反方壓力測試與投資收斂整理成可跨篇比較的最終版本。</div>
+<section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-10</span><span class="deadline-chip">結構化市場資料：最新台灣交易日為 2026-08-13</span><span class="deadline-chip">月營收：最新為 2026 年 6 月營收，公告日 2026-08-06</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-第-1-段">第 1 段</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-第-3-段">第 3 段</a>
+<a href="#digest-4-估值與市場預期">估值與市場預期</a>
+<a href="#digest-5-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-6-第-6-段">第 6 段</a>
+<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-8-第-8-段">第 8 段</a>
+<a href="#digest-9-估值與市場預期">估值與市場預期</a>
+<a href="#digest-10-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-11-第-11-段">第 11 段</a>
+<a href="#digest-12-第-12-段">第 12 段</a>
+<a href="#digest-13-第-13-段">第 13 段</a>
+<a href="#digest-14-第-14-段">第 14 段</a>
+<a href="#digest-15-第-15-段">第 15 段</a>
+<a href="#digest-16-第-16-段">第 16 段</a>
+<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-19-估值與市場預期">估值與市場預期</a>
+<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-21-第-21-段">第 21 段</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-第-1-段">
+<div class="digest-title">第 1 段</div>
+<div class="content"><p>它確實不是一眼就能懂的那種公司。</p>
+<p>如果一句話先記，同欣電是「車用 CIS 封裝為底盤，往光通訊、RF 模組、陶瓷基板延伸的高規格模組封裝公司」。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>不是。</p>
+<p>它比較像站在封裝、模組、車用影像、光通訊與高頻應用交界處的公司，而不是靠大規模標準封測取勝的典型封測廠。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-第-3-段">
+<div class="digest-title">第 3 段</div>
+<div class="content"><p>我會把它歸在「高規格零組件 / 材料升級股」和「封裝模組升級股」交界，但主骨架先放在前者。</p>
+<p>因為市場真正會重估它，不只是因為出貨增加，而是因為它能不能把高價值產品組合拉高。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 194 元<br>- 本益比 20.6 倍<br>- 股價淨值比 1.53 倍<br>- 總市值約 406 億元</p>
+<p>最新月營收為 2026 年 6 月，公告日 2026-08-06：<br>- 單月合併營收 1,130,269 千元<br>- 年增 22.42%<br>- 月增 4.7%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這表示市場目前還沒有把它當超高估值成長股，而是比較偏「有基本盤、但要看新動能能不能放大」的公司。</p>
+<p>第一層基本盤很清楚：<br>- 車用 CIS 封裝<br>- 車用影像模組<br>- 影像產品占比高<br>- 車規認證與客戶黏著度高</p>
+<p>這一層是它最穩的獲利底盤。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-第-6-段">
+<div class="digest-title">第 6 段</div>
+<div class="content"><p>對。</p>
+<p>第一層最重要的是證明它不是景氣亂飄的公司，而是有穩定車用影像封裝底盤的公司。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，第二層才是真正讓估值往上走的核心。</p>
+<p>這一層要看的不是「有沒有產品」，而是：<br>- 800G 光通訊量產能不能放大<br>- RF 模組是不是持續拉高 ASP<br>- 陶瓷基板新應用能不能放量<br>- 這些高價值產品線能不能把毛利率與獲利品質往上推</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-第-8-段">
+<div class="digest-title">第 8 段</div>
+<div class="content"><p>對。</p>
+<p>如果你只看營收，很容易把它看成一個多產品的封裝公司。</p>
+<p>但真正該看的，是高價值產品線占比上升後，能不能把公司重新分類成高規格模組封裝升級股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>就是：同欣電是不是能從「穩定車用封裝股」，升級成「高規格模組封裝升級股」。</p>
+<p>如果光通訊、RF 模組、陶瓷基板這些線路真的起來，20 倍 PE 就不一定高；如果起不來，估值就可能維持平庸。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>對，這句話很準。</p>
+<p>第二層真正要回答的是：車用之外的新成長線，能不能把公司往更高品質的獲利結構推上去。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-第-11-段">
+<div class="digest-title">第 11 段</div>
+<div class="content"><p>對，第三層比較像第二成長曲線的外延。</p>
+<p>公司頁裡比較值得注意的是：<br>- 1.6T 光通訊開發<br>- 低軌衛星 RF 模組<br>- 矽電容 / RW 稼動率回升<br>- 更多高階模組應用延伸</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-第-12-段">
+<div class="digest-title">第 12 段</div>
+<div class="content"><p>沒錯。</p>
+<p>如果第三層成立，市場就不會只把它看成車用封裝股，而會開始把它看成跨車用、光通訊、RF 與高階模組封裝的平台型升級股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-第-13-段">
+<div class="digest-title">第 13 段</div>
+<div class="content"><p>最危險的是市場太早把未來第二曲線算進去。</p>
+<p>如果 800G / 1.6T / RF / 矽電容等故事停在驗證期，市場卻先把長期價值算滿，股價就容易回檔。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-第-14-段">
+<div class="digest-title">第 14 段</div>
+<div class="content"><p>不能只拿去跟一般封測廠比，也不能只看面板或材料股。</p>
+<p>比較合理的是：<br>- 車用感測器 / 車用影像封裝鏈<br>- 光通訊模組封裝鏈<br>- 高頻 RF 模組封裝鏈<br>- 陶瓷基板與高階模組供應鏈</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-第-15-段">
+<div class="digest-title">第 15 段</div>
+<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：同欣電在車用 CIS + 模組封裝這條路很純<br>- 誰最廣：大型封裝平台公司更廣<br>- 誰最穩：有更大規模量產平台的公司更穩<br>- 誰最有彈性：同欣電這種高規格模組封裝股彈性更大<br>- 本公司卡在哪裡：它卡在「穩定車用封裝股」與「高規格模組封裝升級股」兩種框架交界<br>- 最像的比較對手：高規格感測 / 光通訊 / RF 模組封裝公司<br>- 最不像的比較對手：友達、群創這種面板平台股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-第-16-段">
+<div class="digest-title">第 16 段</div>
+<div class="content"><p>20 倍 PE 本身不算極端，關鍵要看它是在交易什麼。</p>
+<p>如果只是穩定車用封裝，那 20 倍不見得便宜；如果高價值新產品線真的起來，20 倍也不見得貴。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>正式版我會這樣回答。</p>
+<p>1. 毛利率<br>- 重點在高價值產品線占比能不能持續提升。<br>- 如果光通訊 / RF / 陶瓷基板比重提高，毛利率才有結構性上行的可能。</p>
+<p>2. 營業利益率<br>- 如果光通訊 / RF / 陶瓷基板比重提高，營業利益率才有上修空間。</p>
+<p>3. 淨利率<br>- 淨利率最後要看高價值產品是否真的轉成 EPS。</p>
+<p>4. 獲利品質<br>- 獲利品質重點不只是營收成長，而是產品 mix 是否往高價值移動。</p>
+<p>5. 估值分水嶺<br>- 市場是把它當穩定封裝股，還是當高規格模組封裝升級股，這就是估值分水嶺。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>我會這樣翻：</p>
+<ul><li>第一層：車用 CIS 封裝基本盤</li><li>這層證明公司有穩定底盤，但比較像舊世界與起點</li></ul>
+<ul><li>第二層：800G 光通訊 / RF 模組 / 陶瓷基板升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
+<ul><li>第三層：產品線外延與第二成長曲線</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
+<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是一個很便宜的低估值股，而是一個市場已經開始相信第二成長曲線的封裝公司；只要 800G / RF / 陶瓷基板沒有如預期接棒，評價就撐不住。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>最重要的幾個驗證點：<br>- 光通訊 800G / 1.6T 進度不如預期<br>- RF 模組與陶瓷基板占比沒有持續上升<br>- 車用 CIS 成長放緩<br>- hybrid 衰退持續拖累整體獲利</p>
+<p>只要這些掉下去，市場就會把它切回普通封裝股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-第-21-段">
+<div class="digest-title">第 21 段</div>
+<div class="content"><p>最可能切回「穩定但平庸的車用封裝股」框架。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="第-1-段">
+<div class="round-title">第 1 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>同欣電看起來很雜，這種公司到底在賣什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>它確實不是一眼就能懂的那種公司。</p>
+<p>如果一句話先記，同欣電是「車用 CIS 封裝為底盤，往光通訊、RF 模組、陶瓷基板延伸的高規格模組封裝公司」。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是單純 OSAT？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>不是。</p>
+<p>它比較像站在封裝、模組、車用影像、光通訊與高頻應用交界處的公司，而不是靠大規模標準封測取勝的典型封測廠。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-3-段">
+<div class="round-title">第 3 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那你會把它歸哪一類？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會把它歸在「高規格零組件 / 材料升級股」和「封裝模組升級股」交界，但主骨架先放在前者。</p>
+<p>因為市場真正會重估它，不只是因為出貨增加，而是因為它能不能把高價值產品組合拉高。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>先看正式數字。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 194 元<br>- 本益比 20.6 倍<br>- 股價淨值比 1.53 倍<br>- 總市值約 406 億元</p>
+<p>最新月營收為 2026 年 6 月，公告日 2026-08-06：<br>- 單月合併營收 1,130,269 千元<br>- 年增 22.42%<br>- 月增 4.7%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>20 倍本益比看起來沒有特別貴。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這表示市場目前還沒有把它當超高估值成長股，而是比較偏「有基本盤、但要看新動能能不能放大」的公司。</p>
+<p>第一層基本盤很清楚：<br>- 車用 CIS 封裝<br>- 車用影像模組<br>- 影像產品占比高<br>- 車規認證與客戶黏著度高</p>
+<p>這一層是它最穩的獲利底盤。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-6-段">
+<div class="round-title">第 6 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第一層比較像守城？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>第一層最重要的是證明它不是景氣亂飄的公司，而是有穩定車用影像封裝底盤的公司。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那真正關鍵的是第二層？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，第二層才是真正讓估值往上走的核心。</p>
+<p>這一層要看的不是「有沒有產品」，而是：<br>- 800G 光通訊量產能不能放大<br>- RF 模組是不是持續拉高 ASP<br>- 陶瓷基板新應用能不能放量<br>- 這些高價值產品線能不能把毛利率與獲利品質往上推</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-8-段">
+<div class="round-title">第 8 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以不是只看營收成長？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>如果你只看營收，很容易把它看成一個多產品的封裝公司。</p>
+<p>但真正該看的，是高價值產品線占比上升後，能不能把公司重新分類成高規格模組封裝升級股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第二層翻成估值語言是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>就是：同欣電是不是能從「穩定車用封裝股」，升級成「高規格模組封裝升級股」。</p>
+<p>如果光通訊、RF 模組、陶瓷基板這些線路真的起來，20 倍 PE 就不一定高；如果起不來，估值就可能維持平庸。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第二層比較像，市場在驗證它能不能真的變成高價值封裝公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很準。</p>
+<p>第二層真正要回答的是：車用之外的新成長線，能不能把公司往更高品質的獲利結構推上去。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-11-段">
+<div class="round-title">第 11 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第三層是更遠的選擇權？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，第三層比較像第二成長曲線的外延。</p>
+<p>公司頁裡比較值得注意的是：<br>- 1.6T 光通訊開發<br>- 低軌衛星 RF 模組<br>- 矽電容 / RW 稼動率回升<br>- 更多高階模組應用延伸</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-12-段">
+<div class="round-title">第 12 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它最終不只想做車用影像封裝？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>沒錯。</p>
+<p>如果第三層成立，市場就不會只把它看成車用封裝股，而會開始把它看成跨車用、光通訊、RF 與高階模組封裝的平台型升級股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-13-段">
+<div class="round-title">第 13 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>但這層現在最危險的是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最危險的是市場太早把未來第二曲線算進去。</p>
+<p>如果 800G / 1.6T / RF / 矽電容等故事停在驗證期，市場卻先把長期價值算滿，股價就容易回檔。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-14-段">
+<div class="round-title">第 14 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它要跟誰比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>不能只拿去跟一般封測廠比，也不能只看面板或材料股。</p>
+<p>比較合理的是：<br>- 車用感測器 / 車用影像封裝鏈<br>- 光通訊模組封裝鏈<br>- 高頻 RF 模組封裝鏈<br>- 陶瓷基板與高階模組供應鏈</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-15-段">
+<div class="round-title">第 15 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>照你的固定框架怎麼下？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：同欣電在車用 CIS + 模組封裝這條路很純<br>- 誰最廣：大型封裝平台公司更廣<br>- 誰最穩：有更大規模量產平台的公司更穩<br>- 誰最有彈性：同欣電這種高規格模組封裝股彈性更大<br>- 本公司卡在哪裡：它卡在「穩定車用封裝股」與「高規格模組封裝升級股」兩種框架交界<br>- 最像的比較對手：高規格感測 / 光通訊 / RF 模組封裝公司<br>- 最不像的比較對手：友達、群創這種面板平台股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-16-段">
+<div class="round-title">第 16 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>20 倍本益比怎麼看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>20 倍 PE 本身不算極端，關鍵要看它是在交易什麼。</p>
+<p>如果只是穩定車用封裝，那 20 倍不見得便宜；如果高價值新產品線真的起來，20 倍也不見得貴。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>五件組怎麼立？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>正式版我會這樣回答。</p>
+<p>1. 毛利率<br>- 重點在高價值產品線占比能不能持續提升。<br>- 如果光通訊 / RF / 陶瓷基板比重提高，毛利率才有結構性上行的可能。</p>
+<p>2. 營業利益率<br>- 如果光通訊 / RF / 陶瓷基板比重提高，營業利益率才有上修空間。</p>
+<p>3. 淨利率<br>- 淨利率最後要看高價值產品是否真的轉成 EPS。</p>
+<p>4. 獲利品質<br>- 獲利品質重點不只是營收成長，而是產品 mix 是否往高價值移動。</p>
+<p>5. 估值分水嶺<br>- 市場是把它當穩定封裝股，還是當高規格模組封裝升級股，這就是估值分水嶺。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果把三層結構翻成估值辯論呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣翻：</p>
+<ul><li>第一層：車用 CIS 封裝基本盤</li><li>這層證明公司有穩定底盤，但比較像舊世界與起點</li></ul>
+<ul><li>第二層：800G 光通訊 / RF 模組 / 陶瓷基板升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
+<ul><li>第三層：產品線外延與第二成長曲線</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
+<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要站在空方，最狠一句話是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是一個很便宜的低估值股，而是一個市場已經開始相信第二成長曲線的封裝公司；只要 800G / RF / 陶瓷基板沒有如預期接棒，評價就撐不住。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那哪個條件掉了，thesis 就要重寫？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最重要的幾個驗證點：<br>- 光通訊 800G / 1.6T 進度不如預期<br>- RF 模組與陶瓷基板占比沒有持續上升<br>- 車用 CIS 成長放緩<br>- hybrid 衰退持續拖累整體獲利</p>
+<p>只要這些掉下去，市場就會把它切回普通封裝股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-21-段">
+<div class="round-title">第 21 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那市場最可能把它切回哪個較低級框架？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最可能切回「穩定但平庸的車用封裝股」框架。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card"><h3>公司本質</h3><ul><li>同欣電是車用 CIS 封裝為底盤、往光通訊與高階模組封裝延伸的公司。</li><li>最值錢的，不是營收有沒有季增，而是高價值產品 mix 能不能持續改善獲利品質。</li></ul></section>
+<section class="summary-card section-card"><h3>已知事實</h3><ul><li>收盤價：182.5 元</li><li>同欣電目前的核心身分，是車用 CIS 底盤上疊加光通訊 / RF / 陶瓷基板升級的高規格模組封裝股，而不是普通封裝股。</li><li>目前研究主線集中於：車用影像封裝基本盤、800G 光通訊 / RF 模組 / 陶瓷基板升級，以及 1.6T / 低軌衛星 / 矽電容外延。</li><li>市場目前交易的不只是一條車用底盤，而是在交易高規格模組封裝第二成長曲線能否真的接上。</li><li>本益比 21.3 倍</li><li>股價淨值比 2.71 倍</li><li>總市值約 330 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">10.92 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+24.77%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+3.64%</td></tr>
+  </tbody>
+</table>
+</div></section>
+<section class="summary-card section-card"><h3>同業定位</h3><ul><li>同欣電：車用 CIS 底盤上疊加光通訊 / RF / 陶瓷基板升級的高規格模組封裝股。</li><li>一般封裝股：景氣敏感度較高，但高規格模組封裝與產品 mix 升級較弱。</li><li>高規格模組封裝平台公司：同樣受惠於光通訊 / RF / 車用升級，但未必像同欣電一樣同時卡到車用影像底盤與陶瓷基板外延。</li><li>最像的比較對手：高規格模組封裝 / 光通訊 / RF 封裝同業。</li><li>最不像的比較對手：普通低附加價值封裝股。</li></ul></section>
+<section class="summary-card section-card"><h3>估值五件組</h3><ul><li>毛利率：回答高價值產品 mix，是否真的在推升內容價值。</li><li>營業利益率：回答高規格模組封裝升級，是否真的轉成更高效率的平台利潤。</li><li>淨利率：回答股東最後拿到的利潤，是否由高價值模組需求穩定推升。</li><li>獲利品質：重點在車用底盤與第二成長曲線，能否持續把營收轉成高品質現金流。</li><li>估值分水嶺：市場會不會持續把它留在高規格模組封裝股的位置，而不是切回穩定但平庸的封裝股。</li></ul></section>
+<section class="summary-card section-card"><h3>關鍵推論</h3><ul><li>同欣電的價值不只是車用底盤，而是高規格模組封裝第二成長曲線。</li><li>車用影像封裝基本盤是底，800G 光通訊 / RF 模組 / 陶瓷基板升級是主線，1.6T / 低軌衛星 / 矽電容外延是更高價值的延伸。</li><li>市場現在交易的不是單一成熟底盤，而是它能不能在車用之外多長出一條高毛利第二曲線。</li><li>最大投資風險不是沒有基本盤，而是如果第二成長曲線沒有順利接上，市場最後還是會把它切回穩定但平庸的封裝股。</li></ul></section>
+<section class="summary-card section-card"><h3>目前最大爭議點</h3><ul><li>高價值產品 mix 能否持續提升。</li><li>800G 光通訊 / RF 模組 / 陶瓷基板升級能否真正落地成高品質獲利，而不只是題材。</li><li>毛利率、營業利益率與淨利率能否持續改善。</li><li>市場是否會繼續把它留在高規格模組封裝框架，而不是切回穩定但平庸的封裝股。</li></ul></section>
+<section class="summary-card section-card"><h3>反方壓力測試</h3><ul><li>最強空方一句話：如果第二成長曲線沒有順利接上，市場最後還是會把它切回穩定但平庸的封裝股。</li><li>最脆弱的驗證數字：高價值產品 mix 能不能持續改善獲利品質。</li><li>最可能被切回去的低級估值框架：穩定但平庸的封裝股，而不是高規格模組封裝股。</li></ul></section>
+<section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高價值產品 mix 提升不如預期。</li><li>光通訊 / RF / 陶瓷基板第二成長曲線落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高規格模組封裝地位的評價。</li></ul></section>
+<section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高價值產品 mix 是否持續提升。</li><li>光通訊 / RF / 陶瓷基板第二成長曲線是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
+<section class="summary-card section-card"><h3>最短版記法</h3><ul><li>同欣電不是普通封裝股，而是車用 CIS 底盤上疊加光通訊 / RF / 陶瓷基板升級的高規格模組封裝股；真正關鍵是第二成長曲線能不能接上。</li></ul></section>
+      <div class="footer">Generated at 2026-08-18 20:04</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

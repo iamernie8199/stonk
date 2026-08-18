@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-6770 力積電 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-6770.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-6770]</span>
+            <h1 class="company-name" id="top">力積電</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-08-12</span><span class="deadline-chip">結構化市場資料：最新台灣交易日為 2026-08-12</span><span class="deadline-chip">月營收：最新為 2026 年 6 月營收，公告日 2026-08-09</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-估值與市場預期">估值與市場預期</a>
+<a href="#digest-5-第-5-段">第 5 段</a>
+<a href="#digest-6-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-8-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-9-第-9-段">第 9 段</a>
+<a href="#digest-10-第-10-段">第 10 段</a>
+<a href="#digest-11-估值與市場預期">估值與市場預期</a>
+<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-13-第-13-段">第 13 段</a>
+<a href="#digest-14-估值與市場預期">估值與市場預期</a>
+<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-17-估值與市場預期">估值與市場預期</a>
+<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-20-估值與市場預期">估值與市場預期</a>
+<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-23-估值與市場預期">估值與市場預期</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果一句話先記住，力積電最核心的身份，還是成熟製程與 DRAM 代工修復股。</p>
+<p>只是跟一般成熟製程股不同的是，它不是只有景氣修復，還多了 3D AI Foundry、矽電容、Interposer、HBM PWF 這些外延選擇權。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>對，這個理解比較準。</p>
+<p>它的地基還是：<br>- 成熟製程代工<br>- DRAM 代工<br>- 漲價與稼動率修復</p>
+<p>但市場會額外給它一點想像，是因為它不是純粹只有景氣，而是還有一些特殊製程外延。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會先把它歸在「高彈性景氣 / 循環股」，再把 3D AI Foundry 當成補充主題。</p>
+<p>因為如果骨架一開始就放在 3D AI Foundry，會把現在真正主導股價的東西講反。現在主體還是景氣、稼動率、ASP、漲價與成熟製程修復。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>第一層主線，就是成熟製程 / DRAM 代工基本盤。</p>
+<p>先看正式數據。最新台灣交易日 2026-08-12：<br>- 收盤價 74.9 元<br>- 本益比 12.7 倍<br>- 股價淨值比 2.84 倍<br>- 總市值約 3,507 億元</p>
+<p>再看最新月營收。最新為 2026 年 6 月營收，公告日 2026-08-09：<br>- 單月合併營收 6,668,883 千元<br>- 年增 70.54%<br>- 月增 3.01%</p>
+<p>這代表的不是單月題材，而是修復底盤真的已經開始動起來。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-第-5-段">
+<div class="digest-title">第 5 段</div>
+<div class="content"><p>對。</p>
+<p>第一層最重要的是：<br>- 稼動率回升<br>- 成熟製程需求回來<br>- DRAM 代工與邏輯代工都開始轉強</p>
+<p>如果這一層不成立，後面所有外延都會變成空話。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>沒錯。</p>
+<p>第一層證明它不是空故事，但真正決定估值能不能延續，還是要看第二層的價格與毛利率修復。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>第二層是漲價與 ASP 修復。</p>
+<p>這一層比第一層更關鍵，因為股價不是只在反映有沒有出貨，而是在反映：<br>- DRAM 新一輪代工價上漲 40% 到 45%<br>- 8 吋 / 12 吋成熟製程價格調升 10% 到 15%<br>- 這些價格調整能不能真正轉成毛利率與營益率修復</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>完全正確。</p>
+<p>很多景氣股最容易犯的錯，就是市場只看營收年增，但真正影響重估的是：<br>- ASP 有沒有上去<br>- 毛利率有沒有回來<br>- 本業獲利是不是從虧轉盈再往上走</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-第-9-段">
+<div class="digest-title">第 9 段</div>
+<div class="content"><p>對。</p>
+<p>第一層證明景氣回來了，第二層才決定這是不是高品質修復，而不是只有短期反彈。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-第-10-段">
+<div class="digest-title">第 10 段</div>
+<div class="content"><p>至少市場會願意先這樣看。</p>
+<p>但要注意，這種股最大的問題就是：市場通常會先把漲價想得很長，所以第二層雖然最重要，也最容易被驗證打臉。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對，這就是第二層真正的估值辯論。</p>
+<p>如果價格修復能撐久，力積電就不只是谷底反彈；如果撐不久，市場就會很快把它切回景氣循環股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>第三層是 3D AI Foundry / HBM PWF / Intel EMIB 外延。</p>
+<p>這一層現在不是主體，但很重要，因為它決定市場會不會給力積電多一點不只是景氣股的想像。</p>
+<p>包括：<br>- 矽電容已獲 Intel EMIB 採用<br>- Interposer、WoW 布局<br>- HBM PWF 後段封裝時程<br>- 1P 製程與記憶體合作外延</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-第-13-段">
+<div class="digest-title">第 13 段</div>
+<div class="content"><p>對。</p>
+<p>這一層比較像第二曲線選擇權。</p>
+<p>如果未來真的放大，力積電就不只是一檔成熟製程景氣股；但如果只是停留在題材與試量產，市場最後還是會把它切回景氣循環框架。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對。</p>
+<p>第三層最容易讓市場在本業修復時額外加分，但也是最容易因為時程延後、貢獻不明確，而先被拿掉溢價的地方。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最直接還是：<br>- 聯電<br>- 世界先進<br>- 台積電成熟製程口徑</p>
+<p>再往外一點，才是 3D AI Foundry 或特殊製程外延的比較。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會先這樣看：<br>- 誰最純：世界先進（若只看成熟製程純度）<br>- 誰最廣：台積電<br>- 誰最穩：聯電<br>- 誰最有彈性：力積電<br>- 本公司卡在哪裡：成熟製程修復股外加特殊製程選擇權<br>- 最像的比較對手：聯電<br>- 最不像的比較對手：神達這種資料中心硬體平台股</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>不能只看 12 倍就說便宜。</p>
+<p>市場在看的其實是：<br>- 這是不是景氣谷底修復中的合理估值<br>- 還是漲價與 ASP 修復能撐得比市場現在想得更久</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣看：</p>
+<p>1. 毛利率<br>- 毛利率回答的是：漲價是不是有真的反映到產品組合與本業獲利。</p>
+<p>2. 營業利益率<br>- 這是最核心的。<br>- 因為成熟製程股最怕營收有成長，但本業利潤沒有真正拉起來。</p>
+<p>3. 淨利率<br>- 淨利率要看修復是不是最後落到 EPS，而不是只停在營收擴張。</p>
+<p>4. 獲利品質<br>- 核心問題是：<br>  - 這一輪修復是不是價格、組合與稼動率一起改善<br>  - 還是只是短期景氣彈升</p>
+<p>5. 估值分水嶺<br>- 力積電的估值分水嶺在於：<br>  - 市場把它當成熟製程景氣修復股<br>  - 還是額外給一點 3D AI Foundry 外延溢價</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>我會這樣翻：</p>
+<ul><li>第一層：成熟製程 / DRAM 代工基本盤</li><li>這一層證明景氣修復真的發生了</li><li>但它比較像底盤與起點</li></ul>
+<ul><li>第二層：漲價與 ASP 修復</li><li>這一層回答本業獲利是不是高品質修復</li><li>這才是估值延續核心</li></ul>
+<ul><li>第三層：3D AI Foundry / HBM PWF / Intel EMIB 外延</li><li>這一層回答未來會不會多出第二曲線</li><li>最有長期價值，但也最容易被市場提早高估</li></ul>
+<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值但也最容易被提前資本化。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>最強空方一句話就是：<br>你現在買的不是一個靜態成熟製程公司，而是市場期待它從谷底修復再加上新外延；只要價格修復不夠久、特殊製程外延不夠快，估值就會先修下來。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對。</p>
+<p>最危險的情境不是營收沒成長，而是：<br>- 景氣修復還在<br>- 但 DRAM / 邏輯漲價沒有市場想的那麼長<br>- 毛利率與營業利益率拉不上去<br>- 3D AI Foundry 還停留在題材階段</p>
+<p>這樣市場就會把它切回成熟製程景氣股，不給額外溢價。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>最該盯的是：<br>- DRAM / 邏輯漲價幅度能不能實際落地<br>- 毛利率與營業利益率能不能持續改善<br>- 稼動率回升有沒有延續<br>- 3D AI Foundry 占比有沒有真的往上走</p>
+<p>如果未來看到：<br>- 營收還在，但毛利率不升反降<br>- 漲價只是一季行情<br>- 3D AI Foundry 長期沒有轉成實質貢獻<br>那 thesis 就要重寫。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>市場最可能把它切回「成熟製程景氣循環股」框架。</p>
+<p>也就是說，從現在這種修復股加特殊外延選擇權，退回成：<br>- 跟著景氣與漲價波動<br>- 有改善，但不值得額外溢價</p>
+<p>一旦被切回這個框架，本益比就不會給太高。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>力積電到底該怎麼看？它是晶圓代工、DRAM 廠，還是先進封裝題材股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果一句話先記住，力積電最核心的身份，還是成熟製程與 DRAM 代工修復股。</p>
+<p>只是跟一般成熟製程股不同的是，它不是只有景氣修復，還多了 3D AI Foundry、矽電容、Interposer、HBM PWF 這些外延選擇權。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是台積電那種先進製程平台，而比較像在成熟製程裡面有額外選擇權？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這個理解比較準。</p>
+<p>它的地基還是：<br>- 成熟製程代工<br>- DRAM 代工<br>- 漲價與稼動率修復</p>
+<p>但市場會額外給它一點想像，是因為它不是純粹只有景氣，而是還有一些特殊製程外延。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那你會把它歸哪一類？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會先把它歸在「高彈性景氣 / 循環股」，再把 3D AI Foundry 當成補充主題。</p>
+<p>因為如果骨架一開始就放在 3D AI Foundry，會把現在真正主導股價的東西講反。現在主體還是景氣、稼動率、ASP、漲價與成熟製程修復。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第一層主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>第一層主線，就是成熟製程 / DRAM 代工基本盤。</p>
+<p>先看正式數據。最新台灣交易日 2026-08-12：<br>- 收盤價 74.9 元<br>- 本益比 12.7 倍<br>- 股價淨值比 2.84 倍<br>- 總市值約 3,507 億元</p>
+<p>再看最新月營收。最新為 2026 年 6 月營收，公告日 2026-08-09：<br>- 單月合併營收 6,668,883 千元<br>- 年增 70.54%<br>- 月增 3.01%</p>
+<p>這代表的不是單月題材，而是修復底盤真的已經開始動起來。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-5-段">
+<div class="round-title">第 5 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第一層比較像景氣谷底後的修復底盤？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>第一層最重要的是：<br>- 稼動率回升<br>- 成熟製程需求回來<br>- DRAM 代工與邏輯代工都開始轉強</p>
+<p>如果這一層不成立，後面所有外延都會變成空話。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第一層如果翻成估值語言，就是先證明景氣修復發生了，但本身只是底盤？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>沒錯。</p>
+<p>第一層證明它不是空故事，但真正決定估值能不能延續，還是要看第二層的價格與毛利率修復。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第二層是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>第二層是漲價與 ASP 修復。</p>
+<p>這一層比第一層更關鍵，因為股價不是只在反映有沒有出貨，而是在反映：<br>- DRAM 新一輪代工價上漲 40% 到 45%<br>- 8 吋 / 12 吋成熟製程價格調升 10% 到 15%<br>- 這些價格調整能不能真正轉成毛利率與營益率修復</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以力積電現在最重要的投資問題，不是單量，而是價格與毛利率？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>很多景氣股最容易犯的錯，就是市場只看營收年增，但真正影響重估的是：<br>- ASP 有沒有上去<br>- 毛利率有沒有回來<br>- 本業獲利是不是從虧轉盈再往上走</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-9-段">
+<div class="round-title">第 9 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果翻成估值語言，第二層才是這一輪 PE 能不能撐住的核心？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>第一層證明景氣回來了，第二層才決定這是不是高品質修復，而不是只有短期反彈。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-10-段">
+<div class="round-title">第 10 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果 DRAM / 邏輯漲價真的落地，本業就不是只有反彈，而是會變成結構性修復？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>至少市場會願意先這樣看。</p>
+<p>但要注意，這種股最大的問題就是：市場通常會先把漲價想得很長，所以第二層雖然最重要，也最容易被驗證打臉。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第二層其實是在回答：這波景氣是短反彈，還是能撐久到讓市場願意給更高評價？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是第二層真正的估值辯論。</p>
+<p>如果價格修復能撐久，力積電就不只是谷底反彈；如果撐不久，市場就會很快把它切回景氣循環股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第三層呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>第三層是 3D AI Foundry / HBM PWF / Intel EMIB 外延。</p>
+<p>這一層現在不是主體，但很重要，因為它決定市場會不會給力積電多一點不只是景氣股的想像。</p>
+<p>包括：<br>- 矽電容已獲 Intel EMIB 採用<br>- Interposer、WoW 布局<br>- HBM PWF 後段封裝時程<br>- 1P 製程與記憶體合作外延</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-13-段">
+<div class="round-title">第 13 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第三層不是現在主力獲利，但會影響市場願不願意把它從純成熟製程股往上看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>這一層比較像第二曲線選擇權。</p>
+<p>如果未來真的放大，力積電就不只是一檔成熟製程景氣股；但如果只是停留在題材與試量產，市場最後還是會把它切回景氣循環框架。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第三層就是最有長期價值、也最容易被提前高估的部分？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>第三層最容易讓市場在本業修復時額外加分，但也是最容易因為時程延後、貢獻不明確，而先被拿掉溢價的地方。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那它應該跟誰比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最直接還是：<br>- 聯電<br>- 世界先進<br>- 台積電成熟製程口徑</p>
+<p>再往外一點，才是 3D AI Foundry 或特殊製程外延的比較。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那照你的固定比較框架，你會怎麼下？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會先這樣看：<br>- 誰最純：世界先進（若只看成熟製程純度）<br>- 誰最廣：台積電<br>- 誰最穩：聯電<br>- 誰最有彈性：力積電<br>- 本公司卡在哪裡：成熟製程修復股外加特殊製程選擇權<br>- 最像的比較對手：聯電<br>- 最不像的比較對手：神達這種資料中心硬體平台股</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那 12 倍本益比看起來不貴，市場是不是還沒反映？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>不能只看 12 倍就說便宜。</p>
+<p>市場在看的其實是：<br>- 這是不是景氣谷底修復中的合理估值<br>- 還是漲價與 ASP 修復能撐得比市場現在想得更久</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那五件組要怎麼看？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣看：</p>
+<p>1. 毛利率<br>- 毛利率回答的是：漲價是不是有真的反映到產品組合與本業獲利。</p>
+<p>2. 營業利益率<br>- 這是最核心的。<br>- 因為成熟製程股最怕營收有成長，但本業利潤沒有真正拉起來。</p>
+<p>3. 淨利率<br>- 淨利率要看修復是不是最後落到 EPS，而不是只停在營收擴張。</p>
+<p>4. 獲利品質<br>- 核心問題是：<br>  - 這一輪修復是不是價格、組合與稼動率一起改善<br>  - 還是只是短期景氣彈升</p>
+<p>5. 估值分水嶺<br>- 力積電的估值分水嶺在於：<br>  - 市場把它當成熟製程景氣修復股<br>  - 還是額外給一點 3D AI Foundry 外延溢價</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果把三層結構翻成估值辯論呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣翻：</p>
+<ul><li>第一層：成熟製程 / DRAM 代工基本盤</li><li>這一層證明景氣修復真的發生了</li><li>但它比較像底盤與起點</li></ul>
+<ul><li>第二層：漲價與 ASP 修復</li><li>這一層回答本業獲利是不是高品質修復</li><li>這才是估值延續核心</li></ul>
+<ul><li>第三層：3D AI Foundry / HBM PWF / Intel EMIB 外延</li><li>這一層回答未來會不會多出第二曲線</li><li>最有長期價值，但也最容易被市場提早高估</li></ul>
+<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值但也最容易被提前資本化。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演空方，第一句會怎麼講？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最強空方一句話就是：<br>你現在買的不是一個靜態成熟製程公司，而是市場期待它從谷底修復再加上新外延；只要價格修復不夠久、特殊製程外延不夠快，估值就會先修下來。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以最大的風險不是沒需求，而是漲價不夠久、外延不夠快？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。</p>
+<p>最危險的情境不是營收沒成長，而是：<br>- 景氣修復還在<br>- 但 DRAM / 邏輯漲價沒有市場想的那麼長<br>- 毛利率與營業利益率拉不上去<br>- 3D AI Foundry 還停留在題材階段</p>
+<p>這樣市場就會把它切回成熟製程景氣股，不給額外溢價。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那哪個數字掉了，thesis 就要重寫？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>最該盯的是：<br>- DRAM / 邏輯漲價幅度能不能實際落地<br>- 毛利率與營業利益率能不能持續改善<br>- 稼動率回升有沒有延續<br>- 3D AI Foundry 占比有沒有真的往上走</p>
+<p>如果未來看到：<br>- 營收還在，但毛利率不升反降<br>- 漲價只是一季行情<br>- 3D AI Foundry 長期沒有轉成實質貢獻<br>那 thesis 就要重寫。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那市場最可能把它切回哪個較低級的估值框架？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>市場最可能把它切回「成熟製程景氣循環股」框架。</p>
+<p>也就是說，從現在這種修復股加特殊外延選擇權，退回成：<br>- 跟著景氣與漲價波動<br>- 有改善，但不值得額外溢價</p>
+<p>一旦被切回這個框架，本益比就不會給太高。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card"><h3>公司本質</h3><ul><li>力積電不是先進製程龍頭，而是成熟製程、DRAM 代工與特殊製程外延並存的高彈性修復股。</li><li>最值錢的，不是看營收衝多快，而是看價格、毛利率、營業利益率與稼動率能不能一起改善。</li></ul></section>
+<section class="summary-card section-card"><h3>已知事實</h3><ul><li>收盤價：33.8 元</li><li>力積電目前的核心身分，是成熟製程景氣修復股外加 3D AI Foundry 選擇權，而不是純題材股。</li><li>目前研究主線集中於：成熟製程 / DRAM 代工修復、漲價與 ASP 修復，以及 3D AI Foundry / HBM PWF / Intel EMIB 外延。</li><li>市場目前交易的不只是題材，而是在交易本業修復能否撐久，並讓外延真正長出第二曲線。</li><li>本益比 18.7 倍</li><li>股價淨值比 1.42 倍</li><li>總市值約 1,404 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">47.63 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+25.91%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+3.58%</td></tr>
+  </tbody>
+</table>
+</div></section>
+<section class="summary-card section-card"><h3>同業定位</h3><ul><li>力積電：成熟製程景氣修復股外加特殊製程外延選擇權。</li><li>純成熟製程景氣股：景氣敏感度高，但特殊製程外延較弱。</li><li>特殊製程 / 代工平台股：同樣受惠於高階封裝 / AI 延伸，但未必像力積電一樣同時卡到 DRAM 代工與成熟製程底盤。</li><li>最像的比較對手：成熟製程晶圓代工 / 特殊製程同業。</li><li>最不像的比較對手：先進製程純龍頭股。</li></ul></section>
+<section class="summary-card section-card"><h3>估值五件組</h3><ul><li>毛利率：回答漲價與 ASP 修復，是否真的在推升內容價值。</li><li>營業利益率：回答本業修復，是否真的轉成更高效率的平台利潤。</li><li>淨利率：回答股東最後拿到的利潤，是否由成熟製程 / DRAM 代工修復穩定推升。</li><li>獲利品質：重點在價格、稼動率與外延落地，能否持續把營收轉成高品質現金流。</li><li>估值分水嶺：市場會不會持續把它留在重估框架，而不是切回普通成熟製程景氣循環股。</li></ul></section>
+<section class="summary-card section-card"><h3>關鍵推論</h3><ul><li>力積電的價值不只是在於有題材，而是在於本業修復能不能撐久。</li><li>成熟製程與 DRAM 代工修復是底，漲價與 ASP 修復是主線，3D AI Foundry / HBM PWF / Intel EMIB 外延是更高價值但也更容易被先高估的部分。</li><li>市場現在交易的不是單一反彈，而是它能不能讓本業修復與外延第二曲線一起成立。</li><li>最大投資風險不是沒有題材，而是市場可能高估了漲價延續性與特殊製程外延落地速度，最後它仍可能只是成熟製程景氣循環股。</li></ul></section>
+<section class="summary-card section-card"><h3>目前最大爭議點</h3><ul><li>漲價與 ASP 修復能否持續。</li><li>3D AI Foundry / HBM PWF / Intel EMIB 外延能否真正落地成第二曲線。</li><li>毛利率、營業利益率與稼動率能否持續改善。</li><li>市場是否會繼續把它留在重估框架，而不是切回成熟製程循環股。</li></ul></section>
+<section class="summary-card section-card"><h3>反方壓力測試</h3><ul><li>最強空方一句話：市場可能高估了漲價延續性與特殊製程外延落地速度，最後它仍可能只是成熟製程景氣循環股。</li><li>最脆弱的驗證數字：價格、毛利率、營業利益率與稼動率能不能一起改善。</li><li>最可能被切回去的低級估值框架：普通成熟製程景氣循環股，而不是有第二曲線的重估股。</li></ul></section>
+<section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>漲價與 ASP 修復不如預期。</li><li>稼動率改善停滯。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>特殊製程外延落地不如預期。</li></ul></section>
+<section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>價格與 ASP 修復是否持續。</li><li>稼動率是否持續拉高。</li><li>外延第二曲線是否開始落地成獲利。</li><li>## 投資收斂</li></ul></section>
+<section class="summary-card section-card"><h3>最短版記法</h3><ul><li>力積電不是純題材股，而是成熟製程景氣修復股外加 3D AI Foundry 選擇權；真正關鍵不是營收創高，而是漲價、毛利率與外延能不能一起落地。</li></ul></section>
+      <div class="footer">Generated at 2026-08-18 20:04</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>

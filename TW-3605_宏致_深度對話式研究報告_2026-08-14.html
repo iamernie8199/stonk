@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW-3605 宏致 - 台股死當 TERMINAL</title>
+<style>
+:root {
+  --bg-dark: #07090e;
+  --bg-panel: rgba(14, 20, 32, 0.85);
+  --border-cyan: rgba(0, 240, 255, 0.18);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00f0ff;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #e2e8f0;
+  --text-muted: #8492a6;
+  --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1440px; margin: 0 auto; padding: 16px 24px 48px; }
+
+.term-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+.term-cmd { color: var(--amber); font-weight: 700; }
+
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 16, 26, 0.94);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  margin: 0 0 20px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+}
+.hero-inner { width: 100%; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; }
+.nav-brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 183, 0, 0.08);
+  border: 1px solid var(--border-amber);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.nav-brand-btn:hover {
+  background: rgba(255, 183, 0, 0.18);
+  border-color: var(--amber);
+  transform: translateY(-1px);
+}
+.nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.nav-brand {
+  font-weight: 800;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.nav-back-hint {
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 700;
+}
+.mode-tools { display: flex; gap: 8px; }
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.header-title-box { display: flex; flex-direction: column; gap: 4px; }
+.company-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ticker-badge {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cyan);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+}
+.company-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.sub-title-hint { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.header-meta-box { display: flex; align-items: center; }
+.header-meta-box .meta-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.toolbtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+.toolbtn:hover { background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }
+.meta-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta-chip { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }
+.meta-card { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }
+.meta-card-title { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.deadline-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.deadline-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.meta-card-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+.meta-deadline ul { margin: 0; padding-left: 16px; color: var(--text-main); line-height: 1.5; font-size: 12px; }
+
+.floating-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid var(--cyan);
+  backdrop-filter: blur(12px);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+.floating-top-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(300px, 0.9fr); gap: 24px; align-items: start; }
+.section-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-cyan);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+.main-stack { display: flex; flex-direction: column; gap: 20px; }
+.digest-wrap { display: none; }
+.sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+.reader-note { padding: 16px 20px; color: var(--text-muted); line-height: 1.6; font-size: 13px; position: relative; border-color: var(--border-amber); }
+.round { padding: 20px 24px; }
+.round-title { font-size: 16px; font-weight: 800; color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(0, 240, 255, 0.12); letter-spacing: 0.05em; }
+.round-grid { display: grid; gap: 16px; }
+.bubble { padding: 18px 20px; border-radius: 12px; transition: border-color 0.2s ease; }
+.bubble.junior {
+  background: rgba(0, 240, 255, 0.03);
+  border: 1px solid var(--border-cyan);
+  border-left: 4px solid var(--cyan);
+}
+.bubble.senior {
+  background: rgba(255, 183, 0, 0.03);
+  border: 1px solid var(--border-amber);
+  border-left: 4px solid var(--amber);
+}
+.speaker { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.junior .speaker { color: var(--cyan); }
+.senior .speaker { color: var(--amber); }
+.content p { margin: 0 0 12px; line-height: 1.75; color: #e2e8f0; font-size: 14px; }
+.content p:last-child { margin-bottom: 0; }
+.content ul { margin: 0 0 12px 0; padding-left: 20px; line-height: 1.7; color: #e2e8f0; }
+.content li { margin-bottom: 6px; }
+code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--cyan); font-family: var(--font-mono); }
+.summary-card { padding: 18px 20px; border-color: var(--border-amber); }
+.summary-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; }
+.summary-card ul { margin: 0; padding-left: 18px; line-height: 1.7; color: var(--text-main); font-size: 13px; }
+.summary-table-wrap {
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.summary-table-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.summary-table td {
+  padding: 4px 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.tbl-k { color: var(--text-muted); font-weight: 500; }
+.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
+.digest-card { padding: 20px; scroll-margin-top: 110px; }
+.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
+.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
+.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
+.footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
+.focus-mode .sidebar { display: none; }
+.focus-mode .layout { grid-template-columns: 1fr; }
+.digest-mode .full-rounds { display: none; }
+.digest-mode .digest-wrap { display: block; }
+.digest-mode .digest-only { display: block; }
+.digest-only { display: none; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .header-main { grid-template-columns: 1fr; gap: 12px; }
+  .header-meta-box { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="term-top-bar">
+    <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; TW-3605.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
+    <div>LOGGED AS: SENIOR_ANALYST</div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="top-nav">
+        <a class="nav-brand-btn" href="index.html" title="點擊返回台股死當首頁">
+          <span class="nav-back-hint">←</span>
+          <img src="stonk_logo.png" alt="台股死當 Logo" class="nav-logo">
+          <span class="nav-brand">台股死當</span>
+        </a>
+        <div class="mode-tools">
+          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
+          <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
+        </div>
+      </div>
+      <div class="header-main">
+        <div class="header-title-box">
+          <div class="company-badge-row">
+            <span class="ticker-badge">[TW-3605]</span>
+            <h1 class="company-name" id="top">宏致</h1>
+          </div>
+        </div>
+        <div class="header-meta-box"><section class="meta-card meta-deadline">
+<div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
+<div class="deadline-chips"><span class="deadline-chip">公司研究頁  2026-07-24</span><span class="deadline-chip">交易股價：2026-08-12</span><span class="deadline-chip">月營收：2026 年 6 月</span></div>
+</section></div>
+      </div>
+    </div>
+  </header>
+  <main class="layout">
+    <div class="main-stack">
+      <section class="reader-note section-card" id="readerNote">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
+          <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
+        </div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+      </section>
+      <div class="digest-wrap">
+        <section class="digest-only section-card digest-toc">
+          <h3>自動目錄</h3>
+          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-2-第-2-段">第 2 段</a>
+<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-5-估值與市場預期">估值與市場預期</a>
+<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-9-第-9-段">第 9 段</a>
+<a href="#digest-10-估值與市場預期">估值與市場預期</a>
+<a href="#digest-11-第-11-段">第 11 段</a>
+<a href="#digest-12-第-12-段">第 12 段</a>
+<a href="#digest-13-第-13-段">第 13 段</a>
+<a href="#digest-14-估值與市場預期">估值與市場預期</a>
+<a href="#digest-15-第-15-段">第 15 段</a>
+<a href="#digest-16-估值與市場預期">估值與市場預期</a>
+<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-18-第-18-段">第 18 段</a>
+<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-20-第-20-段">第 20 段</a>
+<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+<a href="#digest-22-第-22-段">第 22 段</a>
+<a href="#digest-23-估值與市場預期">估值與市場預期</a>
+<a href="#digest-24-第-24-段">第 24 段</a>
+<a href="#digest-25-估值與市場預期">估值與市場預期</a>
+<a href="#digest-26-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
+<a href="#digest-27-第-27-段">第 27 段</a>
+<a href="#digest-28-風險與失效條件">風險與失效條件</a>
+<a href="#digest-29-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
+        </section>
+        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>先抓一句話：宏致現在不是單純賣一般連接器，它是在賣 AI 伺服器裡的高速互連能力，而且從高速連接器往高速線材與高壓電源線延伸。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-2-第-2-段">
+<div class="digest-title">第 2 段</div>
+<div class="content"><p>對。它的位置比較特別。<br>它原本是通訊用連接器廠，但現在市場真正在看的是：<br>- MCIO 高速連接器<br>- 機櫃內高速連接線<br>- Bloom Energy 相關高功率電源線<br>- 以及未來往 1.6T / PCIe 升級的能力</p>
+<p>所以它不是最廣，但它的上升斜率很高。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>一句話講：宏致現在最核心的身份，是 AI 伺服器高速連接器與線材升級受惠股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>如果把整份報告收斂成一條主線，就是：<br>宏致先靠 MCIO 高速連接器打開 AI 伺服器入口，再用高速線材與電源線升級抬高內容值，最後爭取 1.6T / PCIe / 更多 ASIC 平台客戶的外延空間。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-5-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 132 元<br>- 本益比 25.7 倍<br>- 股價淨值比 2.69 倍<br>- 總市值約 232 億元</p>
+<p>再看最新月營收，依公告日與月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,154,175 千元<br>- 年增 29.81%<br>- 月增 3.28%</p></div>
+</section>
+<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>市場現在在買三件事：<br>- AWS / Meta 等 ASIC AI 伺服器對 MCIO 的放量<br>- 高速線材不是只有講故事，而是開始進入量產爬坡<br>- Bloom Energy 電源線與 1.6T / PCIe 新產品把公司從連接器股往高速互連平台推</p></div>
+</section>
+<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，而且這裡有幾個很硬的訊號：<br>- 2Q26 營收 33.5 億元，季增約 19%、年增約 20%<br>- AI 產品營收季增約 70% 至 6.7 億元<br>- AI 營收占比由 14% 升到 20%<br>- 1H26 MCIO 出貨量約 1,300 萬顆<br>- 7 月月產能已到 400 萬顆，年底規劃達 500 萬顆</p></div>
+</section>
+<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對，但還不能只寫成「AI 高速連接器放量股」就結束，因為那樣還是太平面。<br>真正值錢的是：<br>它如果能把 MCIO 從單一產品，做成高速連接器平台入口，那估值天花板就會比一般連接器廠高很多。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-9-第-9-段">
+<div class="digest-title">第 9 段</div>
+<div class="content"><p>嘉澤比較像 CPU Socket / 高速伺服器連接器本體就很強，宏致則比較像從高速連接器切入，再往線材與電源線延伸。也就是說，宏致的基本盤純度沒有嘉澤那麼高，但延伸彈性反而更大。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-10-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>我會說：第一層還是偏景氣起點，但已經不是一般低階連接器景氣。它有平台味道，卻還沒證明自己能單靠這一層撐住高估值，所以第一層是起點，不是終點。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-11-第-11-段">
+<div class="digest-title">第 11 段</div>
+<div class="content"><p>因為這條線決定宏致是不是只有連接器，而不是更完整的互連方案供應商。</p>
+<p>重點包括：<br>- 機櫃內高速連接線<br>- 1.6T DAC / AEC 準備中<br>- Bloom Energy SOFC 高功率電源線<br>- 電源線規格從 800V 往 2,000V 升級</p></div>
+</section>
+<section class="digest-card section-card" id="digest-12-第-12-段">
+<div class="digest-title">第 12 段</div>
+<div class="content"><p>完全正確。</p>
+<p>這條線真正值錢的，不是出貨量而已，而是單位價值量在變大：<br>- 高速線單價約為 MCIO 的 5 倍<br>- 高功率電源線單套 ASP 約 10 萬美金</p>
+<p>也就是說，如果這條線接上，宏致的內容值就不只是一顆連接器而已。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-13-第-13-段">
+<div class="digest-title">第 13 段</div>
+<div class="content"><p>對，這就是爭議點。<br>已知事實是：<br>- 高速線 2Q26 已開始小量量產<br>- 2H26 預估占比可升到 3% 到 5%<br>- 電源線 2H26 出貨預估較 1H26 翻倍</p>
+<p>但關鍵推論是：<br>這些量產節奏能不能真的接住，而不是停在認證或小量出貨。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-14-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對，這句話很關鍵。<br>如果高速線與高壓電源線只是有、但規模很小，那市場不會長期買單；但如果它們開始在 2027 年變成重要營收與毛利來源，估值會再往上抬。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-15-第-15-段">
+<div class="digest-title">第 15 段</div>
+<div class="content"><p>完全正確。<br>MCIO 讓市場先注意到宏致，但真正會把它從連接器股往高速互連升級股推上去的，是第二層能不能把內容值變成結構性毛利改善。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-16-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>對，這就是最核心的估值分歧。第一層讓市場先給它題材溢價，第二層才決定這個溢價能不能留下來。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>第三條是平台外延。</p>
+<p>如果前兩條代表今天最受關注的 MCIO 與線材放量，那第三條代表的是：<br>- 公司不是只做目前這一代 AI 伺服器連接器<br>- 而是還在往 1.6T DAC / AEC<br>- PCIe 高速互連<br>- 更廣的 ASIC 平台客戶<br>延伸。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-18-第-18-段">
+<div class="digest-title">第 18 段</div>
+<div class="content"><p>完全正確。<br>市場現在願意給 2027 年更高想像，不是因為今天就賺很多，而是因為它有機會從 AWS / Meta 這一代 ASIC 連接器供應商，走到更廣的高速互連平台。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>對。這就是第三條線的真正驗證點。<br>如果 1.6T / PCIe / 更多 CSP 客戶只是樣品與認證，那市場溢價會回吐；但如果開始進入 2027 年正式放量，宏致就不會只是 AI 連接器短線受惠股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-20-第-20-段">
+<div class="digest-title">第 20 段</div>
+<div class="content"><p>對，這就是第三層最值得追、也最該警戒的地方。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>這家公司也很容易被錯比。</p>
+<p>它不像嘉澤那麼偏 CPU Socket 與伺服器連接器，也不像貿聯-KY 那麼偏整體線束系統，更不像信邦那樣偏工業長週期線束。<br>它比較像是站在 AI 伺服器高速連接器與高速線材中間的升級公司。</p>
+<p>所以比較時要分層：<br>- 跟嘉澤比：高速伺服器連接器內容值座標<br>- 跟貿聯-KY比：高速互連與資料中心線材座標<br>- 跟信邦比：高可靠度電源 / 線材座標<br>- 跟安費諾比：全球平台廣度座標</p></div>
+</section>
+<section class="digest-card section-card" id="digest-22-第-22-段">
+<div class="digest-title">第 22 段</div>
+<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：嘉澤（若只看高速伺服器連接器）<br>- 誰最廣：安費諾<br>- 誰最穩：安費諾 / 信邦<br>- 誰最有彈性：宏致<br>- 本公司卡在哪裡：高速連接器已放量，但高速線與電源線還在把故事變成規模的中段<br>- 最像的比較對手：貿聯-KY<br>- 最不像的比較對手：一般消費性連接器廠</p></div>
+</section>
+<section class="digest-card section-card" id="digest-23-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>因為它現在的評價還不是平台股滿分定價，但新成長線很多：<br>- MCIO 放量<br>- 高速線材放量<br>- Bloom Energy 電源線升級<br>- 1.6T / PCIe 外延</p>
+<p>也就是說，它不是最穩的，但如果兩三條線一起成立，估值彈性會很大。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-24-第-24-段">
+<div class="digest-title">第 24 段</div>
+<div class="content"><p>因為市場不是把它當一般通訊連接器股，而是在交易：<br>- MCIO 高速連接器的成長<br>- 高速線材 / 電源線的內容值提升<br>- 公司能不能從連接器供應商升級成高速互連平台供應商</p></div>
+</section>
+<section class="digest-card section-card" id="digest-25-估值與市場預期">
+<div class="digest-title">估值與市場預期</div>
+<div class="content"><p>完全正確。這就是宏致現在估值的本質。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-26-獲利品質與經營槓桿">
+<div class="digest-title">獲利品質與經營槓桿</div>
+<div class="content"><p>我會這樣切：<br>- 基本盤：景氣成分最高，但也是現在營收與題材的起點<br>- 規格升級：最關鍵，因為高速線材與電源線會決定毛利率結構能不能往上抬<br>- 平台外延：最有長期價值，但目前也最容易被市場提前高估</p>
+<p>也就是說，宏致能不能維持 25 倍，不是只看 MCIO 放量，而是看第二層能不能把內容值與毛利率真的推上去，第三層能不能在 2027 年後變成第二支柱。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-27-第-27-段">
+<div class="digest-title">第 27 段</div>
+<div class="content"><p>非常合理。若 AWS / Meta 這一波拉貨只是短線衝量，而 2027 年沒有更多客戶或更多產品接上，市場就會很快把它重新切回一般成長股。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-28-風險與失效條件">
+<div class="digest-title">風險與失效條件</div>
+<div class="content"><p>對，這是最實際的風險。因為現在 2027 年 EPS 區間分歧已經很大，代表大家對這條線的放量速度沒有共識。</p></div>
+</section>
+<section class="digest-card section-card" id="digest-29-ai-驅動與產業脈絡">
+<div class="digest-title">AI 驅動與產業脈絡</div>
+<div class="content"><p>有可能。如果高速線與電源線的第二層沒有接住，第三層又只停在樣品與認證，那市場最後只會看：<br>- AI 連接器短線景氣<br>- 產能利用率<br>- 接單波動</p>
+<p>那它就會回到比較低級的連接器景氣股框架。</p></div>
+</section>
+      </div>
+      <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>我先問最基本的。宏致到底是什麼公司？我以前只把它當連接器廠，但現在又一直看到 MCIO、高速線材、Bloom Energy、SOFC，感覺不是同一件事。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先抓一句話：宏致現在不是單純賣一般連接器，它是在賣 AI 伺服器裡的高速互連能力，而且從高速連接器往高速線材與高壓電源線延伸。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-2-段">
+<div class="round-title">第 2 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以它不是像嘉澤那麼偏 CPU Socket，也不是像貿聯-KY 那麼偏整體線束？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。它的位置比較特別。<br>它原本是通訊用連接器廠，但現在市場真正在看的是：<br>- MCIO 高速連接器<br>- 機櫃內高速連接線<br>- Bloom Energy 相關高功率電源線<br>- 以及未來往 1.6T / PCIe 升級的能力</p>
+<p>所以它不是最廣，但它的上升斜率很高。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果一句話講，宏致現在最核心的身份是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>一句話講：宏致現在最核心的身份，是 AI 伺服器高速連接器與線材升級受惠股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那宏致這一輪最重要的主線是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>如果把整份報告收斂成一條主線，就是：<br>宏致先靠 MCIO 高速連接器打開 AI 伺服器入口，再用高速線材與電源線升級抬高內容值，最後爭取 1.6T / PCIe / 更多 ASIC 平台客戶的外延空間。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>先不要只講故事，市場現在到底用什麼價格在看它？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 132 元<br>- 本益比 25.7 倍<br>- 股價淨值比 2.69 倍<br>- 總市值約 232 億元</p>
+<p>再看最新月營收，依公告日與月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,154,175 千元<br>- 年增 29.81%<br>- 月增 3.28%</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>25 倍多的本益比對一間連接器公司不算低，市場到底在買什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>市場現在在買三件事：<br>- AWS / Meta 等 ASIC AI 伺服器對 MCIO 的放量<br>- 高速線材不是只有講故事，而是開始進入量產爬坡<br>- Bloom Energy 電源線與 1.6T / PCIe 新產品把公司從連接器股往高速互連平台推</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第一條線的核心，還是 MCIO 到底是不是真的放量？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，而且這裡有幾個很硬的訊號：<br>- 2Q26 營收 33.5 億元，季增約 19%、年增約 20%<br>- AI 產品營收季增約 70% 至 6.7 億元<br>- AI 營收占比由 14% 升到 20%<br>- 1H26 MCIO 出貨量約 1,300 萬顆<br>- 7 月月產能已到 400 萬顆，年底規劃達 500 萬顆</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>這樣看起來，它比較像 AI 高速連接器放量股，不是嗎？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，但還不能只寫成「AI 高速連接器放量股」就結束，因為那樣還是太平面。<br>真正值錢的是：<br>它如果能把 MCIO 從單一產品，做成高速連接器平台入口，那估值天花板就會比一般連接器廠高很多。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-9-段">
+<div class="round-title">第 9 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以如果只看這個基本盤，宏致跟嘉澤最大的差別是什麼？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>嘉澤比較像 CPU Socket / 高速伺服器連接器本體就很強，宏致則比較像從高速連接器切入，再往線材與電源線延伸。也就是說，宏致的基本盤純度沒有嘉澤那麼高，但延伸彈性反而更大。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果講得更投資一點，第一層到底只是景氣，還是已經有平台味道？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會說：第一層還是偏景氣起點，但已經不是一般低階連接器景氣。它有平台味道，卻還沒證明自己能單靠這一層撐住高估值，所以第一層是起點，不是終點。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-11-段">
+<div class="round-title">第 11 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第二條主線為什麼重要？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為這條線決定宏致是不是只有連接器，而不是更完整的互連方案供應商。</p>
+<p>重點包括：<br>- 機櫃內高速連接線<br>- 1.6T DAC / AEC 準備中<br>- Bloom Energy SOFC 高功率電源線<br>- 電源線規格從 800V 往 2,000V 升級</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-12-段">
+<div class="round-title">第 12 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以不是只賣更多 MCIO，而是每個機櫃裡面其他互連與供電環節也想吃？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。</p>
+<p>這條線真正值錢的，不是出貨量而已，而是單位價值量在變大：<br>- 高速線單價約為 MCIO 的 5 倍<br>- 高功率電源線單套 ASP 約 10 萬美金</p>
+<p>也就是說，如果這條線接上，宏致的內容值就不只是一顆連接器而已。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-13-段">
+<div class="round-title">第 13 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>可是這裡是不是也最容易被市場先吹太大？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是爭議點。<br>已知事實是：<br>- 高速線 2Q26 已開始小量量產<br>- 2H26 預估占比可升到 3% 到 5%<br>- 電源線 2H26 出貨預估較 1H26 翻倍</p>
+<p>但關鍵推論是：<br>這些量產節奏能不能真的接住，而不是停在認證或小量出貨。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第二條線的核心，不是有沒有新產品，而是高價值線材能不能變成真正的毛利率推手？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這句話很關鍵。<br>如果高速線與高壓電源線只是有、但規模很小，那市場不會長期買單；但如果它們開始在 2027 年變成重要營收與毛利來源，估值會再往上抬。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-15-段">
+<div class="round-title">第 15 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果要把這層講得更像估值辯論，關鍵就是：高價值線材會不會把毛利率結構往上抬？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。<br>MCIO 讓市場先注意到宏致，但真正會把它從連接器股往高速互連升級股推上去的，是第二層能不能把內容值變成結構性毛利改善。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第二層才是真正決定 2027 年 EPS 會靠近 7.5 還是留在 5 字頭的地方？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是最核心的估值分歧。第一層讓市場先給它題材溢價，第二層才決定這個溢價能不能留下來。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那第三條主線呢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>第三條是平台外延。</p>
+<p>如果前兩條代表今天最受關注的 MCIO 與線材放量，那第三條代表的是：<br>- 公司不是只做目前這一代 AI 伺服器連接器<br>- 而是還在往 1.6T DAC / AEC<br>- PCIe 高速互連<br>- 更廣的 ASIC 平台客戶<br>延伸。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-18-段">
+<div class="round-title">第 18 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這條線現在不是主體營收，但會影響市場願不願意給高估值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。<br>市場現在願意給 2027 年更高想像，不是因為今天就賺很多，而是因為它有機會從 AWS / Meta 這一代 ASIC 連接器供應商，走到更廣的高速互連平台。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以這條線的核心爭論，不是有沒有下一代產品，而是它們會不會變成真正的平台外延？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對。這就是第三條線的真正驗證點。<br>如果 1.6T / PCIe / 更多 CSP 客戶只是樣品與認證，那市場溢價會回吐；但如果開始進入 2027 年正式放量，宏致就不會只是 AI 連接器短線受惠股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-20-段">
+<div class="round-title">第 20 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以第三層最容易被提前高估，但如果成功，估值跳升也最大？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這就是第三層最值得追、也最該警戒的地方。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果把宏致放進整個研究宇宙，它到底該跟誰比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>這家公司也很容易被錯比。</p>
+<p>它不像嘉澤那麼偏 CPU Socket 與伺服器連接器，也不像貿聯-KY 那麼偏整體線束系統，更不像信邦那樣偏工業長週期線束。<br>它比較像是站在 AI 伺服器高速連接器與高速線材中間的升級公司。</p>
+<p>所以比較時要分層：<br>- 跟嘉澤比：高速伺服器連接器內容值座標<br>- 跟貿聯-KY比：高速互連與資料中心線材座標<br>- 跟信邦比：高可靠度電源 / 線材座標<br>- 跟安費諾比：全球平台廣度座標</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-22-段">
+<div class="round-title">第 22 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那你直接下結論：誰最純、誰最廣、誰最穩、誰最有彈性？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：嘉澤（若只看高速伺服器連接器）<br>- 誰最廣：安費諾<br>- 誰最穩：安費諾 / 信邦<br>- 誰最有彈性：宏致<br>- 本公司卡在哪裡：高速連接器已放量，但高速線與電源線還在把故事變成規模的中段<br>- 最像的比較對手：貿聯-KY<br>- 最不像的比較對手：一般消費性連接器廠</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>為什麼你說宏致最有彈性？它規模沒有最大、平台也沒有最廣啊。</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為它現在的評價還不是平台股滿分定價，但新成長線很多：<br>- MCIO 放量<br>- 高速線材放量<br>- Bloom Energy 電源線升級<br>- 1.6T / PCIe 外延</p>
+<p>也就是說，它不是最穩的，但如果兩三條線一起成立，估值彈性會很大。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-24-段">
+<div class="round-title">第 24 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>好，那正式來。市場為什麼願意給它 25 倍多本益比？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>因為市場不是把它當一般通訊連接器股，而是在交易：<br>- MCIO 高速連接器的成長<br>- 高速線材 / 電源線的內容值提升<br>- 公司能不能從連接器供應商升級成高速互連平台供應商</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="估值與市場預期">
+<div class="round-title">估值與市場預期</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>所以真正的估值辯論，不是 2026 賺多少，而是它到底是 AI 高速連接器成長股，還是能升級成更完整的高速互連平台股？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>完全正確。這就是宏致現在估值的本質。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="獲利品質與經營槓桿">
+<div class="round-title">獲利品質與經營槓桿</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>那如果更狠一點講，三層裡面哪一層只是景氣，哪一層可能變成長期價值？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>我會這樣切：<br>- 基本盤：景氣成分最高，但也是現在營收與題材的起點<br>- 規格升級：最關鍵，因為高速線材與電源線會決定毛利率結構能不能往上抬<br>- 平台外延：最有長期價值，但目前也最容易被市場提前高估</p>
+<p>也就是說，宏致能不能維持 25 倍，不是只看 MCIO 放量，而是看第二層能不能把內容值與毛利率真的推上去，第三層能不能在 2027 年後變成第二支柱。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="第-27-段">
+<div class="round-title">第 27 段</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>如果我要扮演空方，我第一個問題會是：MCIO 放量會不會只是短線專案高峰？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>非常合理。若 AWS / Meta 這一波拉貨只是短線衝量，而 2027 年沒有更多客戶或更多產品接上，市場就會很快把它重新切回一般成長股。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="風險與失效條件">
+<div class="round-title">風險與失效條件</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第二個空方，是不是高速線材跟電源線雖然很美，但其實量產節奏比市場想的慢？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>對，這是最實際的風險。因為現在 2027 年 EPS 區間分歧已經很大，代表大家對這條線的放量速度沒有共識。</p></div>
+</article></div>
+</section>
+<section class="round section-card" id="ai-驅動與產業脈絡">
+<div class="round-title">AI 驅動與產業脈絡</div>
+<div class="round-grid"><article class="bubble junior">
+<div class="bubble-head"><div class="speaker">菜鳥研究員</div></div>
+<div class="content"><p>第三個空方，是不是最後市場還是只會把它切回一般通訊連接器公司？</p></div>
+</article><article class="bubble senior">
+<div class="bubble-head"><div class="speaker">資深研究員</div></div>
+<div class="content"><p>有可能。如果高速線與電源線的第二層沒有接住，第三層又只停在樣品與認證，那市場最後只會看：<br>- AI 連接器短線景氣<br>- 產能利用率<br>- 接單波動</p>
+<p>那它就會回到比較低級的連接器景氣股框架。</p></div>
+</article></div>
+</section></div>
+    </div>
+    <aside class="sidebar">
+      <section class="summary-card section-card"><h3>公司本質</h3><ul><li>宏致不是一般連接器廠，而是 AI 伺服器高速連接器與線材升級股。</li><li>最值錢的，不是多賣幾顆連接器，而是每一個機櫃裡面更多高速互連內容值。</li></ul></section>
+<section class="summary-card section-card"><h3>已知事實</h3><ul><li>收盤價：74.2 元</li><li>宏致目前的核心身分，是高速互連升級鏈裡彈性很高的一個中段玩家，而不是普通連接器景氣股。</li><li>目前研究主線集中於：MCIO 放量、高速線材量產、Bloom Energy 電源線升級，以及下一代高速互連外延。</li><li>市場目前交易的不只是一季高成長，而是在交易它能不能把 MCIO 延伸成高速線與電源線平台。</li><li>本益比 22.6 倍</li><li>股價淨值比 3.48 倍</li><li>總市值約 121 億元</li></ul>
+<div class="summary-table-wrap">
+<div class="summary-table-title">營收數據彙整</div>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="tbl-k">單月營收</td><td class="tbl-v">10.76 億</td></tr><tr><td class="tbl-k">單月年增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+38.42%</td></tr><tr><td class="tbl-k">單月月增</td><td class="tbl-v" style="color: #f87171; font-weight: 700;">+4.73%</td></tr>
+  </tbody>
+</table>
+</div></section>
+<section class="summary-card section-card"><h3>同業定位</h3><ul><li>宏致：高速互連升級鏈裡彈性很高的一個中段玩家。</li><li>一般連接器廠：景氣敏感度較高，但高速線材與平台延伸較弱。</li><li>高速互連平台供應商：同樣受惠於 AI 伺服器互連升級，但未必像宏致一樣同時卡到 MCIO、高速線材與電源線外延。</li><li>最像的比較對手：高規格互連 / 線材同業。</li><li>最不像的比較對手：普通低附加價值連接器廠。</li></ul></section>
+<section class="summary-card section-card"><h3>估值五件組</h3><ul><li>毛利率：回答線材占比與高規格產品，是否真的在推升內容價值。</li><li>營業利益率：回答 MCIO、高速線材與電源線平台升級，是否真的轉成更高效率的平台利潤。</li><li>淨利率：回答股東最後拿到的利潤，是否由高價值高速互連需求穩定推升。</li><li>獲利品質：重點在 MCIO、高速線材與平台外延，能否持續把營收轉成高品質現金流。</li><li>估值分水嶺：市場會不會持續把它留在高速互連升級股的位置，而不是切回普通連接器成長股。</li></ul></section>
+<section class="summary-card section-card"><h3>關鍵推論</h3><ul><li>宏致的價值不只是一波 MCIO 連接器放量，而是高速互連平台能力。</li><li>MCIO 放量是起點，高速線材量產與 Bloom Energy 電源線升級是現在的主線，1.6T / 下一代高速互連外延是更高價值的延伸。</li><li>市場現在交易的不是單一拉貨，而是它能不能把自己升級成更完整的高速互連平台供應商。</li><li>最大投資風險不是沒有需求，而是市場可能過早把高速線材、Bloom Energy 與 1.6T 外延算進今天的價值。</li></ul></section>
+<section class="summary-card section-card"><h3>目前最大爭議點</h3><ul><li>MCIO 出貨能否持續放量。</li><li>高速線材與電源線量產能否順利落地。</li><li>線材占比與 2027 年 EPS 斜率能否一起成立。</li><li>市場是否會繼續把它留在高速互連升級股框架，而不是切回普通連接器成長股。</li></ul></section>
+<section class="summary-card section-card"><h3>反方壓力測試</h3><ul><li>最強空方一句話：市場可能過早把高速線材、Bloom Energy 與 1.6T 外延算進今天的價值。</li><li>最脆弱的驗證數字：MCIO 出貨、線材占比、電源線放量與 2027 年 EPS 斜率要一起成立。</li><li>最可能被切回去的低級估值框架：普通連接器成長股，而不是高速互連升級股。</li></ul></section>
+<section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>MCIO 放量不如預期。</li><li>高速線材與電源線量產不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高速互連平台地位的評價。</li></ul></section>
+<section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>MCIO 出貨是否持續放量。</li><li>高速線材與電源線量產是否持續落地。</li><li>線材占比與 2027 年 EPS 斜率是否一起成立。</li><li>## 投資收斂</li></ul></section>
+<section class="summary-card section-card"><h3>最短版記法</h3><ul><li>宏致不是只靠一波 MCIO 連接器放量，而是要靠高速線材、Bloom Energy 電源線與下一代高速互連外延，把自己從連接器成長股推向高速互連升級股。</li></ul></section>
+      <div class="footer">Generated at 2026-08-18 20:04</div>
+    </aside>
+  </main>
+</div>
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="floating-top-btn" title="回到頂部" aria-label="回到頂部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+<div class="giscus-section">
+  <div class="giscus-header">
+    <span class="term-dot">● COMMENT</span>
+    <span class="term-cmd">DISCUSSION BOARD</span>
+    <span style="color:var(--muted); font-size:11px; font-family:monospace;">// 需要 GitHub 帳號才能留言</span>
+  </div>
+  <div class="giscus-wrap">
+    <script src="https://giscus.app/client.js"
+            data-repo="iamernie8199/stonk"
+            data-repo-id="R_kgDOTtmdFQ"
+            data-category="Ideas"
+            data-category-id="DIC_kwDOTtmdFc4DCqA1"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_dark"
+            data-lang="zh-TW"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</div>
+<style>
+  .giscus-section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px 64px;
+  }
+  .giscus-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted, #64748b);
+    letter-spacing: 0.08em;
+    padding: 10px 0 12px;
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .giscus-wrap {
+    margin-top: 8px;
+  }
+</style>
+</body>
+</html>
