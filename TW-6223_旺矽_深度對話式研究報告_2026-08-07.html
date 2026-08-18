@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -855,7 +866,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 晶片與高階測試規格升級不如預期，導致探針卡需求增速放緩。</li><li>產能擴充不順，或擴產後利用率低於市場預期。</li><li>CPO / 矽光子相關測試貢獻延後，使市場對中長期故事降溫。</li><li>市場重新把旺矽定價成一般測試耗材股，而不是高階測試升級資產。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>旺矽在 AI GPU、ASIC、先進封裝、CPO 測試各場景的更細營收拆分。</li><li>探針卡、MEMS、測試設備各自對毛利率與獲利品質的量化貢獻。</li><li>與精測、穎崴、雍智等同業在不同高階測試場景中的更細市占與內容價值比較。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>旺矽不是普通測試耗材股，而是 AI GPU、ASIC、Chiplet 與 CPO 測試升級下最具主線純度的高階探針卡資產之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>

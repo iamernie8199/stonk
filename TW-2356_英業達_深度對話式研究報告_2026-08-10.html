@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -852,7 +863,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>伺服器占比提升不如預期。</li><li>AI 伺服器與高附加價值組裝沒有持續擴大。</li><li>毛利率與獲利品質無法持續改善。</li><li>市場持續偏好更高純度 AI 伺服器平台或更大型平台資產，削弱英業達的相對吸引力。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>英業達與緯創 / 廣達 / 鴻海在各自主線中的營收與產品拆分比較。</li><li>美國 / 泰國產能布局對中長期獲利率的量化影響。</li><li>組裝深度提升如何轉成更高毛利與更高營業利益率的更細證據。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>英業達不是只靠筆電代工的成熟 ODM 股，而是 AI 伺服器、一般伺服器與 L10 / L11 組裝升級下，最有結構改善彈性的伺服器 ODM 平台股之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>

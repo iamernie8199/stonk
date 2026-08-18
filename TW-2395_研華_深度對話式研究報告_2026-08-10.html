@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -812,7 +823,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 </div></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>邊緣 AI、工業數位化平台與傳統 IPC 收入的更細拆分。</li><li>各場景（智慧製造、醫療、交通、能源、零售、物流）的更細訂單能見度與毛利率差異。</li><li>研華、樺漢、凌華、研揚在邊緣 AI / 平台型收入占比與營業利益率上的更細比較表。</li><li>研華在機器人 / 智慧設備相關應用的更細產品與客戶定位。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>研華不是舊 IPC 公司加一點 AI 題材，而是把工業現場運算底座升級成邊緣 AI 平台的龍頭；真正關鍵不是營收創高，而是平台型收入能不能持續把獲利品質一起拉上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>

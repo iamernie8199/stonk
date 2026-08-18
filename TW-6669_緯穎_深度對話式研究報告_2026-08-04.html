@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -720,7 +731,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>多平台高價值 mix 不如預期。</li><li>Trainium、Helios 與 VR200 / Rubin 放量節奏不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其長期平台型資產地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>多平台高價值 mix 是否持續放大。</li><li>Trainium、Helios、VR200 / Rubin 是否持續落地放量。</li><li>毛利率、營業利益率與高品質獲利是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>緯穎不是普通 ODM，而是高純度 AI / 雲端伺服器代工核心標的；真正關鍵不是營收有多強，而是多平台放量能不能長期維持高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>

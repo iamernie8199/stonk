@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -696,7 +707,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高端產品占比不升反降。</li><li>毛利率與營業利益率無法維持高檔。</li><li>AI 伺服器、交換器與 ASIC 板材升級需求低於預期。</li><li>市場重新下修對其高稀缺與高品質獲利的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高端產品占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否持續維持高檔。</li><li>AI 伺服器、交換器與 ASIC 平台帶來的高規格板材需求是否持續。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台光電不是普通材料股，而是受惠於 AI 伺服器、交換器與 ASIC 板材升級的高階 CCL 王者；真正關鍵不是題材熱，而是高端產品占比、毛利率與獲利品質能不能長期維持高檔。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>

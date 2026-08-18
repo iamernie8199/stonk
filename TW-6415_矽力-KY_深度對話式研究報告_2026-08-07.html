@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -826,7 +837,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高附加價值應用占比不如預期，資料中心 / 車用成長無法持續推升 mix。</li><li>漲價效果有限，毛利率修復不如市場預期。</li><li>消費性需求疲弱拖累整體營運，使高估值難以維持。</li><li>資金更偏好力智的 AI power 直接映射，或德儀 / ADI 的全球平台確定性，削弱矽力-KY 的溢價空間。</li><li>市場重新把矽力-KY 定價成一般 PMIC 股，而不是高品質類比 IC 成長股。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>矽力-KY 在資料中心、車用、工控、消費性四大終端的更細營收拆分。</li><li>毛利率回升的季度節奏與漲價傳導幅度。</li><li>矽力-KY、致新、力智在資料中心 / 車用 / 工控 / 消費性應用上的更細營收拆分。</li><li>矽力-KY 與德儀 / ADI 在高附加價值 PMIC / 類比電源產品上的更細產品層級對照。</li><li>各家公司在毛利率、產品組合與客戶黏著度上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>矽力-KY 不是一般 PMIC 股，而是資料中心、車用與工控升級浪潮中，最有機會靠高附加價值應用、margin 與 mix 修復撐住高估值的台系類比 IC 成長股之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>

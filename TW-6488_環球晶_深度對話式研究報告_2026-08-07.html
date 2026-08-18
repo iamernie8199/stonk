@@ -42,7 +42,18 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 12px;
   margin-bottom: 12px;
 }
-.term-dot { color: var(--green); font-weight: 700; margin-right: 6px; }
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.92); }
+}
+.term-dot {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}
 .term-cmd { color: var(--amber); font-weight: 700; }
 
 .hero {
@@ -844,7 +855,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>12 吋 ASP 調升不如預期，供需翻轉速度明顯慢於市場預期。</li><li>下游 AI、記憶體與成熟製程需求回升不足，無法支撐預期中的 2027–2028 高獲利。</li><li>長約與供應安全敘事未能擴散，仍回到以短期價格壓力為主的採購邏輯。</li><li>全球純龍頭或大型平台型材料股更受偏好，導致環球晶的估值彈性受限。</li><li>市場重新把環球晶定價成一般矽晶圓景氣股，而非具 LTA 與供應安全重估的核心標的。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>環球晶、SUMCO、信越、合晶、台勝科在 12 吋 / 8 吋、先進製程 / 成熟製程上的更細產能與 ASP 對照。</li><li>各家在長約覆蓋率、主要客戶結構與地理布局上的更細比較。</li><li>各家在 2027–2028 潛在擴產節奏與供給紀律上的更細對照表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>環球晶不是只靠景氣循環的矽晶圓股，而是 AI、記憶體與先進封裝需求共振下，最有價格、長約與供應安全重估張力的 12 吋材料平台之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:04</div>
+      <div class="footer">Generated at 2026-08-18 20:10</div>
     </aside>
   </main>
 </div>
