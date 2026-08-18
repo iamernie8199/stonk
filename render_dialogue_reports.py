@@ -782,7 +782,8 @@ def build_html(title, meta, rounds, summary, md_text=''):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(clean_display_title)} - 台股死當 TERMINAL</title>
 <style>
-:root {{
+html[data-theme="cyan"], :root {{
+  color-scheme: dark;
   --bg-dark: #07090e;
   --bg-panel: rgba(14, 20, 32, 0.85);
   --border-cyan: rgba(0, 240, 255, 0.18);
@@ -794,6 +795,45 @@ def build_html(title, meta, rounds, summary, md_text=''):
   --text-main: #e2e8f0;
   --text-muted: #8492a6;
   --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+}}
+html[data-theme="gold"] {{
+  color-scheme: dark;
+  --bg-dark: #0c0a06;
+  --bg-panel: rgba(24, 20, 12, 0.85);
+  --border-cyan: rgba(255, 183, 0, 0.25);
+  --border-amber: rgba(249, 115, 22, 0.3);
+  --amber: #f97316;
+  --cyan: #ffb700;
+  --red: #ef4444;
+  --green: #10b981;
+  --text-main: #fef08a;
+  --text-muted: #a1a1aa;
+}}
+html[data-theme="green"] {{
+  color-scheme: dark;
+  --bg-dark: #050d08;
+  --bg-panel: rgba(10, 24, 16, 0.85);
+  --border-cyan: rgba(0, 230, 118, 0.25);
+  --border-amber: rgba(255, 183, 0, 0.25);
+  --amber: #ffb700;
+  --cyan: #00ff66;
+  --red: #ff4d4d;
+  --green: #00e676;
+  --text-main: #dcffe4;
+  --text-muted: #718096;
+}}
+html[data-theme="slate"] {{
+  color-scheme: dark;
+  --bg-dark: #0f172a;
+  --bg-panel: rgba(30, 41, 59, 0.85);
+  --border-cyan: rgba(56, 189, 248, 0.2);
+  --border-amber: rgba(245, 158, 11, 0.25);
+  --amber: #f59e0b;
+  --cyan: #38bdf8;
+  --red: #f87171;
+  --green: #34d399;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
 }}
 * {{ box-sizing: border-box; }}
 html {{ scroll-behavior: smooth; }}
@@ -818,6 +858,20 @@ a {{ color: inherit; text-decoration: none; }}
   border-radius: 8px;
   padding: 4px 12px;
   margin-bottom: 12px;
+}}
+.theme-select {{
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--cyan);
+  border: 1px solid var(--border-cyan);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  outline: none;
+  cursor: pointer;
+}}
+.theme-select:hover {{
+  border-color: var(--cyan);
 }}
 @keyframes pulse-live {{
   0%, 100% {{ opacity: 1; transform: scale(1); }}
@@ -1069,7 +1123,16 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
 <div class="container" id="app">
   <div class="term-top-bar">
     <div><span class="term-dot">● LIVE</span><span class="term-cmd">RUN &gt; {html.escape(ticker_code if m_title else "EQUITY")}.TW &lt;GO&gt;</span> // TPE FINANCIAL TERMINAL</div>
-    <div>LOGGED AS: SENIOR_ANALYST</div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <label for="themeSelect" style="color: var(--text-muted); font-size: 11px;">THEME:</label>
+      <select id="themeSelect" class="theme-select" aria-label="選擇主題風格">
+        <option value="cyan">⚡ Cyber Cyan</option>
+        <option value="gold">👑 Bloomberg Gold</option>
+        <option value="green">📟 Matrix Green</option>
+        <option value="slate">🌌 Dark Slate</option>
+      </select>
+      <span>LOGGED AS: SENIOR_ANALYST</span>
+    </div>
   </div>
 
   <header class="hero">
@@ -1165,6 +1228,21 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
     margin-top: 8px;
   }}
 </style>
+<script>
+  (function() {{
+    const themeSelect = document.getElementById('themeSelect');
+    const savedTheme = localStorage.getItem('stonk_theme') || 'cyan';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    if (themeSelect) {{
+      themeSelect.value = savedTheme;
+      themeSelect.addEventListener('change', (e) => {{
+        const newTheme = e.target.value;
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('stonk_theme', newTheme);
+      }});
+    }}
+  }})();
+</script>
 </body>
 </html>
 '''
