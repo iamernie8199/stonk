@@ -559,7 +559,6 @@ def parse_md(md: str):
 
 
 def render_meta(meta):
-    normal = []
     date_items = []
     date_mode = False
     for raw in meta:
@@ -572,25 +571,22 @@ def render_meta(meta):
             continue
         if date_mode and not raw.startswith('  - '):
             date_mode = False
-        normal.append(stripped)
 
-    parts = []
-    for line in normal:
-        parts.append(f'<div class="meta-chip">{convert_inline(line)}</div>')
-    if date_items:
-        cleaned_items = []
-        for x in date_items:
-            c = re.sub(r'KG\s*公司頁\s*`?as_of`?:\s*', '公司資料：', x)
-            c = re.sub(r'(?:daily DB\s*)?股價資料：最新台灣交易日為\s*', '交易股價：', c)
-            c = re.sub(r'monthly revenue：最新為\s*(\d{4}\s*年\s*\d{1,2}\s*月)營收，公告日\s*(\d{4}-\d{2}-\d{2})', r'月營收：\1', c)
-            c = c.replace('`as_of`:', '').replace('`', '')
-            cleaned_items.append(c)
-        chips = ''.join(f'<span class="deadline-chip">{convert_inline(item)}</span>' for item in cleaned_items)
-        parts.append(f'''<section class="meta-card meta-deadline">
+    if not date_items:
+        return ''
+
+    cleaned_items = []
+    for x in date_items:
+        c = re.sub(r'KG\s*公司頁\s*`?as_of`?:\s*', '公司資料：', x)
+        c = re.sub(r'(?:daily DB\s*)?股價資料：最新台灣交易日為\s*', '交易股價：', c)
+        c = re.sub(r'monthly revenue：最新為\s*(\d{4}\s*年\s*\d{1,2}\s*月)營收，公告日\s*(\d{4}-\d{2}-\d{2})', r'月營收：\1', c)
+        c = c.replace('`as_of`:', '').replace('`', '')
+        cleaned_items.append(c)
+    chips = ''.join(f'<span class="deadline-chip">{convert_inline(item)}</span>' for item in cleaned_items)
+    return f'''<section class="meta-card meta-deadline">
 <div class="meta-card-title">AS_OF_DATES // 資料截止日</div>
 <div class="deadline-chips">{chips}</div>
-</section>''')
-    return '\n'.join(parts)
+</section>'''
 
 
 def render_text_block(text: str) -> str:
@@ -1083,9 +1079,6 @@ a {{ color: inherit; text-decoration: none; }}
   transition: all 0.2s ease;
   font-family: var(--font-mono);
 }}
-.toolbtn:hover {{ background: rgba(0, 240, 255, 0.15); color: #ffffff; border-color: var(--cyan); }}
-.meta-grid {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }}
-.meta-chip {{ background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 5px 10px; color: var(--text-muted); font-size: 12px; }}
 .meta-card {{ background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-cyan); border-radius: 8px; padding: 6px 12px; }}
 .meta-card-title {{ font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }}
 .deadline-chips {{ display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }}
