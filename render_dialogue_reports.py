@@ -819,7 +819,18 @@ a {{ color: inherit; text-decoration: none; }}
   padding: 4px 12px;
   margin-bottom: 12px;
 }}
-.term-dot {{ color: var(--green); font-weight: 700; margin-right: 6px; }}
+@keyframes pulse-live {{
+  0%, 100% {{ opacity: 1; transform: scale(1); }}
+  50% {{ opacity: 0.35; transform: scale(0.92); }}
+}}
+.term-dot {{
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 6px;
+  display: inline-block;
+  animation: pulse-live 1.8s infinite ease-in-out;
+  will-change: opacity, transform;
+}}
 .term-cmd {{ color: var(--amber); font-weight: 700; }}
 
 .hero {{
@@ -1399,7 +1410,14 @@ def build_index_html(entries):
       padding: 4px 12px;
       margin-bottom: 12px;
     }}
-    .term-dot {{ color: var(--accent-emerald); font-weight: 700; margin-right: 6px; }}
+    .term-dot {{
+      color: var(--accent-emerald);
+      font-weight: 700;
+      margin-right: 6px;
+      display: inline-block;
+      animation: pulse-live 1.8s infinite ease-in-out;
+      will-change: opacity, transform;
+    }}
     .term-cmd {{ color: var(--amber); font-weight: 700; }}
     
     .hero {{
