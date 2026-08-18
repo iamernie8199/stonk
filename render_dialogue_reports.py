@@ -1195,10 +1195,25 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
 .focus-mode .sidebar {{ display: none; }}
 .focus-mode .layout {{ grid-template-columns: 1fr; }}
 @media (max-width: 860px) {{
-  .layout {{ grid-template-columns: 1fr; }}
+  .container {{ padding: 10px 12px 32px; }}
+  .term-top-bar {{ font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }}
+  .term-top-bar span.logged-as {{ display: none; }}
+  .hero {{ padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }}
+  .top-nav {{ margin-bottom: 4px; gap: 8px; }}
+  .nav-brand-btn {{ padding: 3px 8px; }}
+  .nav-logo {{ width: 18px; height: 18px; }}
+  .nav-brand {{ font-size: 12px; }}
+  .toolbtn {{ padding: 3px 8px; font-size: 11px; }}
+  .company-name {{ font-size: 20px; }}
+  .ticker-badge {{ font-size: 13px; padding: 2px 7px; }}
+  .company-badge-row {{ gap: 8px; }}
+  .header-main {{ flex-direction: column; align-items: flex-start; gap: 8px; }}
+  .header-meta-box {{ width: 100%; }}
+  .header-meta-box .meta-card {{ width: 100%; padding: 4px 8px; font-size: 11px; }}
+  .layout {{ grid-template-columns: 1fr; gap: 14px; }}
   .sidebar {{ position: static; }}
-  .header-main {{ grid-template-columns: 1fr; gap: 12px; }}
-  .header-meta-box {{ justify-content: flex-start; }}
+  .round {{ padding: 14px 16px; }}
+  .bubble {{ padding: 12px 14px; }}
 }}
 </style>
 </head>
@@ -1214,7 +1229,7 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
