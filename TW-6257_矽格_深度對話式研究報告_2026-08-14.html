@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,177 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-估值與市場預期">估值與市場預期</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-第-19-段">第 19 段</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-估值與市場預期">估值與市場預期</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-估值與市場預期">估值與市場預期</a>
-<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-27-估值與市場預期">估值與市場預期</a>
-<a href="#digest-28-估值與市場預期">估值與市場預期</a>
-<a href="#digest-29-估值與市場預期">估值與市場預期</a>
-<a href="#digest-30-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-31-第-31-段">第 31 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>先記一句話：矽格不是那種什麼都做的大型 OSAT 平台，它更像專業測試導向的封測公司，而且現在最值得看的不是一般消費 IC，而是 AI ASIC、矽光子與高速傳輸相關測試需求往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對。矽格最核心的競爭位置在專業測試，尤其是 CP / FT、Burn-in、SLT 這些後段驗證流程。它不是最廣，但在測試鏈裡有自己的卡位，最近又往 ASIC、矽光子、高速傳輸這些高階需求延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：矽格現在最核心的身份，是以成熟製程與通用半導體測試為底，再往 AI / 矽光子高階測試延伸的專業測試 OSAT。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果把整份報告收斂成一條主線，就是：<br>矽格先靠成熟測試底盤撐住現金流，再用 AI / 高速傳輸拉高內容值，最後讓矽光子與新廠去爭取第二曲線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-13 的股價資料：<br>- 收盤價 213 元<br>- 本益比 22 倍<br>- 股價淨值比 4.77 倍<br>- 總市值約 1,031 億元</p>
-<p>再看最新月營收，依公告日與月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 20.14 億元<br>- 年增 26.62%<br>- 月增 2.84%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>市場不是只在買封測景氣反彈，而是在買兩件事：<br>- 舊產品與成熟製程測試需求回升後，價格與稼動率能不能穩住<br>- 高階測試內容值，能不能讓矽格不只是一般景氣股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>完全正確。矽格已有舊產品測試價格雙位數上調的訊號，這很重要，因為它代表不是只有景氣量增，還有供給吃緊後的議價能力改善。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>更具體一點，矽格基本盤目前可以拆成幾塊：<br>- 記憶體測試<br>- 網通晶片測試<br>- 手機與通訊相關測試<br>- 一般成熟製程邏輯晶片測試</p>
-<p>也就是說，它不是只壓單一終端，而是有一個夠厚的通用測試底盤，所以景氣修復時，它會先受益。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。如果只是庫存修復，那最後市場還是會把它看成一般成熟封測循環股；但如果漲價、稼動率與高階測試比重都能維持，估值就有機會站在更高一層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>在講 AI 伺服器、ASIC、AI Connectivity、高速傳輸與網通晶片對測試要求變高。矽格不是只測通用 IC，它已經把重心逐步往這些高內容值應用移動。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>對，這句話很關鍵。高階測試的價值不在量，而在測試時間、設備要求、驗證流程、客戶切換成本與交付難度。這也是為什麼市場會願意給矽格高於一般成熟封測股的評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有幾個可以先抓住：<br>- 2026 年 2Q 營收 58.8 億元，季增 11.1%、年增 23.1%<br>- 管理層與券商口徑提到 2026 年 AI / ASIC / 矽光子 / HPC 相關營收占比有機會達 25% 以上<br>- 2Q26 AI / ASIC / 矽光子單季口徑約 5%，但若看較寬的 AI / ASIC / 矽光子 / HPC 累計口徑，曾出現 23% 這種更高比重</p>
-<p>這代表它不是完全沒有高階需求，只是口徑不同，不能混成同一個數字。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這就是要小心的地方。這裡不能把不同口徑硬湊成一個結論。</p>
-<p>已知事實是：<br>- 2Q26 單季 AI / ASIC / 矽光子占比約 5%<br>- 另一組券商口徑是 1M-5M26 的 AI / ASIC / 矽光子 / HPC 合計占比約 23%</p>
-<p>關鍵推論是：<br>- 矽格高階需求確實在升，但現在還不能粗暴說高階業務已經是營收主體</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果按現在的可見度排序：<br>- 最立即的是 AI ASIC 與高速傳輸測試需求<br>- 最有估值想像的是矽光子</p>
-<p>原因很簡單：ASIC 與高速傳輸比較像現在正在推升測試內容值的現金流主線；矽光子則更像會決定市場願不願意給平台股溢價的選擇權。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最容易被高估的是矽光子這層，因為它最有故事性；最容易被低估的反而是 ASIC / 高速傳輸測試帶來的內容值提升，因為那一層比較像慢慢反映在毛利率與營益率裡，不會像題材那麼顯眼。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>核心問題是：<br>這些高階測試需求，到底只是景氣高點帶來的暫時忙碌，還是真的提高了矽格每單位測試服務的價值量與客戶黏著度。</p>
-<p>如果只是短單塞滿產能，市場最後還是會給景氣股估值；但如果高階測試內容值真的抬升，矽格的框架就會往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>對，而且也是最需要驗證的。這條線的核心就是：湖口二廠、中興三廠，以及矽光子測試需求，能不能把矽格從「測試景氣受惠股」推向「高階測試平台股」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>至少目前有幾個強訊號：<br>- 湖口二廠在量產前，就已被矽光子國際客戶包下 100% 產能<br>- 公司提到已有 3 到 5 個矽光子客戶<br>- 子公司矽格聯測追加 20 億元資本支出，直接點名對應美系 CPU / GPU 設計客戶需求<br>- AI / CPO 營收比重目前約 5%，2026 年公司口徑預估可拉到 7% 到 8%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-第-19-段">
-<div class="digest-title">第 19 段</div>
-<div class="content"><p>完全正確。矽光子、新產能、高速傳輸這些，不是今天就要把營收全部解釋完，而是在回答一件事：矽格是不是只是一家封測景氣股，還是有可能往更高階測試平台走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>如果只是多一點成熟測試機台，那只是景氣擴產；<br>但如果：<br>- 新廠綁定的是高階測試客戶<br>- 先進設備交期長、客戶先卡位<br>- 新需求帶來更高內容值<br>那新廠就不只是量，而是在擴大平台邊界。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。若矽光子與 AI 高階測試只是早期題材，市場最後會修正；但若它真的持續放量、占比上升、帶動毛利與獲利品質改善，那這家公司就會被重新定義。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>很接近。現在市場願意給它 22 倍，不是因為 2026 年這些全部都成熟了，而是因為它看起來有機會在 2027 年後從「成熟測試景氣受惠」變成「有第二曲線的測試平台」。但這正是風險所在，因為若第二曲線沒有形成，今天的估值就會顯得太早。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>它很容易被錯比。矽格不像日月光那麼廣，也不像力成那麼偏記憶體封測，更不像京元電那麼純測 AI 高階驗證。它比較像站在中間層：以專業測試為主，兼具成熟基本盤與高階延伸。</p>
-<p>所以比較時要分層：<br>- 跟京元電比：高階測試純度<br>- 跟欣銓比：測試利基與穩定度<br>- 跟力成比：高階外延與平台轉型<br>- 跟日月光投控比：平台廣度與規模</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，先這樣收斂：<br>- 誰最純：京元電（若只看 AI 高階測試純度）<br>- 誰最廣：日月光投控<br>- 誰最穩：欣銓 / 日月光投控<br>- 誰最有彈性：矽格<br>- 本公司卡在哪裡：矽格卡在「成熟測試基本盤夠穩，但高階測試占比還沒高到足以完全擺脫景氣股框架」<br>- 最像的比較對手：欣銓<br>- 最不像的比較對手：日月光投控</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>因為它現在的估值還沒有完全反映成平台股，但又確實吃到高階測試、新廠擴產、矽光子前期卡位。這種公司一旦高階業務占比往上，估值彈性會比大型龍頭更大；反過來，如果題材落空，也會比較容易被打回原形。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是只把它看成一般成熟封測股，而是在賭：<br>- 舊產品漲價不是短命<br>- 新廠不是空轉<br>- AI / ASIC / 矽光子會把內容值往上拉</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。這就是矽格目前估值的本質。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-28-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>我會這樣切：<br>- 基本盤：景氣成分最高，但也是現金流底盤<br>- 規格升級：介於景氣與結構之間，是最關鍵的估值辯論核心<br>- 平台延伸：最有長期價值，但目前也最容易被市場提前高估</p>
-<p>也就是說，矽格真正能不能維持 22 倍，不是看基本盤，而是看第二層有沒有把內容值抬起來，第三層有沒有真的長成第二支柱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-29-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理。因為現在矽光子還不是營收主體，它更像是高價值選擇權。市場若太早把它全算進今天估值，風險就很高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-30-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這也是實打實的風險。湖口二廠與中興三廠如果量產遞延、設備進機慢、客戶拉貨不如預期，折舊會先反映，毛利率與營益率就會被壓。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-31-第-31-段">
-<div class="digest-title">第 31 段</div>
-<div class="content"><p>有可能。如果高階測試占比沒有繼續提高、矽光子只是小量試產、價格與稼動率只是景氣性改善，那市場最終就會把它切回成熟封測股框架。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -902,7 +721,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階測試比重不升反降。</li><li>新廠稼動率與新專案承接不如預期。</li><li>AI / ASIC / 矽光子測試未能轉成實際高品質獲利。</li><li>市場重新下修對其平台化與高價值測試位置的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階測試比重是否持續提升。</li><li>毛利率與營業利益率是否持續守住高品質區間。</li><li>新廠稼動率與 AI / ASIC / 矽光子測試專案是否落地。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>矽格不是只靠成熟封測回補吃景氣，而是要靠 AI / ASIC / 矽光子測試升級與新廠產能卡位，把自己從專業測試股往高階測試平台推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

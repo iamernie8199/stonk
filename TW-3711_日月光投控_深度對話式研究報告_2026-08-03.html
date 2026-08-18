@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,160 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>最白話地講，日月光投控就是全球最重要的半導體封裝與測試公司之一。晶片不是晶圓代工把晶圓做好就結束了，後面還要：<br>- 切割<br>- 封裝<br>- 接腳 / 互連<br>- 散熱 / 保護<br>- 測試<br>最後晶片才能真正進到手機、伺服器、車用電子或 AI 系統裡。</p>
-<p>所以你可以把半導體產業粗分成幾段：<br>1. 設計：GPU、ASIC、手機 SoC 這些<br>2. 製造：晶圓代工<br>3. 封裝測試：日月光、Amkor、力成等</p>
-<p>很多人以前會把封測想成比較後段、比較成熟、比較不性感的一段，但現在先進封裝的重要性已經大幅上升，特別是在 AI 晶片、Chiplet、高頻寬記憶體、CPO 這些新架構裡，封裝不再只是收尾，而是性能、功耗、散熱與成本的關鍵環節。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，而且不只是更複雜而已，而是整個產業把很多原本在晶片設計或製程端解決不了的問題，開始往封裝端轉移。</p>
-<p>現在很多高效能晶片是：<br>- 多顆晶粒一起協作<br>- HBM 記憶體要靠很短的高頻互連接上去<br>- 功耗很高<br>- 發熱很大<br>- 封裝體本身就變成系統性能的一部分</p>
-<p>所以先進封裝現在不是附屬品，而是系統架構的一部分。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>日月光投控最適合用「後段平台型資產」去理解，而不是只把它當傳統封測股。</p>
-<p>原因是：<br>它現在值錢的地方，不是單一封裝技術，也不是單一 AI 題材，而是它在整個後段價值鏈裡兼具：<br>- 基本盤夠厚<br>- 規模夠大<br>- 技術路線夠多<br>- 客戶與應用夠廣</p>
-<p>也就是說，它不是某一條封裝路線的單點選手，而是更像一個「在後段價值抬升時，最可能全面受益的平台型公司」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背名詞，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對日月光投控來說，現在真正決定估值的有三個層級：<br>- 傳統封測基本盤<br>- 先進封裝整體升級<br>- 技術選擇權：PLP、玻璃基板、CPO、bumping、矽光子、CoPoS 等</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>答案是：<br>- 有合作<br>- 也有某些競爭或外溢替代關係<br>但不是簡單的二選一。</p>
-<p>最核心的先進封裝平台仍然在台積電那一側，特別是 CoWoS。這是一條跟 AI 晶片需求直接連動的超重要主線，而且更偏最前沿、最核心、最綁定頂級 AI 客戶與高階 GPU / ASIC 的那一層。</p>
-<p>日月光投控的機會則比較像：<br>1. 承接傳統封測基本盤的穩定需求<br>2. 受惠先進封裝整體需求上升<br>3. 受惠 CoWoS 外溢<br>4. 在 PLP、玻璃基板、Chiplet、CPO、bumping 等周邊新技術卡位</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣講：<br>日月光投控的投資主線，是從傳統封測龍頭，升級成 AI 時代先進封裝與後段整合平台受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>你可以把它分成四條子主線：<br>- CoWoS 外溢<br>- PLP（面板級封裝）<br>- 玻璃基板 / CoPoS 這類新型載板與封裝架構<br>- CPO / 矽光子 / 高速互連</p>
-<p>這四條線共同指向一件事：<br>日月光投控不是最核心先進封裝的直接等價品，但它是 AI 先進封裝需求全面外擴時，很可能受益的廣義後段整合平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個理解非常接近正確答案。</p>
-<p>不過要再補一個層次：<br>市場有時候會把所有 AI 封裝受惠股一起拉估值，但實際上它們吃到的價值密度不同。最上層平台吃的是最核心、最稀缺的價值；日月光吃的是後段整體抬升與多技術路線擴散。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對。日月光投控的特徵不是只有一條單純主線，而是：<br>- 有穩定封測基本盤<br>- 有先進封裝升級主線<br>- 有 PLP、玻璃基板、CPO 這些技術選擇權</p>
-<p>所以它很像「有底的成長重估股」，而不是單純 defensive 封測股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>如果你要我先給一個粗排序，我會這樣分：<br>- 誰最廣：日月光投控<br>- 誰最穩：日月光投控<br>- 誰最有彈性：力成 / Amkor<br>- 誰最純：Amkor（如果定義為美系外溢與單一路徑受惠更純）<br>- 日月光卡在哪：全球平台型後段受益者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，它沒有最上游那麼核心，但你現在比較的是 OSAT / 後段平台，不是前段製造。</p>
-<p>日月光能排前面，主要因為它兼具幾件事：<br>- 全球龍頭規模<br>- 基本盤夠厚<br>- 先進封裝主線夠明確<br>- 技術選擇權很多，不只一條<br>- 不完全綁死單一客戶或單一產品線</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>沒錯，Amkor 的強點很明確。</p>
-<p>它的優勢在：<br>- 美國本土化敘事<br>- 與高階製造外溢協同<br>- 受惠先進封裝外溢<br>- 有機會吃到美系客戶對供應安全與在地化的加分</p>
-<p>但 Amkor 的問題是，它的敘事相對集中，彈性大，但也比較容易受單一路徑變數影響。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>力成跟 JCET 都有戲，但戲的性質不一樣。</p>
-<p>力成：<br>- 偏技術路線彈性<br>- 在 FOPLP、CPO / 矽光子等特定主線上有明顯彈性</p>
-<p>JCET：<br>- 偏中國本土替代與內循環邏輯<br>- 若中國本土 GPU / ASIC 封裝需求持續成長，自然會受益</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>3711 現在的股票問題，不是「有沒有受惠 AI」，而是：<br>市場已經開始把它當成 AI 後段平台股看待，那它後面要用什麼證據撐住這個分類？</p>
-<p>也就是說，現在的問題不在故事有沒有，而在：<br>- AI 封裝需求能不能持續擴大<br>- 日月光是不是能持續拿到更高價值的後段角色<br>- 技術選擇權能不能逐漸變成具體營收與獲利<br>- 市場是不是已經跑太前面</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>市場願意給到這種倍數，不是因為它忽然忘記日月光是封測公司，而是因為市場現在相信：<br>- 封測的價值位階正在被抬高<br>- 先進封裝不再只是產能問題，而是技術與系統價值問題<br>- 日月光不是單純吃景氣循環，而是吃結構升級</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 630<br>- 本益比 34.3<br>- 股價淨值比 8.03<br>- 總市值 28,164 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 65,783,102 千元<br>- 年增 32.86%<br>- 月增 4.36%<br>- 近三月合併營收年增 26.74%<br>- 近 12 月營收合併成長 14.48%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>毛利率對 3711 來說，回答的是：<br>它吃到的到底只是量，還是後段價值密度真的在上升。</p>
-<p>如果只是：<br>- AI 封裝單很多<br>- 營收很好看<br>- 但主要吃到的是量，不是最甜的價值<br>- 毛利率與產品組合沒有一起升級<br>那市場就會開始質疑：<br>你是不是被先進封裝故事重新估值了，但實際獲利輪廓還是比較像舊時代封測公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>日月光到底是在賺高營收，還是在賺高品質的後段平台利潤。</p>
-<p>如果只是營收變大，但：<br>- 新技術導入前期成本高<br>- 擴產與設備投資壓力大<br>- 高價值路線還在驗證期<br>那營業利益率不一定會同步漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但日月光這種公司更要看：<br>- EPS 成長是不是主要來自本業高價值後段組合<br>- 還是只是景氣與量的拉動</p>
-<p>獲利品質最重要看的就是：<br>- 先進封裝成長是不是帶來健康的毛利結構<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 技術選擇權是不是開始對獲利有實質貢獻</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>分水嶺不是營收還會不會成長，而是它吃到的到底是高價值封裝升級，還是只有量的擴張。</p>
-<p>如果只是量成長，但毛利率、營業利益率、淨利率與獲利品質沒有同步提升，那高估值就很難長期站住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這是非常強的第一個反方，而且很值得正面面對。</p>
-<p>因為最核心、最稀缺的先進封裝平台的確在前段。反方會說：<br>- 市場看到 AI 封裝很熱<br>- 就把封測鏈一起拉上去<br>- 但真正最甜、最不可替代、最有議價力的部分，最後還是被最上層平台拿走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這是第二個很現實的反方。</p>
-<p>市場在熱的時候，常常會把「技術有機會」直接翻譯成「獲利很快就會大增」，這中間其實有很長一段距離。</p>
-<p>PLP、玻璃基板、CPO 這些方向都可能很重要，但重要不等於：<br>- 很快就大量貢獻營收<br>- 很快就改善毛利率<br>- 很快就主導 EPS</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全正確，這是第三個非常合理的反方。</p>
-<p>日月光很強，但不是沒競爭。</p>
-<p>反方會說：<br>- Amkor 也在先進封裝上積極卡位<br>- 力成在特定後段領域也有很深能力<br>- 中國封測廠長期可能用價格與政策快速追趕</p>
-<p>所以市場真正要確認的是：<br>日月光的優勢到底只是規模大、客戶廣，還是它真的能在下一輪封裝升級裡，拿到更高附加價值、較難被替代的位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>日月光的長期方向大致正確，AI 讓後段價值鏈抬升也是事實；但市場可能高估了它吃到的價值密度、PLP / 玻璃基板 / CPO 等技術選擇權落地速度，以及後段平台溢價能維持多久。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -828,7 +664,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高價值封裝升級不如預期。</li><li>技術選擇權落地速度不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其後段平台溢價的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高價值封裝升級是否持續放大。</li><li>技術選擇權是否開始落地成獲利。</li><li>毛利率、營業利益率與獲利品質是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>日月光投控不是單純封測股，而是 AI 時代後段整合平台型資產；真正關鍵不是營收會不會成長，而是它吃到的到底是高價值封裝升級，還是只有量的擴張。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

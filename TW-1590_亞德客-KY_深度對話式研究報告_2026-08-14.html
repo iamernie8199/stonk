@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -393,142 +381,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-13-風險與失效條件">風險與失效條件</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-第-19-段">第 19 段</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>如果只把它當氣動元件公司，就太扁平了。</p>
-<p>一句話先記，亞德客-KY是「以氣動元件為底盤，往線軌、電子控制、半導體與更完整自動化平台延伸的零組件龍頭」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，不只是景氣循環。</p>
-<p>真正值得看的，是它能不能把原本的氣動元件優勢，延伸到線軌、電子控制與更多高附加價值產品線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>主骨架我會放在「高規格零組件 / 材料升級股」和「平台型公司」交界，但主骨架先放前者。</p>
-<p>因為市場真正願意給比較高估值，不只是因為氣動元件賣更多，而是因為產品平台變廣、獲利結構變好。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 1460 元<br>- 本益比 24.7 倍<br>- 股價淨值比 5.74 倍<br>- 總市值約 2,920 億元</p>
-<p>最新月營收為 2026 年 6 月，公告日 2026-08-03：<br>- 單月合併營收 3,994,281 千元<br>- 年增 50.78%<br>- 月增 2.09%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>對，所以市場已經不是把它當一般低成長零組件股。</p>
-<p>第一層基本盤是：<br>- 氣動元件龍頭地位<br>- 中國在地化採購紅利<br>- 工具機與一般自動化需求底盤<br>- 氣動產品高稼動率</p>
-<p>這一層證明它不是空故事，而是有深厚工業底盤的公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對。</p>
-<p>第一層比較像舊世界與起點，證明公司有底盤，但還不足以單獨支撐市場對它的升級評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>沒錯，第二層才是估值核心。</p>
-<p>真正影響估值的，不只是氣動元件景氣，而是：<br>- 中國十五五規劃與在地化採購趨勢<br>- 電子 / AI 導入自動化需求<br>- 線軌營收與市占提升<br>- 多產品平台化之後的獲利結構改善</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>對。</p>
-<p>如果你只看營收年增，會把它看成景氣循環股；但市場真正要驗證的是，它能不能從單一氣動元件股，升級成多產品自動化平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>就是：亞德客-KY是不是能從「氣動元件景氣股」，升級成「中國自動化升級平台股」。</p>
-<p>如果答案是可以，25 倍上下本益比才比較有支撐；如果答案不行，評價就會往下修回普通景氣股框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>第二層真正要回答的是，線軌與平台化，是短期題材，還是長期產品結構升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>對，第三層我會放在：<br>- 2H26 新電子控制產品<br>- 2027 半導體產品導入<br>- 電控 / 電子致動器長期平台外延<br>- 更長期機器手臂 / 人形機器人想像空間</p>
-<p>這層最有長期價值，但也最容易被市場提前高估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。</p>
-<p>因為新產品、半導體與機器手臂題材，最容易讓市場把遠期獲利先反映進股價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這就是第三層最大的風險。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>不能只跟氣動元件廠比，也不能只跟工具機或機器人題材股比。</p>
-<p>比較合理的是：<br>- 氣動元件供應商<br>- 傳動 / 自動化零組件平台公司<br>- 中國製造升級受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：更純氣動元件公司更純<br>- 誰最廣：平台型自動化零組件公司更廣<br>- 誰最穩：需求分散、客戶更廣、現金流更穩的公司更穩<br>- 誰最有彈性：亞德客這種站在中國自動化升級與多產品平台交界的零組件股彈性更大<br>- 本公司卡在哪裡：它卡在「普通氣動元件景氣股」與「多產品自動化平台股」兩種框架交界<br>- 最像的比較對手：上銀這種往平台化走的高階自動化零組件股<br>- 最不像的比較對手：日電貿這種通路股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>這表示市場在交易升級故事，不是在交易普通景氣而已。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>正式版我會這樣回答。</p>
-<p>1. 毛利率<br>- 重點在高附加價值產品與線軌比重能不能提高。<br>- 如果線軌、新產品與平台化比重持續提升，毛利率才有結構性上行可能。</p>
-<p>2. 營業利益率<br>- 如果產品平台變廣、營運槓桿持續發酵，營業利益率才有上修空間。</p>
-<p>3. 淨利率<br>- 淨利率最後要看高價值產品是否真的轉成 EPS。</p>
-<p>4. 獲利品質<br>- 獲利品質重點不只是營收成長，而是市占率、產品組合與新產品進展是否具有持續性。</p>
-<p>5. 估值分水嶺<br>- 市場是把它當普通氣動元件景氣股，還是當多產品自動化平台股，這就是估值分水嶺。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：氣動元件基本盤</li><li>這層證明公司有底盤，但比較像舊世界與起點</li></ul>
-<ul><li>第二層：中國自動化升級與線軌第二曲線</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
-<ul><li>第三層：新電子控制產品、半導體產品與更長期平台外延</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-第-19-段">
-<div class="digest-title">第 19 段</div>
-<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是便宜零組件股，而是一個市場已經先把中國製造升級、線軌第二曲線與新電子控制 / 半導體產品想很多的平台股，只要其中一段接不上，評價就先修。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最重要的幾個驗證點：<br>- 氣動元件景氣不如預期<br>- 線軌復甦與市占提升不如預期<br>- 新電子控制產品或半導體產品進度延後<br>- 營業利益率與利潤率斜率無法持續<br>- 2027 年 EPS 外推空間下修</p>
-<p>只要這些掉下去，市場就會把它切回普通氣動元件景氣股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>最可能切回「普通氣動元件景氣股」框架。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -783,7 +637,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>氣動元件景氣不如預期。</li><li>線軌復甦與市占提升不如預期。</li><li>新電子控制產品或半導體產品進度延後。</li><li>營業利益率與利潤率斜率無法持續。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>線軌營收與市占率是否持續提升。</li><li>新電子控制產品與半導體產品導入進度是否落地。</li><li>毛利率、營業利益率與淨利率是否持續被高價值產品組合推升。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>亞德客-KY不是普通氣動元件景氣股，而是往線軌、電子控制、半導體與更完整自動化平台升級的零組件龍頭；真正關鍵不是題材，而是市占率、產品組合與新產品能不能接上。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -393,163 +381,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-估值與市場預期">估值與市場預期</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-估值與市場預期">估值與市場預期</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-第-24-段">第 24 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有，重點在它不是做完整系統組裝，而是專精 SMT 前段打件與 PCBA。</p>
-<p>一句話先記：台表科是把前段製造能力，從顯示與消費性產品，往 DDR5、光通訊、AI Server、BBU、衛星與機器人延伸的高規格打件廠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，它不是整機平台商，也不是電力系統商。</p>
-<p>它比較像供應鏈裡面「最前段、最靠近板級與模組級製造」的位置，吃的是高複雜度 SMT 與 PCBA 能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>我會把它歸在「高規格零組件 / 材料升級股」，但帶一點製造服務的味道。</p>
-<p>因為市場若願意重估它，不是因為它只是多接幾個量產訂單，而是因為它切進更高價值量、更高毛利的前段模組製造位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 173 元<br>- 本益比 14.9 倍<br>- 股價淨值比 2.27 倍<br>- 總市值約 506 億元</p>
-<p>最新月營收為 2026 年 6 月，公告日 2026-08-04：<br>- 單月合併營收 4,667,997 千元<br>- 年增 12.18%<br>- 月增 6.66%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>如果只看這些表面數字，確實很容易把它當一般製造股。</p>
-<p>但第一層基本盤要先搞清楚：<br>- 顯示與消費性業務仍是底盤<br>- SMT / PCBA 前段能力是它的老本行<br>- 這層帶來穩定現金流，但也把它綁在景氣與顯示循環上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。</p>
-<p>第一層證明台表科不是沒有基本面，但如果只停在顯示 / 消費性打件，它就只是中低估值的代工股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>就是它的舊世界還在。</p>
-<p>也就是說，市場過去主要看：<br>- 顯示景氣<br>- 消費性需求<br>- 傳統打件量能與利用率</p>
-<p>所以第一層比較像底盤，而不是估值重估的主要來源。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，第二層才是最關鍵的重估主線。</p>
-<p>根據公司頁整理，市場真正想交易的是：<br>- 光通訊模組前段打件<br>- AI Server 相關板件與 BBU<br>- 更高價值的非顯示應用滲透</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這一層不是單純接更多單，而是接到更值錢的單。</p>
-<p>如果它真的能從顯示 PCBA，往光通訊與 AI Server 模組前段打件走，代表：<br>- 單位價值量提高<br>- 毛利率有機會改善<br>- 市場會開始把它當成高階供應鏈受惠者，而不是普通代工廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>對，這就是它最有意思的地方。</p>
-<p>大家比較常講 GPU、伺服器整機、散熱、電源、光模組本身；台表科補的是「這些模組與板件的前段製造」這一層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最先反映在：<br>- 非顯示營收占比往上<br>- 毛利率改善<br>- 2027 年 EPS 上修</p>
-<p>因為市場真正要的，不是更大的營收，而是更好的產品 mix。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>第二層真正回答的是：它能不能從一般 PCBA 廠，升級成高價值 AI / 光通訊模組前段製造股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>對，第三層比較像第二曲線。</p>
-<p>從公司頁來看，第三層最值得注意的是：<br>- SpaceX 相關衛星應用<br>- 機器人關節 PCBA<br>- 更廣的新應用模組打件機會</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>沒錯，所以第三層一樣最容易被講過頭。</p>
-<p>它有長期想像空間，但如果訂單占比長期都只停在低個位數，市場最後就不會給太多溢價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。</p>
-<p>第三層先當成外延與選擇權，而不是已落地的主體獲利來源。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>因為它最容易讓市場先給夢。</p>
-<p>衛星、機器人這些題材一旦被講滿，後面只要放量慢一點，估值就可能先吐回去。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>它不能只拿去跟一般面板股比，也不能直接拿去跟伺服器整機廠比。</p>
-<p>比較合理的是把它放在：<br>- SMT / PCBA 前段製造<br>- 光通訊與 AI Server 模組供應鏈<br>- 高價值製造服務升級股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：台表科在前段 SMT / PCBA 打件這層很純<br>- 誰最廣：廣達這種整機平台商更廣<br>- 誰最穩：大型平台 OEM / ODM 通常更穩<br>- 誰最有彈性：台表科這種高價值前段打件股彈性更大<br>- 本公司卡在哪裡：它卡在「從顯示 PCBA 往光通訊 / AI Server / 衛星模組前段製造升級」的中間地帶<br>- 最像的比較對手：其他高規格前段製造服務廠<br>- 最不像的比較對手：友達、群創這種面板平台型公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>不能只看 14.9 倍就說便宜。</p>
-<p>真正問題是：市場現在把它當傳統打件廠，還是開始把它當高價值 AI / 光通訊前段製造股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正式版我會這樣回答。</p>
-<p>1. 毛利率<br>- 毛利率是最重要的，因為這家公司真正的變化，來自產品組合改善。<br>- 如果第二層高價值應用比重拉高，毛利率才有結構性改善的可能。</p>
-<p>2. 營業利益率<br>- 營業利益率要看高價值非顯示應用能不能真正擴大，不然營收成長也不一定有用。</p>
-<p>3. 淨利率<br>- 淨利率要看 AI / 光通訊 / 衛星等高價值打件業務，能不能最後落到 EPS。</p>
-<p>4. 獲利品質<br>- 獲利品質重點在於：成長是來自高毛利新應用，還是只是景氣循環與顯示補庫存。</p>
-<p>5. 估值分水嶺<br>- 市場是把它當普通打件廠，還是當高規格前段製造升級股，這就是估值分水嶺。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：顯示 / 消費性 PCBA 基本盤</li><li>這層證明公司有底盤，但比較像舊世界與起點</li></ul>
-<ul><li>第二層：光通訊 / AI Server / BBU 前段打件升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
-<ul><li>第三層：衛星 / 機器人 / 更高毛利外延</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、也最容易被提前資本化。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最狠的空方講法就是：<br>你以為你買的是 AI / 光通訊升級股，但它現在主體仍是顯示與消費性 PCBA，只要新應用放量不夠快，市場最後還是只會用代工股框架看它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>幾個最重要：<br>- 光通訊與 AI Server 佔比放大不如預期<br>- 非顯示營收占比無法持續往上<br>- 毛利率沒有因為產品 mix 改善而提升<br>- 衛星 / 機器人外延長期停在低個位數題材階段</p>
-<p>只要這些掉下去，市場就會把它切回一般打件廠框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-第-24-段">
-<div class="digest-title">第 24 段</div>
-<div class="content"><p>最可能切回「顯示 / 消費性景氣循環打件廠」框架。</p>
-<p>也就是說，它不是高規格升級股，而只是跟著補庫存、景氣與傳統產品循環波動的 PCBA 廠。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -840,7 +673,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>非顯示高價值應用佔比提升不如預期。</li><li>光通訊 / AI Server 與外延應用落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高價值製造服務地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>非顯示高價值應用佔比是否持續提升。</li><li>光通訊 / AI Server 外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台表科不是普通 PCBA 廠，而是往光通訊與 AI Server 前段打件升級的製造服務股；真正關鍵不是營收放大，而是高價值非顯示應用佔比能不能把獲利結構拉上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

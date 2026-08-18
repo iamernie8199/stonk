@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,196 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-23-估值與市場預期">估值與市場預期</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要一句話先記住，信驊本質上是一家做伺服器管理晶片的 IC 設計公司，而且它在 BMC 這個利基市場裡，已經接近業界標準制定者的角色。</p>
-<p>很多人一聽 IC 設計，會直接聯想到手機 SoC、PC CPU、網通晶片這種大宗市場，但信驊不是那條路。它做的是伺服器裡面「讓機器可以被管理、監控、維護、遠端操作」的關鍵控制晶片，最核心就是 BMC，也就是 Baseboard Management Controller。</p>
-<p>白話講，伺服器不是只是插電會跑就好，大型資料中心、雲端機房、AI 伺服器叢集都需要被遠端管理、監控溫度、電源、韌體狀態、開關機、錯誤排除。BMC 就像伺服器裡一個專門負責「管理這台機器」的小腦袋。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個問題很關鍵，因為信驊的投資價值，很大一部分就來自這個市場位置的特殊性。</p>
-<p>理論上，客戶不是不能自己做，但實務上很難自己做得比專業供應商更有效率。因為 BMC 不是一顆隨便湊合的控制晶片，它要處理很多事情：<br>- 遠端管理<br>- 韌體更新<br>- 電源與溫度監控<br>- 系統啟動與故障排除<br>- 安全性與可信任開機鏈</p>
-<p>而且這些功能不是做一次就結束，而是會跟著伺服器平台世代、客戶架構、資安規格一起升級。</p>
-<p>所以 BMC 的價值在於：<br>- 它不是算力主角，但它是大型伺服器營運不可缺的底層基礎設施<br>- 它要高度可靠<br>- 它要和 CPU / GPU / ASIC / 主板設計一起配合<br>- 客戶一旦驗證通過，通常不會隨便更換供應商</p>
-<p>這就是信驊為什麼可以在一個看似小眾的市場裡，長期維持很強的地位。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>信驊最適合用「平台型公司」去理解，而且是伺服器管理控制層的平台型資產。</p>
-<p>它不是平台最大的公司，但在 BMC 這個關鍵環節裡，它的角色已經接近標準平台。市場願意給它超高估值，不是因為它出貨量最大，而是因為：<br>- 它所在位置很關鍵<br>- 客戶黏著度高<br>- 毛利率極高<br>- 產品世代還在持續升級<br>- AI server、CPU server、ASIC server 擴張都會把需求往它身上拉</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是只背產品，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對信驊來說，真正決定估值的有三個層級：</p>
-<p>第一層，BMC 本體。<br>這是公司的核心基本盤，也是最穩的價值來源。</p>
-<p>第二層，新世代平台升級。<br>也就是 AST2600、AST2700、後續 AST2800 這些世代切換，能不能持續把單機內容價值往上墊。</p>
-<p>第三層，附屬管理控制晶片與伺服器控制架構外溢。<br>如果公司能從單一 BMC，逐步往 PRoT、I/O Expander、其他管理控制環節延伸，市場就會更願意把它當成平台型資產，而不是單一利基晶片公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>對，這句話非常準。</p>
-<p>信驊不是那種靠超大終端市場規模吃飯的公司，它更像是在一個單價不一定最驚人、但地位非常關鍵、黏著度很高的利基市場裡，做到幾乎成為標配。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 16,540 元<br>- 本益比 91.3 倍<br>- 股價淨值比 124.33 倍<br>- 總市值 6,881 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 1,524,018 千元<br>- 年增 97.59%<br>- 月增 16.32%<br>- 近三月合併營收年增 77.93%<br>- 近 12 月營收合併成長 46.34%</p>
-<p>這組數字很強，代表它不是只在高基期上小幅成長，而是仍維持非常強的高雙位數擴張。也就是說，市場給它超高本益比，不是完全沒有基本面支撐，而是因為市場相信：<br>- AI 伺服器需求會讓 BMC 持續受惠<br>- 產品世代升級會推升內容價值<br>- 它在伺服器管理晶片這個環節的競爭位置很強</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>信驊最重要的成長主線，是 AI 伺服器與大型資料中心擴張，帶動 BMC 與附屬管理晶片需求持續高速成長，並且透過新世代產品提高單機價值。</p>
-<p>這條主線拆開來看有三層：<br>- 伺服器數量增加<br>- 平台升級帶動單機價值提高<br>- AI 伺服器與 ASIC server 讓管理晶片需求密度變高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>表面上看，BMC 好像都是管理晶片，不管 CPU server 還是 AI server 都要用。但投資上差異很大，因為 AI 伺服器與 ASIC server 讓整個系統變得更複雜、更多節點、更高功耗、更多要管理的對象。</p>
-<p>這意味著：<br>- 不只是 BMC 本身重要<br>- 衛星控制器、I/O Expander、PRoT 這類附屬管理晶片的重要性也可能提高<br>- 單一伺服器系統的內容價值可能比傳統 server 更高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常到位。</p>
-<p>你可以把信驊理解成：<br>它不是站在算力核心最耀眼的那一層，但它站在整個算力系統要能被管理、被維護、被遠端操作的關鍵基礎層。</p>
-<p>這讓它雖然仍受平台節奏影響，但本質上更靠近基礎控制層，而不是最上層算力品牌之爭。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>信驊不是單純的一家小眾 IC 設計公司，而是 AI 與雲端資料中心擴張下，伺服器管理晶片與附屬管理控制架構的核心受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講一句話，我會這樣說：<br>新唐比較像廣義控制晶片與 MCU 生態裡的一員，而信驊更像在 BMC 這個利基市場裡做到接近標準平台地位的特殊資產。</p>
-<p>這兩家公司當然都跟控制晶片有關，但市場之所以願意給信驊遠高於一般控制晶片公司的估值，關鍵不在於它比較會做某一顆小晶片，而在於：<br>- 它所在的 BMC 場景更直接綁定伺服器與資料中心基礎設施<br>- 它跟 hyperscaler、CPU / GPU / ASIC 平台演進的連動更深<br>- 它不是一次性題材，而是跟著伺服器複雜度一起升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個差別非常重要。</p>
-<p>市場看新唐，通常比較容易從：<br>- MCU / 控制晶片景氣循環<br>- 產品組合<br>- 一般半導體評價方式<br>去理解它。</p>
-<p>但市場看信驊，不太像在看一般控制 IC 公司，而更像在看：<br>- 利基市場龍頭<br>- 高毛利、高黏性的平台型受益者<br>- 隨資料中心、AI server、ASIC server 擴張一起複利的控制層公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>信驊最不一樣的地方，在於它不是單純靠利基市場小而美，而是把「小而關鍵」變成「小而有平台感」。</p>
-<p>很多利基 IC 設計股的特徵是：<br>- 市場小<br>- 毛利不錯<br>- 客戶相對穩定<br>- 但成長速度有限，或產業想像天花板不高</p>
-<p>信驊不一樣的地方是：<br>- 它的市場雖然不是最大，但跟資料中心與 AI 基礎設施擴張直接相連<br>- 它不是只守住既有市場，而是靠 AST2600 / AST2700 / 附屬管理晶片把單機內容價值往上推<br>- 它的客戶不是一般消費性終端，而是更偏 hyperscaler、伺服器平台、資料中心架構</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常準。</p>
-<p>這也是為什麼信驊的高估值雖然很誇張，但又不是完全沒邏輯。市場不是單純因為它小而美就給高倍數，而是因為：<br>- 它所在位置很關鍵<br>- 它有接近標準化與生態優勢<br>- 它的成長不只是量，而是內容價值也在升<br>- 它受惠的不是單一產品，而是整個資料中心管理複雜度提升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>90 倍以上本益比代表市場在交易的，不是一般成長股，而是接近「稀缺性極高、可長期複利」的框架。</p>
-<p>市場願意給這種倍數，通常代表它相信幾件事：<br>- 公司所在位置很關鍵<br>- 市場地位很穩固<br>- 成長不是短期，而是至少可以延續到 2027、甚至更久<br>- 產品世代升級會讓內容價值持續提高<br>- AI server、ASIC server、CPU server 需求共振，讓它不是單一題材股</p>
-<p>換句話說，市場不是把信驊當成「今年很好」的股票，而是把它當成「未來幾年都可能持續變得更值錢」的股票。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>如果你看信驊，只看營收成長，會漏掉一半故事。真正讓市場願意給它高估值的，是它的獲利品質。</p>
-<p>已知資料顯示，2Q26 毛利率達 72.0%。這是非常高的數字。這代表市場買它，不只是因為它成長，而是因為它成長的同時，還維持高毛利、高附加價值、高議價能力的形象。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>營業利益率回答的是：<br>成長有沒有真的轉成高品質的經營槓桿。</p>
-<p>淨利率回答的是：<br>股東最後拿到的高獲利，是否乾淨且可持續。</p>
-<p>對信驊這種超高估值公司來說，市場最怕的不是營收稍微波動，而是：<br>- 毛利率撐不住<br>- 成長有了，但經營槓桿沒有同步出來<br>- 高估值是靠想像，而不是靠高品質利潤結構支撐</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這個問題問得非常到位，因為信驊現在最容易讓投資人誤判的，不是方向，而是口徑。</p>
-<p>先講最重要的結論：<br>有些機構把目標價從更高位置下修，核心原因未必是基本面轉弱，而是把資本公積轉增資造成的新股稀釋效果反映進 EPS 分母。</p>
-<p>這件事的投資含義很大。因為表面上看，你會覺得：<br>- 目標價被下修了<br>- EPS 也被下修了<br>- 好像公司沒那麼好了</p>
-<p>但其實真正發生的可能是：<br>- 營運本身依舊強<br>- 只是股本變大後，每股盈餘自然被稀釋<br>- 所以估值模型在「每股」口徑上需要重算</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>市場在賭信驊能把伺服器管理控制晶片這個利基市場，做成一個隨 AI 與資料中心擴張持續放大、且維持高獲利品質的長期複利故事。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方之一，而且一定要正面面對。</p>
-<p>反方會說：<br>- 現在所有跟 AI server 有關的公司都容易被高估值對待<br>- 信驊剛好站在 BMC 這個看起來又關鍵、又不容易被取代的位置上<br>- 市場很自然會把它往高品質稀缺資產方向定價</p>
-<p>但問題在於，這裡面有沒有一部分其實只是題材溢價？</p>
-<p>如果未來幾季出現：<br>- 伺服器需求增速放緩<br>- AI server 帶動效應不如市場想像<br>- AST 新世代內容價值提升低於預期<br>- 客戶對附屬管理晶片的採用速度沒有那麼快</p>
-<p>那市場就可能重新思考：<br>信驊到底是長期稀缺資產，還是這一輪 AI 資本支出上行期裡最受惠的一段之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是一個很現實的反方。</p>
-<p>市場最容易長期給超高估值的，通常還是：<br>- 算力主晶片<br>- 稀缺 IP<br>- 核心製程與設備<br>- 具極強不可替代性的上游技術平台</p>
-<p>BMC 再重要，本質上仍然不是最核心算力本身。反方會說：<br>- 你是伺服器管理控制層，不是算力主角<br>- 你的市場再重要，總量還是有限<br>- 只要成長有一點鈍化，高估值就會非常敏感</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率能否持續維持在極高水準。</p>
-<p>原因很簡單：<br>- 營收可以很好<br>- 題材可以很強<br>- AST 世代升級可以很漂亮<br>- 但如果毛利率撐不住，市場就很難再相信它是高附加價值、高議價能力的平台型資產</p>
-<p>所以最脆弱的驗證，不是單月營收，而是超高毛利能不能維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>一般利基 IC 設計股，而不是平台型高倍數資產。</p>
-<p>差別在於：<br>- 前者看產品利基與短中期成長<br>- 後者看控制層標準地位、附屬管理架構與長期複利能力</p>
-<p>一旦切回前者，90 倍左右本益比就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最誠實的答案是：它兩者都是。</p>
-<p>它確實有高品質成長股的條件：<br>- BMC 利基市場地位強<br>- 毛利率高<br>- AI / 資料中心擴張直接受惠<br>- AST 世代升級可以持續拉高內容價值</p>
-<p>但它同時也是市場已經非常樂觀的股票。這代表：<br>- 公司很強不等於股價一定還有同樣漂亮的報酬<br>- 只要成長節奏或高毛利稍微低於市場預期，評價就會先被壓縮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>信驊不是一般 IC 設計股，而是伺服器管理控制晶片的核心供應商。</p>
-<p>第二句，平台邊界：<br>真正決定估值的，不只是 BMC 本體，而是 BMC + 新世代平台 + 附屬管理控制架構能否一起擴大內容價值。</p>
-<p>第三句，市場位置：<br>它在 BMC 這個利基市場裡接近標準制定者，是伺服器系統不可或缺但不顯眼的控制層角色。</p>
-<p>第四句，成長主線：<br>AI server、CPU server、ASIC server 擴張，會持續拉高 BMC 與附屬管理晶片需求。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率、AST 世代升級與附屬管理架構擴張。</p>
-<p>第六句，最重要驗證：<br>高毛利能不能維持、內容價值能不能持續提高、資料中心需求能不能延續。</p>
-<p>第七句，最強反方：<br>它可能只是 AI 伺服器擴張週期裡，被高估值放大的利基控制晶片股。</p>
-<p>第八句，最終投資判斷：<br>信驊真正值不值得這個超高估值，不是看今天有多強，而是看它能不能把 BMC 利基龍頭優勢，持續擴展成 2027 之後仍可驗證的長線複利故事。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>信驊不是一般利基 IC 設計股，而是 AI 與資料中心擴張下、最具平台感的伺服器管理控制晶片資產之一；但真正決定它值不值這個高估值的，不是題材熱度，而是超高毛利、AST 世代升級與附屬管理架構擴張，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -916,7 +716,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>伺服器需求成長不如預期，導致 BMC 出貨與內容價值擴張放緩。</li><li>市場最終不願意再給信驊平台型高倍數，而改以一般利基 IC 設計股框架定價。</li><li>AST2700 / 後續平台升級未能持續推升內容價值與高獲利品質。</li><li>高估值下，只要成長節奏或獲利品質略低於市場期待，評價便先被壓縮。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>信驊在 BMC、本體平台升級、附屬管理晶片三塊營收與利潤結構的更細拆分。</li><li>與新唐及其他控制晶片供應商在伺服器管理控制層的更細市占與內容價值比較。</li><li>AST2700 / AST2800 對 2027 年之後單機價值與獲利品質的更細量化貢獻。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>信驊不是一般利基 IC 設計股，而是 AI 與資料中心擴張下、最具平台感的伺服器管理控制晶片資產之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

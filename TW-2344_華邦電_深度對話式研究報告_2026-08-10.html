@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,130 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>華邦電最容易被看錯的地方，就是很多人一聽到記憶體股，就自動把它想成標準型 DRAM 或高頻寬記憶體玩家。</p>
-<p>但華邦電不是那種路線。</p>
-<p>最白話地講，華邦電是一家台灣利基型記憶體 IDM，核心產品不是 HBM，也不是主流標準型 DRAM，而是：<br>- NOR Flash<br>- SLC NAND<br>- eMMC<br>- 利基型 DRAM</p>
-<p>所以它的價值，不在最前沿記憶體技術領導，而在於：<br>- 產品組合夠分散<br>- 客戶週期更長<br>- 車用 / 工控 / 網通 / AI 基建邊角需求都會拉到它<br>- 大廠退出舊世代市場後，它反而更容易吃到供給真空</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，而且這句話非常接近核心。</p>
-<p>華邦電不是最前線 HBM 贏家，但它在成熟且長尾的記憶體市場裡，有自己的深度與護城河。</p>
-<p>這些市場的共同特徵是：<br>- 產品生命週期長<br>- 客戶重視穩定供貨<br>- 認證週期長<br>- 大廠不一定願意花資源繼續做</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>華邦電現在最重要的身份，是成熟製程供給收縮下的多產品線利基型記憶體受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>華邦電的投資主線不是單一產品大爆發，而是四條線一起成立：<br>- DDR4 / 利基 DRAM 緊缺<br>- NOR Flash 報價與 AI 伺服器 code storage 需求<br>- SLC NAND 因 MLC shortage 帶來的供給真空<br>- eMMC / 小容量長生命週期儲存需求</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 179.5<br>- 本益比 7.7<br>- 股價淨值比 6.92<br>- 總市值 8,078 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 26,773,179 千元<br>- 年增 291.55%<br>- 月增 29.99%<br>- 近三月合併營收年增 220.26%<br>- 近 12 月營收合併成長 106.05%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這就是它最重要的投資語言。</p>
-<p>相對純 DRAM 股與純 NOR 股，華邦電最大的好處是多口袋一起受惠。也就是說，它的獲利不需要押單一產品，只要成熟製程記憶體與成熟儲存的幾條線都偏緊，它就能一起受惠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 南亞科：標準型 DRAM 高彈性週期股<br>- 旺宏：NOR Flash / 特定 Flash 路線代表<br>- 兆易創新：中國 NOR / 利基記憶體與 MCU 交會代表<br>- 新唐：華邦電集團內偏 MCU / 控制 IC 路線<br>- 華邦電：多產品線利基型記憶體 IDM，最像成熟供給收縮下的綜合受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：南亞科（若只看 DRAM）/ 旺宏（若只看 NOR）<br>- 誰最廣：華邦電<br>- 誰最穩：華邦電 / 新唐（不同維度）<br>- 誰最有彈性：南亞科 / 華邦電<br>- 華邦電卡在哪：多產品線利基型記憶體平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>你可以這樣記：<br>- 南亞科是高彈性 DRAM 週期股<br>- 華邦電是多產品線、長尾市場受惠的利基型記憶體股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>某種程度上是。</p>
-<p>旺宏更容易被市場當成：<br>- NOR Flash / 特定 Flash 路線<br>- 比較單線、比較聚焦</p>
-<p>華邦電更容易被市場當成：<br>- NOR + SLC NAND + eMMC + 利基 DRAM 的組合<br>- 更像平台<br>- 更像成熟供給收縮的綜合受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>兆易創新更容易被市場放在中國本土替代、NOR、MCU、控制晶片那條線裡。</p>
-<p>華邦電則更像：<br>- 台灣利基型記憶體 IDM<br>- 車用 / 工控 / 網通 / AI code storage 長週期需求受惠者<br>- 多產品線成熟記憶體供給真空受益者</p>
-<p>至於新唐，比較偏 MCU、控制 IC、平台控制與嵌入式應用路線；它比較像華邦電集團的控制 / MCU 延伸觸角，不是華邦電本體記憶體故事的替代物。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為市場最怕的是：這是一輪非常強，但不一定持久的成熟記憶體高峰。</p>
-<p>市場承認華邦電現在很強，但它沒有直接給高倍數，原因就在於：<br>- 這一輪高獲利很多來自價格上行<br>- 記憶體週期向來容易被反轉<br>- 大家還不確定這些供給真空能撐多久<br>- 華邦電雖然產品分散，但終究還是成熟記憶體與成熟儲存的供需邏輯</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>毛利率對華邦電來說，回答的是：現在的高獲利，到底只是因為價格大漲，還是多產品線裡高價值產品占比真的在提高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：華邦電到底是在賺價格高峰，還是在賺更高品質的多產品線利潤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但華邦電這種公司更要看：<br>- EPS 成長是不是由本業多產品線一起推動<br>- 還是只是某一個短期價格高峰撐起來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>一句話就是：<br>市場承認華邦電正在大賺，但還不相信這種大賺能維持很久。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是最強反方，而且非常合理。</p>
-<p>反方會說：<br>- 不管你怎麼包裝，華邦電終究還是成熟記憶體與成熟儲存供需邏輯<br>- 現在的高獲利很多來自價格飆升<br>- 一旦大廠、長鑫或其他供應變數改變，價格就會反轉</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全是。</p>
-<p>7 倍多本益比看起來低，但對成熟記憶體與高峰獲利股來說，不一定代表便宜。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這也是關鍵。</p>
-<p>這些題材都很吸引人，但對現在的華邦電來說，它們比較像中長期選項，而不是當前主估值主線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>對，這句話很到位。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -753,7 +619,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>多產品線價格延續性不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>長期選項落地不如預期。</li><li>市場重新下修對其利基型記憶體資產地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>多產品線價格延續性是否持續。</li><li>毛利率、營業利益率與淨利率是否持續改善。</li><li>長期選項是否開始落地成高品質獲利。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠多產品線受惠、獲利品質與長期選項落地來證明自己不只是記憶體高峰股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，啟碁不是只在做網通代工，它是在賣低軌衛星地面終端、無線寬頻設備與高階網路設備整合能力。</p>
-<p>以前大家可能把它看成傳統 CPE / 路由器 ODM，但現在更準確的理解是：<br>它是站在低軌衛星地面終端、5G FWA、800G 網通設備與 AI-RAN 邊緣基礎設施交界處的通訊平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不像中磊那樣更偏 CPE，也不像智邦那樣更偏交換器平台。啟碁最核心的優勢，在於：<br>- 低軌衛星地面終端與寬頻設備能力<br>- 5G FWA / 企業網通 / 800G 切入能力<br>- OCS / AI-RAN / 車用通訊等新產品線外延</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>啟碁現在最核心的身份，是低軌衛星地面終端與高階網通邊緣基礎設施平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是低軌衛星地面終端與 5G FWA / Service Provider 基本盤。<br>第二條，是 800G Switch / 企業網通升級。<br>第三條，是 OCS / AI-RAN / 車用通訊等新產品線接力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 254 元<br>- 單日漲幅 -0.78%<br>- 本益比 21.2 倍<br>- 股價淨值比 3.51 倍<br>- 總市值 1,229 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 16,912,812 千元<br>- 年增 89.82%<br>- 月增 6.57%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是只在買傳統網通代工需求，而是在買三件事：<br>- 低軌衛星地面終端與 5G FWA 需求擴大<br>- 800G / OCS / AI-RAN 等新平台能力上升<br>- 啟碁能不能從 ODM 廠往更完整的通訊平台公司走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是出貨量回來，那市場最後還是只會把它看成網通景氣股；但如果每個地面終端、每個寬頻平台的內容值與複雜度都在往上抬，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 LEO / FWA 只是短線放量，市場會把它看成高成長一陣子的網通股；但如果 LEO / FWA 是整個邊緣通訊平台升級的一部分，那它的定位就會往平台公司靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這條線真正值錢的，不只是更多交換器，而是企業與資料中心網通升級：<br>- Wi-Fi 7 / Wi-Fi 8<br>- 800G Switch<br>- OCS<br>- 企業 / 電信端高速傳輸需求提升</p>
-<p>這些不是單純量增，而是高階網通規格升級帶來的內容值增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場願意給啟碁高於一般網通代工股的估值，不是因為出貨量而已，而是因為低軌衛星、FWA、800G、OCS 這些新應用把內容值往上推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 800G / OCS 只是題材，那市場會提早反映又提早修正；但如果它們真的成為企業網通與資料中心新一代升級節點，那啟碁的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是外延。</p>
-<p>如果前兩條主線代表今天最受關注的低軌衛星與網通成長，那第三條主線代表的是：<br>公司不是只有 LEO / FWA / 800G，而是還在往 OCS、AI-RAN、車用通訊與其他新應用延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>OCS、AI-RAN、車用通訊短期不是主體營收，但它們會影響市場願不願意給啟碁比較高的估值框架，因為那代表公司不是只守住 OEM / ODM，而是真的在往更完整的通訊平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果 OCS、AI-RAN、車用通訊最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像中磊那種更偏寬頻 CPE，也不像智邦那種更偏交換器平台。它比較像是站在低軌衛星終端、FWA 與高階企業網通中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟中磊比：寬頻設備與 CPE 座標<br>- 跟智易比：網通 ODM / 產品整合座標<br>- 跟智邦比：高階交換器平台座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：啟碁（若只看低軌衛星地面終端 / FWA / 新邊緣平台主線）<br>- 誰最廣：智易 / 大型網通產品線更廣的 ODM 平台<br>- 誰最穩：中磊 / 智易這種成熟寬頻設備型公司<br>- 誰最有彈性：啟碁<br>- 啟碁卡在哪：低軌衛星終端、5G FWA、800G、AI-RAN 邊緣通訊平台公司<br>- 最像的比較對手：中磊<br>- 最不像的比較對手：純交換器平台公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般網通代工股，而是把它當：<br>- 低軌衛星 / 5G FWA 受惠股<br>- 800G / OCS / AI-RAN 新平台升級股<br>- 帶有車用與邊緣通訊外延選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是啟碁目前的估值本質：<br>- 如果它只是高成長一陣子的網通股，那 21 倍本益比不便宜<br>- 如果它真的是通訊平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 LEO 終端、FWA、800G 只是某幾個平台短線放量，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- 低軌衛星 / FWA / 800G 放量沒有持續擴張<br>- OCS / AI-RAN 沒有持續墊高內容值<br>- 新平台與新應用沒有打開能力邊界<br>那啟碁就可能被切回「高成長一陣子的網通股」，而不是通訊平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -764,7 +627,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格通訊平台產品占比提升不如預期。</li><li>OCS / AI-RAN / 車用通訊外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其通訊平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格通訊平台產品占比是否持續提升。</li><li>OCS / AI-RAN / 車用通訊是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>啟碁不是多賣幾台網通設備而已，而是要靠低軌衛星地面終端、5G FWA、800G / OCS 與 AI-RAN 外延，把自己從網通代工廠往通訊平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

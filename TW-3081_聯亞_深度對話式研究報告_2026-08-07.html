@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,196 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-估值與市場預期">估值與市場預期</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-23-估值與市場預期">估值與市場預期</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-27-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要一句話先記住，聯亞本質上不是整機設備廠，也不是品牌光模組廠，而是站在高速光通訊上游、做關鍵矽光與光通訊元件相關材料 / 磊晶 / 元件能力的公司。</p>
-<p>你可以把它理解成：<br>- 它不是最終把資料中心網路設備賣出去的那一方<br>- 但它是讓高速光通訊元件能成立的關鍵底層供應者之一</p>
-<p>尤其當 800G、1.6T、未來 3.2T，甚至 CPO / 光互連架構升級開始加速時，市場會越來越重視不是只有終端模組，而是上游的：<br>- InP / GaAs 材料與磊晶<br>- 高速光元件關鍵製程能力<br>- 與矽光子 / 資料中心架構升級連動的核心零組件供應能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個方向是對的。</p>
-<p>如果你用產業鏈語言來看，聯亞比較像是高速光通訊與矽光架構裡的重要上游節點。這種公司的特色是：<br>- 不一定直接面對終端客戶<br>- 但會直接受惠於系統規格升級<br>- 一旦進入高階應用，供應關係、驗證門檻與切換成本都不低</p>
-<p>所以你研究聯亞，不能只把它看成一般通信網路股，而要把它放在：<br>- AI 資料中心光互連升級<br>- 1.6T / 3.2T 高速傳輸<br>- 矽光子<br>- CPO / optical interconnect<br>這些更大的架構升級主線裡。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>這個懷疑非常合理，而且如果你不先處理這個問題，後面很容易被規格名詞帶著走。</p>
-<p>聯亞真正被高看，不只是因為題材熱，而是因為高速光互連升級有一個非常重要的結構：<br>- 規格越往高走<br>- 價值越往上游關鍵材料與元件能力集中</p>
-<p>也就是說，當 1.6T、3.2T、矽光、CPO 這些架構一起往前推時，不是每家光通訊公司都能受惠得一樣多。市場重估聯亞，是因為它站在比較難被取代的那個上游節點上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很接近標準答案。</p>
-<p>再幫你修得更準一點：<br>聯亞不是單純的通信網路題材股，而是 AI 資料中心高速光互連與矽光架構升級過程中，上游矽光 / 光元件關鍵供應能力的受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-07 的股價資料：<br>- 收盤價 2,305 元<br>- 單日漲幅 -2.95%<br>- 本益比 133.9 倍<br>- 股價淨值比 56.12 倍<br>- 總市值 2,347 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 501,210 千元<br>- 年增 176.54%<br>- 月增 19.19%<br>- 近三月合併營收年增 140.94%<br>- 近 12 月營收合併成長 114.74%</p>
-<p>這組數字非常強，而且重點不是只有年增高，而是：<br>- 連續數月創高<br>- 月增也還在往上<br>- 市場願意用極高本益比看它</p>
-<p>也就是說，市場不是把它當成普通業績反彈股，而是在交易一條非常強的成長與規格升級主線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是研究聯亞最重要的第一步。</p>
-<p>聯亞現在的高估值，不是因為短期營收好看而已，而是市場在賭幾件事：<br>- AI 資料中心高速互連需求會持續爆發<br>- 1.6T 產品放量只是開始，3.2T 與更高階應用還在後面<br>- 矽光子 / CPO 架構升級會把價值往上游元件與材料供應能力集中<br>- 聯亞的產能擴充、InP 基板供應穩定度與磊晶能力，能讓它持續站在高價值位置</p>
-<p>所以這不是便宜股邏輯，而是市場在用高成長高稀缺框架去交易它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>聯亞最重要的成長主線，是 AI 資料中心高速光互連規格升級，帶動 1.6T / 未來 3.2T 與矽光架構所需的上游光元件與磊晶需求持續上升。</p>
-<p>拆開來看有四層：<br>- 資料中心頻寬需求持續提高<br>- 規格升級：800G 往 1.6T、再往 3.2T 推進<br>- 矽光子與 CPO 架構升級<br>- 供應鏈門檻使上游位置更值錢</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>很多人看到聯亞，會只看到短期數字爆發，但市場真正願意給高估值的，不是這一季營收變多，而是：<br>- 它是不是 1.6T / 3.2T 升級中的必要環節<br>- 它是不是矽光與 CPO 升級裡不可替代的供應者之一<br>- 它的產能與供應鏈掌握度，能不能支撐未來更大的量</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>其實非常重要，而且這種東西正是把技術故事變成投資故事的關鍵。</p>
-<p>因為聯亞這種公司，不是只有接單就好，還要看：<br>- 原料供應穩不穩<br>- 基板來源夠不夠<br>- 良率能不能拉上去<br>- 擴產是不是順利</p>
-<p>如果上游關鍵原料卡住，那需求再強，也沒辦法順利轉成營收與獲利。</p>
-<p>所以你研究聯亞，不能只看終端 AI 與光通訊需求，還要看它有沒有能力真正把這些需求接住。InP 基板長約、磊晶供應與產能擴充，都是這件事的核心。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>聯亞不是單純的光通訊元件題材股，而是 AI 資料中心高速光互連與矽光架構升級過程中，上游磊晶 / 關鍵光元件供應能力的核心受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- 華星光：中游光通訊 / 模組鏈條的高彈性受惠股<br>- IET-KY：光通訊 / 化合物半導體上游利基供應者<br>- 全新：光通訊 / 化合物半導體 / 射頻交叉的多應用平台型公司<br>- 環宇-KY：高彈性題材與應用端受惠股<br>- 聯亞：1.6T / 3.2T / 矽光 / CPO 升級主線中的上游核心稀缺資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：聯亞（如果你定義純度是 1.6T / 3.2T / 矽光 / CPO 上游主線）<br>- 誰最廣：全新<br>- 誰最穩：全新<br>- 誰最有彈性：華星光 / 環宇-KY<br>- 聯亞卡在哪：高規格升級主線中的上游稀缺資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>如果只講一句話：<br>華星光更像站在光收發模組與中游應用端的高彈性標的，而聯亞更像高速光通訊與矽光升級鏈裡，上游磊晶 / 關鍵光元件能力的稀缺供應者。</p>
-<p>也就是說：<br>- 華星光偏中下游放量彈性<br>- 聯亞偏上游規格升級稀缺性</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，IET-KY 和聯亞的比較，比華星光更像是上游能力比上游能力。</p>
-<p>市場看 IET-KY 時，會把它放在：<br>- 光通訊上游<br>- 化合物半導體 / 磊晶<br>- 材料與上游供應緊張<br>這條主線裡。</p>
-<p>所以 IET-KY 和聯亞的差別，不是「一個上游一個下游」，而是：<br>- 聯亞更像資料中心高速光互連與矽光規格升級的核心受惠者<br>- IET-KY 更像上游化合物半導體 / 光通訊材料鏈的利基供應者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不像中游模組股那樣太容易被價格競爭稀釋<br>- 也不像單一題材彈性股那樣容易只靠故事推動<br>- 它同時有 1.6T、3.2T、矽光、CPO、資料中心高占比、InP 供應鏈與上游磊晶能力這幾個故事可以疊加</p>
-<p>所以它是非常典型的高規格升級主線中的上游稀缺股。</p>
-<p>最大的缺點：<br>- 估值已經極高<br>- 市場對未來規格升級與產能執行的期待也非常高<br>- 只要 1.6T 放量、3.2T 銜接、供應穩定或擴產有一項沒跟上，估值就很容易先修</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這個問題問得非常對，因為聯亞最大的風險就是：市場可能已經先把很多好的未來反映進去了。</p>
-<p>聯亞現在的高估值，不是因為短期營收好看而已，而是市場在賭：<br>- 1.6T 放量只是開始<br>- 3.2T 等更高階產品還會接上<br>- 矽光子 / CPO 架構升級會把價值往上游元件與材料供應能力集中<br>- 聯亞的產能擴充、InP 基板供應穩定度與磊晶能力，能讓它持續站在高價值位置</p>
-<p>所以這不是便宜股邏輯，而是市場在用高成長高稀缺框架去交易它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率在聯亞這裡，回答的是：<br>1.6T、3.2T、矽光與 CPO 相關上游供應能力，是否真的讓它賣得更值錢。</p>
-<p>如果營收很強，但毛利率沒有守住或進一步優化，市場就會開始懷疑：<br>- 這是不是只是需求暴衝<br>- 規格升級的價值有沒有真的集中到它身上<br>- 供應瓶頸是不是反而把利潤吃掉</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的事：<br>聯亞到底是在賺高營收，還是在賺高品質的規格升級利潤。</p>
-<p>如果只是營收變強，但：<br>- 擴產成本高<br>- 材料供應吃緊<br>- 後段配套跟不上<br>那營業利益率就未必能同步漂亮。</p>
-<p>所以營業利益率是在驗證：<br>- 上游稀缺供應能力<br>- 規格升級價值集中<br>- 這兩件事有沒有真的轉成經營槓桿</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>淨利率回答股東最後拿到多少利潤；<br>獲利品質則要進一步問：<br>- 這個利潤是不是來自 1.6T / 3.2T 高規格產品放量<br>- 是不是來自資料中心高占比與高價值 mix<br>- 還是只是短期規格切換與急單熱度</p>
-<p>對聯亞來說，高品質獲利至少要看到：<br>- 1.6T 穩定放量<br>- 3.2T 能如期接上<br>- InP 與上游材料穩定<br>- 毛利率、營業利益率、淨利率同步站住<br>- 不是只靠一波題材切換</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是 1.6T 放量、3.2T 銜接、資料中心高占比與上游供應能力，能不能一起把營收轉成更好的毛利率、營業利益率、淨利率與高品質獲利。</p>
-<p>如果可以，130 多倍雖然高，但市場還會願意買單；<br>如果不行，市場就會開始懷疑它是不是仍然只是一波高估值光通訊題材股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>夠強，而且這就是最應該先處理的空方版本。</p>
-<p>最強空方一句話可以這樣講：<br>聯亞不是長線受惠於 AI 光互連升級的上游稀缺資產，它只是這一波規格切換下被短期高度重估的高估值光通訊股。</p>
-<p>這句話最厲害的地方在於，它不是否定聯亞現在好，而是質疑這種好能不能從一波規格切換，變成長期平台價值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這也是很現實的反方。</p>
-<p>聯亞這種公司的問題從來不只是有沒有需求，而是有沒有能力接住需求。</p>
-<p>如果：<br>- 上游材料供應不穩<br>- InP 基板短缺<br>- 後段封裝沒跟上<br>- 擴產進度延遲<br>那就算市場需求再強，營收與獲利也不一定能完全反映。</p>
-<p>所以聯亞的關鍵不是只看訂單，而是看整條供應與量產執行能不能一起順。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：1.6T 放量能否持續，且 3.2T 是否能順利接上。</p>
-<p>原因很簡單：<br>- 題材可以很熱<br>- 規格可以很高<br>- 市場可以先給估值<br>- 但如果 1.6T 只是短跑、3.2T 沒接上，市場就很難再把它當長線平台資產看待</p>
-<p>所以最脆弱的驗證，不是單月營收，而是新規格產品的接力延續性。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>一般高估值光通訊題材股，而不是 AI 光互連上游稀缺平台資產。</p>
-<p>差別在於：<br>- 前者看題材、短期需求與規格切換<br>- 後者看上游供應能力、產品接力、平台稀缺性與長期獲利品質</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最誠實的答案是：它兩者都是。</p>
-<p>它確實有高品質成長股的條件：<br>- 資料中心營收占比高<br>- 1.6T 放量已經落地<br>- 3.2T 還有後續故事<br>- 上游磊晶與供應能力具稀缺性</p>
-<p>但它同時也是高預期高波動股，因為市場已經把很多未來好事先反映進估值。這代表：<br>- 只要規格升級、供應能力或量產執行稍微不如預期<br>- 估值修正就會很快</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>聯亞不是終端光模組品牌，而是高速光通訊 / 矽光升級中的上游關鍵供應者。</p>
-<p>第二句，主線：<br>最大的成長主線，是 AI 資料中心光互連從 800G 往 1.6T、3.2T 升級。</p>
-<p>第三句，價值來源：<br>它受惠的不只是需求變多，而是規格升級把價值往上游關鍵材料與元件能力集中。</p>
-<p>第四句，同業定位：<br>華星光偏中游彈性、IET-KY偏利基上游、全新偏多應用平台、環宇-KY偏題材彈性，而聯亞卡在規格升級主線的上游稀缺位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率、供應穩定性與 1.6T / 3.2T 產品接力。</p>
-<p>第六句，最重要驗證：<br>1.6T 放量、3.2T 銜接、資料中心高占比與上游供應能力，能不能一起把獲利平台墊高。</p>
-<p>第七句，最強反方：<br>它可能只是這一波規格切換下被短期高度重估的高估值光通訊股。</p>
-<p>第八句，最終投資判斷：<br>聯亞真正值不值得這個高估值，不是看這一季營收多強，而是看新規格放量、供應能力與平台化能力能不能一起做實。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>聯亞是 AI 資料中心高速光互連與矽光架構升級中的上游關鍵供應能力受益者，但真正決定它值不值這個高估值的，不是這一季營收有多好，而是 1.6T 量產、3.2T 開發、供應鏈穩定與平台化能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -921,7 +721,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>1.6T / 3.2T 升級不如預期，需求節奏明顯放緩。</li><li>上游供應鏈瓶頸沒有解除，導致聯亞無法把需求順利轉成營收與獲利。</li><li>資金更偏好中游彈性、題材輪動或其他多應用平台標的，削弱聯亞的溢價空間。</li><li>產能擴充與量產執行不如預期，使高估值失去支撐。</li><li>市場重新把聯亞定價成一般光通訊題材股，而不是 AI 光互連上游稀缺平台資產。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>聯亞在 1.6T、3.2T、矽光 / CPO 相關應用的更細營收拆分。</li><li>InP 基板、磊晶與後段封裝配套的更細供應能力與擴產節奏。</li><li>聯亞、華星光、IET-KY、全新、環宇-KY 在光通訊、矽光、材料 / 磊晶、模組等不同環節的更細營收拆分。</li><li>聯亞在 1.6T、3.2T、CPO 相關應用上的更細產品與客戶定位。</li><li>各家公司在上游材料掌控、量產能力與高規格產品滲透上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>聯亞不是一般高估值光通訊股，而是 AI 資料中心高速光互連與矽光升級浪潮中，最具上游稀缺性的 1.6T / 3.2T 關鍵供應能力資產之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

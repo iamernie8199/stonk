@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,168 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-12-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-風險與失效條件">風險與失效條件</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-第-19-段">第 19 段</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-<a href="#digest-22-第-22-段">第 22 段</a>
-<a href="#digest-23-估值與市場預期">估值與市場預期</a>
-<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-25-估值與市場預期">估值與市場預期</a>
-<a href="#digest-26-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-27-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-28-風險與失效條件">風險與失效條件</a>
-<a href="#digest-29-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>先抓一句話：南茂現在不是只有記憶體封測，它是以記憶體封測、驅動 IC 封測與金凸塊為底，再往矽光子與邏輯測試延伸的混合型 OSAT。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對。它的有趣之處就在這裡。南茂本來就同時有：<br>- 記憶體封測<br>- 驅動 IC 封測<br>- 金凸塊 / bumping<br>- 一部分混合訊號與測試能力</p>
-<p>所以它不是最純，但也因此在景氣上行時，容易同時吃到幾條線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：南茂現在最核心的身份，是以記憶體封測為主軸、靠 DDIC / 金凸塊撐產品組合、並嘗試往矽光子與邏輯測試升級的 OSAT 公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果把整份報告收斂成一條主線，就是：<br>南茂先靠記憶體封測與 DDIC / bumping 底盤撐住獲利，再用產品組合改善去抬高毛利率，最後讓矽光子與邏輯測試去爭取第二曲線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-13 的股價資料：<br>- 收盤價 92.9 元<br>- 本益比 19.9 倍<br>- 股價淨值比 2.66 倍<br>- 總市值約 655 億元</p>
-<p>再看最新月營收，依公告日與月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-10：<br>- 單月合併營收 28.23 億元<br>- 年增 43.6%<br>- 月增 11.21%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>市場現在在買兩件事：<br>- 記憶體與 DDIC 的漲價循環能不能撐住獲利<br>- 新投資是不是讓公司不只是一次性景氣反彈股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，而且南茂這裡有幾個很硬的訊號：<br>- 記憶體封測 2025 下半已先漲一波，2026 年初又二度調價<br>- 公司提到材料成本可持續轉嫁<br>- 記憶體營收占比已經拉到 51%<br>- 2Q26 毛利率直接回到 18%，比前一季大幅改善</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>力成更偏純記憶體封測平台，南茂則不是。南茂的記憶體很重要，但它不是全部；這代表它的景氣修復故事不只看 DRAM / Flash，也看 DDIC、金凸塊與其他混合訊號需求。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。若只是記憶體封測景氣高點，那估值天花板不高；但如果漲價與產品組合改善能維持，獲利品質就會跟以前不一樣。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>因為它們決定南茂是不是只有靠記憶體。2Q26 的產品組成裡：<br>- Flash 29.5%<br>- DRAM / SRAM 21.5%<br>- 驅動 IC 18.1%<br>- 金凸塊 21.1%<br>- 混合訊號 9.8%</p>
-<p>你看得出來，這不是單純記憶體廠，而是記憶體 + DDIC + 金凸塊的混合盤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>DDIC 自己不一定比較高級，重點是：<br>- 車用面板需求回來<br>- OLED 備貨帶來季節性改善<br>- 金凸塊與 bumping 製程能承接更高規格需求</p>
-<p>也就是說，不是所有 DDIC 都值錢，而是產品組合從低毛利一般應用，往車用、OLED、較高規格的凸塊封裝走時，毛利率與營益率才會改善。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這句話很關鍵。市場現在願意看南茂，不只是因為記憶體景氣強，而是 2Q26 已經看到：<br>- 記憶體強<br>- DDIC 漲價<br>- 車用 / OLED 組合改善<br>- 金凸塊仍有成長空間</p>
-<p>這些一起作用，才把毛利率推上去。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這正是爭議點。已知事實是 2Q26 毛利率與營益率明顯改善；關鍵推論則是，這種改善能不能撐過一季以上。如果不能，市場就會把它當一次性的財報漂亮而已。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>最容易被低估的可能是金凸塊這塊，因為它一開始看起來只是製程名詞，但實際上它連到更高規格封裝與矽光子過渡路徑；最容易被高估的則是市場直接把所有凸塊能力都提前等同成未來矽光子大成功。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最重要的問題是：<br>這些 mix 改善，到底只是短期價格與急單，還是真的把南茂的長期毛利率與營益率底部抬高。</p>
-<p>如果只是漲價周期，市場最後仍會把它當循環股；但如果產品 mix 真的升級，估值框架就有機會往上移。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>不能寫成既定事實說它已經成功，但可以很清楚說：<br>- 公司已把資本支出拉到營收 25% 以上<br>- 其中 7% 到 10% 指向邏輯／混合訊號測試<br>- 已和 2 到 3 家客戶談矽光子金凸塊封裝<br>- 預計 2026 年下半年試產、2027 年才比較有機會貢獻營收</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全不是。這裡一定要分清楚：<br>- 已知事實：公司在投、在驗證、在拉高 CAPEX<br>- 關鍵推論：這些會不會在 2027 年後變成新獲利來源<br>- 爭議點：市場會不會太早把它平台化</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>所以這正是第二曲線的意義。南茂想從純記憶體與 DDIC 封測，延伸到：<br>- 手機 SoC 測試<br>- AI ASIC 相關測試<br>- 光通訊／矽光子相關封測</p>
-<p>如果只看今天，它還不是主要獲利來源；但如果切進去，市場會重新看它的估值框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-第-19-段">
-<div class="digest-title">第 19 段</div>
-<div class="content"><p>完全正確。這就是南茂現在最值得追、也最容易被高估的地方。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>對，很接近。現在 19.9 倍 PE 不算極端，但已經不是「完全不相信」的價格。也就是說，市場已經開始給一些第二曲線選擇權，但還沒有完全把它當平台股定價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>南茂很容易被亂比。它不像力成那麼偏記憶體，也不像頎邦那麼聚焦 DDIC / 凸塊，更不像日月光那麼廣，更不像矽格那麼測試導向。它比較像是「記憶體 + DDIC + bumping + 少量新方向」的混合 OSAT。</p>
-<p>所以比較時要分層：<br>- 跟力成比：記憶體封測主線<br>- 跟頎邦比：DDIC / 金凸塊與矽光子節奏<br>- 跟矽格比：測試與高階新應用純度<br>- 跟日月光投控比：平台廣度</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-第-22-段">
-<div class="digest-title">第 22 段</div>
-<div class="content"><p>可以，先這樣收斂：<br>- 誰最純：力成（若只看記憶體封測）<br>- 誰最廣：日月光投控<br>- 誰最穩：日月光投控 / 力成<br>- 誰最有彈性：南茂<br>- 本公司卡在哪裡：南茂卡在「基本盤已回升，但第二曲線仍在驗證，市場容易在循環股與轉型股之間搖擺」<br>- 最像的比較對手：頎邦<br>- 最不像的比較對手：日月光投控</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>因為它現在的評價不高，PB 2.66 倍、PE 19.9 倍，市場對它的新故事還沒有完全買單；但一旦記憶體、DDIC、邏輯測試與矽光子其中兩條線一起成立，估值彈性會很大。反過來，如果第二曲線不成立，它又會很快被打回循環股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為市場不是只在看單季獲利，而是在看它是不是有機會從一次性景氣高點，往更高品質獲利結構走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。這就是南茂現在估值的本質。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會這樣切：<br>- 基本盤：景氣成分最高，但也是現在獲利主體<br>- 組合升級：介於景氣與結構之間，是目前最重要的獲利品質改善來源<br>- 平台延伸：最有長期價值，但目前也最容易被市場提前高估</p>
-<p>也就是說，南茂能不能擺脫純循環框架，不是只看記憶體，而是看第二層能不能穩住、第三層能不能成形。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>非常合理。若 DRAM / Flash 強勢只是這一段補庫存與漲價，獲利高點可能比市場想的更短。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-28-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這是很硬的風險。因為：<br>- 新資本支出已經先發生<br>- 邏輯測試與矽光子仍在驗證期<br>- 若 2027 年前無法放量，折舊與回收期壓力就會浮現</p></div>
-</section>
-<section class="digest-card section-card" id="digest-29-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>有可能。如果新成長故事沒成，市場最終就只會看：<br>- 記憶體景氣<br>- DDIC 價格<br>- 封測產能利用率</p>
-<p>那它就回到比較低級的循環估值框架。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -874,7 +702,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>記憶體封測漲價放緩。</li><li>DDIC / 金凸塊 mix 改善不如預期。</li><li>新 CAPEX 之後第二曲線沒有真營收進來。</li><li>市場重新下修對其高品質獲利結構與選擇權的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>毛利率與營業利益率能否持續守在較高品質區間。</li><li>DDIC / 金凸塊產品組合改善是否持續。</li><li>矽光子與邏輯測試第二曲線是否落地成營收與獲利。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>南茂不是只吃記憶體封測景氣，而是要靠記憶體漲價、DDIC / 金凸塊產品組合改善，再加上矽光子與邏輯測試第二曲線，讓自己從循環封測股往有升級選擇權的 OSAT 推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,182 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-第-19-段">第 19 段</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這就是研華最容易被低估的地方。</p>
-<p>如果你只把它當成傳統 IPC 公司，會看得太窄。</p>
-<p>更精準的說法是：<br>研華是把工業電腦、邊緣運算、工業通訊、系統模組與產業應用方案整合在一起的平台型公司。</p>
-<p>也就是說，它賣的不是單純一台工業主機，<br>而是讓工廠、醫療、交通、能源、零售、物流這些現場，能把資料收進來、在本地做運算，再把結果導回控制系統的整套基礎設施。</p>
-<p>所以當市場開始談邊緣 AI、智慧製造、人形機器人或智慧城市時，研華很自然就會被拉進來，因為這些應用最後都需要：<br>- 現場運算<br>- 工業級穩定性<br>- 感測器 / I/O 介面整合<br>- 長生命週期產品供應<br>- 軟硬整合能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>研華不是 GPU 設計公司，<br>也不是雲端大模型公司，<br>更不是最終品牌終端。</p>
-<p>它比較像是把 AI 能力「工業化」的供應商。</p>
-<p>你可以把它想成：<br>如果雲端 AI 是大腦，<br>那研華賣的是讓這個大腦能進入工廠、機台、醫院、交通系統、物流設備與零售場域的神經系統與身體。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>研華現在最重要的身份，是邊緣 AI 與工業數位化升級中的平台型工業電腦龍頭。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 634<br>- 單日漲幅 1.93%<br>- 本益比 33.3<br>- 股價淨值比 11.09<br>- 總市值 5,504 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 11,272,216 千元<br>- 年增 87.58%<br>- 月增 11.35%<br>- 近三月合併營收年增 64.55%<br>- 近 12 月營收合併成長 29.72%</p>
-<p>這組數字重點很清楚：<br>- 它不是慢成長老 IPC 公司現在的樣子<br>- 月營收成長斜率已經非常強<br>- 市場也已經不是用便宜傳統工業股的角度在看它</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場買的不只是工業電腦出貨，<br>而是在買幾個結構性故事疊加：<br>- 邊緣 AI 推論需求起來<br>- 工業數位化與智慧製造持續升級<br>- 工業現場要從單純硬體走向軟硬整合<br>- 機器人、醫療、交通、能源等場景需要更高價值運算平台<br>- 平台型公司比單點硬體公司更有長期價值</p>
-<p>所以市場不是在問：<br>「今年多賣幾台 IPC？」<br>而是在問：<br>「研華能不能從傳統 IPC 廠，進一步升級成邊緣 AI 平台型資產？」</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為很多現場場景不能只靠雲端。</p>
-<p>例如：<br>- 工廠機台控制<br>- 醫療影像前處理<br>- 交通系統即時辨識<br>- 零售場域設備互動<br>- 機器人現場感知與決策</p>
-<p>這些都需要：<br>- 低延遲<br>- 高穩定性<br>- 在地運算<br>- 能接很多感測器與工控設備</p>
-<p>這就是邊緣 AI 的位置。<br>而研華本來就在這個位置上，所以 AI 不是替它憑空創造新身份，而是把它原有底座的價值放大。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>現階段還不是主估值主線，<br>但它是很好的選項價值。</p>
-<p>因為人形機器人最後也需要：<br>- 邊緣運算模組<br>- 感測與介面整合<br>- 工業等級穩定性<br>- 現場系統連接能力</p>
-<p>所以現在比較合理的講法是：<br>- 主線：邊緣 AI + 工業數位化<br>- 選項：人形機器人 / 智慧設備 / 更多現場自動化應用</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>對，這句話就是這家公司現在最核心的投資骨架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 研華：平台型 IPC / 邊緣 AI 龍頭，產業廣度與品牌深度最強<br>- 樺漢：工業電腦加系統整合、ESaaS、集團協同更強的複合型資產<br>- 凌華：板卡 / COM / 邊緣視覺與模組能力較強的利基型 IPC 資產<br>- 研揚：更偏模組、Box PC 與特定 AI / 機器人應用切入的成長型 IPC 資產</p>
-<p>所以研華不是最激進的那個，<br>但它通常是這組裡最像「大平台」的那個。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：研揚（如果你定義純度是特定 AI / 機器人新應用）<br>- 誰最廣：研華<br>- 誰最穩：研華<br>- 誰最有彈性：樺漢 / 研揚<br>- 研華卡在哪：平台型 IPC / 邊緣 AI 龍頭</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>樺漢比較像：<br>- 工業電腦底子 + 系統整合 + 併購平台<br>- 更強調集團協同、ESaaS、智慧零售、智慧工廠與方案導入<br>- 商業模式更複合，也更帶有整合色彩</p>
-<p>研華則比較像：<br>- 平台型 IPC 龍頭<br>- 核心優勢在產品線完整、品牌深度、場景廣度<br>- 比較像大平台，而不是靠併購整合拉估值的複合型資產</p>
-<p>所以一句話講：<br>樺漢偏整合型成長資產，<br>研華偏平台型龍頭資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>凌華更偏：<br>- 板卡 / COM / 邊緣視覺 / 模組能力<br>- 某些細分應用上更靈活<br>- 公司規模與市場心智都小於研華</p>
-<p>所以凌華比較像利基型 IPC / 模組供應商。</p>
-<p>研揚則更像：<br>- 用模組、Box PC、特定 AI / 機器人應用切進去<br>- 比較成長股化<br>- 對新場景的敘事更直接</p>
-<p>但它們兩個都不像研華這樣具有廣度很高的平台屬性。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣排序。</p>
-<p>第一順位：<br>邊緣 AI 與工業現場運算平台能力。<br>這是它最核心的底座。</p>
-<p>第二順位：<br>多場景、多產業的解決方案覆蓋。<br>這讓它不會只吃單一景氣循環，而是能跨越工廠、醫療、交通、零售、能源等場景。</p>
-<p>第三順位：<br>機器人、智慧設備、智慧城市等延伸選項。<br>這些是加分，不是現階段最核心的主估值主線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全不能。</p>
-<p>對研華這種平台型 IPC / 邊緣 AI 公司，<br>如果只看毛利率，會少掉一半以上的投資資訊。</p>
-<p>正確的拆法至少要看四層：<br>- 毛利率：產品組合有沒有升級<br>- 營業利益率：規模放大後有沒有形成營運槓桿<br>- 淨利率：最後股東真正拿到多少<br>- 獲利品質：這些利潤到底是不是可持續、乾不乾淨</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>毛利率回答的是：<br>研華賣的東西，是不是從標準化硬體，慢慢往更高價值的平台、模組與方案走。</p>
-<p>如果公司只是賣更多低毛利硬體，<br>營收可以長，<br>但市場不一定願意給高倍數。</p>
-<p>相反地，<br>如果成長來自：<br>- 邊緣 AI 平台<br>- 高附加價值工業方案<br>- 軟硬整合能力提升<br>那毛利率通常會更有韌性，<br>甚至往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>這家公司是不是把平台化與規模擴張，真的轉成經營效率。</p>
-<p>研華如果只是毛利率還行，<br>但費用一直墊高，<br>那市場會懷疑它只是把題材講得很漂亮，卻沒有真的長出營運槓桿。</p>
-<p>可是一旦看到：<br>- 營收上來<br>- 費用率穩住<br>- 營業利益率同步改善<br>市場就會更相信：<br>這不是單純景氣回升，<br>而是平台型公司的經營質地在變好。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率當然重要，因為股東最後吃的是 EPS。</p>
-<p>但淨利率要小心的地方是：<br>它可能被匯率、業外、一次性處分、稅率波動影響。</p>
-<p>所以看研華時，<br>不能只看到 EPS 好就很開心，<br>而是要先確認：<br>- 本業毛利率有沒有升<br>- 營業利益率有沒有升<br>- 最後淨利率是不是乾淨地跟上</p>
-<p>獲利品質對研華來說，最重要看四件事：<br>- 成長是不是來自高價值應用，而不是單純補庫存<br>- 毛利率改善是不是由產品組合帶動，而不是短暫因素<br>- 營業利益率是不是同步改善，代表規模真的有效率<br>- 淨利率是不是沒有太依賴業外或一次性項目</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當普通 IPC 股，<br>而是把它當成：<br>- 邊緣 AI 受惠者<br>- 工業數位化平台公司<br>- 有機會跨多場景擴張的平台型龍頭</p>
-<p>換句話說，<br>市場願意給 30 多倍本益比，<br>是因為它相信研華未來賺的錢，<br>不是單純景氣循環的錢，<br>而是更高品質、更可持續的平台型獲利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-第-19-段">
-<div class="digest-title">第 19 段</div>
-<div class="content"><p>分水嶺不是營收有沒有創高，<br>而是高附加價值平台收入能不能持續提升，<br>並讓營業利益率與淨利率一起跟上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且非常合理。</p>
-<p>反方會說：<br>- 工業電腦本來就有景氣循環<br>- 現在營收很好看，可能有補庫存、專案遞延回補、基期因素<br>- 市場把 AI、機器人、智慧工廠全部往上疊，容易講太滿</p>
-<p>所以第一個分水嶺是：<br>研華到底是在經歷一次景氣修復，<br>還是真的從傳統 IPC 廠往更高品質的平台型資產升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是很現實的問題。</p>
-<p>平台型公司的優點是穩、廣、深，<br>但缺點就是：<br>- 不一定每季都很炸裂<br>- 大基數下要維持高成長不容易<br>- 若高估值先給了，後面需要更多證據支撐</p>
-<p>所以市場如果先把它當成高成長 AI 股，<br>但後來只看到穩定成長而不是爆發成長，<br>估值就可能被收斂。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>這些題材現在更像：<br>- 讓市場願意給更高想像空間<br>- 讓平台故事更完整</p>
-<p>但距離真正變成主獲利來源，通常還需要時間。</p>
-<p>所以如果投資人現在把研華太多價值壓在機器人或新場景上，<br>而這些場景落地速度不如預期，<br>評價也會受到挑戰。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>研華不是單純賣工業電腦，而是工業現場運算與產業應用平台公司。</p>
-<p>第二句，主線：<br>它最重要的主線，是邊緣 AI 與工業數位化升級。</p>
-<p>第三句，價值來源：<br>市場在意的不只是硬體出貨，而是它能不能把 IPC 底座升級成邊緣 AI 平台。</p>
-<p>第四句，同業定位：<br>樺漢偏整合型成長、凌華偏利基模組、研揚偏新應用成長，而研華卡在平台型龍頭位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與平台型收入結構有沒有改善。</p>
-<p>第六句，最重要驗證：<br>邊緣 AI / 高附加價值平台收入能不能持續提升，並讓營業利益率與淨利率一起跟上。</p>
-<p>第七句，最強反方：<br>它可能只是景氣修復股，市場卻把它講成邊緣 AI 平台升級股。</p>
-<p>第八句，最終投資判斷：<br>研華最後要證明的，是它不只是工業電腦龍頭，而是真正值得用邊緣 AI 平台資產來定價的公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>研華不是單純賣工業電腦，而是邊緣 AI 與工業數位化升級中的平台型龍頭；真正決定它值不值 30 多倍本益比的，不是營收有多強，而是高附加價值平台收入能不能持續把營業利益率、淨利率與平台價值一起墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -886,7 +700,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 </div></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>邊緣 AI、工業數位化平台與傳統 IPC 收入的更細拆分。</li><li>各場景（智慧製造、醫療、交通、能源、零售、物流）的更細訂單能見度與毛利率差異。</li><li>研華、樺漢、凌華、研揚在邊緣 AI / 平台型收入占比與營業利益率上的更細比較表。</li><li>研華在機器人 / 智慧設備相關應用的更細產品與客戶定位。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>研華不是舊 IPC 公司加一點 AI 題材，而是把工業現場運算底座升級成邊緣 AI 平台的龍頭；真正關鍵不是營收創高，而是平台型收入能不能持續把獲利品質一起拉上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

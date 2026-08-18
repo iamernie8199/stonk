@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -393,152 +381,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-13-估值與市場預期">估值與市場預期</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-19-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一般設備股常常是這樣，但長廣比較不一樣。</p>
-<p>如果一句話先記，長廣是「ABF 載板高階真空積層設備龍頭，並開始往先進封裝設備平台延伸」的公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>不是。它的核心在高階真空積層設備，而且是跟低流動性 ABF 材料、高層數載板、AI GPU / ASIC 載板需求連在一起。</p>
-<p>這代表它不是一般機械設備廠，而是更靠近高階封裝與高規格載板製程的設備商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會先把它歸在「高規格零組件 / 材料升級股」與「工程 / 設備週期股」交界，但主骨架先放在前者。</p>
-<p>原因是市場真正要重估它，不只是因為景氣，而是因為它在高階 ABF 與先進封裝設備裡的位置越來越關鍵。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 536 元<br>- 本益比 116.7 倍<br>- 股價淨值比 15.01 倍<br>- 總市值約 422 億元</p>
-<p>最新月營收為 2026 年 6 月，公告日 2026-08-06：<br>- 單月合併營收 183,826 千元<br>- 年增 61.01%<br>- 月增 4.56%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>這正是要研究它的原因。</p>
-<p>如果市場願意給它這種評價，代表大家不是在看現在的月營收，而是在看未來 2H26 到 2027 的高階設備認列與平台外延。</p>
-<p>第一層基本盤還是：<br>- ABF 載板真空積層設備<br>- 高階三段式機型<br>- 高市占率與材料 / 製程綁定優勢</p>
-<p>這一層是它的現金流與地位基礎。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對。</p>
-<p>第一層證明它不是空故事，但如果只停在「ABF 擴產受惠設備股」，市場最後就會把它當設備循環股來看。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，第二層才是最關鍵的。</p>
-<p>長廣這一輪最重要的投資問題是：<br>- 高階三段式設備什麼時候密集認列<br>- 90 噸機型、漲價、產能擴張，能不能一起把毛利率與獲利能力拉上去<br>- 2H26 到 2027 的營收斜率，能不能證明市場不是白白先給估值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>沒錯。</p>
-<p>設備股最麻煩的就是：<br>- 訂單很早來<br>- 但認列常常慢<br>- 驗收、拉機、客戶建廠節奏都會讓短期數字跟市場想像錯位</p>
-<p>所以第二層真正要看的，是「高階產品認列斜率」而不是訂單 headline。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為高階產品不只是量比較大，而是：<br>- ASP 更高<br>- 毛利率更好<br>- 更能證明公司是高門檻設備商，不是普通機械供應商</p>
-<p>所以第二層直接影響估值能不能成立。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>第二層真正回答的是：長廣是不是只是有好故事，還是高階設備認列真的要開始把故事變成 EPS。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>可以這樣講，但它不是空夢，是有路徑的外延。</p>
-<p>公司頁裡最值得注意的是：<br>- EMIB 相關設備<br>- FOPLP<br>- RDL<br>- 更廣的先進封裝設備平台延伸</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這就是第三層的重點。</p>
-<p>如果這些外延能成立，市場就不只會把它看成載板 capex 受惠股，而會往「先進封裝設備平台」去看。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>最危險的是市場會太早把未來平台價值先算進去。</p>
-<p>如果 EMIB、FOPLP、RDL 都還在驗證或小量出貨階段，估值卻先完全把未來算滿，那股價就會很脆弱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>對，這句話就是正式版很重要的結論。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>不能只拿去跟一般機械股比，也不能只看載板材料股。</p>
-<p>比較合理的是：<br>- 載板與封裝設備鏈<br>- 高階材料 / 製程綁定設備商<br>- 先進封裝設備平台候選者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：長廣在高階真空積層設備這層最純<br>- 誰最廣：更大的半導體設備平台商更廣<br>- 誰最穩：產品線更多元的大型設備商通常更穩<br>- 誰最有彈性：長廣這種高階設備小龍頭彈性更大<br>- 本公司卡在哪裡：它卡在「從 ABF 真空積層設備龍頭，往先進封裝設備平台延伸」的中間地帶<br>- 最像的比較對手：高階封裝 / 載板製程設備商<br>- 最不像的比較對手：友達、群創這種面板平台型公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>不能把這 116 倍當成普通成熟公司 PE 來看。</p>
-<p>市場現在不是在看靜態獲利，而是在看未來兩三年高斜率成長與平台延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>正式版我會這樣回答。</p>
-<p>1. 毛利率<br>- 重點在高階產品占比能不能持續提升，讓毛利率往上走。<br>- 如果高階設備認列斜率轉強，毛利率才有結構性上行的可能。</p>
-<p>2. 營業利益率<br>- 如果高階設備密集認列，營業利益率才有明顯彈性。</p>
-<p>3. 淨利率<br>- 淨利率要看高毛利設備與認列節奏，能不能最後落到 EPS。</p>
-<p>4. 獲利品質<br>- 獲利品質重點不只是訂單多，而是高階產品與漲價是否真的被認列、不是只停在 backlog。</p>
-<p>5. 估值分水嶺<br>- 市場是把它當高波動設備股，還是當先進封裝設備平台股，這就是估值分水嶺。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：ABF 載板真空積層設備基本盤</li><li>這層證明公司有底盤，但比較像舊世界與起點</li></ul>
-<ul><li>第二層：2H26 高階設備認列與產品組合升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
-<ul><li>第三層：EMIB / FOPLP / RDL / 先進封裝設備平台外延</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、也最容易被提前資本化。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是一個便宜的設備股，而是一個市場已經先把高階設備認列與平台外延想很滿的設備龍頭；只要時程慢一點，估值就會先修。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最重要的幾個驗證點：<br>- 高階三段式設備認列持續遞延<br>- 毛利率沒有隨產品組合改善而往上<br>- ABF 載板廠 capex 轉弱<br>- EMIB / FOPLP / RDL 外延長期停在開發或小量驗證階段</p>
-<p>只要這些掉下去，市場就會把它切回設備循環股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最可能切回「ABF 載板設備循環股」框架。</p>
-<p>也就是說，它不是先進封裝設備平台，而只是跟著客戶 capex 上下波動的高彈性設備股。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -808,7 +652,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階設備認列時程不如預期。</li><li>平台外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其先進封裝設備平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階設備認列是否如期落地。</li><li>平台外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>長廣不是普通設備股，而是從 ABF 真空積層設備龍頭往先進封裝設備平台延伸的高彈性設備股；真正關鍵不是訂單 headline，而是高階設備何時真正認列成 EPS。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

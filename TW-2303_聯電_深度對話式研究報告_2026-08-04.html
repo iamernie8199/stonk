@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,144 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-估值與市場預期">估值與市場預期</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>最白話地講，聯電是成熟製程與特殊製程為主的晶圓代工廠。它跟台積電一樣，都是幫客戶製造晶片，不自己做品牌晶片；但差別在於，它不是主要靠最前沿的 3 奈米、2 奈米吃飯，而是靠：<br>- 成熟製程<br>- 特殊製程<br>- 長尾應用<br>- 高性價比產能<br>來維持競爭力。</p>
-<p>所以如果你把晶圓代工產業粗分：<br>- 台積電：最前沿製程與先進封裝王者<br>- 聯電：成熟製程 / 特殊製程重要供應商<br>- 世界先進、力積電：更聚焦特定成熟節點或 8 吋 / 特定應用</p>
-<p>聯電的核心價值不是最先進，而是夠穩、夠廣、夠成熟，而且很多應用還是需要它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這個理解很重要。</p>
-<p>很多人會誤把聯電看成台積電弱化版，但其實更精準的說法是：<br>聯電在成熟製程與特殊製程市場有自己的生存邏輯。</p>
-<p>因為不是所有晶片都要最先進製程。很多應用其實更重視：<br>- 成本<br>- 供應穩定性<br>- 車規與工控壽命<br>- 特定製程特性<br>- 與既有系統的兼容性</p>
-<p>像 PMIC、DDIC、部分 MCU、網通、影像處理、消費性 SoC、工控與車用晶片，很多都不需要最尖端節點，但需要穩定、大量、長週期供應。這就是聯電存在的重要理由。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>聯電最適合放在「成熟製程基本盤 + 特殊製程升級選項」這個框架裡。</p>
-<p>它不是最先進製程平台，也不是純高彈性景氣股。更精準地說，它是一個：<br>- 成熟製程現金流與產能平台<br>- 外加部分特殊製程升級抓手<br>的平衡型代工資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常對。看這種公司，第一件事不是背產能，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對聯電來說，真正決定估值的是三個層級：<br>- 成熟製程基本盤<br>- 8 吋與 12 吋結構<br>- 特殊製程升級抓手：eHV FinFET、DDIC 特殊製程、矽光子 / CPO 等</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>市場對聯電的期待，主要不是它要變成最先進製程玩家，而是：<br>- 成熟製程景氣回升時，它能不能成為最穩的受益者之一<br>- 特殊製程升級，例如 eHV FinFET、DDIC 特殊製程、矽光子 / CPO 相關能力，會不會讓它從純成熟製程股，往更高價值一點的特殊製程股移動</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>這件事不能一刀切。成熟製程不是沒價值，而是更分化。</p>
-<p>有些成熟製程的確會因為供給多、競爭激烈、標準化而壓力很大；但也有很多應用，還是非常依賴成熟製程，而且需求不會消失。</p>
-<p>像：<br>- PMIC<br>- DDIC<br>- MCU<br>- 車用控制晶片<br>- 工控晶片<br>- 網通晶片<br>這些都未必需要最先進節點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>很重要，因為這些東西是它估值往上移的少數抓手。</p>
-<p>如果聯電永遠只是一家一般成熟製程代工廠，那市場給它的估值就很難高。但如果它能證明：<br>- 在特定應用上有不可替代的特殊製程能力<br>- 能承接客戶從舊製程往高規格成熟 / 特殊製程遷移<br>- 能在 eHV FinFET、DDIC、車用、矽光子 / CPO 等新應用拿到更高價值定位<br>那市場就會開始把它從單純成熟製程股，往特殊製程資產的框架去看。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>8 吋：<br>- 更成熟<br>- 更容易受到供需循環影響<br>- 但很多舊製程應用還是離不開它</p>
-<p>12 吋：<br>- 在成熟製程世界裡相對更有競爭力<br>- 更容易承接高單價、高規格的特殊製程與中高端應用</p>
-<p>所以投資上不是只看聯電有沒有產能，而是看：<br>- 它的產能結構有沒有往比較有價值的成熟 / 特殊製程移動<br>- 客戶要的是便宜產能，還是帶有規格升級的穩定供應</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果你要我先給一個粗分類，我會這樣分：<br>- 聯電：成熟製程 + 特殊製程升級選項的平衡型資產<br>- 世界先進：更純的成熟類比 / PMIC / 特定應用資產<br>- 力積電：記憶體與成熟代工混合、景氣彈性更強<br>- 華虹：中國特色製程與本土替代邏輯<br>- 中芯：中國製造平台級資產，偏地緣與戰略定價</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：世界先進<br>- 誰最廣：中芯 / 聯電<br>- 誰最穩：聯電<br>- 誰最有彈性：力積電 / 華虹<br>- 聯電卡在哪：穩定型、最市場化、又帶一點特殊升級選項的平衡型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>世界先進更像純成熟製程與特定類比 / 電源管理應用供應商；<br>力積電更容易被市場當成高波動、高彈性的景氣資產；<br>華虹更像中國特色製程 / 特殊應用製程受益者；<br>中芯更像中國製造平台級資產。</p>
-<p>所以如果你用全球投資人框架來看，聯電的優勢是：<br>它的估值邏輯比較市場化，不像華虹 / 中芯有太多政策與地緣因素，也不像力積電那麼受景氣與資本開支波動影響。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場現在對它的定價，比較像穩定的成熟製程資產，而不是高成長 AI 資產。</p>
-<p>市場不願意給更高，主要有幾個原因：<br>- 成長性不像高階 AI 主線那麼強<br>- 成熟製程景氣循環與價格壓力比較明顯<br>- 特殊製程雖然有期待，但還沒強到足以重寫整體估值<br>- 市場擔心它的 EPS 好轉，更多是景氣回升而不是結構升級</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 123<br>- 本益比 17.7<br>- 股價淨值比 3.8<br>- 總市值 15,470 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 23,844,045 千元<br>- 年增 18.98%<br>- 月增 3.11%<br>- 近三月合併營收年增 19.83%<br>- 近 12 月營收合併成長 7.56%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>它最需要證明三件事：<br>- 成熟製程景氣改善不是短命反彈，而是比較穩的修復<br>- 特殊製程真的能帶來更高價值，不只是故事<br>- 獲利品質要穩</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對聯電來說，回答的是：<br>成熟製程修復，到底是健康的結構改善，還是短期供需回補。</p>
-<p>如果只是景氣回來，但：<br>- ASP 漲價不能延續<br>- 特殊製程占比不夠高<br>- 產能利用率只是短期回升<br>那毛利率就很難持續強。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>聯電到底是在賺景氣修復，還是在賺更高品質的升級利潤。</p>
-<p>如果只是營收回來，但費用、折舊、產品結構沒有明顯改善，那營業利益率不會走得太漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但聯電這種公司更要看：<br>- EPS 成長是不是主要來自本業與產品組合改善<br>- 還是只是景氣短反彈帶來的表面修復</p>
-<p>獲利品質最重要看的就是：<br>- 毛利率是不是穩<br>- 營業利益率是不是同步提升<br>- 現金流與產能利用率是否配合改善<br>- 特殊製程是不是開始對利潤有更實質貢獻</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>分水嶺不是它有沒有復甦，而是市場最後會不會確認：<br>這只是成熟製程景氣修復，還是結構上有往更高價值資產移動。</p>
-<p>如果只是前者，17 倍本益比未必很便宜；<br>如果是後者，估值中樞才有機會再往上移。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是非常強的第一個反方，而且一定要正面看。</p>
-<p>反方會說：<br>- 你講了很多特殊製程、矽光子、CPO<br>- 但聯電核心獲利還是成熟製程基本盤<br>- 所以它本質上還是景氣循環股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>對，這是第二個很現實的反方。</p>
-<p>成熟製程最大的問題就是：<br>- 同質化高<br>- 全球供應者多<br>- 客戶議價能力相對高</p>
-<p>如果景氣一弱、產能一鬆，價格壓力就會跑出來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>完全有可能。</p>
-<p>很多人看到 17 倍會直覺覺得便宜，但如果你把它當成成熟製程景氣股來看，17 倍其實不一定算很低。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>聯電的方向不是錯的，成熟製程景氣修復與特殊製程升級也都可能成立；但市場可能高估了這個修復能轉成結構升級的速度與幅度，最後仍然更像景氣股，而不是高品質升級股。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -778,7 +630,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>特殊製程占比提升不如預期。</li><li>成熟製程景氣修復弱於預期。</li><li>毛利率、營業利益率與現金流無法同步改善。</li><li>市場重新下修對其特殊製程升級的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>特殊製程占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否同步改善。</li><li>現金流與成熟製程修復是否能支撐升級敘事。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>聯電不是台積電弱化版，而是成熟製程與特殊製程的重要代工資產；真正關鍵不是景氣有沒有回來，而是修復能不能轉成更高價值的特殊製程升級。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

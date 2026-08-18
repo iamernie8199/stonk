@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,141 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-14-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要一句話先記住，京元電子本質上不是像日月光那樣封裝測試一把抓的整合 OSAT，而是更偏測試服務，尤其是高階 IC 最後測試這一段很重要的公司。</p>
-<p>也就是說，它最值錢的地方，不是把晶片封成一個完整成品，而是幫客戶把高複雜度晶片真正測過、驗過、確保能交付。</p>
-<p>所以你研究京元電子，不能只把它看成一般封測股，而要把它看成：<br>- AI 晶片後段測試平台<br>- ASIC / TPU / GPU / CPU 驗證與量產的一個關鍵節點<br>- 測試複雜度上升時的直接受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個方向是對的。</p>
-<p>更精準一點說，京元電值錢的地方不是單純有產能，而是：<br>- AI 晶片越來越複雜<br>- GPU / TPU / ASIC / CPU 的測試時間更長<br>- 對高功率、高頻寬、高速介面的驗證要求更高<br>- 測試設備、測試流程、測試良率管理都更關鍵</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果只是因為 Google TPU 很熱，京元電當然會受惠，但市場重估它，不只是單一客戶或單一晶片題材而已。</p>
-<p>現在市場重估京元電，有幾條線一起在發生：<br>- AI GPU / TPU / ASIC / CPU 的測試需求快速提高<br>- AI 晶片測試時間更長、單價更高、複雜度更高<br>- HBM、Chiplet、先進封裝之後，後段驗證的重要性被往上拉<br>- 美國設廠與高資本支出，讓它的產能擴張更具戰略性<br>- 市場開始把它從傳統測試廠，重新定義成 AI 晶片後段驗證平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>如果你要更精準一點，我會這樣說：<br>京元電不是單純的封測服務公司，而是受惠於 GPU、TPU、ASIC、CPU 後段測試複雜度提升的高階測試平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 248.5 元<br>- 單日漲幅 2.69%<br>- 本益比 26.5 倍<br>- 股價淨值比 5.99 倍<br>- 總市值 3,190 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 3,990,702 千元<br>- 年增 36.75%<br>- 月增 10.19%<br>- 近三月合併營收年增 34.02%<br>- 近 12 月營收合併成長 36.21%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是研究京元電最重要的第一步。</p>
-<p>京元電現在的估值，不是單純因為景氣好，而是市場在賭幾件事：<br>- Google TPU、GPU、ASIC 等 AI 晶片測試需求會持續擴大<br>- 測試複雜度與測試時間上升，讓測試價值量變高<br>- 後段驗證在 AI 時代的重要性會被重新定價<br>- 京元電可以把這波 AI 訂單，轉成更長期的平台型獲利能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>京元電最重要的成長主線，是 AI GPU / TPU / ASIC / CPU 的後段測試需求增加，讓它從傳統測試服務廠，升級成高複雜度 AI 晶片驗證平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>市場真正願意重估它的原因，不只是量變，而是：<br>- AI 晶片不是一般消費 IC<br>- 測試時間更長<br>- 測試失誤成本更高<br>- 驗證能不能順利完成，直接影響整體量產與交付</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>正因為它是測試廠，所以這些技術升級對它反而很重要。</p>
-<p>因為當晶片架構越複雜、封裝方式越先進，客戶越不可能用過去那種簡單的方式完成後段驗證。</p>
-<p>這代表：<br>- 測試內容變多<br>- 測試難度變高<br>- 測試設備與流程要求變嚴<br>- 後段服務商的重要性被重新拉高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>京元電不是單純的封測股，而是受惠於 AI 晶片測試複雜度提升、後段驗證價值量上升與產能擴張的高階測試平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講一句話，我會這樣說：<br>欣銓更像測試服務中的穩健型利基驗證座標，而京元電更像 AI GPU / TPU / ASIC 後段驗證需求拉動下的高階測試平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：京元電（若只看 AI 高階驗證純度）<br>- 誰最廣：日月光投控<br>- 誰最穩：欣銓 / 日月光投控<br>- 誰最有彈性：京元電 / 力成<br>- 京元電卡在哪：AI 高階測試平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，矽格是很重要的對照，因為它代表的是另一種台灣測試 / 封測服務座標。</p>
-<p>這表示市場看矽格時，會更偏向：<br>- 一般半導體測試 / 封測服務受惠<br>- 跟先進封裝與光通訊主線有連結<br>- 但不是最純的 AI 測試瓶頸故事</p>
-<p>京元電則更像：<br>- AI GPU / TPU / ASIC 測試的直接受惠者<br>- 高階驗證時間拉長與價值量上升<br>- 測試瓶頸更容易被市場點名</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這是一個很重要的比較，因為它能直接幫你分清楚平台廣度跟主線純度的差別。</p>
-<p>市場看日月光投控時，比較像在看：<br>- 全球級封裝測試平台<br>- 封裝、測試、先進封裝、材料、客戶結構的綜合能力<br>- 平台廣度、技術深度與國際龍頭座標</p>
-<p>京元電則更像：<br>- 後段測試服務中的高階 AI 驗證純度<br>- TPU / GPU / ASIC 的測試需求映射<br>- 主線更聚焦，但平台廣度沒有日月光那麼大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>力成會更偏向：<br>- 記憶體封測<br>- HBM / 記憶體週期<br>- 先進封裝與封測平台能力</p>
-<p>頎邦則更偏向：<br>- 顯示驅動 IC、COF / 封測等利基封測位置<br>- 與矽光子 / CPO 有概念連結，但市場不會把它當成 AI 後段驗證最核心的純度股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個整理已經很接近投資實戰語言了。</p>
-<p>我幫你再修得更精準一點：<br>- 日月光投控：全球平台型 OSAT 龍頭<br>- 力成：記憶體 / 封測平台型公司<br>- 欣銓：穩健型測試服務座標<br>- 矽格：中性封測 / 測試服務受惠股<br>- 頎邦：利基封測股<br>- 京元電：AI GPU / TPU / ASIC / CPU 後段驗證純度最高的高階測試平台股之一</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對這種股票，我不會先問本益比高不高，而是先問三件事。</p>
-<p>第一，現在的高成長是不是主要來自少數大客戶與少數平台，而不是整個高階測試需求全面擴散。</p>
-<p>第二，AI 晶片後段驗證複雜度提升，是不是已經足以讓測試價值量長期上升，而不是只是短期拉貨高峰。</p>
-<p>第三，市場願意給它比一般封測股更高的估值，是因為真的看到高階驗證平台升級，還是只是把 AI 訂單高峰外推太遠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>如果只是營收很好，但：<br>- AI 測試營收仍高度集中在少數客戶<br>- 高資本支出沒有轉成有效產出<br>- ASP 與測試價值量沒有繼續往上走<br>- 毛利率、營業利益率與淨利率在擴產後開始被侵蝕<br>那市場後面就會開始懷疑：這是不是只是一波 AI 測試高峰。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>京元電真正的關鍵，不是這一季營收有多強，而是 AI 測試占比、資本效率與高品質獲利能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- 封測與測試服務本來就容易受景氣波動影響<br>- 現在的高成長可能只是大客戶拉貨高峰<br>- 如果 AI 晶片測試節奏放慢，營收成長就會快速降溫</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是很現實的反方。</p>
-<p>京元電的價值不只是現在單很多，而是市場要相信它擴產後也能保住獲利品質。</p>
-<p>如果：<br>- 擴產速度太快<br>- AI 訂單沒有完全填滿新增產能<br>- ASP 沒有往上走<br>- 毛利率、營業利益率、淨利率反而被折舊和成本拖累<br>那市場就可能開始懷疑：它是不是只是一家很會接單，但資本效率沒有同步提升的測試廠。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -780,7 +635,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 測試占比提升不如預期。</li><li>產能利用率、ASP 與資本效率無法同步改善。</li><li>毛利率與獲利品質無法持續提升。</li><li>市場重新下修對其高階測試平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>AI 測試營收占比是否持續提升。</li><li>產能利用率、ASP 與資本效率是否同步改善。</li><li>毛利率與獲利品質是否持續墊高。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>京元電不是普通封測股，而是受惠於 AI GPU / TPU / ASIC / CPU 後段驗證複雜度提升的高階測試平台公司；真正關鍵不是營收有多強，而是 AI 測試占比、資本效率與高品質獲利能力，能不能一起墊高。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

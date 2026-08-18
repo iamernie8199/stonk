@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,136 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-風險與失效條件">風險與失效條件</a>
-<a href="#digest-21-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>不一樣，這個差別非常重要。</p>
-<p>最白話地講，威剛不是上游記憶體晶片原廠，而是記憶體模組與品牌通路公司。</p>
-<p>也就是說，像南亞科、華邦電這些公司比較偏上游，是在做記憶體晶片本身；威剛則更像是把上游顆粒拿來做成模組、SSD、記憶卡，再賣給消費性、企業級或工控客戶的那一層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>一句話講：<br>威剛是高循環、高庫存敏感度的記憶體模組 / 儲存品牌公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為它介在上游顆粒價格與下游客戶需求之間，獲利對記憶體價格循環非常敏感。</p>
-<p>你可以這樣理解：<br>- 如果它在低價時拿到很多庫存，後面價格大漲，它會非常賺<br>- 如果它在高價時補了很多貨，後面價格反轉，庫存評價就會很難看</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 416<br>- 單日漲幅 -1.19%<br>- 本益比 3.4<br>- 股價淨值比 5.03<br>- 總市值 1,392 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 18,379,079 千元<br>- 年增 331.29%<br>- 月增 25.36%<br>- 近三月合併營收年增 250.24%<br>- 近 12 月營收合併成長 152.79%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>第一個問題通常不是「它技術領先多少」，而是：<br>- DRAM / NAND 現在在循環哪一段<br>- 模組廠現在吃到的是低價庫存紅利，還是高價補貨壓力<br>- 市場在交易的是高峰獲利，還是更長一段超級循環</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>最直接受惠的就是：<br>- DRAM 漲價<br>- NAND 漲價<br>- 模組產品 ASP 上升<br>- 低價庫存轉成高毛利出貨</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。</p>
-<p>在威剛這種公司上，量當然重要，但真正決定短期獲利爆發力的，通常是價格循環和庫存成本。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>兩邊都強，而且這就是這輪很特別的地方。</p>
-<p>目前的記憶體景氣不是單一產品小反彈，而是 DRAM、NAND 都進入很強的上行循環。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>一句話就是：<br>威剛現在最強的主線，是記憶體超級循環中，模組廠靠低價庫存與價格上升吃到的高獲利槓桿。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 創見：品牌型記憶體 / SSD 公司，也很受惠記憶體循環，但形象偏穩一些<br>- 宜鼎：更偏工控 / 工業級記憶體與儲存，品質與長期性更強<br>- 宇瞻：同樣是模組 / 儲存品牌玩家，但市場關注度與規模通常較低<br>- 威剛：記憶體超級循環裡，高彈性、高槓桿、最容易爆發獲利的模組股之一</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：威剛（若只看記憶體循環彈性）<br>- 誰最廣：創見 / 宜鼎<br>- 誰最穩：宜鼎<br>- 誰最有彈性：威剛<br>- 威剛卡在哪：記憶體超級循環中的高彈性模組 / 品牌資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這就是它最典型的市場定位。</p>
-<p>市場看威剛時，不是先看它像不像高品質長期成長股，而是先看它是不是這一輪記憶體價格上行裡，獲利放大最快的模組廠之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>弱點通常就在「品質感」三個字。</p>
-<p>宜鼎比較容易被市場視為：<br>- 工控比重高<br>- 產品生命週期較長<br>- 客戶結構較穩<br>- 獲利品質比較能延續</p>
-<p>威剛則比較容易被市場視為：<br>- 更吃景氣循環<br>- 更吃庫存與價格變動<br>- 高峰時很賺，但持續性比較容易被懷疑</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
-<p>第一順位，是記憶體價格快速上行時的庫存紅利。這是威剛最直接、也最有爆發力的價值來源。</p>
-<p>第二順位，是它作為模組 / 品牌通路公司，能把 DRAM 與 NAND 兩邊的上行循環一起吃進來。</p>
-<p>第三順位，才是品牌與通路本身的穩定性。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為市場不是沒看到它現在很賺，而是很懷疑這個獲利能不能持續。</p>
-<p>換句話說，3~4 倍本益比在反映的不是忽略，而是折價。</p>
-<p>市場在想的是：<br>- 這是高峰獲利<br>- 模組廠高毛利大多來自低價庫存紅利<br>- 一旦進入高價補貨階段，後面毛利率可能很快收斂<br>- 所以現在的 EPS 不能用一般穩定公司那種方式去乘倍數</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為威剛這種公司最可怕的地方是：營收可以還很漂亮，但獲利品質已經開始轉弱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>一句話就是：<br>市場相信威剛現在很賺，但不相信這個高峰獲利能維持太久。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會先看三件事。</p>
-<p>第一，DRAM / NAND 的漲價節奏能不能延續得比市場預期更久。<br>第二，高價補貨壓力有沒有明顯侵蝕毛利率。<br>第三，市場是否開始相信這不是一季兩季的高峰，而是比較長的超級循環。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是最強反方，而且幾乎就是市場現在的主流懷疑。</p>
-<p>反方會說：<br>- 本益比只有 3.4 倍，就是因為市場知道這不是穩定 EPS<br>- 只要記憶體價格漲勢放緩，模組廠高獲利就會迅速收斂<br>- 低價庫存紅利是一次性的，不可能永遠複製</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這是模組廠最現實的風險之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>低本益比不是忽略，而是折價。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -770,7 +630,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>DRAM / NAND 報價回落速度快於預期。</li><li>低價庫存優勢快速消失。</li><li>毛利率、營業利益率與淨利率無法維持高檔。</li><li>市場重新下修對其高峰獲利持續性的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>DRAM / NAND 報價是否持續高檔。</li><li>庫存成本結構與毛利率是否維持優勢。</li><li>EPS 韌性能否在高基期後優於市場預期。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠記憶體漲價持續時間、庫存成本優勢與毛利率維持高檔，來證明自己不只是高峰獲利模組股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

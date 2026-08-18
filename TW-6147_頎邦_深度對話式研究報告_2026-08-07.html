@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,136 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-反方壓力測試">反方壓力測試</a>
-<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>頎邦最值得研究的地方，就是它不是那種什麼都做的大型 OSAT，而是在特定封測領域有很深的積累，特別是驅動 IC、COF、面板相關封裝測試，以及部分高階封測延伸機會。</p>
-<p>最白話地講，頎邦不是靠「最大規模」取勝，而是靠「在自己熟的封測細分市場裡做得夠深」。</p>
-<p>所以你如果只用大平台封測龍頭的框架看它，會看錯；它比較像一個在成熟但仍有升級機會的細分封測環節裡，持續受惠的公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這就是現在頎邦最有意思的地方。</p>
-<p>表面上看，它確實不像先進封裝龍頭那樣直接綁 AI 最前線，也不像 HPC 封測鏈那樣有最純的高端敘事。</p>
-<p>但市場最近願意把它往上抬，代表現在不只把它當成穩定成熟封測股，而是在想：<br>- 顯示器與驅動 IC 封測是不是已經走出谷底<br>- 高階封測與特殊應用需求是否能帶來結構改善<br>- CPO / 矽光子等新題材會不會讓它有額外選項價值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>頎邦最適合放在「高規格零組件 / 材料升級股」這個框架裡，但不是材料升級，而是封測環節裡的細分深度升級股。</p>
-<p>它最值錢的地方，不在於規模最大，而在於：<br>- 驅動 IC / 顯示封測基本盤很深<br>- 細分封測環節穩定而可驗證<br>- 如果本業修復成立，還能多長出一層高階封測與新應用延伸價值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>一句話講：<br>頎邦現在最重要的身份，是驅動 IC 與顯示封測基本盤之上，帶著高階封測延伸選項的細分封測公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>最直接受惠的主線還是：<br>- 驅動 IC 封測<br>- COF 相關需求<br>- 顯示器產業鏈回溫<br>- 成熟製程 / 成熟封測景氣修復</p>
-<p>這些是它最核心、最可驗證、也是最直接的本業來源。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對，這就是它的基本盤。</p>
-<p>頎邦不是那種每一個人都會先想到的技術旗艦，但它在驅動 IC 和相關封測環節的積累，讓它在景氣回來時可以先受惠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
-<p>第一順位，是驅動 IC / 顯示封測基本盤的修復能力。這是最核心、最直接、也最容易驗證的部分。</p>
-<p>第二順位，是在成熟封測之外，往更高階封測或特殊應用延伸的可能性。這部分不是現在最大宗，但會影響市場是否願意給更高評價。</p>
-<p>第三順位，才是 CPO / 矽光子這種新題材帶來的選項價值。現階段更像額外加分，而不是本體。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>一句話就是：<br>頎邦最強的主線，是驅動 IC 與顯示封測景氣回升下的細分封測獲利修復。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 日月光：全球大型 OSAT，先進封裝與大平台能力最強<br>- 力成：記憶體與高階封測鏈裡的重要玩家<br>- 南茂：也在顯示 / 驅動 IC 封測鏈裡，但資產定位和市場評價不同<br>- 頎邦：驅動 IC / 顯示封測基本盤最鮮明，且帶有高階延伸選項的細分封測股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：頎邦 / 南茂（若只看顯示 / 驅動 IC 封測純度）<br>- 誰最廣：日月光<br>- 誰最穩：日月光 / 力成<br>- 誰最有彈性：頎邦<br>- 頎邦卡在哪：細分封測專家型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最直接的弱點通常是：<br>- 平台廣度不如日月光<br>- AI / HPC 敘事純度不如力成或先進封裝鏈玩家<br>- 容易被市場先歸類成成熟封測而不是高成長封測</p>
-<p>所以頎邦的挑戰是：<br>它要證明自己不只是穩定成熟封測股，而是能在景氣修復之外，再多一點高階延伸價值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>對，這就是差異。</p>
-<p>日月光比較像大平台、全能型資產；<br>力成比較像高階封測與記憶體封測鏈的重要玩家；<br>南茂與頎邦都跟顯示 / 驅動 IC 封測有關，但頎邦現在的市場敘事更容易往「基本盤修復 + 延伸選項」走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對頎邦這種細分封測股，我也會拆成三層看。</p>
-<p>第一層是毛利率。<br>這回答的是：<br>- 驅動 IC / 顯示封測報價與產品組合有沒有改善<br>- 高階封測延伸是不是讓單位經濟變好</p>
-<p>第二層是營業利益率。<br>這回答的是：<br>- 營收修復有沒有真的轉成營運槓桿<br>- 固定成本與費用有沒有被更高的營收吸收<br>- 公司是不是不只景氣變好，而是經營效率也跟著改善</p>
-<p>第三層是淨利率。<br>這回答的是：<br>- 股東最後真正拿到多少利潤<br>- 有沒有業外、匯兌、一次性項目影響最後數字</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果只能挑一層，我會說也是營業利益率。</p>
-<p>原因是：<br>頎邦現在最需要證明的，不是它能不能接到單，而是景氣修復有沒有真的轉成更高品質的獲利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>當然重要，但我還是會把它放在最後確認。</p>
-<p>因為淨利率可能被：<br>- 匯兌<br>- 業外收益<br>- 稅率波動<br>- 一次性認列<br>影響。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>一句話就是：<br>市場相信頎邦不只是成熟封測景氣回升股，而是有機會把細分封測修復，逐步轉成更高品質的獲利與估值框架。</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 154<br>- 本益比 29.3<br>- 股價淨值比 2.45<br>- 總市值 1,147 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,522,679 千元<br>- 年增 39.18%<br>- 月增 10.24%<br>- 近三月合併營收年增 28.45%<br>- 近 12 月營收合併成長 12.7%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 驅動 IC / 顯示封測本來就有景氣循環<br>- 現在營收改善不一定代表長期升級<br>- 市場可能只是把景氣修復誤當成結構性成長</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全是。</p>
-<p>對一檔不是純 AI、也不是純先進封裝龍頭的封測股來說，30 倍左右本益比其實不低。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這也是很重要的質疑。</p>
-<p>反方會說：<br>- CPO / 矽光子題材當然可以沾<br>- 但若沒有足夠大的營收占比與明確落地進度<br>- 市場最後還是會把主角留給更純、更新的標的</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>頎邦的方向不是錯的，驅動 IC / 顯示封測修復與高階延伸也都可能成立；但市場可能高估了它從成熟封測景氣股往較高品質細分封測股升級的速度與幅度，而 CPO / 矽光子目前更多仍是選項，不足以單獨支撐長期高估值。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -765,7 +625,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階封測價值延伸不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>基本盤修復無法轉成更高品質獲利。</li><li>市場重新下修對其較高品質細分封測地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階封測價值延伸是否開始落地。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>基本盤修復是否轉成更高品質的估值框架。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>頎邦不是大平台封測股，而是驅動 IC 與顯示封測很深的細分封測公司；真正關鍵不是景氣有沒有回來，而是修復能不能長出一層高階封測價值。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

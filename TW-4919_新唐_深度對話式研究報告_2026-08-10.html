@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,147 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-反方壓力測試">反方壓力測試</a>
-<a href="#digest-22-第-22-段">第 22 段</a>
-<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個問題問得很好，因為新唐最容易被誤解的地方，就是大家常常把它當成華邦電的附屬概念股，卻沒有搞清楚它自己的本質。</p>
-<p>最白話地講，新唐是一家做控制晶片、MCU 與平台控制相關 IC 的公司。它不是記憶體本體，也不是 GPU、CPU 那種算力晶片，而是站在：<br>- 微控制器<br>- 平台管理控制<br>- 嵌入式控制<br>- 工控 / 車用 / PC / 伺服器周邊控制<br>這幾條線上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>MCU 就是微控制器。你可以把它想成很多電子設備裡面的小腦袋。</p>
-<p>它不像 CPU / GPU 那樣追求極致算力，但它負責很多很實際的事情：<br>- 控制設備運作<br>- 管理輸入輸出<br>- 處理感測器訊號<br>- 協調電源、溫度、馬達、面板、周邊裝置</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個定位很重要。</p>
-<p>新唐不是賣最昂貴的算力晶片，而是賣讓整個系統可以穩定運作、被控制、被管理的那一層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>一句話講：<br>新唐現在最重要的身份，是控制 IC 與 MCU 生態裡，受惠車用、工控與平台控制需求的嵌入式控制公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 127.5<br>- 本益比：目前資料庫最新一筆為空值，前一個交易日曾出現極高本益比口徑，因此短線不適合直接把 PE 當核心判讀指標<br>- 股價淨值比 4.05<br>- 總市值 535 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,566,187 千元<br>- 年增 7.92%<br>- 月增 -5.35%<br>- 近三月合併營收年增 3.56%<br>- 近 12 月營收合併成長 -2.33%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>如果從現在市場最該看的角度，我會拆成三條主線：<br>- 車用與工控控制需求<br>- MCU / 嵌入式控制產品基本盤<br>- 平台控制與周邊管理功能</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是新唐最核心的投資語言。</p>
-<p>它不像高純度 AI 股那樣，一個平台放量就會爆衝；它更像：<br>- 很多控制需求一起撐住基本盤<br>- 某些高規格場景逐步改善產品 mix<br>- 如果車用 / 工控 / 平台控制一起走強，獲利品質就會慢慢往上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>比較偏邊角，但不能說完全沒關係。</p>
-<p>新唐不像信驊那樣站在 AI 伺服器管理控制的核心位置，也不像資料中心主晶片那樣直接受惠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>要分開看。</p>
-<p>第一層，是穩定需求底盤。車用與工控通常意味著：<br>- 認證長<br>- 生命週期長<br>- 客戶不容易更換供應商<br>這會讓新唐比純消費性控制 IC 公司更穩。</p>
-<p>第二層，才是估值提升可能。如果這些高規格應用占比持續上升，市場就會開始相信：新唐不是只靠景氣修復，而是在往更高品質控制層資產移動。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 華邦電：多產品線利基型記憶體平台<br>- 信驊：伺服器管理控制層的平台型高毛利資產<br>- 新唐：MCU / 控制 IC / 嵌入式控制生態中的穩健控制層資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>信驊最值錢的地方在於：<br>- 站在 BMC 這個很關鍵的位置<br>- 平台地位強<br>- 毛利率極高<br>- 市場願意給超高估值</p>
-<p>新唐則比較像：<br>- 控制 IC / MCU 生態的一環<br>- 應用更廣，但單點稀缺性沒那麼極端<br>- 更偏穩定控制層，而不是超高成長平台層</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>我會這樣記：<br>- 華邦電：成熟供給收縮下的多產品線利基型記憶體平台<br>- 信驊：控制層裡最稀缺、最像平台型資產的 BMC 王者<br>- 新唐：控制 IC / MCU / 嵌入式控制生態中的穩健修復型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>新唐的價值不在於它是最會講夢的公司，而在於：<br>- 產品與應用場景足夠廣<br>- 客戶驗證週期長<br>- 控制層需求黏著度高<br>- 如果車用 / 工控 / 平台控制同時改善，獲利品質會慢慢變好</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這正是現在看新唐要小心的地方。</p>
-<p>對這種公司，短線 PE 口徑如果受到低基期、一次性因素或分母過小影響，直接拿本益比會很容易失真。</p>
-<p>所以新唐現在更好的看法是：<br>- 先看股價淨值比與市值位置<br>- 再看營收與獲利修復方向<br>- 最後才看本益比是否有連續性與可比性</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對新唐來說，回答的是：它賣的控制產品，到底是不是有更高品質的 mix，還是只是一般景氣回溫。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：新唐到底是在賺修復，還是在賺更高品質的控制層利潤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但新唐這種公司更要看：<br>- EPS 改善是不是由本業控制產品推動<br>- 還是只是短期基期效應或口徑扭曲</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這就是新唐現在最需要小心的地方。短線 PE 口徑失真，通常代表分母端，也就是 EPS，很可能受到低基期、口徑或一次性因素影響。</p>
-<p>所以你不能看到一個空值或極端高值，就直接下結論說這檔股票完全不能看。真正重點是：本益比現在不夠穩，不能單獨當估值主軸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>對新唐來說，現在最重要的不是「PE 到底該看幾倍」，而是先問：<br>- 毛利率是不是在改善<br>- 營業利益率是不是在同步改善<br>- 淨利率是不是乾淨地跟上<br>- 車用 / 工控 / 平台控制需求，是否真的讓本業品質變高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會看四個跡象。</p>
-<p>第一，毛利率不是只短暫反彈，而是能穩定站在較好的區間。<br>第二，營業利益率改善速度快於營收，代表經營槓桿開始出現。<br>第三，車用 / 工控 / 平台控制這些高品質需求占比持續上升。<br>第四，市場對它的討論，開始從「景氣修復」轉向「控制層品質升級」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 你可以說它有車用、工控、平台控制<br>- 但這些市場很多控制 IC 公司都能碰到<br>- 它不像信驊那樣站在超稀缺控制層位置<br>- 也不像華邦電那樣有多產品線記憶體供給真空受惠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-第-22-段">
-<div class="digest-title">第 22 段</div>
-<div class="content"><p>對，這也是很現實的問題。</p>
-<p>信驊太強、太貴、太稀缺，所以新唐很容易在比較時顯得平。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全是。</p>
-<p>如果市場連最基本的獲利可比性都還在搖，那它就很難被快速重估成高品質成長股。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -802,7 +651,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>車用、工控與平台控制需求修復不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>控制層需求品質升級無法成立。</li><li>市場重新下修對其高品質嵌入式控制地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>車用、工控與平台控制需求占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li><li>本益比口徑不穩時，股價淨值比、市值位置與本業修復品質是否同步改善。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠控制層需求品質升級、獲利口徑乾淨化與毛利率改善，來證明自己不只是 MCU 景氣修復股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

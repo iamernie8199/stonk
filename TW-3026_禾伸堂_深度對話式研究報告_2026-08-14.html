@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -393,143 +381,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-風險與失效條件">風險與失效條件</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-第-19-段">第 19 段</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>差很多。</p>
-<p>如果一句話先記，禾伸堂是「AI 伺服器 PSU 用高電壓 NP0 MLCC 利基龍頭」，而不是一般被動元件股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你先把它想成高穩定、高可靠度、用在高電壓與高規格電源場景的重要 MLCC 類型。</p>
-<p>對投資來說，重點不是名詞，而是這個規格在 AI 伺服器 PSU 升級裡變得更值錢。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>明確歸在「高規格零組件 / 材料升級股」。</p>
-<p>因為市場如果重估它，不是因為它賣更多一般 MLCC，而是因為它在高電壓 NP0 這塊的規格、價格與市占都可能往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 647 元<br>- 本益比 66 倍<br>- 股價淨值比 11.08 倍<br>- 總市值約 1,073 億元</p>
-<p>最新月營收為 2026 年 6 月，公告日 2026-08-06：<br>- 單月合併營收 1,500,937 千元<br>- 年增 37.05%<br>- 月增 8.89%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正因為很高，才更需要拆清楚。</p>
-<p>第一層基本盤是：<br>- NP0（COG）MLCC<br>- 高電壓 MLCC<br>- AI 伺服器 PSU 應用<br>- 既有利基市占與規格優勢</p>
-<p>這一層證明它不是普通被動元件股，而是站在高規格利基市場裡的公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對。</p>
-<p>第一層證明它不是做低規格量大取勝，而是做高規格、價格更高、門檻更高的 NP0 高電壓產品。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>沒錯，第二層才是估值核心。</p>
-<p>真正影響估值的，不是 AI 三個字本身，而是：<br>- 獨立電源櫃設計<br>- 三相 PSU 架構<br>- 更高功率 PSU<br>- 高電壓 NP0 需求大增</p>
-<p>這些能不能把禾伸堂從利基元件供應商，推進成 AI 高功率供電鏈裡的高規格被動元件龍頭。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。</p>
-<p>如果你只看 EPS，很容易覺得它只是因為景氣與缺貨變強。</p>
-<p>但真正該看的，是 AI PSU 規格升級是否讓它在高電壓 NP0 的單位價值與議價能力持續往上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>就是：禾伸堂是不是能從「利基型高電壓 MLCC 股」，升級成「AI PSU 關鍵高規格被動元件股」。</p>
-<p>如果答案是可以，高估值才站得住；如果答案不行，66 倍 PE 就很危險。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>第二層真正要回答的是：AI PSU 升級帶來的是短期熱門需求，還是長期規格升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，但重點不是只看擴產，而是：<br>- 高電壓 NP0 市占能不能守住<br>- 日韓競爭者驗證後會不會加速搶單<br>- 擴產後價格與毛利率能不能維持</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>對，最有長期價值，但也最容易被市場提前高估。</p>
-<p>因為現在市場已經開始把未來 2027 的高成長直接往前折現了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這就是第三層最大的風險。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>不能只跟一般被動元件股比，也不能只看通路股。</p>
-<p>比較合理的是：<br>- 高電壓 / NP0 MLCC 供應商<br>- 高規格電源被動元件廠<br>- AI 高功率供電鏈上的材料與元件公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：禾伸堂在高電壓 NP0 MLCC 這條路非常純<br>- 誰最廣：大型日系被動元件廠更廣<br>- 誰最穩：產品線更多元的大型被動元件廠更穩<br>- 誰最有彈性：禾伸堂這種高規格高市占利基股彈性更大<br>- 本公司卡在哪裡：它卡在「利基高電壓 MLCC 股」與「AI PSU 關鍵高規格被動元件股」兩種框架交界<br>- 最像的比較對手：高規格高電壓被動元件供應商<br>- 最不像的比較對手：日電貿這種通路型受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>這代表市場不是在給它普通被動元件評價，而是在給很重的成長預期。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正式版我會這樣回答。</p>
-<p>1. 毛利率<br>- 重點在高電壓 NP0 與高階產品 mix 能不能持續拉高。<br>- 如果高規格料號占比與價格維持強勢，毛利率才有結構性上行的可能。</p>
-<p>2. 營業利益率<br>- 如果高階規格產品占比與價格維持強勢，營業利益率才有上修空間。</p>
-<p>3. 淨利率<br>- 淨利率最後要看高規格料號是否真的轉成 EPS 爆發。</p>
-<p>4. 獲利品質<br>- 獲利品質重點不只是需求熱，而是高市占、高規格與高議價能力是否具有持續性。</p>
-<p>5. 估值分水嶺<br>- 市場是把它當利基高電壓 MLCC 股，還是當 AI PSU 關鍵高規格被動元件股，這就是估值分水嶺。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：NP0 / 高電壓 MLCC 基本盤</li><li>這層證明公司站在正確規格位置，但比較像底盤與起點</li></ul>
-<ul><li>第二層：AI 伺服器 PSU 升級帶來的規格升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
-<ul><li>第三層：產能擴張、市占防守與供需缺口延續</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-第-19-段">
-<div class="digest-title">第 19 段</div>
-<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是被低估的被動元件股，而是一個市場已經先把 2027 高成長與高市占折現很多的高價股，只要任何一個假設沒成立，股價先修。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最重要的幾個驗證點：<br>- 高電壓 NP0 市占下滑快於預期<br>- AI PSU 升級不如預期<br>- 日韓競爭者驗證與擴產速度超預期<br>- 毛利率與交期優勢無法維持</p>
-<p>只要這些掉下去，市場就會把它切回普通利基高電壓 MLCC 股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>最可能切回「普通利基高電壓 MLCC 股」框架。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -785,7 +638,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格產品占比提升不如預期。</li><li>擴產、市占防守與供需缺口延續不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其 AI PSU 關鍵高規格被動元件地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格產品占比是否持續提升。</li><li>市占與供需缺口是否持續延續。</li><li>毛利率、營業利益率與獲利品質是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>禾伸堂不是普通被動元件股，而是 AI PSU 用高電壓 NP0 MLCC 升級股；真正關鍵不是題材，而是高規格產品、市占與議價能力能不能撐住。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

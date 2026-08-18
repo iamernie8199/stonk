@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,141 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最白話地講，智邦是高速網通設備與資料中心網路設備的重要供應商。它最核心的角色，不是做 AI 晶片本身，而是把 AI 伺服器、GPU、ASIC 叢集之間要傳的龐大資料，透過高階交換器、網路設備與光互連架構串起來。</p>
-<p>所以如果你把 AI 資料中心拆開：<br>- 晶片：GPU、ASIC、CPU<br>- 伺服器整機：大型整機與機櫃供應商<br>- 網路交換器 / 網通架構：智邦、部分北美整合型硬體玩家、特定高階 ODM / OEM<br>- 光通訊 / 模組 / CPO：更上游的高速互連供應鏈</p>
-<p>智邦的位置就是：<br>AI 不是只有算力，還要有網路把這些算力真正接起來，而智邦就是這個高階資料中心網路架構的重要玩家。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且這點非常重要。</p>
-<p>很多人看到 AI 供應鏈，直覺只會想到：<br>- GPU<br>- 伺服器<br>- 散熱<br>- 電源</p>
-<p>但其實 AI 叢集越大，資料中心裡的網路反而越關鍵。因為：<br>- GPU / ASIC 之間要高速互連<br>- 伺服器機櫃之間要高速交換<br>- 資料吞吐量大幅增加<br>- 延遲與頻寬會直接影響整體訓練與推論效率</p>
-<p>所以高速交換器、800G / 1.6T 網通設備、光通訊架構，會變成 AI 資料中心升級的必要條件。智邦就是吃這個升級趨勢。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>智邦最適合用「平台型公司」去理解，而且是 AI 資料中心網路基礎設施的平台型候選者。</p>
-<p>因為市場現在給它的，不只是交換器出貨，而是在看：<br>- 它是不是能從一般網通設備商，升級成 AI 時代高階網路架構的關鍵平台供應商<br>- 它是不是不只吃今天的 800G / 1.6T，還能把 CPO / NPO / 光互連等下一代網路升級一起吃進來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背產品，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對智邦來說，真正決定估值的有三個層級：<br>- 高速交換器基本盤<br>- AI 資料中心網路架構升級<br>- 下一代網路技術選擇權：CPO、NPO、光互連</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話講，智邦的核心投資主線是：<br>AI 資料中心規模擴張與交換器速度升級，讓高速網通設備從一般企業網通產品，升級成 AI 基礎設施裡最重要的高價值節點之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最直接吃到的，是高速交換器與資料中心網路設備升級。</p>
-<p>尤其在這幾塊：<br>- 800G 交換器<br>- 1.6T 交換器<br>- AI 資料中心網路架構<br>- 與光模組、光互連、未來 CPO / NPO 相關的升級</p>
-<p>AI 叢集越大，交換器的重要性就越高，因為資料流量和頻寬需求會變得非常誇張。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一般企業網通設備比較偏：<br>- 企業交換器<br>- 傳統資料中心<br>- 通用網路設備更新</p>
-<p>但智邦現在被市場重估的重點，是：<br>- 高速資料中心交換器<br>- AI 叢集互連<br>- 更高規格的網通架構<br>- 與雲端客戶、AI 基礎設施升級更直接連動</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這些是智邦估值再往上走的重要中長期選擇權。</p>
-<p>今天的主菜還是 800G / 1.6T 交換器，但市場願意給溢價，是因為未來網路架構可能進一步走到：<br>- CPO（共同封裝光學）<br>- NPO（近封裝光學）<br>- 更高密度光互連</p>
-<p>如果智邦最後不只是吃到今天的交換器升級，還能在下一代網路架構卡位，那市場就會更願意把它往平台型網路基礎設施股去看，而不是單純設備股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要我先給一個粗分類，我會這樣分：<br>- 智邦：高速交換器 / AI 網路設備平台候選者<br>- Celestica：北美資料中心硬體與網通整合強者<br>- 緯穎：AI 伺服器 / 機櫃級整機核心玩家<br>- 緯創：大型系統整合與伺服器製造資產<br>- 啟碁：網通 / 通訊設備與企業客戶鏈條較強的玩家</p>
-<p>也就是說，智邦在這裡最特別的地方是：<br>它不是主打整機，而是主打高速網路架構本身。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：智邦（如果定義純度是 AI 網路交換層）<br>- 誰最廣：Celestica<br>- 誰最穩：Celestica / 啟碁<br>- 誰最有彈性：智邦 / 緯穎<br>- 智邦卡在哪：AI 網路基礎設施平台候選者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>Celestica：<br>- 更像北美資料中心硬體與網通整合強者</p>
-<p>緯穎：<br>- 更偏 AI 伺服器 / 機櫃級整機能力</p>
-<p>緯創：<br>- 大型製造與系統整合能力強</p>
-<p>啟碁：<br>- 比較偏企業網通、通訊設備、通路與客戶結構</p>
-<p>所以如果你用 AI 供應鏈分層去看：<br>- 緯穎 / 緯創比較像整機層<br>- 智邦比較像網路交換層<br>- Celestica 像北美整合型硬體平台<br>- 啟碁比較像通訊網通延伸型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最大的優點：<br>- 高速交換器位置明確<br>- AI 網路需求直接<br>- 平台敘事完整</p>
-<p>最大的缺點：<br>- 市場可能高估了它從高速交換器受惠者升級成長期網路平台型資產的持久性與價值密度<br>- CPO / NPO 落地速度如果慢，估值容易先壓縮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場現在買的是四件事：<br>- AI 資料中心網路設備需求持續爆發<br>- 800G / 1.6T 交換器滲透率提升<br>- 智邦在高速交換器供應鏈裡的位置<br>- 下一代光互連與網路架構升級的選擇權</p>
-<p>所以 20 多倍本益比不是只在看短期營收，而是在交易：<br>這家公司是不是 AI 時代高階網路基礎設施平台的核心候選者。</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 2165<br>- 本益比 26.4<br>- 股價淨值比 18.6<br>- 總市值 12,148 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 39,472,637 千元<br>- 年增 71.69%<br>- 月增 -0.21%<br>- 近三月合併營收年增 63.57%<br>- 近 12 月營收合併成長 77%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對智邦來說，回答的是：<br>它吃到的到底只是量，還是高價值高速交換器與新世代網路架構的內容價值。</p>
-<p>如果只是出貨成長，但：<br>- 高階交換器占比沒有持續提升<br>- 價格競爭壓力開始出現<br>- 新世代光互連與 CPO / NPO 敘事落地慢<br>那毛利率就會先告訴你：<br>這家公司到底是平台候選者，還是只是一波設備景氣受惠股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>智邦到底是在賺高營收，還是在賺高品質的網路平台利潤。</p>
-<p>如果只是營收變大，但：<br>- 新技術導入前期成本高<br>- 交換器升級競爭加劇<br>- CPO / NPO 還沒真正轉成有利獲利結構<br>那營業利益率不一定會同步漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但智邦這種公司更要看：<br>- EPS 成長是不是主要來自高階交換器與資料中心網路設備本業<br>- 還是只是景氣好、量放大帶來的短期效果</p>
-<p>獲利品質最重要看的就是：<br>- 高速交換器成長是不是帶來健康的毛利結構<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 新技術選擇權是否開始對獲利有實質貢獻</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>分水嶺不是 AI 需求有沒有來，而是智邦能不能在高速交換器、資料中心網路與下一代光互連升級裡，持續拿到高價值且不易被替代的位置，並把這些位置轉成毛利率、營業利益率、淨利率與高品質獲利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全可以，而且這是最有力的反方之一。</p>
-<p>反方會說：<br>- 你現在看到的很多利多，其實來自 AI 資料中心交換器需求大增<br>- 但一旦供應追上來，或雲端客戶拉貨節奏變化，設備股就可能回到比較一般的景氣循環框架<br>- 到時候高估值就會被壓縮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>第二個反方是：<br>市場會不會把太多 CPO / NPO / 光互連升級的想像，都先塞到智邦身上？</p>
-<p>第三個反方是：<br>26 倍左右本益比雖然比高點收斂了，但對設備股來說也不是便宜區間。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>智邦的長期方向大致正確，AI 網路升級也確實很強；但市場可能高估了它從高速交換器受惠者升級成長期網路平台型資產的持久性、價值密度，以及 CPO / NPO 選擇權落地速度。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -775,7 +630,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高速交換器與資料中心網路升級需求低於預期。</li><li>下一代光互連選擇權無法落地。</li><li>毛利率、營業利益率與淨利率無法維持高品質區間。</li><li>市場重新下修對其平台化與高價值位置的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高速交換器與資料中心網路架構需求是否持續放大。</li><li>毛利率、營業利益率與淨利率是否持續維持高檔。</li><li>下一代光互連與新技術選擇權是否開始落地。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>智邦不是普通網通股，而是 AI 資料中心高速網路基礎設施的重要平台候選者；真正決定它值不值得市場高看，不是這一季營收有多強，而是它能不能在高速交換器、下一代光互連與獲利品質三件事上，同時證明自己。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

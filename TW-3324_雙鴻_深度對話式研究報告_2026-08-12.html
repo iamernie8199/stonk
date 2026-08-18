@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-9-風險與失效條件">風險與失效條件</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-13-估值與市場預期">估值與市場預期</a>
-<a href="#digest-14-估值與市場預期">估值與市場預期</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-散熱與跨子題比較">散熱與跨子題比較</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，雙鴻不是只在賣傳統散熱模組，它是在賣 AI 伺服器水冷散熱系統裡的高內容值零組件與平台能力。</p>
-<p>以前市場可能把它看成散熱股，但現在更準確的理解是：<br>它是站在 GB300、ASIC 水冷、CDU、DIMM Cold Plate 與均熱片升級之間的液冷散熱平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>對。它不是只看單一平台，也不是只做單一散熱件。雙鴻最核心的優勢，在於：<br>- GB300 Cold Plate / Rack Manifold 基本盤<br>- ASIC / Non-NV 平台水冷擴張<br>- CDU / DIMM Cold Plate / 均熱片等更完整的液冷平台能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>雙鴻現在最核心的身份，是 AI 液冷散熱平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是 GB300 / Cold Plate / Rack Manifold 基本盤。<br>第二條，是 ASIC / Non-NV 水冷擴張。<br>第三條，是 CDU / DIMM Cold Plate / 均熱片平台外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 1,050 元<br>- 單日漲幅 0.48%<br>- 本益比 18.2 倍<br>- 股價淨值比 7.26 倍<br>- 總市值 974 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 3,765,466 千元<br>- 年增 116.7%<br>- 月增 38.54%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>市場不是只在買單月營收，而是在買三件事：<br>- GB300 / Rack Manifold / Cold Plate 的基本盤放量<br>- ASIC / Non-NV 平台擴張能不能接棒<br>- CDU / DIMM Cold Plate / 均熱片能不能把雙鴻推成更完整的液冷平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是單一 GPU 平台拉貨，那市場最後還是只會把它看成 AI 散熱股；但如果 GB300 / Cold Plate / Rack Manifold 能變成長週期平台基本盤，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>完全正確。</p>
-<p>如果只是單一平台的一波拉貨，市場會提早反映又提早修正；但如果這個基本盤能延伸成液冷散熱升級週期，大立場就不同了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>因為這條線真正值錢的，不只是繼續吃 GPU 平台，而是從 GPU 擴到 ASIC 與 Non-NV 平台：<br>- ASIC 水冷專案<br>- Non-NV 客戶擴張<br>- VR200 / Rubin 平台切換<br>- 企業與 CSP 平台擴張</p>
-<p>這些不是單純量增，而是平台風險下降與內容值提升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>市場願意給雙鴻不只是散熱零件股的估值，不是因為短線出貨而已，而是因為它如果成功從 NV 單一平台擴到 ASIC / Non-NV，估值框架就會抬高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 ASIC 只是零星補充，那市場會提早反映又提早修正；但如果它真的變成第二支柱，雙鴻的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>第三條主線是平台外延。</p>
-<p>如果前兩條主線代表今天最受關注的液冷基本盤與平台切換，那第三條主線代表的是：<br>公司不是只有 Cold Plate，而是還在往 CDU、DIMM Cold Plate、均熱片與更多系統級散熱件延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>CDU、DIMM Cold Plate、均熱片短期不是全部主體營收，但它們會影響市場願不願意給雙鴻比較高的估值框架，因為那代表公司不是只守住單一散熱件，而是真的在往更完整的液冷散熱平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果 CDU、DIMM Cold Plate、均熱片最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像奇鋐那樣散熱平台更完整，也不像台達電那樣是電力 / 基礎設施平台。它比較像是站在 AI 液冷零組件與高客製化散熱方案中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟奇鋐比：液冷平台廣度與整合能力座標<br>- 跟富世達比：接口 / 液冷路徑互補座標<br>- 跟勤誠 / 台達電比：系統整合與機櫃級能力座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：雙鴻（若只看 AI 水冷散熱零組件切角）<br>- 誰最廣：奇鋐 / 台達電<br>- 誰最穩：台達電<br>- 誰最有彈性：雙鴻<br>- 雙鴻卡在哪：GPU / ASIC 雙軸液冷散熱平台公司<br>- 最像的比較對手：奇鋐<br>- 最不像的比較對手：單純傳統 PC 散熱件廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般散熱零件股，而是把它當：<br>- AI 水冷散熱平台受惠股<br>- GB300 / ASIC / Non-NV 平台切換受惠股<br>- 帶有 CDU / DIMM Cold Plate / 均熱片平台外延選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是雙鴻目前的估值本質：<br>- 如果它只是高成長一陣子的 AI 散熱股，那 18 倍本益比有其天花板<br>- 如果它真的是液冷散熱平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 GB300 之後 ASIC / Non-NV / CDU 沒有接上，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高內容值產品很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- GB300 / VR200 / ASIC 放量不如預期<br>- 液冷占比沒有持續往上<br>- CDU / DIMM Cold Plate / 均熱片沒有形成新的平台內容值<br>那雙鴻就可能被切回「高成長一陣子的散熱股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -764,7 +627,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高客製化液冷產品占比提升不如預期。</li><li>CDU / DIMM Cold Plate / 均熱片外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其液冷散熱平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高客製化液冷產品占比是否持續提升。</li><li>CDU / DIMM Cold Plate / 均熱片是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>雙鴻不是多賣幾個散熱件而已，而是要靠 GB300、ASIC 水冷與 CDU / DIMM Cold Plate 外延，把自己從散熱廠往液冷散熱平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

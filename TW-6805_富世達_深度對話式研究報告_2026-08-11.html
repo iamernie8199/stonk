@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,146 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-估值與市場預期">估值與市場預期</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-第-23-段">第 23 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，富世達不是只在賣鉸鏈，它是在賣 AI 液冷系統與高精密機構件裡那些越來越高價值的接口與樞紐零組件。</p>
-<p>以前大家可能先從摺疊手機樞紐認識它，但現在更準確的理解是：<br>它是站在液冷快接頭、水冷接口與高階機構件切換交界處的供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不像奇鋐、雙鴻那種更靠系統級散熱，也不像整機廠。它的特點是：<br>- 站在液冷接口與機構轉折這種高價值節點<br>- 同時吃到 AI 液冷升級與手機機構件需求<br>- 從摺疊手機鉸鏈一路延伸到 AI 伺服器快接頭 / QD / 水冷頭應用</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>富世達現在最核心的身份，是 AI 液冷快接頭與高精密機構件升級過程中的高價值零組件供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是 AI 伺服器液冷快接頭與 QD / Mini QD 升級。<br>第二條，是 GB300 / VR200 / ASIC 平台帶來的水冷接口內容值提升。<br>第三條，是摺疊手機樞紐與其他高精密機構件基本盤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 1,790 元<br>- 單日漲幅 1.99%<br>- 本益比 29.3 倍<br>- 股價淨值比 16.54 倍<br>- 總市值 1,228 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 1,360,035 千元<br>- 年增 17.07%<br>- 月增 12.75%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是把它當一般鉸鏈或機構件股，而是當 AI 液冷快接頭升級股。</p>
-<p>簡單說，大家在買三件事：<br>- AI 伺服器液冷滲透後，快接頭 / QD 變成高價值零件<br>- GB300 / VR200 / ASIC 平台出貨後，水冷接口內容值上升<br>- 1.6T 光模組水冷應用與其他延伸路線可能打開更大空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>因為液冷不是只有冷板而已，真正能讓液體在系統裡穩定、安全、可維護流動的關鍵零件，就是快接頭與接口系統。</p>
-<p>富世達最值錢的地方，不是它會做一般機構件，而是它卡在液冷架構裡那個少量但高價值的接口節點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>市場願意給富世達較高估值，不是因為它多賣幾個零件，而是因為液冷滲透以後，每個機櫃、每個模組、甚至每個光模組上的接口價值都可能上升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>吸引人的地方有兩個。</p>
-<p>第一，液冷滲透之後，QD / Mini QD 不是附屬品，而是系統穩定性、安全性與維護便利性的關鍵接口。<br>第二，越往 1.6T 光模組水冷、機櫃級液冷走，這些接口的規格與數量都可能同步提升，讓內容值上升。</p>
-<p>這也是為什麼市場會把富世達放在「液冷接口升級受惠股」裡，而不是普通機構件股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>如果富世達只是某一代液冷快接頭受惠股，市場最後還是會用產品週期來看它；但如果它能從快接頭、QD、Mini QD 一路往更完整的液冷接口平台走，那估值框架就會往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>第二條主線更接近目前最能落地的營收來源，也就是 GB300、VR200、ASIC 等平台出貨後，快接頭與水冷接口在實際系統裡的內容值提升。</p>
-<p>也就是說，這不是抽象講液冷，而是要看：<br>- 什麼平台開始量產<br>- 什麼平台液冷規格更高<br>- 什麼平台會讓富世達的零件從可有可無變成必要配置</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果只是某一代平台短線拉貨，那市場最後還是會把它看成中期受惠股；但如果平台一代一代升級，而且每次都讓接口規格更高、數量更多、ASP 更高，那富世達就不是一次性，而是長週期升級受惠股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是它原本就有的高精密機構件基本盤，也就是：<br>- 摺疊手機鉸鏈<br>- 其他高精密機構件</p>
-<p>如果前兩條主線代表今天最受關注的 AI 液冷成長，那第三條主線代表的是：<br>公司不是只有單一 AI 題材，而是本來就有精密機構件能力，可以支撐獲利底盤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，但要注意，市場現在更在意的是 AI 主線。摺疊手機樞紐仍重要，因為它證明富世達有能力做高難度機構件；但估值真正被往上推，主要還是液冷快接頭與水冷接口升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是富世達和純 AI 股不同的地方。</p>
-<p>如果你把摺疊手機看成雜訊，會覺得它不夠純；但如果你把它看成高精密機構能力的底盤，就會理解為什麼公司有機會把機構件 know-how 外延到液冷接口。真正要看的是：AI 液冷主線能不能蓋過手機週期波動，成為更主要的估值來源。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像奇鋐、雙鴻那種更偏系統級散熱，也不像純手機零件廠。它比較像是站在 AI 液冷接口與高精密機構件升級中間層的供應商。</p>
-<p>所以比較時要分層：<br>- 跟奇鋐、雙鴻比：液冷與散熱座標<br>- 跟健策比：高價值結構件與封裝散熱座標<br>- 跟一般手機鉸鏈廠比：平台邊界完全不同</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：富世達（若只看 AI 液冷快接頭 / QD 主線）<br>- 誰最廣：奇鋐<br>- 誰最穩：奇鋐 / 台達電這類平台更廣的散熱與基礎設施供應商<br>- 誰最有彈性：富世達<br>- 富世達卡在哪：AI 液冷快接頭與高精密機構件升級鏈條的高價值接口供應商<br>- 最像的比較對手：健策<br>- 最不像的比較對手：廣義整機伺服器廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般機構件股，而是把它當：<br>- AI 液冷快接頭升級股<br>- 水冷接口內容值上升受惠股<br>- 有機會往更完整液冷接口平台外延的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是富世達目前的估值本質：<br>- 如果它只是快接頭 / 機構件升級股，那 29 倍本益比不便宜<br>- 如果它真的是液冷接口平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果快接頭、QD、水冷接口只是某幾個平台短線放量，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- AI 液冷快接頭沒有持續擴張<br>- QD / Mini QD 沒有持續墊高內容值<br>- 新平台與新應用沒有打開能力邊界<br>那富世達就可能被切回「高成長一陣子的機構件股」，而不是液冷接口平台供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-第-23-段">
-<div class="digest-title">第 23 段</div>
-<div class="content"><p>對，這才是最硬的問題。</p>
-<p>真正要驗證的是：<br>- 快接頭 / QD / Mini QD 升級是否只是某代平台短線放量，還是可延續滲透<br>- GB300 / VR200 / ASIC 導入能否持續墊高接口內容值<br>- 1.6T 光模組水冷與其他新應用是否真的構成平台外延<br>- 市場是否會把它從高精密機構件廠升級成液冷接口平台股</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -800,7 +650,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格液冷接口產品占比提升不如預期。</li><li>QD / Mini QD 與 1.6T 光模組水冷外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其液冷接口平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格液冷接口產品占比是否持續提升。</li><li>QD / Mini QD 與光模組水冷外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>富世達不是多賣幾個快接頭而已，而是靠 AI 液冷滲透、QD / Mini QD 與後續光模組水冷，把自己從高精密機構件廠往液冷接口平台推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

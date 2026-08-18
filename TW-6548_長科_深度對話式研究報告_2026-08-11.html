@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，長科*不是只在賣成熟導線架，它是在賣高階封裝金屬材料與高規格封裝所需的可靠度平台。</p>
-<p>以前大家可能把它看成景氣循環型材料股，但現在更準確的理解是：<br>它是站在電源管理 IC、高壓應用、工控 / 車用，以及 AI 伺服器與新終端需求之間的高階導線架平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對。它不是只看景氣，也不是只做標準品。長科*最核心的優勢，在於：<br>- 高階導線架（QFN / aQFN）<br>- 高壓與電源管理 IC 需求<br>- 工控 / 車用回補與新興終端外延</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>長科*現在最核心的身份，是高階導線架與半導體封裝金屬材料平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是 QFN / aQFN / 電源管理 IC 基本盤。<br>第二條，是工控 / 車用 / 高壓應用回補與升級。<br>第三條，是 AI 伺服器 / 低軌衛星 / 人形機器人等新終端外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 75.3 元<br>- 單日漲幅 0.94%<br>- 本益比 14.3 倍<br>- 股價淨值比 2.53 倍<br>- 總市值 286 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,555,599 千元<br>- 年增 35.44%<br>- 月增 3.61%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是只在買導線架景氣循環，而是在買三件事：<br>- QFN / aQFN 供需吃緊與調價能力<br>- 工控 / 車用 / 高壓應用回補<br>- AI 伺服器、高壓與新終端需求能不能讓產品組合升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是景氣回補，那市場最後還是只會把它看成導線架景氣股；但如果高階導線架的交期、規格與應用深度都在往上抬，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 QFN / aQFN 只是短線供需吃緊，市場會把它看成高成長一陣子的導線架股；但如果 QFN / aQFN 是高規格封裝金屬材料長週期升級的一部分，那它的定位就會往平台公司靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>因為這條線真正值錢的，不只是庫存回補，而是高電壓、大電流與高腳數應用的規格升級：<br>- 工控<br>- 車用<br>- 高壓<br>- 電源管理 IC<br>- 高腳數 MCU 封裝</p>
-<p>這些不是單純量增，而是規格升級帶來的內容值增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場願意給長科*高於一般成熟材料股的估值，不是因為出貨量而已，而是因為高階導線架供需、規格升級與調價能力把內容值往上推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果工控 / 車用 / 高壓只是短線回補，那市場會提早反映又提早修正；但如果它們真的成為高階封裝金屬材料長週期升級的一部分，長科*的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是外延。</p>
-<p>如果前兩條主線代表今天最受關注的導線架與高壓應用成長，那第三條主線代表的是：<br>公司不是只有工控 / 車用，而是還在往 AI 伺服器、低軌衛星、人形機器人等新終端延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>AI 伺服器、低軌衛星、人形機器人短期不是主體營收，但它們會影響市場願不願意給長科*比較高的估值框架，因為那代表公司不是只守住成熟導線架，而是真的在往更完整的高階封裝材料平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果 AI 伺服器、低軌衛星、人形機器人最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像順德那樣還有更多不同產品線，也不像一般成熟金屬材料廠。它比較像是站在高階導線架與半導體封裝升級中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟順德比：導線架與高階材料座標<br>- 跟一般成熟材料股比：毛利與技術門檻座標<br>- 跟封裝材料鏈比：應用深度與高壓 / AI 外延座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：長科*（若只看高階導線架與封裝材料主線）<br>- 誰最廣：順德<br>- 誰最穩：長科* / 高階導線架與工控車用多元應用平台<br>- 誰最有彈性：長科*<br>- 長科*卡在哪：高階導線架、AI 伺服器、高壓、低軌衛星與人形機器人外延平台公司<br>- 最像的比較對手：順德<br>- 最不像的比較對手：純成熟金屬材料股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般成熟導線架股，而是把它當：<br>- 高階導線架供需吃緊與調價受惠股<br>- 工控 / 車用 / 高壓應用升級股<br>- 帶有 AI 伺服器 / 低軌衛星 / 人形機器人外延選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是長科*目前的估值本質：<br>- 如果它只是高成長一陣子的導線架股，那 14 倍本益比便宜有其理由<br>- 如果它真的是封裝材料平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 AI 伺服器、高壓、低軌衛星、人形機器人只是零星需求，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- 工控 / 車用 / 高壓基本盤沒有持續擴張<br>- AI 伺服器與高壓產品占比沒有持續墊高內容值<br>- 新平台與新終端沒有打開能力邊界<br>那長科*就可能被切回「高成長一陣子的導線架股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -764,7 +627,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格導線架產品占比提升不如預期。</li><li>工控 / 車用 / 高壓與新終端外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其封裝材料平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格導線架產品占比是否持續提升。</li><li>QFN / aQFN、高壓與新終端外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>長科*不是多賣幾片導線架而已，而是要靠 QFN / aQFN、高壓、AI 伺服器與新終端外延，把自己從導線架廠往高階封裝材料平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

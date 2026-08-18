@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,183 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-20-反方壓力測試">反方壓力測試</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-24-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-25-hvdc-與供電架構">HVDC 與供電架構</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你完全不懂，可以先把台達電想成：它是幫世界各種電子設備、工業系統、資料中心和能源系統，把外部的電轉成設備真正能穩定使用的電，並把整個供電、轉換、散熱、備援與管理系統做得更有效率的公司。</p>
-<p>最白話地講，電不是插上去就能直接被設備拿來用。不同設備需要的電壓、電流、穩定度都不同。你要把外部進來的電，轉成伺服器、工廠設備、電動車、資料中心真正能吃的電，中間就需要一整套轉換、控制、保護與管理設備。</p>
-<p>所以台達電過去最容易被理解成：<br>- 電源供應器公司<br>- 工業電源 / 散熱 / 自動化設備公司</p>
-<p>但如果只停在這裡，你會低估它現在在資本市場的位置。現在更接近投資本質的說法是：<br>台達電正從「做電源的公司」，被市場重新理解成「AI 資料中心電力基建與高效率供電平台的重要核心供應商」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>很好，這種問題一定要先問清楚，不然後面全都只是背名詞。</p>
-<p>先講最基本的：<br>電源供應器，就是把外部進來的電，轉成設備真正需要的電。你家插座是交流電，但很多電子設備內部真正使用的是直流電，而且電壓要更低、更穩定、更可控。</p>
-<p>再講 HVDC。HVDC 是 High Voltage Direct Current，高壓直流。它之所以最近變得重要，是因為 AI 資料中心的用電量在暴增。以前一個機櫃耗電沒那麼高，傳統 AC-DC 架構還能撐；但當你進入高密度 AI 伺服器時，單一機櫃功率越來越高，電力轉換次數太多就會造成：<br>- 效率損失<br>- 發熱更多<br>- 系統更複雜<br>- 成本更高</p>
-<p>所以資料中心現在在做的事，是從傳統供電方式往更高效率的高壓直流架構升級，而台達電就在這個轉換裡卡位。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且這句話已經很接近核心，但還要再補兩層，才不會太粗。</p>
-<p>第一層，你說的是需求方向，這是對的：AI 伺服器越強，耗電越大，供電系統越重要，台達電就越受益。</p>
-<p>第二層，更重要的是：不是所有供電公司都能等比例受惠。因為台達電不是在賣「普通電源」，而是在賣越來越接近資料中心整體架構升級所需的那一層產品。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個比喻非常好。</p>
-<p>如果你把高階晶片供應商比成算力工廠裡的引擎，那台達電更像是：當資料中心從一般機房升級成超高密度算力工廠時，電力與熱管理那一層的關鍵總包商之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只看短期受惠產品，它像高規格電力零組件與模組供應商；但如果看市場現在為什麼願意給它接近平台股的估值，它更像一家具備平台雛形的電力架構升級公司。</p>
-<p>也就是說，台達電不是單純零組件股，也還不能直接等同成熟平台商，它其實站在兩個身份的交界處：<br>- 左邊是高品質、多環節受惠的供應商<br>- 右邊是被市場期待往資料中心電力平台商靠攏的候選者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背產品，而是先搞清楚：它的平台邊界在哪、哪些業務真正決定估值。</p>
-<p>對台達電來說，現在真正決定估值的，不是所有業務，而是三個層級：<br>- 短中期可直接兌現的 AI 伺服器電源<br>- 中期真正會把估值往上抬的 HVDC / 800VDC 架構升級<br>- 長期的平台化延伸：SOFC、SST、微電網等</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>它不是只在講夢，這是台達電比很多概念股紮實的地方。</p>
-<p>先看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-09：<br>- 單月合併營收 65,602,611 千元<br>- 年增 55.43%<br>- 月增 11.26%<br>- 近三月合併營收年增 47.75%<br>- 近 12 月營收合併成長 39.45%</p>
-<p>再看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 1815<br>- 本益比 44.2<br>- 股價淨值比 15.74<br>- 總市值 47,145 億</p>
-<p>這不是只靠概念支撐，而是有很明確的營運兌現。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>市場給台達電高本益比，不是因為它只是賣電源，而是因為市場認為它可能處在一個「重新定義資料中心供電架構」的升級週期裡。</p>
-<p>也就是說，市場不是只買今年營收，而是在買下面這個敘事：<br>1. AI 伺服器功耗越來越高<br>2. 傳統供電方式效率越來越不夠<br>3. HVDC / 800VDC / BBU / CDU / 微電網會成為新標配<br>4. 台達電在這些關鍵環節裡都有位置<br>5. 它未來不是多賣一點 PSU，而是能吃到整個資料中心供電架構重做的價值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話抓得非常準。</p>
-<p>台達電現在其實有一個身份轉換問題：<br>市場不再只用傳統電源公司看它，而是正在嘗試把它往「AI 資料中心電力基建平台候選者」去重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>這個角度非常值得補，因為它會逼我們把「敘事優勢」和「投資報酬優勢」拆開。</p>
-<p>從目前可觀察的定位來看，台達電和光寶科都已經不是一般傳統電源股了，兩者都在 AI 資料中心電力基建升級裡卡到位置。但市場定價差很多。</p>
-<p>市場對台達電願意付更高溢價，因為它被視為：<br>- 產品線更廣<br>- 從 PSU 延伸到 HVDC / 800VDC / CDU / SOFC / 微電網<br>- 更接近平台型電力基建股</p>
-<p>而光寶科目前更像：<br>- AI 電源升級的重要二線受惠者<br>- 高成長、但平台層級仍待證明的供應商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>同業比較真正有用的地方，不是選最會講故事的公司，而是看哪個風險報酬比更好。</p>
-<p>如果很粗地比：<br>- 公司品質 / 平台完整性：台達電較強<br>- AI 電源升級受惠邏輯：兩者都受惠，但台達電較像主平台級受惠者<br>- 估值與預期壓力：台達電更高、更貴，容錯率也更低；光寶科估值低很多，若 AI 電源故事持續兌現，可能有敘事追價差空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>對，這一步會決定台達電的估值天花板。</p>
-<p>市場會把台達電往 Vertiv、施耐德這一層去想，不是因為它今天已經等同於這些公司，而是因為它正在展現一些讓人願意給更高想像的特徵：<br>- 不只賣單一零件，而是跨多個電力節點<br>- 不只跟消費電子，而是跟資料中心 CAPEX 深度綁定<br>- 不只短線受惠，而是可能受惠於整個供電架構升級週期</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是台達電估值之爭的核心。它到底是：<br>- AI 基建中的高階零組件與模組受惠者<br>還是<br>- 正在往系統級電力平台商靠攏的候選者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對台達電這種高估值平台候選者，不能只看營收，真正要一起拆的是：<br>- 毛利率<br>- 營業利益率<br>- 淨利率<br>- 獲利品質</p>
-<p>因為市場現在不是不相信它有成長，而是不確定這種成長，能不能真的變成更高品質的利潤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>毛利率在回答的是：<br>現在的 AI 成長，到底是高價值內容放大，還是先靠大單放量衝營收。</p>
-<p>如果成長的過程中伴隨：<br>- 零組件成本上升<br>- 專案導入爬坡成本<br>- 高競爭導致報價壓力<br>- 液冷 / HVDC 等新產品前期成本較高</p>
-<p>那就可能出現一種情況：營收很好，市場也興奮，但毛利率改善不如預期。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>台達電到底是在賺高營收，還是在賺高品質平台獲利。</p>
-<p>如果只是營收變大，但：<br>- 費用率升高<br>- 新事業前期投資壓力大<br>- 人才與產能布局先投入、獲利後到<br>那營業利益率就不一定會同步漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但台達電這種公司更要看：<br>- EPS 成長是不是主要來自本業<br>- 還是有匯率、業外或一次性因素幫忙</p>
-<p>獲利品質最重要看的就是：<br>- AI 相關成長是不是帶來健康的毛利結構<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 更高內容價值的供電架構與散熱環節，是否真的持續把營收轉成可持續利潤</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，而且這點對高估值股票特別重要。</p>
-<p>因為當市場已經用接近平台候選者的框架在看它時，就會要求兩件事一起成立：<br>- 營收成長<br>- 獲利品質提升</p>
-<p>如果只看到第一件，第二件不明顯，那股價就容易先停下來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>我會這樣記：<br>高估值可以容忍成長波動，但很難容忍獲利品質不被證明。</p>
-<p>套回台達電，就是：<br>市場可以接受 HVDC / 800VDC 導入不是每一季都爆發，但不太能接受「平台敘事講很大，結果毛利率、營業利益率、淨利率、內容價值轉化一直沒有明顯改善」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是非常強的第一個反方。</p>
-<p>反方最強的第一個論點就是：市場現在用平台型基建股的方式定價台達電，但它的財務結構可能還沒完全證明自己已經跨過那條線。</p>
-<p>意思是：<br>- 公司方向沒錯<br>- 受惠也是真的<br>- 但股價可能已經先反映了最好的版本</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確，這是第二個最強反方。</p>
-<p>很多人看到台達電會先看營收，但真正決定股票能不能撐住高倍數的，是：這些高成長營收最後變成多少高品質利潤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確，這就是第三個反方核心。</p>
-<p>市場最常犯的錯，是把方向正確，誤當成時間很快兌現。</p>
-<p>對台達電來說：<br>- 大方向：AI 資料中心供電升級，幾乎沒什麼問題<br>- 真正不確定的是：大規模放量時點、滲透率速度、客戶導入節奏、以及這些導入最後對營收與獲利的斜率</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>對，這句話可以直接當目前最好的反方一句話結論。</p>
-<p>更完整一點說：<br>台達電的長期方向大致正確，AI 資料中心供電與熱管理升級也是確定趨勢；但市場可能高估了它在 HVDC / 800VDC / CDU / 微電網這條鏈上，從多環節受惠供應商進一步升格為高估值平台型電力基建核心公司的速度、份額與利潤轉化效率。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，講公司本質：<br>台達電不是單純電源供應器公司，而是 AI 資料中心供電架構升級中的關鍵系統級供應商。</p>
-<p>第二句，講平台邊界：<br>真正決定估值的，不是所有業務，而是 AI 電源、Power Rack、HVDC / 800VDC、部分熱管理與更長期的電力平台延伸。</p>
-<p>第三句，講主線：<br>最重要的主線，是 AI 伺服器功率密度上升帶來的供電架構升級。</p>
-<p>第四句，講價值來源：<br>市場在意的不只是多賣幾顆電源，而是整個資料中心電力架構重做的價值。</p>
-<p>第五句，講估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率與獲利品質是否同步改善。</p>
-<p>第六句，講最重要驗證：<br>HVDC / 800VDC / Power Rack 放量與平台化利潤能不能一起成立。</p>
-<p>第七句，講最強反方：<br>市場可能高估了它從優秀供應商升級成平台型 AI 電力基建公司的速度、份額與獲利品質。</p>
-<p>第八句，講最終投資判斷：<br>台達電最後要證明的，不只是它吃到 AI 電力需求，而是它能把這些需求穩定轉成更高品質、可持續、平台型的利潤結構。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>我會這樣講：<br>台達電不是普通電源股，而是 AI 資料中心供電架構升級的關鍵系統級供應商；真正決定它值不值得高估值的，不是營收有多強，而是 HVDC / 800VDC / Power Rack 等新架構能不能持續把獲利品質與平台價值一起墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -885,7 +698,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>HVDC / 800VDC 放量明顯遞延，且市場開始確認不是短期噪音。</li><li>AI 相關收入成長存在，但毛利率、營業利益率與淨利率持續不及預期。</li><li>台達電最終被市場重新降級回高成長設備供應商，而非平台級基建股估值框架。</li><li>同業如光寶科在 AI 電源升級上實際追趕速度快於市場原先預期，導致台達電溢價被重新壓縮。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>更清楚的 AI 相關產品線收入拆分。</li><li>更高信度的 HVDC / 800VDC 導入時程與客戶節奏。</li><li>與主要競爭者相比的實際份額變化與價格壓力證據。</li><li>台達電與光寶科在同一產品環節上的毛利結構與內容價值差異。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台達電不是普通電源股，而是 AI 資料中心供電架構升級的關鍵系統級供應商；真正關鍵不是營收成長，而是新架構能不能持續把獲利品質與平台價值一起墊高。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

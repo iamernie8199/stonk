@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,139 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果你要一句話先記住，智原本質上不是一般 IC 設計公司，也不是純 IP 授權商，而是更偏 ASIC / SoC 設計服務平台，幫客戶把晶片從設計、整合、導入代工平台，一路推到量產。</p>
-<p>也就是說，它最值錢的地方，不是自己做品牌晶片，而是幫客戶把客製化晶片做出來、做對、導進量產。</p>
-<p>所以你研究智原，不能只把它看成一般 IC 設計股，而要把它看成：<br>- ASIC / SoC 設計服務平台<br>- 聯電與其他晶圓代工生態中的設計整合角色<br>- NRE、MP 與平台化能力決定估值的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>方向對，但你不能只用接案設計公司這麼粗的理解。</p>
-<p>更精準一點說，智原和創意、世芯都在 ASIC / 設計服務這條鏈上，但智原更偏：<br>- 成熟製程<br>- 聯電平台<br>- NRE + 量產晶片 MP<br>- 系統整合與平台服務</p>
-<p>而創意、世芯市場心智更偏：<br>- 更高階製程<br>- 更強 AI ASIC 想像<br>- 更高槓桿的 Turnkey / 量產放大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場重視它，不只是看它有沒有最前沿 AI 題材，而是看它在幾條線上的位置：<br>- 成熟製程 ASIC / MP 業務是否回溫<br>- NRE 案件能不能轉成後續量產<br>- AI ASIC 生態是否擴散到不只一兩家高階廠商<br>- 聯電與 Intel Foundry 這種代工平台多元化，會不會讓設計服務商角色變重要<br>- 子公司雅特力-KY 的 MCU 成長，能不能支撐整體結構改善</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>如果你要更精準一點，我會這樣說：<br>智原不是最前沿 AI ASIC 的高槓桿明星股，而是受惠於成熟製程 MP、NRE 與代工平台多元化的 ASIC / SoC 設計服務平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 178 元<br>- 單日漲幅 3.49%<br>- 本益比 48.0<br>- 股價淨值比 3.4<br>- 總市值 464 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 1,062,105 千元<br>- 年增 9.97%<br>- 月減 25.04%<br>- 近三月合併營收年增 -9.77%<br>- 近 12 月營收合併成長 -32.31%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這就是研究智原最重要的第一步。</p>
-<p>智原現在的高估值，不是因為眼前營收很漂亮，而是市場在賭幾件事：<br>- NRE 專案後續能轉量產<br>- ASIC 相關營收占比會持續提高<br>- 聯電成熟製程與 Intel Foundry 生態，會讓它的設計服務角色被重估<br>- 子公司雅特力-KY 的動能，能幫整體結構改善<br>- 先進封裝遞延雖然拖慢短期，但 2027 年之後的獲利平台還有機會墊高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>智原最重要的成長主線，是成熟製程 ASIC / NRE / MP 業務回溫，再加上 AI ASIC 生態外擴與代工平台多元化，讓它從一般設計服務商，升級成更高價值的平台型 ASIC 服務公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>市場真正願意給估值的，不只是案子數量，而是：<br>- 案子有沒有量產化<br>- 量產化後能不能變成更穩定的 MP 收入<br>- 客戶是不是只來一次，還是能持續在同一平台合作<br>- 設計服務是不是能從單一專案變成平台能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>因為雅特力-KY 現在已經不是邊角料，而是智原結構裡很重要的一塊。</p>
-<p>市場會重視它，因為：<br>- 它是 MCU 業務的重要成長來源<br>- 在某些季度，它對量產晶片收入的支撐已經很顯著<br>- 它讓智原不會完全只靠純 ASIC 接案循環</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>智原不是單純的 ASIC 接案公司，而是受惠於成熟製程 MP、NRE、AI ASIC 外擴與代工平台多元化的 ASIC / SoC 設計服務平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講一句話，我會這樣說：<br>創意更像高階製程、台積電生態與 AI ASIC Turnkey 的高槓桿平台股，而智原更像成熟製程、NRE / MP 與平台型設計服務的次核心受惠股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：世芯-KY<br>- 誰最廣：創意 / 智原<br>- 誰最穩：M31 / 智原<br>- 誰最有彈性：創意 / 智原<br>- 智原卡在哪：成熟製程平台型設計服務股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>世芯-KY 是另一個很重要的高階座標，而且比創意還更能代表市場心中最純的 AI ASIC 想像。</p>
-<p>很粗分：<br>- 世芯-KY偏高階 AI ASIC 純龍頭<br>- 智原偏成熟製程平台改善股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>很有意義，因為 M31 代表的是 IP 平台型資產這個座標，而智原代表的是設計服務平台型資產。</p>
-<p>很粗分：<br>- M31偏 IP 平台股<br>- 智原偏設計服務平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>智原在這組 peer 裡最大的優點，是它剛好卡在一個很有吸引力的位置：<br>- 它不像世芯、創意那樣已經被市場高度定義成最純 AI ASIC 股<br>- 也不像 M31 那樣主要靠 IP 授權高毛利定價<br>- 它是少數可以用成熟製程、NRE、MP、平台改善這條路徑去重估的設計服務股</p>
-<p>但它最大的缺點也很清楚：<br>市場對它的上修空間很大一部分建立在之後能證明平台改善成立。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對這種股票，我不會先問本益比高不高，而是先問三件事。</p>
-<p>第一，現在的改善是不是主要來自短期成熟製程回溫與急單，而不是 NRE、MP、ASIC 占比真的一起改善。</p>
-<p>第二，市場在講的 AI ASIC、生態擴張、Intel Foundry 多元化，是不是真的能轉成實際營收與獲利，而不是只停在敘事層。</p>
-<p>第三，市場願意給這麼高的估值，是因為真的看到平台化能力提升，還是只是把 2027 年想像先反映太多。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>如果只是營收回升，但：<br>- NRE 沒有持續累積<br>- MP 沒有真正接棒成長<br>- ASIC 相關營收占比沒有繼續提升<br>- 毛利率、營業利益率與淨利率在結構改善後沒有同步走高<br>那市場後面就會開始懷疑：這是不是只是一波成熟製程回溫反彈。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會這樣講：<br>智原真正的關鍵，不是這一季營收有多強，而是 NRE、MP、ASIC 營收占比與高品質獲利能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- 成熟製程的題材高度和估值上限本來就比較低<br>- AI ASIC 真正最有價值的地方還是在更高階製程與更高端 Turnkey<br>- 智原就算改善，也可能只是二線受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這也是很現實的反方。</p>
-<p>智原的價值不只是接到案子，而是市場要相信這些案子後面有長尾價值。</p>
-<p>如果：<br>- NRE 持續增加，但 MP 沒有接上<br>- ASIC 量產轉換率不高<br>- 客戶只來一次，不形成平台關係<br>- 毛利率、營業利益率、淨利率沒有改善<br>那市場就可能開始懷疑：它是不是只是一家工程接案公司，而不是平台化設計服務商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>高估值股票最大的風險從來不是公司不好，而是市場可能已經先把未來想太遠。</p>
-<p>智原現在的問題不是沒人懂它，而是市場已經開始在反映：<br>- ASIC 題材<br>- NRE / MP 結構改善<br>- 平台升級<br>- 2027 年之後的獲利想像</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -776,7 +633,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>NRE 轉 MP 進度不如預期。</li><li>ASIC 占比與平台多元化落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其平台型設計服務地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>NRE 轉 MP 是否持續落地。</li><li>ASIC 占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>智原不是普通 IC 設計服務股，而是受惠於成熟製程 ASIC、NRE、MP 與平台多元化的設計服務公司；真正關鍵不是營收有多強，而是平台型設計服務能不能長期維持高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,127 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-12-估值與市場預期">估值與市場預期</a>
-<a href="#digest-13-估值與市場預期">估值與市場預期</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-16-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-17-估值與市場預期">估值與市場預期</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>如果一句話先記住，信邦不是只在賣線材，它是在賣高可靠度電源 / 訊號 / 連接整合方案。</p>
-<p>以前大家可能把它看成工控線束廠，但現在更準確的理解是：<br>它是站在工控、醫療、能源、車用與新機器人設備之間的高附加價值連接平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不像貿聯-KY那樣更偏 AI 資料中心高速互連，也不是只做低毛利線束代工。信邦最核心的優勢，在於：<br>- 工控 / 醫療 / 能源等高可靠度應用<br>- 電源 / 訊號 / 連接整合能力<br>- 新機器人、低軌衛星、散熱、無人機等外延</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>信邦現在最核心的身份，是高可靠度工業連接與電源訊號整合平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是工控 / 醫療 / 能源基本盤。<br>第二條，是人形機器人線束與電源訊號整合導入。<br>第三條，是低軌衛星 / 散熱 / 無人機等新應用外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 318.5 元<br>- 單日漲幅 1.27%<br>- 本益比 21.6 倍<br>- 股價淨值比 4.37 倍<br>- 總市值 765 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-04：<br>- 單月合併營收 3,167,179 千元<br>- 年增 28.97%<br>- 月增 2.41%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>市場不是只在買工控線束需求，而是在買三件事：<br>- 工控 / 醫療 / 能源等基本盤穩定增長<br>- 人形機器人導入提升單位內容值<br>- 信邦能不能從工業連接方案供應商，往更多高價值新應用平台走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是出貨量穩，那市場最後只會把它看成成熟工控零組件股；但如果高可靠度、認證、整合方案能力讓每套產品都更值錢，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>因為這條線真正值錢的，不只是多一個新客戶，而是人形機器人需要更高可靠度、更複雜的線束與訊號 / 電源整合：<br>- 高複雜度線束<br>- 電源與訊號整合<br>- 單一供應商方案能力<br>- 客戶導入後的黏著度提升</p>
-<p>這些不是單純量增，而是內容值與技術門檻提升帶來的附加價值增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場願意給信邦高於一般線束代工股的估值，不是因為出貨量而已，而是因為新應用把每套解決方案的價值往上推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果機器人只是題材，那市場會提早反映又提早修正；但如果它真的成為高可靠度連接方案複製能力的證明，那信邦的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>第三條主線是外延。</p>
-<p>如果前兩條主線代表今天最受關注的工控與機器人成長，那第三條主線代表的是：<br>公司不是只有工控與機器人，而是還在往低軌衛星、散熱、無人機等新應用連接方案延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>低軌衛星、散熱、無人機短期不是主體營收，但它們會影響市場願不願意給信邦比較高的估值框架，因為那代表公司不是只守住工控線束，而是真的在往更完整的工業連接平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果低軌衛星、散熱、無人機最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像貿聯-KY那種更偏高速互連與資料中心配電，也不像一般低階線束廠。它比較像是站在高可靠度工業連接與新應用整合方案中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟貿聯-KY比：高附加價值連接方案座標<br>- 跟一般線束廠比：毛利與技術門檻座標<br>- 跟工控設備鏈比：應用深度與客戶黏著度座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：信邦（若只看高可靠度工業連接與新應用方案主線）<br>- 誰最廣：貿聯-KY<br>- 誰最穩：信邦 / 工控醫療能源多元應用平台<br>- 誰最有彈性：信邦<br>- 信邦卡在哪：高可靠度工業連接、人形機器人、低軌衛星與散熱外延平台公司<br>- 最像的比較對手：貿聯-KY<br>- 最不像的比較對手：低毛利一般線束代工廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>因為市場不是把它當一般線束股，而是把它當：<br>- 工控 / 醫療 / 能源基本盤穩定股<br>- 人形機器人與高附加價值整合方案受惠股<br>- 帶有低軌衛星 / 散熱 / 無人機外延選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是信邦目前的估值本質：<br>- 如果它只是高成長一陣子的工控連接股，那 21 倍本益比不便宜<br>- 如果它真的是工業連接平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果機器人、低軌衛星、散熱、無人機只是零星專案，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- 工控 / 能源基本盤沒有持續擴張<br>- 人形機器人沒有持續墊高內容值<br>- 新平台與新應用沒有打開能力邊界<br>那信邦就可能被切回「高成長一陣子的工控連接股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -747,7 +616,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高附加價值連接方案產品占比提升不如預期。</li><li>機器人 / 低軌衛星 / 散熱 / 無人機外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其工業連接平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高附加價值連接方案產品占比是否持續提升。</li><li>人形機器人 / 低軌衛星 / 散熱 / 無人機外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>信邦不是多賣幾條線而已，而是要靠工控基本盤、人形機器人線束與低軌衛星 / 散熱外延，把自己從工業連接供應商往高附加價值平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

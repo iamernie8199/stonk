@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,147 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這正是川湖最值得研究的地方。</p>
-<p>最白話地講，川湖不是做晶片、不是做主機板，也不是做整機代工，它做的是伺服器機櫃裡很關鍵、但容易被外行忽略的機構件，尤其是高階滑軌與相關配件。</p>
-<p>你可以把它想成：<br>當 AI 伺服器越來越重、越來越大、機櫃越來越複雜時，川湖賣的不是「有沒有這個零件」，而是「這整個櫃子到底能不能被安全、穩定、可維修地裝起來、拉出來、抽換掉」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這已經不是傳統家具滑軌或普通伺服器滑軌的概念。</p>
-<p>在 AI 伺服器與機櫃級系統裡，一個機箱的重量、熱、維修頻率、穩定性要求，都比以前高很多。</p>
-<p>這意味著滑軌不只是能滑動就好，而是要同時做到：<br>- 承重更高<br>- 精度更高<br>- 維修抽拉更順<br>- 在高密度、高熱環境下仍穩定<br>- 配合整機櫃設計與客製化結構</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>川湖最適合放在「高規格零組件 / 材料升級股」這個框架裡。</p>
-<p>它不是平台最大，也不是整機廠，更不是晶片王者；它最值錢的地方在於：<br>- 在一個很小但很關鍵的環節做得極強<br>- AI 機櫃化之後，這個環節的單位價值量在上升<br>- 規格越高、承重越大、維修越複雜，它越有機會把小零件做成高價值機構件</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>很多人會把川湖看成 AI 零件受惠股，但真正最能支撐它估值的，不是 AI 三個字，而是高承重滑軌與機構件在 AI 機櫃化、重載化、Rack-scale 化之後，單位內容值持續提升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最直接受惠的就是：<br>- AI 伺服器機箱變重<br>- 機櫃整體化程度提高<br>- Rack-scale 架構滲透<br>- 維修 / 抽換需求提升<br>- 高階機構件內容值往上走</p>
-<p>如果以前是普通伺服器時代，滑軌只是必要零件；現在進入 AI 機櫃時代，滑軌變成高規格、高價值密度零組件。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對，這點非常重要。</p>
-<p>川湖最迷人的地方不是單純 volume story，而是 volume 變多的同時，單位內容值也在上升。</p>
-<p>也就是說：<br>- 機櫃更多<br>- 單櫃規格更高<br>- 單位零件要求更高<br>- 單價也能提升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>Rack-scale 的本質是：<br>整個機櫃被當成一個系統來設計，而不是一台一台伺服器各自獨立。</p>
-<p>這種架構一旦成立，機構件的重要性會大幅提高，因為你面對的是：<br>- 更大更重的系統<br>- 更高密度的安裝需求<br>- 更多維修與抽換需求<br>- 更高可靠度要求</p>
-<p>這使川湖從原本零件供應商的角色，往高價值機構件關鍵供應商移動。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 鴻海 / 緯穎：整機或整機櫃系統整合層<br>- 奇鋐 / 健策：散熱與封裝熱管理層<br>- 勤誠：機殼與機構整體結構件<br>- 川湖：滑軌與高承重機構件的核心供應商</p>
-<p>所以川湖的特點是：<br>它不是最大平台商，也不是最前線整機廠，但它在細分機構件裡非常核心。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：川湖（如果定義純度是高承重滑軌與機構件）<br>- 誰最廣：鴻海 / 緯穎 / ODM 鏈<br>- 誰最穩：奇鋐 / 健策 / 大型整機鏈<br>- 誰最有彈性：川湖<br>- 川湖卡在哪：高價值細分機構件框架</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>勤誠比較偏整體機殼與系統結構設計，川湖更偏高階滑軌與承重 / 抽換機構件。</p>
-<p>你可以把兩家放在同一個機構件升級故事裡，但定位不同：<br>- 勤誠比較像大範圍機構整體受惠者<br>- 川湖比較像單一關鍵零件 / 結構件的深耕型受惠者</p>
-<p>所以川湖的稀缺性來自深，勤誠的價值更多來自廣。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>奇鋐、健策的價值，更多建立在散熱與封裝熱管理；川湖的價值，則建立在承重、抽換、維修性與機櫃機構件內容值。</p>
-<p>這代表：<br>- 奇鋐 / 健策更像熱管理升級受惠者<br>- 川湖更像機構件升級受惠者</p>
-<p>而川湖最稀缺的地方是：<br>它的產品雖然不大，卻直接綁在機櫃可維修性與高承重設計這個很難被取代的痛點上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對一般零組件公司來說，這個倍數非常誇張。</p>
-<p>市場願意給這麼高，代表它不是把川湖當普通五金件或一般機構零件公司看。</p>
-<p>它在買的是：<br>- AI 機櫃化的長期趨勢<br>- Rack-scale 帶來的結構升級<br>- 單位內容值上升<br>- 高規格產品帶來的高毛利<br>- 細分市場稀缺性與難替代性</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 11,905<br>- 本益比 50.3<br>- 股價淨值比 35.98<br>- 總市值 11,346 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 6,407,256 千元<br>- 年增 355.52%<br>- 月增 44.22%<br>- 近三月合併營收年增 249.75%<br>- 近 12 月營收合併成長 112.8%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為高估值不會只因為營收暴增就成立。高估值真正要靠的是：<br>- 毛利率能維持高檔<br>- 高規格產品占比持續提升<br>- 單位內容值持續上升<br>- 不只是量增，而是每一個機構件都更值錢</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對川湖來說，回答的是：<br>機櫃升級、重載化、抽換維修需求，是否真的在把它的產品組合往更高內容值方向推。</p>
-<p>如果只是量大，但產品規格沒有再升、價格沒有再提、競爭者也開始追進，那毛利率就會先告訴你這個故事是不是開始變鈍。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>川湖到底是在賺高營收，還是在賺高品質的細分零組件利潤。</p>
-<p>如果只是營收變大，但：<br>- 成本結構沒有改善<br>- 規格升級帶來的價值沒有充分留在自己手上<br>- 客戶壓價或競爭加劇<br>那營業利益率不一定能一直漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但川湖這種公司更要看：<br>- EPS 成長是不是由高規格機構件本業推動<br>- 還是只是短期景氣熱與量放大帶來的表面爆發</p>
-<p>獲利品質最重要看的就是：<br>- 毛利率是不是健康<br>- 營業利益率是不是同步提升<br>- 淨利率是不是乾淨地跟上<br>- 規格升級能不能持續，而不是很快進入成熟期</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話就是：<br>市場相信川湖不只是搭上這一波 AI 景氣，而是正在吃一條能長期提升內容值的機構件升級主線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且一定要正面面對。</p>
-<p>反方會說：<br>- 本質上還是滑軌與機構件公司<br>- 就算 AI 很強，市場也可能把細分零件故事講過頭<br>- 50 倍本益比與 35 倍以上股價淨值比已經非常極端</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全是。</p>
-<p>川湖這種公司最大的風險不是基本面突然變差，而是只要成長速度稍微放緩，市場就可能先砍估值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這也是很合理的質疑。</p>
-<p>反方會說：<br>- 你再怎麼強，還是供應鏈中的一個零件環節<br>- 內容值可以升，但不可能無限上升<br>- 一旦規格升級進入成熟期，估值就要重新回到比較正常的零組件框架</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>川湖的方向不是錯的，AI 機櫃化、Rack-scale 與高承重滑軌升級也都很強；但市場可能高估了高價值細分機構件內容值提升的持久性，並且把零件故事講得太大，導致高估值對成長放緩極度敏感。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -784,7 +633,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高承重滑軌與機構件內容值提升不如預期。</li><li>毛利率、營業利益率與淨利率無法維持高檔。</li><li>AI 機櫃化、重載化、Rack-scale 對其價值提升貢獻弱於預期。</li><li>市場重新下修對其高價值細分機構件地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高承重滑軌與機構件內容值是否持續提升。</li><li>毛利率、營業利益率與淨利率是否持續維持高品質區間。</li><li>AI 機櫃化與 Rack-scale 趨勢是否持續放大其價值密度。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>川湖不是普通零件商，而是 AI 機櫃化時代的高價值滑軌與機構件供應商；真正關鍵不是營收有多強，而是高承重滑軌與機構件內容值提升能不能持久。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

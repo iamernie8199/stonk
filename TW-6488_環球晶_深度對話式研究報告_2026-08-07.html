@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,197 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-10-風險與失效條件">風險與失效條件</a>
-<a href="#digest-11-估值與市場預期">估值與市場預期</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-估值與市場預期">估值與市場預期</a>
-<a href="#digest-16-估值與市場預期">估值與市場預期</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-估值與市場預期">估值與市場預期</a>
-<a href="#digest-24-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-25-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-26-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要一句話先記住，環球晶本質上是一家半導體上游材料公司，核心產品是矽晶圓，而矽晶圓就是用來承載晶片製造流程的基板，是半導體最基礎、最不可少的材料之一。</p>
-<p>白話講，晶片不是直接從空氣裡長出來的，它必須先長在一片高品質矽晶圓上，再經過沉積、曝光、蝕刻、鍍膜、離子植入等一大串製程，最後才變成一顆一顆晶片。</p>
-<p>所以矽晶圓不像 GPU、CPU 那樣直接面向終端市場，但它是整個半導體工業最基礎的地板。沒有它，後面什麼製程、什麼封裝、什麼 AI 晶片都做不出來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>對，這樣理解最簡單。</p>
-<p>環球晶不是晶圓代工廠，也不是 IC 設計公司，它賣的是讓別人能做晶片的材料。</p>
-<p>而且矽晶圓不是一般商品，它有很高的規格要求，例如：<br>- 尺寸要夠大<br>- 晶體缺陷要夠少<br>- 表面要夠平整<br>- 電性與機械特性要穩定</p>
-<p>尤其當製程走到更先進節點，或者晶片需求擴大到 AI GPU、ASIC、記憶體與先進封裝應用時，材料品質、供應穩定性與尺寸結構都會變得更重要。</p>
-<p>所以環球晶不是只是賣一塊材料，而是在賣整個先進半導體產業最底層、但非常關鍵的基礎能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這就是矽晶圓股最容易讓人誤判的地方。</p>
-<p>它確實很基礎，但它不是那種永遠都穩定高成長的資產。矽晶圓這個產業很吃景氣循環、資本支出週期與供需結構。</p>
-<p>簡單講：<br>- 當下游客戶大擴產、拉貨、先進製程與記憶體需求很強時，矽晶圓供應就會吃緊，價格與獲利會往上<br>- 但如果下游庫存高、成熟製程轉弱、資本支出延後，矽晶圓就會先感受到壓力</p>
-<p>所以矽晶圓公司很特別：<br>- 地位很重要<br>- 但股價與估值常常不是看重要不重要<br>- 而是看下一輪供需循環會不會往上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>它不是絕對全球第一，但它是全球前段班，而且是台灣最重要的矽晶圓廠之一。</p>
-<p>從公司研究頁脈絡來看，環球晶最重要的比較對象包括：<br>- 信越化學<br>- SUMCO<br>- Siltronic<br>- SK Siltron</p>
-<p>這幾家是全球矽晶圓產業最核心的競爭者與比較座標。</p>
-<p>而環球晶的重要性在於：<br>- 它是台灣少數能在全球矽晶圓材料領域有明顯份量的公司<br>- 它在 12 吋矽晶圓擴產與供應鏈布局上有關鍵位置<br>- 它不只受惠成熟製程需求，也受惠 AI、記憶體與先進封裝帶來的中長期需求變化</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話很接近標準答案。</p>
-<p>再幫你修得更準一點：<br>環球晶不是單純矽晶圓景氣股，而是 AI、記憶體與先進封裝需求共同推升下，具備 12 吋矽晶圓供需上行與長約重估機會的上游材料平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-06 的股價資料：<br>- 收盤價 872 元<br>- 單日漲幅 0%<br>- 本益比 40.5 倍<br>- 股價淨值比 4.46 倍<br>- 總市值 4,169 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 6 月營收，公告日 2026-07-07：<br>- 單月合併營收 5,624,376 千元<br>- 年減 1.63%<br>- 月增 16.16%<br>- 近三月合併營收年減 4.96%<br>- 近 12 月營收合併成長 -8.81%</p>
-<p>這組數字很有意思，因為環球晶不是處在營收爆發期，反而現況看起來還有壓力：<br>- 單月營收年減<br>- 近三月年減<br>- 近 12 月成長仍為負</p>
-<p>但市場卻已經願意先用 40 倍左右本益比去看它。這代表市場交易的不是當下財報，而是未來景氣循環翻上的預期。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這就是研究環球晶最重要的第一步。</p>
-<p>市場現在願意給環球晶高估值，不是因為它現在數字已經很好，而是因為市場在提前交易矽晶圓下一輪上行循環。</p>
-<p>也就是說，市場不是在買當下，而是在買幾件未來可能發生的事：<br>- 1H26 是本輪矽晶圓景氣谷底<br>- 2H26 開始 12 吋 ASP 會往上調<br>- 2027–2028 12 吋需求會顯著增強<br>- AI GPU / ASIC、記憶體擴產、CoWoS 先進封裝都會增加 12 吋晶圓消耗<br>- 供給端因為大廠擴產保守，所以未來供需會更吃緊</p>
-<p>所以環球晶這種股票最重要的不是現在好不好，而是市場押的下一輪上行，會不會真的來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話講，就是：<br>環球晶最重要的成長主線，是 12 吋矽晶圓供需循環翻上去，而 AI、記憶體與先進封裝擴產共同拉動需求，帶來 ASP 與獲利修復。</p>
-<p>拆開來看有四層：<br>- AI GPU / ASIC 對先進製程需求上升<br>- CoWoS 與先進封裝增加矽晶圓使用量<br>- 通用型伺服器與記憶體週期回升<br>- 供給端擴產保守</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話非常準。</p>
-<p>市場現在看環球晶，重點不是現在營收有沒有轉正，而是：<br>- 12 吋 ASP 什麼時候開始明顯調升<br>- 這波調升能不能延續到 2027 甚至更久<br>- 需求端是不是不只一個題材，而是 AI、記憶體、先進封裝一起來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>這是環球晶近一段最關鍵的質變訊號之一。</p>
-<p>以前市場對矽晶圓採購的理解，比較偏向：<br>- 客戶希望壓低成本<br>- 長約只是為了鎖量<br>- 如果景氣不好，客戶會盡量保留彈性</p>
-<p>但美光這次 10 年 LTA 加上 5 億美元策略性資金支持，市場解讀出一個新訊號：<br>供應安全開始比短期成本更重要。</p>
-<p>這個訊號的意義很大，因為它代表：<br>- 客戶願意提早鎖定供應<br>- 美國在地供應鏈與地緣政治考量更強<br>- 矽晶圓不再只是價格談判商品，而是關鍵供應保障資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這是最重要的地方。</p>
-<p>如果只是單一客戶多下單，那只是短期利多；但如果代表採購邏輯從壓價格轉成確保供應，那就是整個產業結構的變化。</p>
-<p>這也是為什麼研究頁裡特別強調：<br>- 這可能是下一輪 LTA 與價格談判重新啟動的重要轉折點<br>- 市場思維可能從避免 commitment，轉成提前鎖定供應</p>
-<p>這種結構變化如果成立，對矽晶圓股的估值會非常重要，因為它意味著：<br>- 價格波動可能降低<br>- 長約能見度提高<br>- 供應商議價能力可能改善<br>- 客戶對在地與穩定供應的重視度提升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- SUMCO：全球矽晶圓純龍頭座標 / 供需循環 benchmark<br>- 信越化學：大型綜合半導體材料平台 / 平台型龍頭<br>- 環球晶：聚焦 12 吋矽晶圓主線的核心受惠者 / 循環加長約重估資產<br>- 合晶：台灣矽晶圓景氣循環受惠股 / 敘事中心度較低<br>- 台勝科：台灣矽晶圓主線的次核心映射標的 / 題材代理股色彩較濃</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：SUMCO<br>- 誰最廣：信越<br>- 誰最穩：信越<br>- 誰最有彈性：環球晶<br>- 環球晶卡在哪：聚焦 12 吋矽晶圓主線、同時有 LTA 與供應安全重估敘事的核心受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>如果只講一句話：<br>SUMCO 更像全球矽晶圓景氣循環的純龍頭座標之一，而環球晶更像在全球前段班裡，同時帶有台灣供應鏈位置、美國布局與長約重估想像的綜合型受惠者。</p>
-<p>也就是說：<br>- SUMCO 偏全球純龍頭循環座標<br>- 環球晶偏循環加長約重估的綜合型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不是像信越那樣過度分散到大型材料平台<br>- 也不是像合晶、台勝科那樣比較偏循環映射<br>- 它同時有全球前段班矽晶圓位置、12 吋主線、LTA、供應安全、美國擴產這幾個故事可以疊加</p>
-<p>所以它是非常典型的主線純度夠高、又有結構重估選項的材料股。</p>
-<p>最大的缺點：<br>- 現在的估值已不是便宜的循環股估值<br>- 市場對未來改善有很高期待<br>- 只要 ASP、LTA、需求共振或供給紀律有一項沒跟上，估值就容易先修</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>因為市場在交易的不是當下，而是未來兩到三年的供需轉折。</p>
-<p>環球晶現在的高估值，本質上代表市場相信幾件事：<br>- 1H26 真的是谷底<br>- 2H26 開始 ASP 上升<br>- 2027–2028 年 12 吋需求持續強<br>- 供給端因擴產紀律與資本支出保守，不會很快反應<br>- 長約與供應安全邏輯會讓矽晶圓不再只是純循環商品</p>
-<p>如果這些全部成立，那市場今天願意提前給估值就合理；如果其中一兩個不成立，估值就會很脆弱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會把它拆成五個驗證點：<br>- 12 吋 ASP 是否真的如市場預期在 2H26 開始上升<br>- AI GPU / ASIC、記憶體與先進封裝需求是否真的共同推高矽晶圓消耗<br>- 長約與供應安全邏輯是否從美光個案，擴散成更多客戶與更多談判模式改變<br>- 全球產能布局是否能順利支撐未來需求<br>- 市場對 2027–2028 高獲利的預期，有沒有逐步被財報與價格數據驗證</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>如果只是營收月增一點點，但：<br>- 12 吋 ASP 沒有明顯上行<br>- 長約沒有更多進展<br>- 客戶還是偏向短單或壓價<br>- 產能利用率沒有真正改善</p>
-<p>那市場後面就會開始懷疑：這波是不是只是預期跑太快。</p>
-<p>反過來，如果後續看到：<br>- 12 吋 ASP 確實往上調<br>- 客戶更願意簽中長約<br>- AI、記憶體、先進封裝需求一起增加耗用<br>- 全球產能布局順利接住需求<br>那環球晶就有機會從景氣反轉題材股，被重看成高品質材料平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會這樣講：<br>環球晶真正的關鍵，不是這個月營收有沒有轉正，而是 12 吋 ASP、長約、需求共振與供給紀律，能不能一起把 2027–2028 的獲利平台墊高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- 現在市場把 2027–2028 的美好提前反映很多了<br>- 但眼前營收還是年減，近 12 月成長還是負的<br>- 如果 12 吋 ASP 調漲不如預期，或者需求回升速度比市場慢，現在的估值就沒有那麼安全</p>
-<p>這個反方最厲害的地方在於，它不是否認環球晶重要，而是說：你買的是未來，而未來未必會這麼快兌現。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這也是非常現實的反方。</p>
-<p>矽晶圓再重要，它終究還是材料。市場最願意長期給超高倍數的，通常還是：<br>- 核心晶片<br>- 核心設備<br>- 不可替代的技術平台</p>
-<p>材料股的問題在於，市場會擔心：<br>- 價格能不能持續漲<br>- 供需吃緊會不會很快舒緩<br>- 客戶會不會又回到壓價格模式<br>- 高獲利是不是只是循環甜蜜點</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：12 吋 ASP 是否如市場預期持續調升。</p>
-<p>原因很簡單：<br>- 題材可以很多<br>- AI、記憶體與封裝都能講故事<br>- 長約也可以加分<br>- 但如果 ASP 上不去，市場就很難相信這波高估值預期會真的轉成高獲利現實</p>
-<p>所以最脆弱的驗證，不是單月營收，而是 12 吋價格與議價能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>一般矽晶圓景氣循環股，而不是具 LTA 與供應安全重估的高品質材料平台。</p>
-<p>差別在於：<br>- 前者看景氣、出貨與循環甜蜜點<br>- 後者看長約、供應安全、價格能力與長期平台價值</p>
-<p>一旦切回前者，現在的高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最誠實的答案是：它兩者都有，但現在更偏後者。</p>
-<p>它確實有平台型材料股的條件：<br>- 全球前段班矽晶圓位置<br>- 美國擴產<br>- LTA 與供應安全重估<br>- AI / 記憶體 / 先進封裝需求共振</p>
-<p>但它今天的股價與估值，明顯不是在交易穩穩的當下，而是在交易預期很強的未來。這讓它仍保有高預期高波動循環股的特徵。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>環球晶不是晶片公司，而是矽晶圓材料平台。</p>
-<p>第二句，主線：<br>最大的成長主線，是 12 吋矽晶圓供需循環翻上去，AI、記憶體與先進封裝共同推升需求。</p>
-<p>第三句，價值來源：<br>它受惠的不只是景氣回升，而是供給擴張保守下，ASP 與長約結構的改善。</p>
-<p>第四句，同業定位：<br>SUMCO 最純、信越最廣、信越最穩，而環球晶卡在聚焦主線、又有供應安全重估選項的位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看 12 吋 ASP、長約、需求共振、供給紀律與獲利品質。</p>
-<p>第六句，最重要驗證：<br>價格、長約與需求上行，能不能一起把 2027–2028 的獲利平台墊高。</p>
-<p>第七句，最強反方：<br>它可能只是市場過度提前交易復甦的高預期景氣循環股。</p>
-<p>第八句，最終投資判斷：<br>環球晶真正值不值得這個估值，不是看今天數字有多差，而是看市場預期的價格、長約與供需上行循環，能不能真的在未來兩年兌現。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣講：<br>環球晶是 AI、記憶體與先進封裝需求共振下的 12 吋矽晶圓上游材料平台，但真正決定它值不值得這個估值的，不是今天數字有多差，而是市場預期的價格、長約與供需上行循環，能不能真的在 2027–2028 兌現。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -918,7 +717,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>12 吋 ASP 調升不如預期，供需翻轉速度明顯慢於市場預期。</li><li>下游 AI、記憶體與成熟製程需求回升不足，無法支撐預期中的 2027–2028 高獲利。</li><li>長約與供應安全敘事未能擴散，仍回到以短期價格壓力為主的採購邏輯。</li><li>全球純龍頭或大型平台型材料股更受偏好，導致環球晶的估值彈性受限。</li><li>市場重新把環球晶定價成一般矽晶圓景氣股，而非具 LTA 與供應安全重估的核心標的。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>環球晶、SUMCO、信越、合晶、台勝科在 12 吋 / 8 吋、先進製程 / 成熟製程上的更細產能與 ASP 對照。</li><li>各家在長約覆蓋率、主要客戶結構與地理布局上的更細比較。</li><li>各家在 2027–2028 潛在擴產節奏與供給紀律上的更細對照表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>環球晶不是只靠景氣循環的矽晶圓股，而是 AI、記憶體與先進封裝需求共振下，最有價格、長約與供應安全重估張力的 12 吋材料平台之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

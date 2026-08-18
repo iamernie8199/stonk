@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,116 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-13-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>最白話地講，欣興是做高階 IC 載板與 PCB 的公司，特別是在 ABF 載板這一塊，是台灣最重要的玩家之一。你可以把它理解成：<br>- 晶片不是只做出來就好<br>- 還要有高階載板去承接晶片、記憶體、訊號與電源路徑<br>- 才能讓高效能運算晶片真正進入系統</p>
-<p>所以如果你把 AI 硬體鏈拆開：<br>- 晶片設計：NVIDIA、Broadcom、AMD、聯發科<br>- 晶圓代工 / 先進封裝：台積電<br>- 載板 / 高階基板：欣興、南電、景碩、IBIDEN 等<br>- 板卡 / 系統：鴻海、廣達、緯創等</p>
-<p>欣興就是卡在這個「晶片與系統之間」的關鍵基板位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，不能混在一起看。</p>
-<p>一般 PCB 比較像系統層級的電路板，載板則更靠近晶片本身，要求更高。</p>
-<p>ABF 載板的重要性在於：<br>- 線路密度更高<br>- 尺寸精度要求更高<br>- 訊號與電源完整性要求更高<br>- 與高階封裝、先進製程的搭配更緊密</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果一句話講，欣興的核心投資主線是：<br>AI 晶片與先進封裝需求上升，讓 ABF 載板從傳統高階電子零組件，升級成 AI 時代高度稀缺的關鍵基板資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>你可以這樣記：<br>台積電把高階晶片做出來之後，還需要高階載板把這些複雜的運算能力穩定接到系統裡；欣興就是這個關鍵中介層的重要供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-03 的股價資料：<br>- 收盤價 865<br>- 單日漲幅 9.91%<br>- 本益比 45.9<br>- 股價淨值比 9.05<br>- 總市值 14,197 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 14,897,030 千元<br>- 年增 36.31%<br>- 月增 5.95%<br>- 近三月合併營收年增 32.11%<br>- 近 12 月營收合併成長 20.52%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最直接吃到的，是高階 ABF 載板需求上升。</p>
-<p>尤其在這些領域：<br>- AI GPU / CPU 載板<br>- 網通 ASIC 載板<br>- 高速交換器相關基板<br>- 與 CoWoS / HPC 平台配套的高階載板需求</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>更精準地說，是高階封裝與高階載板需求的上下游連動。</p>
-<p>台積電掌握最核心的先進製程與 CoWoS，但 CoWoS 相關需求外溢時，載板與先進基板環節也會跟著吃到升級紅利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>這些就是欣興估值可以往上再加一層的中長期選擇權。</p>
-<p>ABF 載板是現在的主菜，但市場會再給溢價，是因為它不只停在現在：<br>- 玻璃基板<br>- CoPoS<br>- CPO<br>- 更高階光電 / 高速互連基板<br>都可能是下一輪升級路線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要我先給一個粗分類，我會這樣分：<br>- 欣興：AI 載板平台候選者<br>- 南電：高彈性載板漲價受益者<br>- 景碩：特定載板應用與彈性路線玩家<br>- IBIDEN：國際高階載板龍頭之一<br>- Shinko：日本老牌 ABF 載板廠，但在新世代玻璃基板路線較保守</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：南電（若只看 ABF / 漲價彈性）<br>- 誰最廣：欣興 / IBIDEN<br>- 誰最穩：IBIDEN / Shinko<br>- 誰最有彈性：欣興 / 南電<br>- 欣興卡在哪：台系高階 AI 載板與先進基板的平台候選者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>因為市場現在給它的，不只是 ABF 單一產品週期，而是把它放進：<br>- ABF 載板<br>- CoWoS 外溢<br>- 高速交換器 / ASIC<br>- 玻璃基板 / CoPoS / CPO<br>這些更廣的先進基板敘事裡。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>南電比較像漲價與毛利率彈性受益者；景碩較偏特定品類與彈性；IBIDEN 是全球高階載板比較基準；Shinko 則提醒你老牌載板強者不一定在玻璃基板等新世代路線最前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>因為市場現在對它的定價，不只是「這一波景氣很好」，而是：<br>- 高階 ABF 載板稀缺<br>- 高階基板規格升級<br>- 欣興有機會吃到 CoWoS / ASIC / 高速交換器的外溢高價值需求<br>- 下一代基板路線還有玻璃基板 / CoPoS / CPO 選擇權</p>
-<p>也就是說，45.9 倍本益比反映的是：市場不是只在看載板景氣，而是在看欣興能不能變成 AI 時代的高階基板平台候選者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最重要的是三件事：<br>- ABF 載板與高階基板需求要持續緊張，不能太快回到供需平衡<br>- 毛利率與產品組合要持續往高價值方向走<br>- 欣興要證明自己拿到的是高價值位置，不只是跟著景氣多賣一點貨</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>關係非常直接。</p>
-<p>因為對欣興這種已經高估值化的公司來說，市場最怕的不是需求完全消失，而是：<br>- 量有成長<br>- 但毛利率沒跟上<br>- 或高價值產品占比沒有上升<br>- 或新世代基板敘事落地太慢</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>欣興最怕的是：<br>- 大家以為它是高價值平台候選者<br>- 但最後證明只是 AI 載板景氣受惠股<br>- 新技術敘事又沒有那麼快轉成實際獲利</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全可以，而且這是最有力的反方之一。</p>
-<p>反方會說：<br>- 你現在看到的很多利多，其實來自 AI 帶動的載板需求大增<br>- 但一旦供給追上來，ABF 載板可能就回到比較一般的景氣循環股邏輯<br>- 到時候高估值就會被壓縮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>第二個反方是：市場會不會把太多 CoWoS、玻璃基板、CPO 的想像都先塞到欣興身上？</p>
-<p>第三個反方是：45.9 倍本益比本身就已經很危險。</p>
-<p>也就是說：<br>- 欣興確實是重要玩家<br>- 但不代表這些高階技術升級都一定由它吃到最大價值<br>- 只要新技術導入慢一點，或高價值環節被別人拿走，股價就可能先修正</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -707,7 +587,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階 ABF 載板稀缺性不如預期。</li><li>毛利率與產品組合改善無法持續。</li><li>新世代基板卡位未如預期落地。</li><li>市場重新下修對其高價值平台候選者地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階 ABF 載板稀缺性是否持續。</li><li>毛利率與產品組合是否持續改善。</li><li>新世代基板卡位是否持續成立。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠高階載板稀缺性、產品組合升級與新世代基板卡位來證明自己不只是景氣受惠股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

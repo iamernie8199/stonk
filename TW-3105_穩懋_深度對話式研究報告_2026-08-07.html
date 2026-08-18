@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,180 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-5-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-估值與市場預期">估值與市場預期</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-反方壓力測試">反方壓力測試</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-反方壓力測試">反方壓力測試</a>
-<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-24-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-25-晶圓代工與商業模式">晶圓代工與商業模式</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果你要一句話先記住，穩懋本質上不是一般數位 IC 設計公司，也不是傳統矽晶圓代工廠，而是專做化合物半導體，尤其是 GaAs / GaN 晶圓代工的平台型公司。</p>
-<p>它的角色很特別。你可以把它理解成：<br>- 不是賣終端產品的人<br>- 也不是設計最終系統的人<br>- 而是讓很多高頻、高速、高功率通訊元件能做出來的底層製造平台</p>
-<p>所以你研究穩懋，不能只把它看成手機 PA 公司，也不能只把它看成低軌衛星題材股，而要把它看成：<br>- GaAs / GaN 晶圓代工平台<br>- 功率放大器與高頻元件的核心製造底座<br>- 手機、低軌衛星、光通訊、國防與高頻高速應用的交叉受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，這個方向是對的。</p>
-<p>更精準一點說，穩懋賣的不是最終模組，而是代工製造能力。它的價值在於：<br>- 客戶設計出高頻元件或 PA 架構後<br>- 需要一個真的能量產 GaAs / GaN 晶圓的平台<br>- 而且還要有良率、產能、製程 know-how</p>
-<p>這就是穩懋的價值。它不是品牌商，但它是高頻射頻與光通訊元件供應鏈裡，很難被忽略的中樞製造者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>如果只是因為低軌衛星很紅，穩懋當然會受惠，但市場重估穩懋，不只是因為單一題材而已。</p>
-<p>現在市場重估穩懋，有幾條線一起在發生：<br>- 手機需求從谷底復甦，中高階機型帶動 Cellular PA 回升<br>- 低軌衛星讓高頻段、長距離通訊元件需求提高<br>- 光通訊 PD、CW Laser、InP / GaAs 路線開始被市場放大解讀<br>- 無人機、國防、航太等高頻應用讓 GaN / GaAs 能見度提升<br>- 化合物半導體原料與磊晶晶圓供應偏緊，讓有製造與供應鏈掌握能力的廠商更有價值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>如果你要更精準一點，我會這樣說：<br>穩懋不是單純的手機射頻代工股，而是 GaAs / GaN 晶圓代工平台，受惠於手機復甦、低軌衛星、光通訊與高頻高功率應用擴張的多重主線資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>我會這樣定義：<br>穩懋不是單純的手機射頻代工公司，而是受惠於低軌衛星、光通訊與高頻高功率應用升級的 GaAs / GaN 晶圓代工平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-07 的股價資料：<br>- 收盤價 366 元<br>- 單日漲幅 -4.19%<br>- 本益比 48.6 倍<br>- 股價淨值比 3.79 倍<br>- 總市值 1,552 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,892,049 千元<br>- 年增 31.18%<br>- 月增 7.03%<br>- 近三月合併營收年增 33.44%<br>- 近 12 月營收合併成長 28.46%</p>
-<p>這組數字很強，尤其在一個過去曾深受景氣循環拖累的公司身上，還能看到這種雙位數高成長，市場自然會願意重新評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這就是研究穩懋最重要的地方。</p>
-<p>穩懋現在不是公司很差，而是公司在變好，但市場原本期待更高。</p>
-<p>這也是為什麼你會看到：<br>- 多家機構下修目標價<br>- 但多數仍維持買進</p>
-<p>這不代表主線不存在，而是代表市場在重新調整：<br>- 2Q26 毛利率是不是夠強<br>- 3Q26 展望是不是夠陡<br>- 低軌衛星與光通訊會不會比想像中更慢反映</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>一句話講，就是：<br>穩懋最重要的成長主線，是手機需求復甦打底，同時低軌衛星與光通訊把高頻高功率需求往上推，讓它從單一手機 PA 代工股，變成多應用高頻通訊平台。</p>
-<p>拆開來看有四層：<br>- 手機高階機型與 Cellular PA 的復甦<br>- 低軌衛星需要更高頻段、更高功率、更複雜的射頻元件<br>- 光通訊 PD / CW Laser / InP 路線帶來新想像<br>- 國防、無人機、航太等高頻應用讓 GaN / GaAs 平台戰略價值提升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>很多人看穩懋，只會用手機 PA 角度看它，但市場真正願意再給它機會的，不只是手機復甦，而是：<br>- 低軌衛星<br>- 光通訊<br>- 國防高頻應用<br>- 高頻高功率晶圓代工平台<br>這幾條線可能同時成立。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前它還在從題材走向驗證的路上，但很重要。</p>
-<p>因為穩懋的光通訊布局，不只是喊口號，而是牽涉到：<br>- PD 產品放量<br>- CW Laser 進度<br>- InP / GaAs 製程相容與產能改造<br>- 資料中心光模組升級與長距離傳輸需求</p>
-<p>也就是說，光通訊這條線現在可能還不是最大營收來源，但它會決定市場到底要不要把穩懋重新定義成更高級別的高頻通訊平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- 全新：化合物半導體 / 光通訊 / 射頻交叉的材料與元件平台<br>- 聯亞：高速光互連 / 矽光子 / 上游磊晶能力的高純度光通訊主線股<br>- 環宇-KY：高彈性題材與應用端受惠股<br>- 昇達科：低軌衛星純度高的零組件 / 通訊鏈條受惠股<br>- 穩懋：手機、低軌衛星、光通訊與高頻應用交叉的 GaAs / GaN 代工平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：昇達科（如果你定義純度是低軌衛星單一路徑）或聯亞（如果你定義純度是光通訊）<br>- 誰最廣：穩懋 / 全新<br>- 誰最穩：全新<br>- 誰最有彈性：環宇-KY / 昇達科<br>- 穩懋卡在哪：多主線高頻平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果只講一句話：<br>全新更像化合物半導體 / 光通訊 / 射頻交叉的材料與元件平台，而穩懋更像高頻高功率通訊應用的晶圓代工平台。</p>
-<p>也就是說：<br>- 全新偏材料 / 元件平台<br>- 穩懋偏高頻代工平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>聯亞和穩懋雖然都能放進光通訊與化合物半導體供應鏈，但本質差異很大。</p>
-<p>聯亞更集中在：<br>- 矽光子<br>- optical interconnect<br>- 光收發模組<br>- InP / GaAs 相關上游能力<br>- 1.6T / 3.2T 高速光互連升級</p>
-<p>這表示市場看聯亞時，會更偏向純度很高的光通訊上游主線。</p>
-<p>穩懋則不只光通訊，還有：<br>- 手機 Cellular<br>- 低軌衛星<br>- 國防與高頻高功率應用<br>- 光通訊新平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>最大的優點：<br>- 不像聯亞那樣只押單一路徑<br>- 也不像昇達科那樣主要受單一衛星主線驅動<br>- 同時有手機、低軌衛星、光通訊、國防高頻應用幾個故事可以疊加</p>
-<p>所以它是非常典型的多主線高頻平台股。</p>
-<p>最大的缺點：<br>- 正因為主線比較多，市場不容易像對單一純度標的那樣給它乾脆溢價<br>- 只要多條主線沒一起成立，資金就可能更偏好純度更高或彈性更強的同組標的</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>因為市場在交易的，已經不只是景氣反彈，而是：<br>- 手機復甦<br>- 低軌衛星結構成長<br>- 光通訊新平台<br>- 高頻平台重新評價</p>
-<p>市場願意再給它機會，通常代表它相信幾件事：<br>- Cellular 需求不是一次性回補，而是復甦底部已過<br>- 低軌衛星需求會持續擴張<br>- 光通訊 PD / CW Laser 進度會逐季往前<br>- 穩懋能把高頻應用從單一手機市場，擴到更寬的應用池</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>對，這句話非常準。</p>
-<p>穩懋最關鍵的，不只是營收成長，而是：<br>- Cellular 產品組合是否持續優化<br>- Infra / LEO 需求是否穩定放大<br>- Optical 產品是否真的開始貢獻營收<br>- 光通訊 PD / CW Laser 量產進度是否如期</p>
-<p>也就是說，真正要追的不是單月營收，而是產品組合、主線純度與新成長平台能不能一起成立。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>營業利益率回答的是：<br>多主線成長有沒有真的轉成高品質的經營槓桿。</p>
-<p>淨利率回答的是：<br>股東最後拿到的利潤，是不是由高頻平台升級穩定推升。</p>
-<p>對穩懋來說，高品質獲利至少要看到：<br>- Cellular 組合持續優化<br>- Infra / LEO 需求穩定放大<br>- Optical 產品開始有實質貢獻<br>- 毛利率與產品結構一起變好</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是產品組合、低軌衛星滲透、光通訊量產與高頻平台化能力，能不能一起把 2027 之後的獲利平台墊高。</p>
-<p>如果可以，40~50 倍有平台化想像；<br>如果不行，市場就會把它切回單純循環型手機射頻代工股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- 手機復甦不代表長線平台升級<br>- 低軌衛星需求落地速度可能沒那麼快<br>- 光通訊雖然有題材，但量產貢獻未必很快</p>
-<p>這個反方最厲害的地方在於，它不是否認穩懋現在變好，而是質疑這種好能不能從循環修復，變成真正的高頻平台重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率改善能否跟上營收成長。</p>
-<p>原因很簡單：<br>- 多主線可以很多<br>- 題材可以很熱<br>- 營收可以很強<br>- 但如果毛利率沒有改善，市場就很難相信這是真正的平台升級，而會把它當成循環修復加題材行情</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>單純循環型手機射頻代工股，而不是多主線高頻平台資產。</p>
-<p>差別在於：<br>- 前者看手機循環與短期修復<br>- 後者看平台廣度、量產進度、產品組合與高頻應用擴張</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最誠實的答案是：它正處在從高預期題材股往高品質平台股過渡的驗證期。</p>
-<p>它確實有高品質平台股的條件：<br>- 手機復甦不是唯一主線<br>- 低軌衛星、光通訊、國防高頻應用都可能變成支柱<br>- GaAs / GaN 代工平台有門檻</p>
-<p>但今天的估值告訴你，市場已經先反映一部分未來。後面要靠產品組合、量產進度與毛利率改善來證明不是只有題材。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>穩懋不是終端品牌，而是高頻高功率通訊元件的 GaAs / GaN 晶圓代工平台。</p>
-<p>第二句，主線：<br>最大的成長主線，是手機復甦打底，低軌衛星與光通訊往上疊加。</p>
-<p>第三句，價值來源：<br>它受惠的不只是需求變多，而是高頻應用平台越來越寬。</p>
-<p>第四句，同業定位：<br>全新偏材料平台、聯亞偏光通訊純度、環宇-KY偏題材彈性、昇達科偏低軌衛星純度，而穩懋卡在多主線高頻平台的位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看產品組合、毛利率、營業利益率、淨利率與量產進度。</p>
-<p>第六句，最重要驗證：<br>低軌衛星滲透、光通訊量產與高頻平台化能力，能不能一起把獲利平台墊高。</p>
-<p>第七句，最強反方：<br>它可能只是手機循環修復加低軌衛星 / 光通訊題材放大，而不是長期平台重估。</p>
-<p>第八句，最終投資判斷：<br>穩懋真正值不值得市場重新高看，不是看這一季營收多好，而是看產品組合、量產進度與毛利率改善能不能一起做實。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>我會這樣講：<br>穩懋是受惠於手機復甦、低軌衛星與光通訊升級的 GaAs / GaN 晶圓代工平台，但真正決定它值不值得市場重新高看，不是這一季營收有多好，而是產品組合、量產進度與高頻平台化能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -879,7 +695,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>手機復甦無法持續，組合改善停滯。</li><li>多主線無法同時成立，市場重新把穩懋定價成單純循環型手機射頻代工股。</li><li>光通訊與低軌衛星進度不如預期，平台化故事轉弱。</li><li>毛利率改善不夠快，無法支撐平台重估。</li><li>資金持續偏好主線純度更高或彈性更強的同組標的，削弱穩懋的相對吸引力。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>低軌衛星、手機與光通訊三條線在營收中的更細拆分。</li><li>PD / CW Laser 的量產節奏與實際獲利貢獻。</li><li>穩懋與全新 / 聯亞 / 環宇-KY / 昇達科在各自主線中的營收與產品拆分比較。</li><li>穩懋在不同高頻應用市場的中長期份額與產品路徑。</li><li>多主線平台化如何轉成毛利率與獲利平台提升的更細量化證據。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>穩懋不是單一手機 PA 股，而是手機復甦、低軌衛星與光通訊交叉驅動的高頻通訊平台；真正關鍵不是題材有多滿，而是毛利率、量產進度與多主線能不能一起做實。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

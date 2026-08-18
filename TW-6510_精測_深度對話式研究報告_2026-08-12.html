@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-13-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-14-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，精測不是只在賣一般測試耗材，它是在賣 AI / HPC 晶片測試流程裡的高內容值驗證介面能力。</p>
-<p>以前市場可能把它看成測試板或探針卡公司，但現在更準確的理解是：<br>它是站在探針卡、測試板、KGD / Chiplet 測試前移與 AI / HPC 晶片高頻高速驗證之間的高階測試介面公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對。它不是只看單一終端，也不是只靠單一耗材。精測最核心的優勢，在於：<br>- 探針卡 / 測試板基本盤<br>- AI / HPC 晶片測試需求外溢<br>- KGD / 先進封裝驗證前移與高頻高速測試介面平台外延</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>精測現在最核心的身份，是高階測試介面平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是探針卡 / 測試板基本盤。<br>第二條，是 AI / HPC 晶片測試需求外溢。<br>第三條，是 KGD / Chiplet / 先進封裝測試前移帶來的平台外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-13 的股價資料：<br>- 收盤價 2,820 元<br>- 單日漲幅 -0.18%<br>- 本益比 44.3 倍<br>- 股價淨值比 9.46 倍<br>- 總市值 928 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-03：<br>- 單月合併營收 614,606 千元<br>- 年增 49.87%<br>- 月增 7.09%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>市場不是只在買單月營收，而是在買三件事：<br>- 探針卡 / 測試板基本盤韌性<br>- AI / HPC 晶片測試需求外溢能不能持續<br>- KGD / Chiplet / 先進封裝前移能不能把精測從測試耗材股推成更完整的平台型公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是單一晶片景氣循環，那市場最後還是只會把它看成測試耗材景氣股；但如果探針卡 / 測試板能變成長週期高規格驗證基本盤，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果基本盤只是短線高峰，市場會提早反映又提早修正；但如果探針卡 / 測試板能維持高規格驗證地位，精測的定位就不只是測試耗材景氣股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這條線真正值錢的，不只是 AI 題材，而是 AI / HPC 晶片對測試介面的規格要求提高：<br>- 探針卡<br>- 測試板<br>- 高頻高速測試介面<br>- AI ASIC / GPU<br>- HPC 晶片測試需求外溢</p>
-<p>這些不是單純量增，而是單位價值量與技術門檻提升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>市場願意給精測不只是一般測試耗材股的估值，不是因為短線出貨而已，而是因為它如果成功把 AI / HPC 晶片測試升級做成內容值提升主線，估值框架就會抬高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 AI / HPC 測試需求只是短期爆發，市場會提早反映又提早修正；但如果高頻高速驗證真的變成長期結構，精測的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>第三條主線是平台外延。</p>
-<p>如果前兩條主線代表今天最受關注的探針卡 / 測試板基本盤與 AI / HPC 測試升級，那第三條主線代表的是：<br>公司不是只有傳統測試耗材，而是還在往 KGD、Chiplet、CoWoS 前移驗證與高頻高速介面延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全正確。</p>
-<p>KGD / Chiplet / 先進封裝前移短期不是全部主體營收，但它會影響市場願不願意給精測比較高的估值框架，因為那代表公司不是只守住既有耗材，而是真的在往更完整的高階測試介面平台靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果 KGD / Chiplet / CoWoS 前移最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像旺矽那樣探針卡營收比重更高，也不像穎崴那樣更偏 Socket / 測試介面切角。它比較像是站在探針卡、測試板與高階驗證介面中間層的平台公司。</p>
-<p>所以比較時要分層：<br>- 跟旺矽比：探針卡純度與高階測試耗材座標<br>- 跟穎崴比：測試介面 / Socket / 高速驗證座標<br>- 跟京元電子 / 致茂比：測試鏈中平台位置與角色座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：旺矽（若只看探針卡純度）<br>- 誰最廣：致茂 / 京元電子（若看整個測試鏈）<br>- 誰最穩：致茂<br>- 誰最有彈性：精測<br>- 精測卡在哪：高階測試介面平台公司<br>- 最像的比較對手：旺矽 / 穎崴<br>- 最不像的比較對手：單純成熟製程測試耗材廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>因為市場不是把它當一般測試耗材景氣股，而是把它當：<br>- 探針卡 / 測試板基本盤穩健股<br>- AI / HPC 晶片測試升級受惠股<br>- 帶有 KGD / Chiplet / 先進封裝前移平台化選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是精測目前的估值本質：<br>- 如果它只是高成長一陣子的測試耗材股，那 44 倍本益比有其天花板<br>- 如果它真的是高階測試介面平台股，那目前的高估值才有支撐基礎</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 AI / HPC 測試需求只是短線高峰，而 2027 之後沒有新的高價值驗證介面接上，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高內容值新方向很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- AI / HPC 測試需求不如預期<br>- 高頻高速介面沒有持續升級<br>- KGD / Chiplet / 先進封裝前移沒有形成第二條穩定曲線<br>那精測就可能被切回「高成長一陣子的測試耗材股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -764,7 +627,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高內容值測試介面產品占比提升不如預期。</li><li>KGD / Chiplet / CoWoS 前移外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高階測試介面平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高內容值測試介面產品占比是否持續提升。</li><li>KGD / Chiplet / CoWoS 前移外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>精測不是多賣幾張測試板而已，而是要靠 AI / HPC 測試升級、KGD / Chiplet 前移與高頻高速驗證介面，把自己從測試耗材廠往高階測試介面平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

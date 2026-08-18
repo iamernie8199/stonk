@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,165 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-風險與失效條件">風險與失效條件</a>
-<a href="#digest-12-估值與市場預期">估值與市場預期</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-估值與市場預期">估值與市場預期</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-第-18-段">第 18 段</a>
-<a href="#digest-19-第-19-段">第 19 段</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-<a href="#digest-22-估值與市場預期">估值與市場預期</a>
-<a href="#digest-23-風險與失效條件">風險與失效條件</a>
-<a href="#digest-24-估值與市場預期">估值與市場預期</a>
-<a href="#digest-25-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>如果一句話先記住，昇達科不是在賣「衛星夢」，它是在賣衛星與高頻通訊系統裡那些少量、但價值很高、而且規格門檻很高的微波元件。</p>
-<p>很多人一聽低軌衛星就會想到火箭、衛星本體、終端天線，但昇達科不是那一層。它比較像是站在高頻訊號鏈裡，靠高規格微波元件、波導元件、濾波與功率處理能力去吃升級紅利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。它不是像啟碁那樣更靠近系統端，也不是像廣義網通整機廠那種大量出貨型玩家。昇達科的特點是：<br>- 單一元件價值量高<br>- 規格要求高<br>- 高頻 / 微波領域 know-how 深<br>- 出貨量可能不大，但一旦切進去，毛利率和獲利品質會很好</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>昇達科現在最核心的身份，是低軌衛星與高頻通訊升級過程中的高毛利微波元件供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>我會先把它收斂成兩條。</p>
-<p>第一條，是低軌衛星相關需求，包括地面站、終端、射頻鏈與高頻通訊升級。<br>第二條，是高規格微波元件在更高頻、更高功率、更高可靠度場景裡的內容值上升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 1,275 元<br>- 單日漲幅 3.24%<br>- 本益比 65.4 倍<br>- 股價淨值比 25.17 倍<br>- 總市值 877 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 230,139 千元<br>- 年增 82.02%<br>- 月減 10.36%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>高，毫無疑問是高。但高本益比本身不是結論，重點是市場為什麼願意給這麼高。</p>
-<p>市場願意給昇達科這種估值，不是因為它今天賺很多，而是因為它被理解成：<br>- 衛星 / 高頻通訊長週期受惠股<br>- 小體量高毛利元件公司<br>- 成長彈性來自內容值而不是單純量</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>低軌衛星不是只是讓市場多一個想像，而是實際改變高頻通訊系統對元件的要求。頻率更高、功率更高、穩定度更高、環境更嚴苛，這些都會讓真正有技術門檻的元件變得更值錢。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>如果把需求拆開來看，昇達科不是押單一節點，而是吃高頻訊號鏈裡幾個都很關鍵的位置。</p>
-<p>從公司頁現有脈絡看，它主要受惠的是：<br>- 衛星射頻鏈條本身的高頻元件需求<br>- 地面站 / gateway 端高頻通訊鏈升級<br>- 終端相關高頻訊號處理需求</p>
-<p>重點不是哪一段量最大，而是哪一段的規格最難、供應商最少、ASP 最能往上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>這也是它和很多一般網通股最大的差別。市場不是把它當大量出貨型公司，而是把它當高規格元件供應商。對這種公司來說，關鍵不是單季出貨台數，而是：<br>- 有沒有切進更高價值鏈<br>- ASP 能不能往上<br>- 毛利率能不能持續維持高檔</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這正是昇達科目前最值得研究的地方。</p>
-<p>如果你相信低軌衛星與高頻通訊會是幾年級別的長週期升級，那昇達科的高估值還有被解釋的空間；但如果你認為市場只是把衛星題材過度外推，那 65 倍本益比就會很脆弱。</p>
-<p>所以這家公司不是單純看營收，而是看你怎麼判斷「題材」與「長週期需求」的邊界。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>第二條主線更本質，就是昇達科在整個供應鏈的位置很小，但很關鍵。</p>
-<p>很多投資人一看到小公司就以為風險比較大，但昇達科這種公司要看的是：<br>- 它是不是賣關鍵小零件<br>- 這些小零件是不是很難替代<br>- 一旦切進去，客戶是不是不會輕易換供應商</p>
-<p>如果答案是是，那小體量反而變成高彈性的來源。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，而且這正是市場願意給高估值的核心邏輯。</p>
-<p>低軌衛星與高頻通訊不是每家網通零件廠都能做，真正能做出高規格、高一致性、高可靠度的元件供應商，本來就少。昇達科被市場高看，本質上就是因為它站在這個少數玩家的位置上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>對這類公司，最重要的不是產能有多大，而是：<br>- 頻率越往上走，元件精度與損耗控制能不能跟上<br>- 高功率環境下穩定性是否足夠<br>- 長時間使用下的一致性與可靠度是否過關<br>- 客戶認證周期是不是很長、替換成本是不是很高</p>
-<p>這些都會決定昇達科是不是能長期維持高毛利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>重要，但要分層看。</p>
-<p>巨頻科技與 THz 的意義，不是立刻讓今年 EPS 爆炸，而是替昇達科補一條往更高頻、更高階互連、甚至資料中心與半導體相關應用延伸的選項。</p>
-<p>越南廠的意義則比較實際：<br>- 它對應的是未來幾年需求能不能接住<br>- 也對應客戶是否真的願意把更多訂單交給它</p>
-<p>所以你可以把它們理解成：<br>- 巨頻科技 / THz：長線能力外延<br>- 越南廠：中期產能與交付能力驗證</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這就是 expansion 2 之後要抓住的重點。</p>
-<p>如果昇達科最後只能停在單一衛星題材，估值很容易跟著題材波動；但如果它能把微波元件能力往更廣的高頻與高速互連平台延伸，那市場就可能慢慢把它從「衛星題材股」升級成「高頻技術平台股」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>這是昇達科最容易被誤判的地方。</p>
-<p>它不是一般網通整機廠，也不完全像射頻前端 IC 設計股，更不是衛星整機公司。它比較像在高頻通訊鏈條裡，提供高毛利微波元件的專家型公司。</p>
-<p>所以比較時要分層：<br>- 跟啟碁比：啟碁更靠系統與終端<br>- 跟全新比：全新比較偏另一類高頻材料 / 元件邏輯<br>- 跟大系統廠比：平台邊界完全不同</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>如果先用目前版本收斂：<br>- 誰最純：昇達科（若只看低軌衛星 / 高頻微波元件主線）<br>- 誰最廣：啟碁<br>- 誰最穩：啟碁 / 大型系統端供應商<br>- 誰最有彈性：昇達科<br>- 昇達科卡在哪：低軌衛星與高頻通訊升級鏈裡的高毛利專家型元件供應商<br>- 最像的比較對手：全新<br>- 最不像的比較對手：廣義網通整機廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-第-18-段">
-<div class="digest-title">第 18 段</div>
-<div class="content"><p>對。這種公司不是靠廣度吃飯，而是靠純度與技術門檻吃飯。</p>
-<p>也正因為它純，所以波動會比較大，但如果主線對，彈性也會非常大。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-第-19-段">
-<div class="digest-title">第 19 段</div>
-<div class="content"><p>因為市場不是把它當一般小型電子零件股，而是把它當：<br>- 低軌衛星長週期受惠股<br>- 高規格高毛利元件供應商<br>- 小體量高彈性公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是昇達科目前估值辯論的本質：<br>- 如果它只是衛星題材股，那 65 倍本益比很危險<br>- 如果它真的是高頻元件長週期平台化的早期公司，那高估值就未必完全站不住腳</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>對，因為它們代表市場不只是看「現在的衛星元件」，而是看：<br>- 公司能力是否能往更高頻延伸<br>- 產品是否能往高速互連與新應用延伸<br>- 產能是否能承接接下來幾年的需求</p>
-<p>也就是說，這些不只是利多新聞，而是「平台化是否成立」的重要旁證。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全合理，而且這就是最大的反方。</p>
-<p>如果低軌衛星需求沒有按市場預期持續滲透，或導入節奏比想像慢，那高本益比就很容易先被修正。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這也是很真實的風險。</p>
-<p>小體量帶來高彈性，但也意味著：<br>- 客戶集中風險<br>- 專案波動風險<br>- 市場情緒放大風險<br>都會比大平台公司高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。65 倍本益比本身就在提醒你：<br>市場不是在買現在，而是在買未來幾年持續往上的斜率。</p>
-<p>這代表只要成長有一點放緩，估值就可能先壓縮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這才是最硬的問題。</p>
-<p>真正要驗證的是：<br>- 低軌衛星需求是不是可持續<br>- 高頻元件 ASP 與毛利率能不能維持<br>- 巨頻科技 / THz / 越南廠是否真的轉成能力延伸，而不是只停在故事層<br>- 市場是否會把它從「純題材股」升級成「高頻元件平台股」</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -848,7 +679,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格產品占比不如預期。</li><li>低軌衛星滲透不如預期。</li><li>毛利率、營業利益率與淨利率無法持續維持高檔。</li><li>市場重新下修對其高頻元件高毛利平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格產品占比是否持續維持高檔。</li><li>低軌衛星與高頻通訊需求是否持續放大。</li><li>毛利率、營業利益率與淨利率是否一起維持高檔。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>昇達科不是在賣衛星夢，而是在賣低軌衛星與高頻通訊升級裡那些少量但高價值、而且越來越值錢的微波元件。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

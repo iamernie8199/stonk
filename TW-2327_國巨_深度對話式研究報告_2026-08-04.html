@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,153 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-估值與市場預期">估值與市場預期</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個問題很好，因為國巨最難的地方就在於：<br>它賣的東西看起來小、舊、沒那麼性感，但其實是每一台電子設備都少不了的基礎零件。</p>
-<p>最白話地講，國巨是一家全球級的被動元件公司，核心產品包括：<br>- MLCC<br>- 電阻<br>- 電感相關產品<br>- 特殊應用被動元件</p>
-<p>這些東西雖然單價不高，但從手機、PC、車用電子，到 AI 伺服器、工業設備，幾乎都需要大量使用。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>被動元件最簡單的理解方式，就是：<br>它不像 CPU 或 GPU 那樣負責運算，但它負責讓整個電子系統可以穩定運作。</p>
-<p>例如：<br>- MLCC 幫忙穩壓、濾波、儲能<br>- 電阻負責控制電流與電壓<br>- 電感在電源管理與訊號路徑裡也很重要</p>
-<p>所以它們不會是產品最顯眼的部分，但如果沒有這些元件，整個系統根本跑不起來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>國巨最適合放在「高規格零組件 / 材料升級股」這個框架裡，但它和一般只靠單一規格升級的零組件股不太一樣，它還帶有很強的平台化特徵。</p>
-<p>因為它最值錢的地方不是某一顆元件突然爆紅，而是：<br>- 高規格需求升級<br>- 平台化產品組合<br>- 全球併購整合能力<br>- 更廣、更深、更高可靠度的客戶覆蓋<br>這幾件事一起發生。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是國巨能不能從景氣股變高品質公司的關鍵。</p>
-<p>如果它只是賣很多，市場很快就會把它拉回循環股框架。</p>
-<p>但如果它賣的是：<br>- 更高規格<br>- 更高可靠度<br>- 更長生命週期<br>- 更難切換供應商<br>的應用，那市場就更有理由給它較高估值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果從現在市場最在意的角度看，國巨最直接受惠的主線有三條：<br>- 車用電子<br>- 工業與高可靠度應用<br>- AI 伺服器與高階運算設備</p>
-<p>其中最重要的關鍵不是單純出貨量，而是規格升級。</p>
-<p>因為高階應用通常意味著：<br>- 單機使用量更多<br>- 規格要求更高<br>- 客戶更重視穩定供應與品質認證<br>- 價格與毛利結構通常也比較健康</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>沒錯，它不是第一眼就想到的 AI 股，但它是標準的 AI 基建下游廣義受惠者。</p>
-<p>AI 伺服器、加速卡、電源管理、網通設備，都會用到大量被動元件。而且高功率、高密度、高可靠度系統，對 MLCC 和電阻等元件的規格要求會更高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果以投資價值排序，我會這樣看：<br>- 第一順位：車用與工控<br>- 第二順位：AI 伺服器<br>- 第三順位：一般消費電子循環</p>
-<p>真正能撐住高估值的，不是一般景氣回升，而是高規格應用占比持續提升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>差別很大。</p>
-<p>如果只是單一品類公司，市場通常會把你當成：<br>- 景氣循環股<br>- 某一個產品報價波動的受害者或受惠者</p>
-<p>但國巨這幾年最大的變化，是透過併購與整合，讓自己變成全球平台型供應商。</p>
-<p>這代表：<br>- 產品線更廣<br>- 客戶覆蓋更深<br>- 區域布局更完整<br>- 對價格與供應穩定性的掌握更強</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>國際上像：<br>- 村田<br>- 太陽誘電<br>- 京瓷<br>- 三星電機<br>這些都是重要的大型玩家。</p>
-<p>台灣這邊像：<br>- 華新科<br>- 禾伸堂<br>則更常被拿來做本地比較。</p>
-<p>國巨在這群裡最重要的特色，不是單一產品最強，而是它在平台化、併購整合、全球布局與產業地位上的綜合能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：華新科（若只看本地被動元件純度）<br>- 誰最廣：國巨<br>- 誰最穩：村田 / 國巨<br>- 誰最有彈性：太陽誘電 / 華新科<br>- 國巨卡在哪：全球平台型被動元件供應商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>如果要抓最核心的差異，我會這樣拆。</p>
-<p>第一，國巨最值錢的不是單一產品技術的極致，而是平台化與整合能力。</p>
-<p>第二，和華新科相比，國巨更像全球級玩家。華新科比較容易被當成台灣本地可比公司，國巨則更容易被放到國際被動元件大廠框架裡看。</p>
-<p>第三，和村田、太陽誘電、三星電機這些國際大廠相比，國巨的投資吸引力更多來自：<br>- 併購整合後的平台化<br>- 高規格需求受惠<br>- 估值與成長想像的重新定價</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，很高，而且這也是國巨最值得研究的地方。</p>
-<p>市場願意給這麼高，代表它不是把國巨單純當報價循環股看。</p>
-<p>它在買的是：<br>- 高規格應用升級<br>- 車用 / 工控 / AI 需求結構改善<br>- 平台化整合能力<br>- 較好的產業地位與獲利品質想像</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 573<br>- 本益比 31.1<br>- 股價淨值比 7.07<br>- 總市值 11,795 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-07：<br>- 單月合併營收 15,359,009 千元<br>- 年增 38.91%<br>- 月增 2.0%<br>- 近三月合併營收年增 35.66%<br>- 近 12 月營收合併成長 20.74%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為高估值不會只因為營收成長就成立，高估值真正要靠的是：<br>- 毛利率穩定<br>- 產品組合升級<br>- 客戶結構更健康<br>- 高規格應用占比提升<br>- 週期波動被平台能力部分平滑</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對國巨來說，回答的是：<br>它賣的到底只是量，還是更高規格、更高可靠度、更難切換供應商的價值。</p>
-<p>如果高規格應用占比提升，客戶更重視品質與供應穩定，毛利率通常能撐得比較好；如果最後只是景氣回升、一般品項補庫存，那毛利率就會更容易被視為短期循環而不是結構升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>國巨到底是在賺景氣修復，還是在賺高品質的平台化利潤。</p>
-<p>如果只是營收回來，但：<br>- 產品組合沒有持續升級<br>- 高規格應用占比提升不夠<br>- 平台化沒有真的平滑波動<br>那營業利益率不一定能一直漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但國巨這種公司更要看：<br>- EPS 成長是不是主要由本業高規格需求與平台化能力推動<br>- 還是只是短期景氣與補庫存推上去</p>
-<p>獲利品質最重要看的就是：<br>- 毛利率是不是健康<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 平台化是否真的降低週期波動，而不只是暫時敘事</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>一句話就是：<br>市場相信國巨不只是循環股，而是高規格需求升級下的全球平台型供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 不管怎麼包裝，國巨終究還是被動元件公司<br>- 被動元件還是有景氣循環和庫存波動<br>- 高估值可能只是市場把車用、AI、工控故事一次講太滿</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>對，這也是很現實的風險。</p>
-<p>平台化可以提高韌性，但不代表完全消除週期。</p>
-<p>所以反方會說：<br>- 就算國巨變大、變廣、變全球化<br>- 只要電子景氣下修<br>- 只要高階需求不如預期<br>- 只要報價鬆動<br>它還是會被市場重新當景氣股看待</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全是。</p>
-<p>31 倍對被動元件股來說，已經不是便宜反映未來，而是未來已經被要求很高。</p>
-<p>只要發生：<br>- 成長率不如預期<br>- 毛利率沒撐住<br>- 高規格應用放量速度不如想像<br>- 市場重新把它歸類成傳統循環股<br>估值就可能先被壓縮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>國巨的方向不是錯的，高規格需求升級與平台化也可能成立；但市場可能高估了平台化對週期波動的平滑效果，以及車用 / 工控 / AI 需求支撐高估值的持久性。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -804,7 +647,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格應用占比提升不如預期。</li><li>平台化未能有效降低週期波動。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其平台化與高品質獲利的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格應用占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否持續往上。</li><li>平台化是否真的讓週期波動變小。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>國巨不是單純被動元件景氣股，而是高規格需求升級下的全球平台型供應商；真正關鍵不是營收有多強，而是平台化能不能真的把週期波動變小、把獲利品質拉高。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,135 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-估值與市場預期">估值與市場預期</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-<a href="#digest-20-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>萬潤最容易被看錯的地方，就是它看起來像一般設備股，但市場其實在看的是它在先進封裝、自動化與特殊製程需求中的位置。</p>
-<p>最白話地講，萬潤不是做晶片、不是做封裝代工，而是做那些讓先進封裝、面板級封裝、共同封裝光學等製程可以被穩定放大的設備與自動化環節。</p>
-<p>所以它不是最上游的技術發明者，但它很可能是量產化、製程落地化、設備鏈前移裡面的受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>比較準確的說法是：它是先進封裝設備與自動化鏈上的綜合型受惠者。</p>
-<p>它的價值不在單一料號，而在於：<br>- 先進封裝流程變複雜<br>- 設備環節變多<br>- 良率與自動化要求提高<br>- CoWoS / CoPoS / PLP / CPO 等不同技術路線都可能拉到它的需求</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>萬潤最適合放在「高規格零組件 / 材料升級股」這個框架裡，但這裡的升級不是材料，而是設備與自動化密度升級。</p>
-<p>它最值錢的地方，不在單一核心產品絕對最強，而在於：<br>- 多條先進封裝技術路線都會把設備複雜度往上推<br>- 量產化過程裡，自動化與設備整合需求密度提高<br>- 它有機會站在多題材交集處，吃到設備升級與導入放量</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話講：<br>萬潤現在最重要的身份，是先進封裝設備與自動化升級浪潮中的高彈性受惠股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最直接受惠的主線有四條：<br>- CoWoS<br>- CoPoS<br>- 面板級封裝 PLP / FOPLP<br>- CPO / 矽光子相關設備需求</p>
-<p>這些共同點是：<br>- 製程更複雜<br>- 良率要求更高<br>- 自動化與設備密度更高<br>- 量產導入不是靠一台設備就能解決</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對，這就是萬潤最迷人的地方之一。</p>
-<p>它不是只押單一標準答案，而是押在「不管哪條封裝路線往前走，設備複雜度都會變高」這件事上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
-<p>第一順位，是先進封裝量產化後對自動化與設備整合需求的提升。這是萬潤最能吃到的主線。</p>
-<p>第二順位，是 CoPoS 與面板級封裝 PLP 這類新封裝路線的設備擴充。</p>
-<p>第三順位，是 CPO / 矽光子這些更前沿但仍帶有較多驗證成分的題材。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話就是：<br>萬潤現在最強的主線，是先進封裝與自動化設備密度提升下的高彈性設備受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 弘塑：濕製程設備龍頭，角色更明確、更深<br>- 志聖：壓膜 / 貼合 / 烘烤 / bonder 等封裝設備受惠者<br>- 均華：先進封裝精密設備與高階設備鏈代表之一<br>- 萬潤：設備與自動化升級中，高彈性、多題材交集的受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：弘塑<br>- 誰最廣：萬潤<br>- 誰最穩：弘塑 / 志聖<br>- 誰最有彈性：萬潤<br>- 萬潤卡在哪：多題材交集型高彈性設備受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>萬潤比較像一個：<br>- 先進封裝<br>- 自動化<br>- PLP<br>- CoPoS<br>- CPO / 矽光子<br>這幾條線交叉受惠的資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>最直接的弱點通常是：<br>- 單一核心定位沒有那麼鮮明<br>- 有些敘事更偏未來想像，而不是現在已完全落地<br>- 市場可能會用更高的預期去要求它</p>
-<p>所以萬潤的優勢是想像空間大，但缺點也是：只要成長或驗證節奏不如預期，估值壓縮會很快。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對萬潤這種高估值設備股，我會分三層看。</p>
-<p>第一層是毛利率。<br>這回答的是：<br>- 它賣的設備是不是更高規格<br>- 技術或產品組合有沒有升級<br>- 單位價值有沒有提高</p>
-<p>第二層是營業利益率。<br>這回答的是：<br>- 成長有沒有真的轉成營運槓桿<br>- 研發、銷管、擴產成本有沒有被營收吸收<br>- 公司是不是不只賣得多，而是經營效率也變好</p>
-<p>第三層是淨利率。<br>這回答的是：<br>- 最後股東真正拿到多少利潤<br>- 有沒有業外、一次性收益、稅率或匯兌在扭曲結果</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果只能挑一層，我會說是營業利益率。</p>
-<p>毛利率可以告訴你產品值不值錢，但營業利益率才能告訴你：公司有沒有把這種高規格設備需求，真的轉成高品質成長。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率當然重要，但我會把它放在最後確認，而不是第一個抓來判斷。</p>
-<p>因為淨利率很容易被業外影響。正確順序是：<br>- 先看毛利率：產品是不是升級<br>- 再看營業利益率：成長有沒有轉成經營效率<br>- 最後看淨利率：股東最後拿到的結果是不是乾淨</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話就是：<br>市場相信萬潤不是只搭到單一封裝題材，而是有機會把多條先進封裝設備升級需求，轉成高品質、高槓桿的營運成長。</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 1090<br>- 本益比 44.6<br>- 股價淨值比 15.65<br>- 總市值 1,069 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,054,680 千元<br>- 年增 73.44%<br>- 月增 4.17%<br>- 近三月合併營收年增 68.81%<br>- 近 12 月營收合併成長 7.47%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 你可以說它受惠 CoWoS<br>- 也可以說它受惠 CoPoS<br>- 還可以說它受惠 PLP、CPO、矽光子<br>- 但這麼多故事，不代表每一個都會同時兌現</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全是。</p>
-<p>這種高估值的本質就是：市場願意先相信未來。但只要未來稍微沒那麼快實現，估值就會先修正。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這也是很重要的質疑。</p>
-<p>反方會說：<br>- 弘塑在濕製程設備上的核心性比較明確<br>- 志聖在某些封裝設備流程上的角色也更容易定義<br>- 萬潤雖然題材多，但單點護城河是否足夠深，還要再看</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：萬潤的方向不是錯的，先進封裝、自動化與新封裝路線升級也都可能成立；但市場可能高估了它把多條封裝題材轉成持續設備營收與高品質獲利的速度與幅度，而高估值會讓任何驗證放慢都先反映在評價壓縮上。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -755,7 +616,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>先進封裝題材落地速度明顯放緩。</li><li>設備導入節奏低於市場預期。</li><li>營業利益率與獲利品質沒有隨高規格設備需求改善。</li><li>市場重新把它當成普通設備股，而不是多題材設備升級股。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>先進封裝與新封裝路線的設備導入節奏。</li><li>營業利益率與獲利品質是否持續改善。</li><li>題材是否穩定轉成設備營收，而非只停留在敘事層。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>這是一檔需要用封裝題材落地、設備營收轉換與高品質獲利來持續驗證的高彈性設備股。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

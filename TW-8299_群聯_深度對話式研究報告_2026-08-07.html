@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,164 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-24-反方壓力測試">反方壓力測試</a>
-<a href="#digest-25-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>如果你要一句話先記住，群聯本質上是一家記憶體控制晶片與 SSD 解決方案公司，核心不是自己去做 NAND 晶片，而是把 NAND 這種原始儲存媒介，透過控制器、韌體、模組整合與系統設計，變成可在消費性、工業級與企業級場景真正被使用的產品。</p>
-<p>很多人一看到記憶體股，就直覺把它跟做晶圓或做 DRAM / NAND 原廠混在一起。但群聯的價值不在於自己擁有最多晶圓產能，而在於它扮演的是如何把記憶體用得更有效率、更穩定、更符合系統需求的關鍵角色。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>這個問題很重要，因為它直接決定你要不要把群聯當成高品質公司看。</p>
-<p>NAND 本身只是儲存介質，像原料。可是你要把這個原料變成一個真正可用、可管理、可穩定讀寫、可在不同場景運作的儲存產品，中間需要很強的控制能力。</p>
-<p>控制器的重要性在於：<br>- 管理資料寫入 / 讀出<br>- 管理壞塊與耐用度<br>- 提升效能與穩定性<br>- 讓不同 NAND 顆粒與不同平台可以順利整合<br>- 在企業級場景中滿足可靠度、延遲、壽命與功耗要求</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>對，這個方向是對的。</p>
-<p>群聯不是 NAND 晶圓原廠，它更像是：<br>- NAND 控制器供應商<br>- SSD 解決方案供應商<br>- 把儲存產品做成可落地模組與平台的人</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只是記憶體景氣回來，群聯可以受惠，但不一定會被市場用這麼高品質的方式重看。</p>
-<p>現在市場在意群聯，有兩條線同時發生。</p>
-<p>第一條，是傳統的 NAND / SSD 景氣循環改善。這會帶動出貨、價格、庫存修正與獲利回升。</p>
-<p>第二條，也是更重要的一條，是 AI 與資料中心架構升級，讓儲存不再只是容量問題，而是系統設計問題。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-06 的股價資料：<br>- 收盤價 2,025 元<br>- 單日漲幅 9.76%<br>- 本益比 6.7<br>- 股價淨值比 5.94<br>- 總市值 4,404 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 24,852,784 千元<br>- 年增 301.00%<br>- 月增 8.87%<br>- 近三月合併營收年增 279.47%<br>- 近 12 月營收合併成長 157.18%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這正是群聯最值得研究的地方。</p>
-<p>如果一家公司營收年增 300%，本益比卻只有 6 到 7 倍，通常代表市場不是沒看到數字，而是對數字的可持續性、品質或峰值性有很大保留。</p>
-<p>市場可能在想幾件事：<br>- 這是不是景氣循環高點<br>- 這波毛利率是不是異常高，後面會掉下來<br>- 記憶體價格循環好轉是不是已經接近最甜區間<br>- AI 儲存與企業級 SSD 的升級邏輯，究竟能不能撐到 2027 甚至更久</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>群聯最重要的成長主線，是 AI 與資料中心儲存架構升級，帶動 NAND 控制器、企業級 SSD 與高附加價值儲存方案需求上升。</p>
-<p>拆開來看有四層。<br>- 企業級 SSD 需求提升<br>- Boot Drive 需求大增<br>- PCIe Gen6 與 EDSFF 升級<br>- AI system module / memory tiering 架構變複雜</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這就是典型看起來普通，但其實很有量的東西。</p>
-<p>Boot Drive 本身不是最炫的高階 AI 零件，但只要大量 AI / server 基礎設施在建，伺服器節點啟動、管理、系統部署需要的基礎儲存就會跟著放量。</p>
-<p>研究頁裡提到，群聯的 PCIe SSD Boot Drive 出貨 YoY 成長高達 5,600%。這種數字本身就代表：<br>- 群聯不是只在講未來故事<br>- 它已經有具體產品在放量</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這些代表的是企業級儲存規格升級，不只是容量升級。</p>
-<p>EDSFF 的意義在於，資料中心 SSD 的外型規格、功耗管理、密度與散熱要求都在變，這不是一般 consumer SSD 的邏輯，而是更高門檻的 enterprise platform 問題。</p>
-<p>PCIe Gen6 代表的是：<br>- 傳輸速度更高<br>- 訊號完整性要求更高<br>- 主控設計更難<br>- 韌體與平台整合更重要</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個問題非常重要，因為這正是群聯研究裡最容易過度延伸的地方。</p>
-<p>群聯不是 CXL DRAM 的核心供應商，但 memory tiering 的概念對群聯還是有意義。因為未來 AI server 的記憶體 / 儲存架構，不會只有單一層，而會變成：<br>- HBM<br>- DRAM<br>- CXL memory<br>- NVMe SSD 與企業級儲存</p>
-<p>這個分層越複雜，代表儲存控制、資料搬移、系統整合的重要性越高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>群聯不是單純的 NAND 控制器公司，而是 AI 與資料中心儲存架構升級下，企業級 SSD、Boot Drive 與高階儲存控制方案的核心受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>如果只講一句話，我會這樣說：<br>慧榮更像純控制器導向、偏 controller IP 與主控設計能力的可比標的，而群聯更像控制器加上企業級 SSD / 模組 / 平台整合能力都一起吃的系統型受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：慧榮（若只看純控制器）<br>- 誰最廣：群聯<br>- 誰最穩：宜鼎<br>- 誰最有彈性：群聯<br>- 群聯卡在哪：控制器 + 企業級 SSD / 平台整合資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>對，宜鼎是另一種記憶體供應鏈故事。</p>
-<p>市場看宜鼎，通常比較不是從控制器核心競爭去理解，而比較像：<br>- 工控 / 嵌入式 / 產業級記憶體模組<br>- 高品質、較穩定、較偏應用端解決方案<br>- 在記憶體景氣循環之外，也有特定垂直應用支撐的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>對，宇瞻的位置又和群聯、宜鼎不同。</p>
-<p>市場看宇瞻，通常更容易從：<br>- 記憶體模組<br>- 通路 / 品牌 / 應用型產品<br>- 記憶體價格循環受惠<br>去理解它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>這個整理已經很接近投資實戰語言了。</p>
-<p>我幫你再修得更精準一點：<br>- 群聯：控制器 + 企業級 SSD / 模組 / 平台整合，最像高階儲存方案資產<br>- 慧榮：偏純控制器 / 主控設計能力<br>- 宜鼎：偏高品質工業 / 嵌入式 / 應用型記憶體模組與解決方案<br>- 宇瞻：偏記憶體模組 / 品牌 / 通路與景氣循環受惠邏輯</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>這就是群聯研究最核心的矛盾。</p>
-<p>市場不是不知道它成長強，而是懷疑這種強成長的可持續性。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會把它拆成五個驗證點。<br>- 高毛利率是不是可持續<br>- Boot Drive 高成長能不能轉成實際營收占比與長期產品線地位<br>- PCIe Gen6 企業級 SSD 主控進度能不能如期推進<br>- AI system module / enterprise SSD / memory tiering 相關敘事，能不能從概念變成更多可驗證數字<br>- 2027 獲利是不是只會從高點回落，還是仍能維持在遠高於歷史平均的水準</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>群聯接下來最需要證明的，不是它現在營收很強，而是這波高毛利與高成長，能不能從景氣循環高點，轉成企業級儲存與 AI 儲存架構升級下的更長線獲利能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>對，這句話非常白話，也非常準。</p>
-<p>群聯最大的問題不是數字不好，而是數字太好，好到市場懷疑這是不是高點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對這種股票，我不會先問本益比低不低，而是先問三件事。<br>- 這個 EPS 是不是 peak EPS<br>- 這個毛利率是不是 peak margin<br>- 2027 是回落，還是維持在高平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>如果只是營收創高，但：<br>- 毛利率掉很快<br>- Boot Drive 只是一時衝量<br>- 企業級 SSD / AI system module 沒有真正變大<br>那市場就會說：這只是記憶體循環高點，不是結構升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- 群聯當然很厲害<br>- 但現在這麼強，很大一部分可能還是來自 NAND 與 SSD 景氣循環上行<br>- 一旦價格、庫存、需求結構回到正常，獲利就會掉下來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這也是很現實的反方。</p>
-<p>原廠有原廠的優勢，但群聯的任務不是證明自己跟原廠一樣，而是證明自己即便不是原廠，也能因控制器與系統整合能力，在高階企業級儲存裡拿到足夠穩定的高價值位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>低本益比不等於便宜，很多時候只是市場對未來下滑有預期。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -846,7 +678,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高毛利率可持續性不如預期。</li><li>Boot Drive / PCIe Gen6 主控進度落地不如預期。</li><li>企業級儲存產品組合無法持續改善獲利品質。</li><li>市場重新下修對其高平台獲利地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高毛利率是否持續維持。</li><li>Boot Drive 營收占比與 PCIe Gen6 主控進度是否持續落地。</li><li>企業級 SSD 與 AI 儲存敘事是否持續墊高獲利平台。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>群聯不是普通記憶體循環股，而是 AI 與資料中心儲存架構升級浪潮中的高階控制器與企業級 SSD 受益者；真正關鍵不是現在數字多強，而是這波高毛利與高成長，到底是景氣高點，還是結構性高平台的開始。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

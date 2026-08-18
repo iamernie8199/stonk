@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,127 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-估值與市場預期">估值與市場預期</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，義隆不是只在賣 NB 觸控板控制器，它是在賣「輸入控制 + 邊緣感知 + 模組整合」能力。</p>
-<p>以前市場比較容易把它看成 PC 週期股，但現在更準確的理解是：<br>它是站在觸控 IC / 指紋辨識 IC、AI PC 輸入升級、Edge AI 視覺模組與無人機感知盒之間的邊緣感知平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不是只看 NB 出貨，也不是只做單一零件。義隆最核心的優勢，在於：<br>- NB 觸控 / 指紋辨識基本盤<br>- AI PC 滲透率提升與漲價策略<br>- Edge AI 視覺、無人機 AI Box 與矽光子外延</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>義隆現在最核心的身份，是輸入控制與邊緣感知平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是觸控 IC / 指紋辨識 / NB 輸入控制基本盤。<br>第二條，是 AI PC 滲透率與漲價策略。<br>第三條，是無人機 AI Box / Edge AI 視覺 / 矽光子外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 146 元<br>- 單日漲幅 0.34%<br>- 本益比 15.9 倍<br>- 股價淨值比 4.59 倍<br>- 總市值 444 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 878,267 千元<br>- 年減 13.21%<br>- 月減 17.09%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是只在買單月營收，而是在買三件事：<br>- AI PC 滲透率提升與 ASP 上修<br>- 無人機 AI Box / 視覺導航模組的高 ASP 新產品線<br>- Synaptics 併購事件後，NB 輸入控制供應鏈格局可能變動</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是 NB 週期回補，那市場最後還是只會把它看成 PC 觸控 IC 股；但如果觸控、指紋與 Advanced Haptic 能把單位價值量往上抬，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這條線真正值錢的，不只是 AI PC 題材，而是 ASP 結構與輸入控制內容值升級：<br>- AI PC 滲透率提升<br>- Advanced Haptic 單價更高<br>- 漲價策略 5%~10%<br>- 高階觸控 / 指紋整合方案</p>
-<p>這些不是單純量增，而是輸入控制平台內容值增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場願意給義隆不只是 PC 零件股的估值，不是因為 PC 週期回升而已，而是因為 AI PC 與高階輸入模組把單位價值量往上推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 AI PC 只是一次性換機題材，市場會提早反映又提早修正；但如果它真的改變輸入控制與邊緣感知模組的 ASP 結構，義隆的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是外延。</p>
-<p>如果前兩條主線代表今天最受關注的 NB 與 AI PC 升級，那第三條主線代表的是：<br>公司不是只有 PC，而是還在往無人機 AI Box、視覺導航、邊緣影像辨識與矽光子 EIC 延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>無人機、Edge AI 視覺與矽光子短期不是主體營收，但它們會影響市場願不願意給義隆比較高的估值框架，因為那代表公司不是只守住 PC 觸控 IC，而是真的在往更完整的邊緣感知平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果無人機 AI Box、視覺導航、Edge AI 與矽光子最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像聯詠那樣是顯示 / 驅動型大平台，也不像聯發科那樣是 SoC 平台公司。它比較像是站在輸入控制、PC 周邊感知與 Edge AI 模組中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟 Synaptics 比：NB 輸入控制與觸控座標<br>- 跟聯發科比：平台廣度座標<br>- 跟 Edge AI 視覺 / 模組鏈比：外延能力座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：義隆（若只看 NB 輸入控制 + Edge AI 視覺切角）<br>- 誰最廣：聯發科<br>- 誰最穩：Synaptics / 聯發科<br>- 誰最有彈性：義隆<br>- 義隆卡在哪：AI PC、無人機、邊緣視覺與輸入控制平台公司<br>- 最像的比較對手：Synaptics<br>- 最不像的比較對手：純成熟 PC 週期零件股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般成熟 PC 觸控股，而是把它當：<br>- AI PC ASP 升級受惠股<br>- 邊緣視覺 / 無人機感知模組新產品受惠股<br>- 帶有矽光子 / CPO EIC 外延選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是義隆目前的估值本質：<br>- 如果它只是高成長一陣子的 PC 觸控 IC 股，那 15 倍本益比有其天花板<br>- 如果它真的是邊緣感知平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 AI PC 只是規格換代、沒有轉成實際 ASP 與獲利改善，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高 ASP 新產品很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- AI PC 滲透率沒有持續往上<br>- 漲價策略沒辦法維持毛利與營益率<br>- 無人機 / Edge AI / 矽光子外延沒有形成實際營收比重<br>那義隆就可能被切回「高成長一陣子的 PC 觸控 IC 股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -747,7 +616,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高 ASP 新產品占比提升不如預期。</li><li>AI PC ASP 升級不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其邊緣感知平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高 ASP 新產品占比是否持續提升。</li><li>AI PC ASP 升級是否持續。</li><li>無人機 / 邊緣視覺 / 矽光子外延是否開始落地成獲利。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>義隆不是多賣幾顆觸控 IC 而已，而是要靠 AI PC、無人機 AI Box、Edge AI 視覺與矽光子外延，把自己從 PC 輸入控制廠往邊緣感知平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,193 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個問題非常關鍵，因為廣達的投資故事就是從這個身份轉換開始的。</p>
-<p>最白話地講，廣達本質上仍然是一家大型 ODM / EMS 公司，也就是替品牌客戶設計、組裝與交付硬體系統的公司。它以前最廣為人知的是 NB 代工，但現在市場重看它，重點已經轉到：<br>- 一般伺服器<br>- AI 伺服器<br>- 機櫃級系統整合<br>- 雲端網路與高速互連相關硬體</p>
-<p>所以如果你今天還只把廣達看成筆電代工廠，會低估它現在在 AI 基礎設施鏈裡的位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為真正的高階代工，早就不是單純幫你組裝而已。</p>
-<p>廣達這種大型 ODM 的價值，在於：<br>- 可以把複雜零組件整合成完整系統<br>- 能快速切換平台世代<br>- 能用大規模供應鏈把東西準時做出來<br>- 能承接機櫃級、資料中心級的整體交付</p>
-<p>在 AI 時代，這件事尤其重要，因為客戶需要的不再只是單台伺服器，而是一整櫃、一整個 cluster、一整套 power + thermal + compute 的系統。</p>
-<p>所以市場願意高看廣達，不是因為代工三個字突然變性感，而是因為機櫃級 AI 基建把代工的技術深度和系統整合價值拉高了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>廣達最適合用「平台型公司」去理解，而且是 AI 機櫃與資料中心系統整合平台資產。</p>
-<p>它不是最純的 AI 題材股，也不是最有槓桿味道的高波動標的；它更像是：<br>- 平台夠大<br>- 客戶夠強<br>- 系統整合能力夠深<br>- 在平台切換時不容易被排除的第一梯隊核心供應商</p>
-<p>所以廣達最值錢的地方，不是最炫，而是夠核心、夠穩、夠大。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背產品，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對廣達來說，真正決定估值的有三個層級：</p>
-<p>第一層，AI 伺服器與機櫃級整合基本盤。<br>這是現在最直接、最可見的營收與獲利來源。</p>
-<p>第二層，Rack-scale 系統交付能力。<br>這一層會決定它能不能從「單機組裝」往「整體解決方案供應商」移動。</p>
-<p>第三層，雲端網路與光互連延伸。<br>這一層不一定每季都直接反映在 EPS 上，但它決定市場是否願意把廣達從大型 ODM，往更高品質的平台型硬體公司重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很接近核心。</p>
-<p>關鍵不是它有沒有做伺服器，而是：<br>- 它做的伺服器是不是 AI 伺服器<br>- 它有沒有從單機走向整櫃<br>- 它能不能持續吃到 GPU / ASIC / 網路 / 光互連升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 313.5<br>- 本益比 13.7<br>- 股價淨值比 4.64<br>- 總市值 12,877 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 366,274,080 千元<br>- 年增 131.32%<br>- 月增 -4.91%<br>- 近三月合併營收年增 109.05%<br>- 近 12 月營收合併成長 70.85%</p>
-<p>這種組合很有意思：<br>- 營收非常強<br>- 但本益比只有 13 倍多<br>這代表市場雖然承認它現在很強，但還沒有用超高成長股的方式在定價它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最直接受惠的就是：<br>- AI 伺服器<br>- Rack-scale 機櫃整合<br>- 一般伺服器需求同步回升<br>- 雲端網路與光互連延伸</p>
-<p>特別是 Rack-scale 這件事非常重要，因為它代表客戶不是只買一台 server，而是要買一整櫃、甚至一整個資料中心模組化系統。</p>
-<p>廣達真正被市場重估，不只是因為它賣更多伺服器，而是它在整櫃級系統裡扮演更核心角色。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>現階段更像加分項，但這個加分項很重要。</p>
-<p>因為資料中心升級不是只有運算，還有：<br>- 機櫃內連接<br>- 機櫃間互連<br>- 高速交換器<br>- 光模組與光電整合</p>
-<p>如果廣達只是做箱子，那市場不會給它太多想像；<br>但如果它逐步延伸到更完整的資料中心系統與互連架構，那它的價值就會比單純伺服器組裝高很多。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個定位很準。</p>
-<p>你可以把廣達理解成：<br>- 不是晶片層最核心<br>- 不是記憶體層最核心<br>- 但在系統整合層、機櫃層、資料中心硬體交付層，它是很核心的玩家</p>
-<p>這也是為什麼它雖然不是最夢幻的 AI 股，但會是很重要的 AI 基建股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果先粗分，我會這樣看：<br>- 鴻海：規模最大、平台化與垂直整合最強的整機 / 機櫃型資產<br>- 廣達：AI 機櫃與系統整合能力最穩、最被市場當核心供應商看待的 ODM 之一<br>- 緯創：AI 伺服器與系統出貨彈性強，客戶與平台節奏敏感度高<br>- 緯穎：更純的資料中心與 AI 伺服器高槓桿標的<br>- 英業達：AI 伺服器受惠明確，但仍混有較多傳統 NB / 伺服器包袱</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：緯穎<br>- 誰最廣：鴻海<br>- 誰最穩：廣達 / 鴻海<br>- 誰最有彈性：緯創 / 緯穎<br>- 廣達卡在哪：第一梯隊 AI 機櫃與系統整合核心供應商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>鴻海更像超大型平台型製造集團，可以把：<br>- 機構件<br>- 水冷<br>- 交換器<br>- 自製零組件<br>- 全球產能<br>都綁在一起講。</p>
-<p>廣達則比較像：<br>在 AI 機櫃與系統整合上更純、更直接、更被市場視為核心 ODM。</p>
-<p>所以：<br>- 鴻海勝在平台感與供應鏈控制力<br>- 廣達勝在 AI 機櫃核心敘事更直接、更乾淨</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>緯穎通常比廣達更有高槓桿味道，因為它在資料中心與 AI 伺服器的純度更高。</p>
-<p>但廣達的優勢在於：<br>- 規模更大<br>- 客戶基礎更穩<br>- 市場對它的供應能力信任度高<br>- 在平台切換時，比較容易被視為核心承接者</p>
-<p>所以你可以這樣記：<br>- 要看高彈性純度，很多人會先想到緯穎<br>- 要看穩定核心地位，很多人會先想到廣達</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>英業達和緯創也都受惠 AI 伺服器，但廣達在市場心智裡通常更接近第一梯隊。</p>
-<p>緯創偏：<br>- 客戶節奏驅動<br>- 機櫃出貨彈性<br>- 高成長但波動也比較大</p>
-<p>英業達偏：<br>- AI 伺服器受惠<br>- 但傳統 NB 與一般業務包袱更明顯<br>- 市場比較不會第一時間把它當最純的 AI 機櫃核心供應商</p>
-<p>所以廣達的位置更像第一梯隊核心供應商，而不是邊際補位者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最大的優點：<br>- 它不是最夢幻的，但通常是市場最願意視為穩定核心供應商的那一個<br>- 規模大、交付能力強、客戶信任度高<br>- AI 機櫃、Rack-scale、系統整合與雲端網路延伸，讓它比傳統 ODM 更值錢</p>
-<p>最大的缺點：<br>- 本質仍是大型硬體組裝與系統交付公司<br>- 市場會擔心毛利率天花板<br>- 若高營收無法轉成高品質獲利，13 倍多未必就算便宜</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這就是廣達最關鍵的估值問題。</p>
-<p>市場雖然承認它是核心受惠者，但仍然只給大概 13 倍多，原因通常在於：<br>- 它本質還是大型硬體組裝與系統交付公司<br>- 營收很大，但市場會擔心毛利率天花板<br>- 客戶很強勢，ODM 不容易拿到像晶片設計公司那樣的估值語言<br>- 市場還在看：它到底是「很忙」，還是「更值錢」</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為對廣達這種公司來說，單純營收暴增，市場不一定給更高本益比；市場更在意的是：<br>- 毛利率有沒有守住<br>- 營益率有沒有改善<br>- 機櫃整合 / 高附加價值內容占比有沒有提高<br>- 雲端網路與光互連延伸是不是能改善獲利結構</p>
-<p>也就是說，市場不是只問「廣達有沒有接到單」，而是在問：這些單有沒有讓它變成一間更高品質的公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>營業利益率回答的是：<br>出貨成長有沒有真的轉成更高品質的平台型利潤。</p>
-<p>淨利率回答的是：<br>股東最後拿到的利潤，是不是由系統整合價值穩定推升。</p>
-<p>對廣達來說，高品質獲利至少要看到：<br>- 毛利率守住或改善<br>- 營益率不只是規模效應，而是附加價值內容提升<br>- AI 機櫃、Rack-scale、雲端網路延伸內容占比往上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是 AI 機櫃、Rack-scale、雲端網路與光互連延伸，能不能一起把毛利率、營益率、淨利率與高附加價值內容占比墊高。</p>
-<p>如果可以，13 倍有重估空間；<br>如果不行，市場就會把它留在大型 ODM 的框架裡。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且一定要正面面對。</p>
-<p>反方會說：<br>- 現在大家都在擴 AI 機櫃與伺服器<br>- 廣達當然會受惠<br>- 但這可能很大一部分只是 CAPEX 高峰期的結果<br>- 等平台切換完、供應鏈正常化後，成長率就可能回落</p>
-<p>所以反方的核心就是：<br>市場現在看到的是強需求，<br>但不代表這個高成長能一直延續。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這是第二個非常現實的反方。</p>
-<p>市場通常最願意給高估值的，還是：<br>- 晶片設計<br>- 核心 IP<br>- 高端材料<br>- 高端記憶體</p>
-<p>ODM 的問題是：<br>- 客戶議價權強<br>- 規模雖大，但獲利率天花板不一定高<br>- 市場很容易覺得你只是系統整合執行者，不是規則制定者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率與營益率能否隨 AI 機櫃出貨同步改善。</p>
-<p>原因很簡單：<br>- 營收可以很強<br>- AI 題材可以很熱<br>- 但如果毛利率與營益率沒有往上，市場就會說這只是大量出貨，不是高品質升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>傳統大型 ODM，而不是升級中的平台型硬體供應商。</p>
-<p>差別在於：<br>- 前者看量與出貨<br>- 後者看系統整合價值、平台邊界與獲利品質升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最誠實的答案是：它正處在從高景氣受惠股往高品質平台股過渡的驗證期。</p>
-<p>它確實有高品質平台股的條件：<br>- 第一梯隊 AI 機櫃與系統整合位置<br>- 規模大<br>- 客戶穩<br>- Rack-scale 與雲端網路延伸空間在那裡</p>
-<p>但它今天的本益比告訴你，市場還沒有完全買單。市場要看到獲利品質升級，不只看到營收強。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>廣達不是單純 NB 代工廠，而是大型 ODM / 系統整合公司。</p>
-<p>第二句，平台邊界：<br>真正決定估值的，不是所有代工訂單，而是 AI 機櫃、高階伺服器平台與多層系統整合能力。</p>
-<p>第三句，主線：<br>它現在最大的主線，是 AI 機櫃、Rack-scale 系統與資料中心硬體整合。</p>
-<p>第四句，同業定位：<br>鴻海偏平台感、緯穎偏高槓桿純度、緯創偏高彈性、英業達偏次核心，而廣達卡在穩定核心供應商的位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營益率、淨利率與高附加價值內容占比有沒有改善。</p>
-<p>第六句，最重要驗證：<br>AI 機櫃、Rack-scale、雲端網路與光互連延伸，能不能一起把獲利品質墊高。</p>
-<p>第七句，最強反方：<br>它可能只是這一輪 AI 機櫃景氣股，而不是長期高品質平台股。</p>
-<p>第八句，最終投資判斷：<br>廣達真正值不值得更高估值，不是看出貨有多強，而是看 AI 機櫃出貨能不能持續把它變成更高品質的系統整合公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>廣達是 AI 機櫃與資料中心系統整合層的第一梯隊核心供應商，但真正決定它值不值得從 13 倍再往上重估的，不是營收有多強，而是這些機櫃出貨能不能持續把毛利率、獲利品質與平台價值一起墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -910,7 +713,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 機櫃需求成長放緩，出貨動能顯著低於預期。</li><li>高營收無法轉成毛利率與獲利品質改善。</li><li>市場重新把廣達定價成傳統大型 ODM，而非升級中的平台型硬體供應商。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>廣達 AI 機櫃、一般伺服器、雲端網路、光互連相關業務的更細營收拆分。</li><li>高附加價值整櫃 / Rack-scale 交付內容對毛利率與營益率的更細影響。</li><li>廣達、鴻海、緯穎、緯創、英業達在 AI 機櫃、一般伺服器、網路與光互連上的更細營收拆分。</li><li>廣達在光互連與雲端網路延伸能力上的更細客戶與產品定位。</li><li>各家公司在系統整合深度、平台邊界與獲利品質上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>廣達不是單純出貨很多的大型 ODM，而是 AI 機櫃與資料中心系統整合層的第一梯隊核心供應商；真正的重估關鍵，是營收強之外，毛利率、獲利品質與平台價值能不能一起上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

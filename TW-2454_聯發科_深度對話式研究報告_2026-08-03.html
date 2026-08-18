@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,181 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-第-25-段">第 25 段</a>
-<a href="#digest-26-第-26-段">第 26 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果用最白話的方式講，聯發科本來最典型的身份，就是手機晶片設計公司。它不自己蓋工廠，而是設計 SoC，也就是把 CPU、GPU、通訊、影像、AI 引擎等功能整合進一顆晶片，再交給晶圓代工廠去製造。</p>
-<p>所以過去大家看聯發科，重點通常放在：<br>- Android 手機晶片市占<br>- 跟高通在手機 SoC 的競爭<br>- 手機景氣循環<br>- 平均售價與毛利率</p>
-<p>但現在市場重新認真看它，原因不是手機突然大爆發，而是它有機會從「手機晶片公司」升級成「AI ASIC / 平台型設計資產」。這是兩種完全不同的估值邏輯。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>SoC 是 System on Chip，系統單晶片。你可以把它想成一顆把很多功能塞在一起的大腦。</p>
-<p>聯發科原本的核心價值，就是它非常擅長做這種大規模、高整合、面向 Android 生態系的 SoC 平台。這讓它在全球 Android 手機供應鏈裡，長期都扮演很重要的角色。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為手機晶片公司再大，市場通常還是會用比較傳統的循環股框架去看你。</p>
-<p>手機 SoC 業務有幾個天生限制：<br>- 需求跟手機換機潮、品牌庫存、全球消費景氣綁得很深<br>- 競爭對手像高通很強，價格與規格競爭很激烈<br>- 成長率通常沒辦法一直維持在很高的位置<br>- 市場容易把這種公司歸類為成熟但波動的設計公司</p>
-<p>市場現在想重估聯發科，是因為 AI ASIC 這條線打開後，聯發科有機會從做手機平台的公司，變成幫大型雲端客戶設計高價值 AI 晶片的系統級合作夥伴。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>聯發科最適合用「平台型 / 設計型資產」去理解，但要加一個前提：<br>它目前還不是完全成熟的 AI 平台股，而是站在手機 SoC 平台現金流基本盤上，往 AI ASIC 平台能力升級的候選者。</p>
-<p>它有兩個層次：<br>- 底層：手機 SoC 與 Smart Edge 現金流平台<br>- 上層：Google TPU / AI ASIC 帶來的 AI 平台設計想像</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背產品，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對聯發科來說，現在真正決定估值的是三層：<br>- 手機 SoC 基本盤：現金流與規模化能力<br>- Smart Edge 與週邊平台：過渡層與第二成長曲線<br>- Google TPU / AI ASIC：重估引擎</p>
-<p>所以如果你只能記三件事，就記：<br>- 手機 SoC 是現金流底座<br>- Smart Edge 是過渡層<br>- AI ASIC 是重估引擎</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為聯發科和純 AI 題材股最大的不同，就在於它背後有一個成熟但波動的舊引擎。</p>
-<p>如果今天你是一家純 AI 設計公司，市場看的就是新業務本身；但聯發科不是。聯發科有一個很大的既有業務體系，這意味著：<br>- 它有現金流與規模優勢<br>- 但也有手機景氣循環、價格競爭與庫存波動的包袱</p>
-<p>所以 AI ASIC 再精彩，市場還是要問：<br>- 手機基本盤有沒有穩住<br>- 舊引擎會不會在新引擎起飛前先拖累整體財務<br>- AI 新故事拉升的速度，能不能快過舊業務壓力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>AI ASIC 更像新引擎，但舊引擎也不能突然熄火。</p>
-<p>如果未來你看到：<br>- AI ASIC 故事持續推進<br>- 但手機 SoC 因 Android 需求、價格競爭、競品壓力而變弱<br>市場就會重新計算：<br>新業務拉升的速度，能不能快過舊業務拖累的速度。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>ASIC 是 Application-Specific Integrated Circuit，特定應用晶片。</p>
-<p>跟通用手機 SoC 比起來，AI ASIC 的差別在於：<br>- 它不是賣給所有手機品牌的通用平台<br>- 而是為特定客戶、特定工作負載、特定系統需求量身打造的晶片</p>
-<p>所以如果手機 SoC 比較像做標準化平台，<br>那 AI ASIC 比較像幫大客戶做高單價、深客製、技術難度高很多的聯合開發案。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，至少在現在這個階段，Google TPU / AI ASIC 幾乎就是聯發科重估故事的核心樞紐。</p>
-<p>因為這件事同時代表幾個意義：<br>- 證明聯發科不只是做手機晶片<br>- 證明聯發科可以往更高價值鏈走<br>- 會改變市場對聯發科的分類<br>- 打開的是長期敘事，而不是單一季度數字</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個故事不是空的，已經有實質基礎；但也還沒有進入那種所有財務都完全落地、已經非常成熟的階段。</p>
-<p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 3960<br>- 本益比 58.6<br>- 股價淨值比 16.27<br>- 總市值 63,514 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-09：<br>- 單月合併營收 58,011,756 千元<br>- 年增 2.8%<br>- 月增 22.3%<br>- 近三月合併營收年增 1.21%<br>- 近 12 月營收合併成長 3.5%</p>
-<p>你會發現一件事：<br>股價與估值反應非常強，但營收本身不是那種傳統意義上爆炸式成長的數字。這說明市場現在買的，已經不只是眼前手機景氣，而是 AI ASIC 這條線的未來想像。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- Broadcom：既有雲端客製 ASIC 龍頭<br>- Marvell：特定場景與專案型選手<br>- Qualcomm：傳統手機 / 通訊龍頭，外加資料中心轉型選擇權<br>- 聯發科：手機 SoC 現金流底座上，疊了一個更強的 Google TPU / AI ASIC 重估敘事的挑戰者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：Broadcom（如果定義純度是大型雲端客製 ASIC 既有龍頭）<br>- 誰最廣：Broadcom<br>- 誰最穩：Broadcom<br>- 誰最有彈性：聯發科<br>- 聯發科卡在哪：最有重估彈性的 AI ASIC 挑戰者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>Broadcom 的強，不只是它有案子，而是它在整個大型雲端客製晶片生態裡，已經像一個老練的總包商。</p>
-<p>它的幾個優勢很關鍵：<br>- 歷史深度<br>- 客戶多樣性<br>- SerDes / 網路 / 光通訊生態整合能力<br>- 市場已經把它當 ASIC 龍頭來看</p>
-<p>所以聯發科的挑戰不是 Broadcom 有沒有問題，而是：<br>它能不能讓市場相信，自己也值得被放進同一級別討論。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>Marvell 比較像是一個在某些案子裡很重要、但沒那麼能主導整個敘事的玩家。</p>
-<p>你可以這樣理解：<br>- Broadcom：既有龍頭型選手<br>- 聯發科：最有重估彈性的挑戰者<br>- Marvell：在多個特定節點尋找突破口的專案型選手</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為高通和聯發科雖然都有手機包袱，但市場現在給它們的故事不同。</p>
-<ul><li>高通：比較像傳統手機 / 通訊龍頭，外加資料中心轉型選擇權</li><li>聯發科：比較像手機 SoC 基本盤上，疊了一個更強的 Google TPU / AI ASIC 重估敘事</li></ul></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講最核心的一句話，那就是：<br>聯發科現在不是在回答「有沒有 AI ASIC 故事」，而是在回答「這個故事能不能快到足以支撐接近 60 倍本益比」。</p>
-<p>這代表市場最敏感的不是單一季度營收，而是三件事：<br>- AI ASIC 什麼時候真正變成夠大的營收與獲利來源<br>- 手機 SoC 基本盤在這段期間能不能撐住，不拖後腿<br>- 新業務的獲利品質是否真的比市場目前預期更好，而不是只有敘事更好</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>毛利率對聯發科來說，回答的是：<br>AI ASIC 這條線帶來的，不只是營收想像，而是真正更高價值的平台收入，還是前期重投入、客製化很深、但短期未必很好賺的案子。</p>
-<p>所以毛利率對聯發科來說，不只是會計科目，而是在驗證：AI ASIC 這條線到底是不是市場想像中的高品質增量。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>聯發科到底是在賺高估值想像，還是在賺可持續的高品質平台利潤。</p>
-<p>如果只是營收故事變大，但：<br>- 研發費用前置投入高<br>- 客製案費用率壓力重<br>- 手機基本盤競爭還在<br>那營業利益率不一定會同步漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但聯發科這種公司更要看：<br>- EPS 成長是不是主要來自本業與新平台業務<br>- 還是有短期結構、匯率、業外或一次性因素幫忙</p>
-<p>獲利品質最重要看的就是：<br>- AI ASIC 成長是不是帶來健康的毛利結構<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 手機基本盤是否仍能提供穩定現金流，而不是拖累整體結構</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>估值分水嶺不是營收有沒有創高，而是 AI ASIC 成長速度、獲利品質與舊業務壓力，能不能一起快到超過市場已經提前塞進接近 60 倍本益比裡的預期。</p>
-<p>如果三件事一起成立，這種高估值才站得住；<br>如果只有故事在走、但財報驗證不夠快，股價就容易先修正。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是非常強的第一個反方。</p>
-<p>市場現在已經部分把聯發科當成 AI ASIC 平台股來定價，但這種身份轉換還沒有完全被財務和客戶多樣性證明。</p>
-<p>也就是說：<br>- 它有能力切進去，這點市場相信<br>- 但它是否已經配得上那麼高的想像，這點還在驗證</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這是第二個很實際的反方。</p>
-<p>聯發科的 AI ASIC 故事現在最迷人的地方，就是 Google TPU；但它最危險的地方，也可能正是太集中在 Google TPU。</p>
-<p>如果一家公司現在的重估敘事，主要建立在單一大客戶的單一大專案上，那風險就會集中在：<br>- 客戶策略有沒有變<br>- 下一代專案有沒有延後<br>- 第二供應商或競爭者有沒有切進來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確，估值是最現實的第三個反方。</p>
-<p>市場已經在用一個非常前瞻、非常樂觀的框架看它。這代表股價已經提前反映：<br>- AI ASIC 營收占比會大幅上升<br>- Google TPU 只是開始，不是終點<br>- 聯發科會從手機 SoC 公司升級成 AI 平台股<br>- 這個轉型帶來的不只是營收，而是估值分類改變</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常到位。</p>
-<p>更完整一點說：<br>聯發科的長期方向大致正確，AI ASIC / TPU 也確實有實質進展；但市場可能高估了它從手機 SoC 公司升級成多客戶、多世代、可持續的 AI 平台股的速度、廣度與獲利規模。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-第-25-段">
-<div class="digest-title">第 25 段</div>
-<div class="content"><p>市場最想看到的，不是再多一篇報告說 Google TPU 很重要，而是兩件更具體的事。</p>
-<p>第一，第二個大客戶。<br>如果聯發科後面能把其他大型雲端客戶的一部分專案也拿下來，市場對它的看法就會從：<br>- Google 專案受惠股<br>慢慢轉成：<br>- 具備跨客戶複製能力的平台型設計商</p>
-<p>第二，Google 這條線的代際延續被持續確認。<br>如果市場看到不只是單一一代，而是更長的世代延伸，而且聯發科不是只拿到邊角，而是持續站在高價值的位置，那平台敘事就會更穩。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-第-26-段">
-<div class="digest-title">第 26 段</div>
-<div class="content"><p>完全正確。</p>
-<p>我會把它講得更精煉：<br>聯發科從重估股走向真正平台股，需要的不是再重複一次 Google 故事，而是拿出兩種證據：<br>- 橫向：客戶可以擴散<br>- 縱向：世代可以延續</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -886,7 +701,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>Google TPU / AI ASIC 相關專案進度延後或規模不如預期。</li><li>第二、第三個大型客戶遲遲未落地，導致平台敘事無法擴散。</li><li>手機 SoC 基本盤轉弱的速度快於 AI ASIC 拉升速度。</li><li>市場發現聯發科確實有 AI 故事，但不足以支撐目前高估值分類。</li><li>AI ASIC 的營收有來，但毛利率、營業利益率與獲利品質沒有跟上，導致高估值被重新定價。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>Google TPU 與其他 AI ASIC 客戶占比的更細拆分。</li><li>手機 SoC、Smart Edge、AI ASIC 三層結構在營收與獲利上的更細量化。</li><li>Broadcom / Marvell / Qualcomm / 聯發科在客製 ASIC 收入結構與客戶深度的更細比較表。</li><li>AI ASIC 新平台對毛利率與營業利益率的中長期具體抬升幅度。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>聯發科不是只靠手機晶片活著，而是站在手機 SoC 現金流基本盤上，往 AI ASIC / 平台型設計資產升級的挑戰者。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

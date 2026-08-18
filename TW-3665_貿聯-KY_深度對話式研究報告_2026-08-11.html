@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,170 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-hvdc-與供電架構">HVDC 與供電架構</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-估值與市場預期">估值與市場預期</a>
-<a href="#digest-17-估值與市場預期">估值與市場預期</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-估值與市場預期">估值與市場預期</a>
-<a href="#digest-25-估值與市場預期">估值與市場預期</a>
-<a href="#digest-26-第-26-段">第 26 段</a>
-<a href="#digest-27-hvdc-與供電架構">HVDC 與供電架構</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，貿聯-KY 不是在賣普通線材，它是在賣 AI 資料中心裡面越來越高價值的互連與配電方案。</p>
-<p>以前大家可能會把它當成一般線束廠，但現在更準確的理解是：<br>它是站在高速資料互連、高功率配電與未來光通訊切換交界處的高階連接方案供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不像廣達、緯穎那樣做整機平台，也不像單純賣單一小零件的公司。它的特點是：<br>- 站在連接 / 配電 / 訊號傳輸這個高價值節點<br>- 同時吃到資料中心升級與 AI 功率提升<br>- 從銅線、高速線束一路延伸到光通訊與更高階互連</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>貿聯-KY 現在最核心的身份，是 AI 資料中心互連與高功率配電升級過程中的高價值連接方案供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是高速資料互連，尤其是 800G AEC。<br>第二條，是高功率配電，像 Power Whip、Busbar 這類內容值提升。<br>第三條，是從銅互連往光互連延伸，包括 ALC / CPO / optical solutions。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 2,200 元<br>- 單日漲幅 0.46%<br>- 本益比 33.2 倍<br>- 股價淨值比 9.2 倍<br>- 總市值 4,292 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 9,630,165 千元<br>- 年增 59.59%<br>- 月增 13.06%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是把它當一般線束股，而是當 AI 資料中心互連與高功率配電升級股。</p>
-<p>簡單說，大家在買三件事：<br>- 800G / 1.6T 高速互連升級<br>- Power Whip / Busbar 在高功率機櫃下的內容值提升<br>- 光互連與 ALC / CPO 未來幾年的平台延伸</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為 AEC 代表資料中心高速互連升級的中間答案。</p>
-<p>它不是最終的 CPO，也不是最舊的 DAC。它是在高速傳輸距離、功耗、穩定性與成本之間，給了資料中心一個很實際的過渡解法。所以只要 800G / 1.6T 升級走得快，貿聯在 AEC 這條線就會非常受惠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>既有脈絡很清楚，它不是只碰到這個題材而已，而是跟主要 AEC 生態系有實際卡位。從公司頁與研究整理看，市場會把它放進高速互連升級主線，不只是因為它會做線，而是因為它被視為高規格 AEC 與高速互連方案的重要製造 / 方案夥伴。</p>
-<p>這點很重要，因為如果只是一般高速線材，市場不會願意給那麼高的估值；但如果它站在升級規格真正擴散的節點，估值就會被往上拉。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這就是貿聯這條主線的估值關鍵。</p>
-<p>如果貿聯只是 800G AEC 受惠股，那市場最後還是會用產品週期來看它；但如果它能從 AEC、線束、光纖、ALC 一路往更完整的 interconnect 平台走，那估值框架就會往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>這條線的核心不是「多賣幾條線」，而是功率架構升級後，每個機櫃需要的配電內容值大幅提升。</p>
-<p>例如 Power Whip、Busbar、HVDC 架構，這些都不是傳統線束那種低門檻生意。當機櫃功率越來越高，配電安全性、穩定性、材料與設計難度都上升，內容值自然往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場之所以願意給它比一般線束股更高的估值，就是因為它不是只賣更多連接器，而是每個 AI rack 裡的互連和配電價值都在變高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>吸引人的地方有兩個。</p>
-<p>第一，功率架構升級後，單櫃需要的配電規格更高，內容值上升不是線性，而可能是跳階式的。<br>第二，這種產品要做得穩，不只是材料，還有認證、熱、電、安全與可靠度門檻，所以不容易變成低價競爭。</p>
-<p>這也是為什麼市場會把貿聯放在「高功率 AI 基礎設施升級受惠股」裡，而不是普通線束股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>對。這和 AEC 的邏輯有點像。</p>
-<p>如果只是某一代機種的規格切換，那市場最後只會給中期高峰股的估值；但如果 AI rack 功率架構在未來幾年持續升級，那 Power Whip、Busbar、HVDC 這條線就不是一次性，而是長週期平台升級的一部分。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是未來平台化能力的關鍵，也就是：<br>- Interplex Datacom 併購<br>- 光纖 / optical solutions<br>- ALC / CPO 佈局</p>
-<p>如果前兩條主線代表今天的成長，那第三條主線代表的是：<br>貿聯能不能把自己從「銅互連與電源線受惠股」升級成更完整的 AI data center interconnect 平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，它最重要的是把貿聯的能力邊界往資料中心精密互連、機構件與更完整解決方案推深。</p>
-<p>這件事如果成功，市場會更願意把它看成平台型供應商，而不是只看單一產品線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>短期看，它們確實還比較像選擇權；但估值上不能完全忽略，因為市場會提前為這些下一代互連方向給一些預期。</p>
-<p>對貿聯來說，這些不是拿來解釋今天營收的，而是拿來解釋為什麼公司可能不只是一個 2026 年的高速線材故事。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這就是最重要的延伸邏輯。</p>
-<p>如果它最後只是 AEC + Power Whip 受惠股，估值還是比較像高成長零組件股；但如果它能把 Interplex、光纖、ALC、CPO 這些慢慢整成一套互連平台能力，市場給的框架就會再往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是貿聯目前估值辯論的核心之一：<br>- 如果 Interplex、ALC、CPO 最後只是遠方選擇權，那今天的估值會顯得偏高<br>- 如果它們真能轉成能力邊界外延，那市場現在提早給平台化估值，就不是完全沒道理</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像系統整機廠，也不像純連接器股，更不像單純車用線束廠。它比較像是站在 AI 資料中心互連與配電升級中間層的解決方案公司。</p>
-<p>所以比較時要分層：<br>- 跟安費諾比：國際級互連大廠座標<br>- 跟信邦比：本地線束 / 連接方案比較座標<br>- 跟整機廠比：邊界不同，貿聯不是整機平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：貿聯（若只看 AI data interconnect + power interconnect 主線）<br>- 誰最廣：安費諾<br>- 誰最穩：安費諾 / 大型國際互連廠<br>- 誰最有彈性：貿聯<br>- 貿聯卡在哪：AI 資料中心互連與高功率配電升級鏈條的高價值中間層解決方案供應商<br>- 最像的比較對手：信邦<br>- 最不像的比較對手：廣義整機伺服器廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不是靠平台最大吃飯，而是靠每一次資料中心互連與配電升級時，內容值都會往它這邊堆過來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般線束廠，而是把它當：<br>- AI 互連升級股<br>- 高功率配電升級股<br>- 往光互連與平台解決方案外延的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是貿聯目前的估值本質：<br>- 如果它只是高速線材 / 線束升級股，那 33 倍本益比不算便宜<br>- 如果它真的是 AI data center 互連與配電平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果高速互連與高功率配電只是被幾個平台在某一兩年大幅拉貨，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些選擇權很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-第-26-段">
-<div class="digest-title">第 26 段</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- 光互連商業化沒有那麼快<br>- 高功率配電沒有持續墊高內容值<br>- 併購沒有顯著改變平台層級<br>那貿聯就可能被切回「高成長一陣子的連接器 / 線束股」，而不是平台解決方案公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-hvdc-與供電架構">
-<div class="digest-title">HVDC 與供電架構</div>
-<div class="content"><p>對，這才是最硬的問題。</p>
-<p>真正要驗證的是：<br>- AEC / data interconnect 是否只是短中期升級，還是可延續滲透<br>- Power Whip / Busbar / HVDC 是否能持續墊高單櫃內容值<br>- Interplex Datacom、光纖、ALC、CPO 是否真的構成平台外延<br>- 市場是否會把它從高階線束廠升級成 AI data center 互連平台股</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -868,7 +694,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高內容值產品占比提升不如預期。</li><li>未來光互連外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其資料中心互連平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高內容值產品占比是否持續提升。</li><li>未來光互連是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>貿聯不是多賣幾條 AI 線而已，而是靠高速互連、高功率配電與未來光互連，把自己從高階線束廠往 AI data center 互連平台推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

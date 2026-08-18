@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,166 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-7-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-8-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-風險與失效條件">風險與失效條件</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-估值與市場預期">估值與市場預期</a>
-<a href="#digest-15-估值與市場預期">估值與市場預期</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-估值與市場預期">估值與市場預期</a>
-<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-26-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-27-估值與市場預期">估值與市場預期</a>
-<a href="#digest-28-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>先記一句話：欣銓不是那種什麼都做的大型 OSAT，而是以 CP 測試為核心、再往 ASIC、通訊與矽光子高階測試延伸的專業測試公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>很正常。你先把它想成：<br>- CP 比較偏晶圓階段的前段測試<br>- FT 比較偏封裝完成後的最終測試</p>
-<p>欣銓的強項在 CP，也就是晶圓還沒真正變成最終封裝成品前，就先把高價值晶片篩出來。這對 AI ASIC、通訊晶片、矽光子前段驗證都很重要。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它更像測試鏈裡的專業利基平台。值錢的地方不是規模最廣，而是：<br>- 高毛利 CP 測試<br>- AI ASIC / 通訊客戶外溢<br>- 新產能很直接對應高成長專案</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果把整份報告收斂成一條主線，就是：<br>欣銓先靠高毛利 CP 測試底盤撐住獲利品質，再用 AI ASIC / 通訊外溢與龍潭廠放量抬高內容值，最後讓矽光子與光通訊第二曲線去爭取平台重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-13 的股價資料：<br>- 收盤價 230.5 元<br>- 本益比 24 倍<br>- 股價淨值比 5.58 倍<br>- 總市值約 1,130 億元</p>
-<p>再看最新月營收，依公告日與月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 17.67 億元<br>- 年增 52.26%<br>- 月增 13.83%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>市場現在在買三件事：<br>- CP 測試本來就比很多一般封測業務更值錢<br>- 2Q26 毛利率直接站上 40%<br>- 龍潭廠、ASIC、矽光子讓它不像只是單一景氣股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。欣銓不是先有題材才有獲利，而是本來就有高毛利的測試基本盤。2Q26 的幾個硬數字你要先記：<br>- EPS 2.44 元<br>- 1H26 EPS 4.39 元<br>- 毛利率 40.17% 到 40.2%<br>- 營益率約 30.4%</p>
-<p>這代表它不是故事先跑，而是基本面已經在支撐市場願意給較高評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>風險是市場會問：這個 40% 毛利率到底是常態，還是短期稼動率高、產品組合好的高點。如果只是單季高峰，估值就很難長期撐住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>矽格比較像成熟測試底盤加高階延伸，欣銓則更像高毛利 CP 測試底盤本身就很強。也就是說，欣銓不是先靠景氣撐起毛利，而是本體業務結構就比較優，這讓它更像利基平台，而不是純循環測試股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>因為龍潭廠不是一般擴產，而是直接對應高成長專案。它主要是：<br>- 晶圓廠客戶 ASIC 訂單<br>- CSP 客戶運算晶片 CP 測試<br>- 通訊客戶外溢訂單</p>
-<p>也就是說，這不是先蓋廠再慢慢找單，而是有明確訂單邏輯在後面推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。欣銓值錢的地方，不是多幾層樓而已，而是這幾層樓背後綁的是：<br>- AI ASIC<br>- 晶圓廠外溢<br>- 高毛利測試機台<br>- 高稼動率起跑</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>有。已知事實包括：<br>- 龍潭廠一樓無塵室 2026 年 7 月已開始量產<br>- 3Q26 中信口徑營收可到 51 億元<br>- 龍潭廠單樓估約 80 到 90 台機台<br>- 2Q26 稼動率已到 75%<br>- 2025 到 2027 年資本支出 CAGR 大約 38% 到 39%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>對，這句話很關鍵。若新廠一開始就是高稼動率、高毛利專案，市場會直接重估；若新廠只是先墊高折舊，重估就會失敗。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>重點在於：<br>龍潭廠到底只是放大既有測試量，還是把欣銓從高毛利利基測試公司，推向更完整的高階平台型測試公司。</p>
-<p>如果只是多量，市場不會一直給高估值；但如果是高內容值新專案與高稼動率綁定，那估值邏輯就不一樣。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。第一層可以支撐它不是爛公司，但第二層才決定 24 倍是否合理。若 ASIC / 通訊外溢只是短期忙碌，不足以支撐長期營運槓桿，那估值會先修。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>很正常。你先不要一次想懂所有名詞，只先記結構。</p>
-<p>欣銓這條線的意思是：<br>- 欣銓本體做 CP 測試<br>- 全智偏 EIC / 測試<br>- 瑞峰偏 PIC / 封裝<br>- CPO 相關則有更下游的生產夥伴</p>
-<p>這代表欣銓不是只喊矽光子，而是開始出現比較完整的供應鏈分工。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>還不是，這裡一定要分清楚。</p>
-<p>已知事實：<br>- 公司已明確布局矽光子與光通訊<br>- 全智 3Q26 會開始量產部分矽光子產品<br>- 瑞峰與光通訊分工已被機構首次明確拆開</p>
-<p>關鍵推論：<br>- 這條線能不能在 2027 年變成真正第二支柱</p>
-<p>爭議點：<br>- 市場會不會太早把它當成已成熟的營收來源</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。若只停留在少量試產，估值很快會被修正；若全智與龍潭廠、通訊客戶一起往上走，它就會從測試廠升級成更完整的平台型測試公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，很接近。現在 24 倍 PE 不是便宜的純景氣價，代表市場已經開始把一部分平台延伸的可能性算進去；但若全智、瑞峰與矽光子最後只停留在局部試產，那這部分溢價就會先被拿掉。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>欣銓很容易被錯比。它不像京元電那麼偏 AI 高階驗證純度，也不像矽格那麼靠測試與矽光子卡位，更不像南茂那樣有記憶體 / DDIC 混合盤。它比較像高毛利 CP 測試與新產能升級的利基測試平台。</p>
-<p>所以比較時要分層：<br>- 跟京元電比：AI 高階測試純度<br>- 跟矽格比：高階測試與矽光子延伸<br>- 跟南茂比：獲利品質與毛利率結構<br>- 跟日月光投控比：平台廣度與規模</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，先這樣收斂：<br>- 誰最純：京元電（若只看 AI 高階測試敘事）<br>- 誰最廣：日月光投控<br>- 誰最穩：欣銓 / 日月光投控<br>- 誰最有彈性：欣銓<br>- 本公司卡在哪裡：欣銓卡在「高毛利 CP 測試基本盤很好，但市場仍在判斷它到底是穩健利基測試股，還是能升級成 ASIC / 矽光子平台股」<br>- 最像的比較對手：矽格<br>- 最不像的比較對手：日月光投控</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>京元電純度比較高，但欣銓的彈性來自兩件事：<br>- 本體毛利率已經很高，基本盤夠穩<br>- 新產能與光通訊第二曲線若成功，重估空間很大</p>
-<p>也就是說，它不是從很差變好，而是從已經不錯，再往更高級的框架走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般封測景氣股，而是把它當：<br>- 高毛利 CP 測試公司<br>- AI ASIC / 通訊外溢受惠股<br>- 帶有矽光子與光通訊第二曲線選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。這就是欣銓現在估值的本質。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣切：<br>- 基本盤：景氣成分最低，因為高毛利 CP 測試本來就是它的底<br>- 規格升級：最關鍵，因為 AI ASIC / 通訊外溢會決定高毛利能不能持續<br>- 平台延伸：最有長期價值，但目前也最容易被市場提前高估</p>
-<p>也就是說，欣銓能不能維持 24 倍，不是只看現在賺多少，而是看第二層有沒有把高毛利延續下去，第三層有沒有真的長成第二支柱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>非常合理。若新產能稼動率放緩、產品 mix 轉弱，40% 毛利率很可能不是長期常態，而只是這一輪景氣高點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這是最實際的風險。因為市場現在已經在用高毛利、高稼動率假設幫它估值。一旦 ASIC 專案遞延，折舊先來、營收後到，市場會很快修正。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-28-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>有可能。這就是第三條線最大的風險。若全智、瑞峰與光通訊這條線最後只停留在局部試產，它對母公司估值的拉動會明顯不如市場期待。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -865,7 +695,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高毛利 CP 測試比重不升反降。</li><li>龍潭廠稼動率與新產能承接不如預期。</li><li>ASIC 專案與矽光子第二曲線未能轉成實際獲利。</li><li>市場重新下修對其平台化與高品質成長的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>毛利率與營業利益率能否持續守在高品質區間。</li><li>龍潭廠新產能稼動率是否持續提升。</li><li>ASIC 專案與矽光子第二曲線是否落地成營收與獲利。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>欣銓不是只靠一波 AI 外溢衝高獲利，而是要靠高毛利 CP 測試、龍潭廠 ASIC 放量與矽光子第二曲線，把自己從利基測試股推向平台型測試公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

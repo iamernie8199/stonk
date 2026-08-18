@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -393,141 +381,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-風險與失效條件">風險與失效條件</a>
-<a href="#digest-13-風險與失效條件">風險與失效條件</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只是普通 PCB 廠，就不值得在這個順序做。</p>
-<p>定穎投控現在真正值得研究的地方，是它在往 AI 伺服器用高多層板、HDI、甚至更高階板種轉型。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，不能只看景氣。</p>
-<p>這家公司最大的投資問題，是它能不能從一般硬板廠，升級成 AI 高規格板材供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>主骨架我會放在「高規格零組件 / 材料升級股」，但它也帶一點工程 / 認列型公司的味道，因為泰國廠量產、驗證、良率、時程都很重要。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新正式數據。最新台灣交易日 2026-08-13：<br>- 收盤價 116 元<br>- 本益比 55.6 倍<br>- 股價淨值比 3.06 倍<br>- 總市值約 329 億元</p>
-<p>最新月營收為 2026 年 6 月，公告日 2026-08-05：<br>- 單月合併營收 2,531,248 千元<br>- 年增 69.65%<br>- 月增 10.55%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>對，所以市場不是把它當普通低評價 PCB 廠。</p>
-<p>第一層基本盤是：<br>- 多層板<br>- HDI<br>- 既有車用板、儲存板、網通板<br>- 中國廠既有量產基礎</p>
-<p>這一層證明它不是從零開始，而是已經有原來的硬板底盤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對。</p>
-<p>第一層比較像舊世界與起點，證明公司有板廠底盤，但還不足以支撐高評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>沒錯，第二層才是估值核心。</p>
-<p>真正影響估值的，不是單月營收創高，而是：<br>- AI 伺服器板層數升高<br>- HDI 與高多層板占比提升<br>- 網卡、加速卡、儲存板、AI 伺服器板種放量<br>- 高規格產品 mix 能不能帶動毛利率回升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。</p>
-<p>市場真正要驗證的是，它能不能從做一般硬板，升級成做高規格 AI 伺服器板的供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>就是：定穎投控是不是能從「普通 PCB 廠」，升級成「AI 高多層 / HDI 升級股」。</p>
-<p>如果答案是可以，高評價才站得住；如果不行，評價會很脆弱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>第二層真正要回答的是：高規格板種升級，是短期熱度，還是長期結構轉型。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且這層很重要。</p>
-<p>因為公司現在最關鍵的不只是有沒有訂單，而是：<br>- 泰國廠 AI 高階產品能不能順利量產<br>- 驗證與送樣有沒有再延後<br>- 稼動率何時拉高<br>- 新產能什麼時候真的轉成營收與毛利</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，最有長期價值，但也最容易從利多變成風險。</p>
-<p>因為現在市場已經先把 2027 的很多成長放進去了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這家公司最大的投資風險之一就是時程。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>不能只跟普通 PCB 廠比，也不能只跟 CCL 廠比。</p>
-<p>比較合理的是：<br>- AI 伺服器高多層板供應商<br>- HDI / 高階硬板廠<br>- 既有 PCB 宇宙中的高規格板材受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正式版先這樣收斂：<br>- 誰最純：更專注 AI 高階板的廠商可能更純<br>- 誰最廣：大型 PCB 平台廠更廣<br>- 誰最穩：規模更大、產品更分散的 PCB 廠更穩<br>- 誰最有彈性：定穎投控這種轉型中的 AI 板股彈性更大<br>- 本公司卡在哪裡：它卡在「普通 PCB 股」與「AI 高多層 / HDI 升級股」兩種框架交界<br>- 最像的比較對手：AI 板 / HDI / 高多層板供應商<br>- 最不像的比較對手：日電貿這種通路型受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>對一般 PCB 股來說不便宜，所以市場其實已經在看轉型，不是在看普通景氣循環。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>正式版我會這樣回答。</p>
-<p>1. 毛利率<br>- 重點在高規格板種占比能不能拉高，抵消 CCL 漲價壓力。<br>- 如果 AI 高多層板與 HDI 比重持續提升，毛利率才有結構性回升可能。</p>
-<p>2. 營業利益率<br>- 如果 AI 高階板放量且泰國廠稼動率改善，營業利益率才有上修空間。</p>
-<p>3. 淨利率<br>- 淨利率最後要看高規格板種是否真的轉成 EPS，而不是被匯損與成本壓力吃掉。</p>
-<p>4. 獲利品質<br>- 獲利品質重點不只是營收高成長，而是高規格產品 mix 與產能驗證是否具有持續性。</p>
-<p>5. 估值分水嶺<br>- 市場是把它當普通 PCB 股，還是當 AI 高多層 / HDI 升級股，這就是估值分水嶺。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：PCB / HDI 基本盤</li><li>這層證明公司有底盤，但比較像舊世界與起點</li></ul>
-<ul><li>第二層：AI 伺服器板規格升級</li><li>這層才是真正決定毛利率、營業利益率與估值能否往上的核心</li></ul>
-<ul><li>第三層：泰國廠量產、驗證與擴產風險</li><li>這層最有長期價值，但也最容易被市場提前高估</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值、但也最容易被市場提前資本化。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最狠的空方講法就是：<br>你現在買的不是便宜 PCB 股，而是一個市場已經先把 2027 高階板放量、泰國廠驗證成功與毛利率改善折現很多的轉型股，只要任何一段接不上，評價就先修。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最重要的幾個驗證點：<br>- 泰國廠 AI 產品量產時程再延後<br>- AI 產品占比提升不如預期<br>- CCL 漲價持續壓縮毛利率<br>- 匯損與低稼動率持續侵蝕獲利</p>
-<p>只要這些掉下去，市場就會把它切回普通 PCB 景氣股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>最可能切回「普通 PCB 景氣股」框架。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -781,7 +636,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格板種占比提升不如預期。</li><li>泰國廠量產、驗證與擴產落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其 AI 高多層 / HDI 升級地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格板種占比是否持續提升。</li><li>泰國廠驗證與量產是否持續落地。</li><li>毛利率、營業利益率與獲利品質是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>定穎投控不是普通 PCB 股，而是往 AI 高多層 / HDI 板升級的轉型股；真正關鍵不是營收，而是高規格板種、泰國廠驗證與毛利率能不能接上。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,216 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-2-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-3-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-9-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-19-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-20-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-23-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-24-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-25-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-26-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-27-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果完全不懂半導體，我會先這樣講：台積電不是設計手機，也不是賣終端產品，它主要做的是「幫全世界最重要的晶片公司把最難做的晶片真的做出來」。</p>
-<p>更精確地說，它是晶圓代工公司。很多公司像高階 GPU、CPU、手機晶片、客製 ASIC 與網通晶片設計商，自己設計晶片，但不自己蓋工廠製造，而是把設計圖交給台積電。台積電的任務，是把這些設計用非常先進、非常昂貴、非常難複製的製程與量產能力，轉成真正能穩定出貨的晶片。</p>
-<p>所以如果你只把台積電理解成半導體工廠，會太淺。它更像是全球高階晶片供應鏈裡最核心的製造平台。很多最關鍵的 AI 晶片、手機晶片、資料中心 CPU、客製 ASIC，最後能不能量產、能不能準時交貨、能不能兼顧功耗與效能，都高度依賴它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>這個問題非常關鍵，因為它會直接連到台積電的護城河。</p>
-<p>晶圓代工的本質，就是設計與製造分工。設計晶片和製造晶片其實是兩個極度複雜、資本密集、知識密集的世界。設計公司要懂架構、軟硬整合、客戶需求、系統規格；製造公司要懂製程、設備、材料、良率、產能調度與大量量產。</p>
-<p>為什麼很多大公司不自己做？因為先進製程工廠太貴、太難、風險太高。你要蓋一座能做最先進製程的晶圓廠，不只是花幾百億美元而已，還要持續投資設備、材料、廠務、人才、量產驗證。更麻煩的是，即使花了這麼多錢，也不保證能做出高良率、能準時量產。</p>
-<p>所以很多公司選擇專心設計，把製造交給台積電。這對它們來說比較有效率，對台積電來說則形成規模、技術、客戶與生態系的正循環。久而久之，台積電不是只成為代工廠，而是成為很多高階晶片公司最關鍵的製造夥伴。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>對，而且我會再幫你補兩層。</p>
-<p>第一層，你說的是做得出來。這很重要，因為很多公司能設計出來，不代表有人能把它穩定做出來。</p>
-<p>第二層，更重要的是做得又快、又穩、又大量、又有良率。真正的門檻不是實驗室樣品，而是量產。台積電的價值，在於它可以把世界上最先進的晶片，不只是做出來，而是用客戶可以接受的時間、成本、功耗、良率與交付節奏，大規模交付。</p>
-<p>所以投資上看台積電，不能只講技術領先，還要講製造平台能力。這也是為什麼現在市場看它，已經不只是先進製程，而是一整個高階製造平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>台積電最適合用平台型公司去理解，而且是高度成熟、接近基礎設施層級的平台型公司。</p>
-<p>因為市場現在給它的估值，不是在看某一顆晶片或某一個客戶，而是在看：<br>它是不是全球高階晶片製造、先進封裝與量產生態裡最不可替代的平台。</p>
-<p>也就是說，台積電不是單一產品公司，而是：<br>- 前段先進製程平台<br>- 後段先進封裝平台<br>- 量產與良率控制平台<br>- 客戶導入與生態系協作平台</p>
-<p>這幾層疊在一起，才構成它現在真正的估值核心。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背產品，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對台積電來說，真正決定估值的有三個層級：</p>
-<p>第一層，先進製程。<br>這是最根本的價值來源，因為高階 GPU、CPU、手機 SoC、客製 ASIC 最後都必須依靠這個層級落地。</p>
-<p>第二層，先進封裝。<br>現在 AI 時代已經不是只比誰把單顆晶片做得更小，而是比誰能把 GPU、HBM、I/O、不同 chiplet 更高效率地整合起來。這讓先進封裝從配角變成主角。</p>
-<p>第三層，量產、良率與客戶生態。<br>真正讓台積電值錢的，不只是技術領先，而是它能把技術穩定變成大規模可交付的現金流。</p>
-<p>所以如果你只能記三件事，就記：<br>- 先進製程<br>- 先進封裝<br>- 高階量產平台能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>先進製程，你可以理解成把晶片做得更小、更快、更省電的能力。例如 3 奈米、2 奈米，代表更先進的製造節點。製程越先進，通常意味著在同樣面積下可以放更多電晶體，或在同樣功耗下得到更高效能。</p>
-<p>先進封裝，則是另一層故事。以前大家會把重點放在前段製程，也就是晶片本身怎麼做得更先進。但到了 AI 時代，很多高階晶片的瓶頸不只在晶片本身，還在於你怎麼把 GPU、HBM、邏輯晶片、I/O、不同 chiplet 高效地封在一起。這就進入先進封裝世界。</p>
-<p>CoWoS 是很重要的先進封裝技術。它讓高效能運算晶片和高頻寬記憶體更高效率地整合。你可以把它想成：以前大家比誰把單顆引擎做得更強，現在還要比誰能把引擎、變速箱、冷卻與油路整合得最好。AI 晶片現在就是這種狀況。</p>
-<p>所以台積電更重要，不只是因為它能做先進製程，而是因為它也能把先進製程和先進封裝一起提供。這讓客戶不是只依賴它的 2 奈米或 3 奈米，而是依賴它整個從前段到後段的高階製造平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這就是現在看台積電比以前更複雜、也更有價值的地方。</p>
-<p>過去你可以比較簡單地說：台積電的優勢在先進製程。這句話到今天還是對，但已經不夠完整。現在更好的說法是：台積電的優勢在於，它同時控制了高階邏輯製程、先進封裝、量產良率、生態協作、客戶導入節奏，以及稀缺產能的配置能力。</p>
-<p>尤其在 AI 晶片時代，誰能拿到先進封裝產能、誰能拿到 2 奈米量產時程、誰能更快導入新一代 GPU / ASIC 架構，這些都會影響下游客戶整個產品發布與資料中心投資節奏。</p>
-<p>所以台積電現在不是只是做晶片的工廠，而是很多 AI 供應鏈時程的總閥門。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>這個問題非常重要，因為很多人會把台積電誤解成單純 volume story。其實它的賺錢邏輯是幾個變數共同作用。</p>
-<p>第一，製程 mix。<br>越高階的製程，通常單位價值越高，毛利結構也更好。</p>
-<p>第二，客戶 mix。<br>如果產能被高價值、複雜度高、非做不可的晶片占據，整體收入品質就會提升。</p>
-<p>第三，先進封裝與整合附加價值。<br>AI 晶片時代，前段晶圓與後段封裝越綁越緊。這讓台積電吃的不只是 wafer revenue，而是整體系統製造價值。</p>
-<p>第四，良率與學習曲線。<br>先進製程很貴，良率差一點，獲利就差很多。工程能力最後會變成財務表現。</p>
-<p>第五，定價權。<br>如果客戶沒有太多替代方案，且產品發布時程很緊，高階製造平台就比較有能力轉嫁成本、維持價格、甚至在供需緊張時提升 ASP。</p>
-<p>所以看台積電不能只問出貨會不會變多，還要問：<br>- 這些出貨是什麼等級<br>- 客戶是誰<br>- 封裝與製程是不是一起升級<br>- 量產良率與稀缺產能是不是往最有利的地方配置</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>AI 當然是現在最強的市場主線，但如果你把台積電完全簡化成 AI 股，也會失真。</p>
-<p>它的基本盤本來就來自很多高階晶片需求：手機 SoC、資料中心 CPU、網通晶片、車用、高速運算、客製化 ASIC。AI 只是把這些需求裡最肥、最稀缺、最有結構性升級價值的部分拉出來放大。</p>
-<p>也就是說，AI 不是讓台積電從零變強，而是讓它原本就很強的高階製造平台價值被市場重新放大。</p>
-<p>你可以把 AI 理解成：<br>- 放大了先進製程的重要性<br>- 放大了先進封裝的重要性<br>- 放大了稀缺產能配置權的重要性<br>- 放大了客戶對台積電依賴的程度</p>
-<p>所以如果沒有 AI，它仍然是世界級公司；但有了 AI，它的定價權與市場敘事都變得更強。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很精準。</p>
-<p>台積電不是因為 AI 兩個字突然變厲害，而是因為 AI 把整個高階晶片製造鏈條推到更極端的條件：<br>- 更高功耗<br>- 更大晶片<br>- 更多 HBM<br>- 更複雜封裝<br>- 更高出貨時程壓力<br>- 更高資本密度</p>
-<p>而這些條件剛好都在放大台積電最強的地方。</p>
-<p>所以市場會越來越把它看成 AI 時代的高階製造基礎設施，而不是單純的晶圓廠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- 台積電：AI 時代的高階製造基礎設施，先進製程與先進封裝平台最完整<br>- 三星：記憶體、HBM、邏輯製程與封裝整合的一站式潛在競爭者<br>- Intel：具美國本土政策紅利、先進節點與封裝 second-source 敘事的老牌強權<br>- 聯發科：平台型 SoC / 通訊設計龍頭，受惠 AI 但層級在設計端，不在製造端</p>
-<p>這樣看，你就知道它們不是只是在同一個 AI 題材裡而已，而是站在完全不同位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：台積電（如果你定義純度是高階晶片製造平台）<br>- 誰最廣：台積電<br>- 誰最穩：台積電<br>- 誰最有彈性：Intel（如果你定義彈性是市場預期差與選擇權）<br>- 台積電卡在哪：全球高階製造與量產平台的基礎設施核心</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>如果只講一句話：<br>三星的威脅不在於立刻全面超車，而在於它具備記憶體、HBM、邏輯製程與封裝整合的一站式潛在優勢；台積電的優勢則在於已經被市場高度信任的高階製造、量產與交付能力。</p>
-<p>也就是說：<br>- 三星偏整合敘事與 second-source 可能性<br>- 台積電偏高品質、高良率、高信任的量產平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>Intel 的情況和三星很不一樣。三星比較像原本就在場上的對手，Intel 比較像試圖回到牌桌中央的老牌強權。</p>
-<p>Intel 的威脅主要來自三塊：<br>- 美國本土製造與政策紅利<br>- 先進節點與封裝路線<br>- Foundry optionality</p>
-<p>所以若你問：Intel 是真威脅還是題材？<br>我的答案是：它現在既是真威脅的雛形，也是高度依賴執行驗證的題材。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>最大的優點：<br>它已經是目前全世界最成熟、最被信任、最能把高階製造與封裝真正量產落地的平台。<br>- 不是只有技術<br>- 而是技術、良率、客戶導入、封裝、交付與生態系協作一起成立</p>
-<p>最大的缺點：<br>- 市場太懂它了<br>- 預期很滿<br>- 只要未來的強沒有超過已內建預期，股價也可能先面臨壓力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這個問題問得非常對，因為台積電最大的風險，往往不是公司不夠好，而是市場已經知道它很好。</p>
-<p>22 倍本益比不是在賭它會不會變厲害，而是在賭：<br>1. 先進製程與先進封裝 mix 能否持續往更高價值移動<br>2. AI 需求是不是落在台積電最有利的製程 / 封裝組合上<br>3. 海外擴產與新製程成本會不會被更高內容價值吸收<br>4. 三星 / Intel 是否無法有效削弱它的唯一性 premium</p>
-<p>所以市場不是在買「它很好」這件事，而是在買：它未來還能不能比已經很高的預期再更好一點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>毛利率對台積電來說，回答的是：<br>AI 與高階製造需求，是否真的在把產品組合推向更高品質、更高內容價值，而不是只是大量出貨。</p>
-<p>如果高階製程、先進封裝、稀缺產能配置都往最有利方向走，毛利率通常會很強；但如果同時出現：<br>- 海外擴產成本上升<br>- 新廠初期折舊壓力<br>- 先進封裝擴張前期成本<br>- 客戶 mix 或時程配置不如預期<br>那就可能出現營收很強，但毛利率改善不如市場想像的情況。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>因為營業利益率更接近市場真正的問題：<br>台積電到底是在賺高營收，還是在賺更高品質、更高效率的平台利潤。</p>
-<p>如果只是營收變大，但：<br>- 海外廠成本提高<br>- 先進製程與封裝擴產前期投資很重<br>- 營運費用與折舊壓力增加<br>那營業利益率不一定會同步漂亮。</p>
-<p>可是一旦你看到：<br>- 毛利率守住<br>- 營業利益率同步改善<br>- 規模放大有持續轉成營運槓桿<br>市場就會更願意相信：<br>台積電不只是吃一波 AI 需求，而是正在把高階製造平台的優勢穩定轉成更高品質現金流。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但台積電這種成熟平台型公司更要看：<br>- EPS 成長是不是主要來自本業高價值 mix<br>- 還是被資本支出、折舊、地緣配置成本部分抵銷</p>
-<p>獲利品質最重要看的就是：<br>- 高階製程與先進封裝是不是帶來健康的毛利結構<br>- 營業利益率是不是同步改善<br>- 淨利率是不是由本業穩定推升<br>- 海外擴產與新技術導入是否被更高的內容價值吸收</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是高階製程、先進封裝與稀缺產能配置，能不能持續把營收轉成更好的毛利率、營業利益率、淨利率與可持續的高品質獲利。</p>
-<p>如果可以，22 倍本益比就有合理性；<br>如果不行，市場就會開始懷疑它的唯一性 premium 是否已經過高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>夠強，而且這就是最應該先處理的空方版本。</p>
-<p>最強空方一句話可以這樣講：<br>台積電的長期方向大致正確，AI 與高階運算需求也持續放大它的核心優勢；但市場可能高估了它領先地位的永續性、AI 需求轉化成高品質獲利的速度，以及未來幾年仍能持續超越已內建預期的驚喜幅度。</p>
-<p>這句話最厲害的地方在於，它不是否定台積電很強，而是質疑：市場到底把未來成功先算了多少。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這是第二層更現實的反方。</p>
-<p>市場最容易偷懶的地方，就是把：<br>AI 晶片需求很強<br>直接畫成<br>台積電獲利一定同樣強。</p>
-<p>但中間其實隔著很多傳導環節：<br>- AI 需求是不是持續而非短期拉貨<br>- 需求是不是落在台積電最有利的製程 / 封裝組合上<br>- 客戶是不是願意持續承擔高成本<br>- 供應鏈瓶頸是不是反而壓縮出貨節奏<br>- 先進封裝與海外擴產成本會不會稀釋部分利潤</p>
-<p>所以最聰明的反方不會否認 AI，而是說：即使 AI 確實成長，市場也可能高估了這段成長傳導成台積電高品質獲利的速度與幅度。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率能否持續被更高價值的製程與封裝 mix 推升。</p>
-<p>原因很簡單：<br>- 營收可以很強<br>- AI 需求可以很熱<br>- 出貨可以很滿<br>- 但如果毛利率守不住，市場就很難相信高階製造平台優勢真的完整轉成獲利品質</p>
-<p>所以最脆弱的驗證，不是單月營收，而是毛利率與 mix quality。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>很強的成熟晶圓代工龍頭，而不是 AI 時代無可替代的高階製造基礎設施。</p>
-<p>差別在於：<br>- 前者看產能、出貨與景氣循環<br>- 後者看唯一性、稀缺性、封裝整合與平台級定價權</p>
-<p>一旦切回前者，市場給它的 premium 就會收斂。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>最誠實的答案是：它兩者都是，但更偏後者。</p>
-<p>它確實有高品質成長股的條件：<br>- AI 放大其優勢<br>- 高階製程與封裝仍在升級<br>- 客戶依賴很深</p>
-<p>但它同時也是市場已經很懂、很熟、很高度預期的成熟平台。這代表：<br>- 不是沒價值<br>- 而是後面如果想再往上，必須持續證明高階製造平台的稀缺性與驚喜幅度仍在</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>台積電不是單純晶圓廠，而是 AI 時代最核心的高階晶片製造與量產平台之一。</p>
-<p>第二句，平台邊界：<br>真正決定估值的，不是所有業務平均重要，而是先進製程、先進封裝與高階量產平台能力。</p>
-<p>第三句，護城河：<br>它的護城河不只是技術領先，而是技術、良率、產能配置、客戶導入與生態協作一起形成的系統級優勢。</p>
-<p>第四句，AI 影響：<br>AI 不是讓台積電從零變強，而是放大它原本就很強的高階製造平台價值。</p>
-<p>第五句，同業定位：<br>三星偏整合敘事與 second-source 可能性，Intel 偏本土製造與政策選擇權，而台積電是目前仍最穩的高階製造基礎設施。</p>
-<p>第六句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率、獲利品質與唯一性 premium 是否守住。</p>
-<p>第七句，最強反方：<br>市場可能高估了它的唯一性、AI 傳導效率與未來幾年的驚喜空間。</p>
-<p>第八句，最終投資判斷：<br>台積電真正值不值得目前估值，不是看它會不會受惠 AI，而是看它能不能持續把高階需求轉成高品質獲利，並維持足夠強的唯一性溢價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>台積電不是只因為 AI 很熱才值得高看，而是因為它仍然是最核心的高階製造與量產平台；但真正決定它值不值這個估值的，不是方向對不對，而是未來幾年的高品質獲利，能不能持續超過市場已經很高的預期。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="晶圓代工與商業模式">
 <div class="round-title">晶圓代工與商業模式</div>
 <div class="round-grid"><article class="bubble junior">
@@ -961,7 +741,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 與高階運算需求的成長無法持續轉成更高品質的利潤與定價權。</li><li>市場開始系統性下修對其唯一性、稀缺性與驚喜空間的評價。</li><li>先進製程、先進封裝或海外擴產的執行節奏顯著低於預期。</li><li>三星 / Intel 在某些高價值節點持續證明自己可成為可信 second source，進一步壓縮台積電的唯一性溢價。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>先進製程與先進封裝對中長期獲利率的更細量化拆分。</li><li>三星 / Intel 在不同節點與封裝路線上的追趕進度，對台積電估值溢價的影響幅度。</li><li>海外新廠、新節點與先進封裝擴產如何轉成更高毛利與更高營業利益率的更細證據。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台積電不是只因為 AI 很熱才值得高看，而是因為它仍然是最核心的高階製造與量產平台；但真正決定它值不值這個估值的，是高品質獲利能不能持續超過市場已很高的預期。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

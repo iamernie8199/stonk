@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,193 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-估值與市場預期">估值與市場預期</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為金像電現在被看的，已經不是「有沒有做 PCB」這麼粗的問題，而是「它做的是不是 AI 伺服器與高速交換器裡最值錢的那一層板」。</p>
-<p>最白話地講，PCB 就是把晶片、記憶體、電源、連接器這些零件真正接起來、讓訊號與電流能穩定跑動的板子。</p>
-<p>但不是所有板子都一樣值錢。</p>
-<p>當伺服器從一般運算走到 AI 伺服器、當交換器從 400G 走到 800G、再往更高頻寬走，板子的層數、材料、訊號完整性、散熱與良率要求都會一起提高。這時候，真正會被重估的不是「有板廠」這件事，而是「誰能做出高規格 AI 板，而且做得穩」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是核心。</p>
-<p>金像電現在最有價值的地方，不是只有出貨量大，而是它卡到的是：<br>- AI 伺服器主板<br>- 高速交換器板<br>- CSP 自研 ASIC 平台板<br>- 多層板、厚板、HDI / HLC 這種高規格板</p>
-<p>換句話說，它不是一般消費電子板廠思維，而是高規格運算基礎設施板廠思維。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>金像電最適合放在「高規格零組件 / 材料升級股」。</p>
-<p>因為它最重要的投資邏輯不是景氣循環本身，也不是平台生態位本身，而是：<br>- 規格升級讓單位價值量上升<br>- 更高階的板子帶來更高毛利與更高營益率<br>- 新平台導入讓它從一般硬板廠，逐步變成 AI 高階板供應商</p>
-<p>也就是說，它值不值得高估值，不只是看 AI 題材，而是看它能不能把高規格板占比，穩定轉成高品質獲利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第一層主線，就是它已經吃到的 AI 伺服器與高速交換器 PCB 基本盤。</p>
-<p>先看正式數據。最新台灣交易日 2026-08-12：<br>- 收盤價 1010 元<br>- 本益比 25.4 倍<br>- 股價淨值比 15.21 倍<br>- 總市值約 5,326 億元</p>
-<p>再看最新月營收。最新為 2026 年 6 月營收，公告日 2026-08-06：<br>- 單月合併營收 10,014,527 千元<br>- 年增 77.38%<br>- 月增 21.31%</p>
-<p>這組數字的重點不是只有很強，而是它反映的不是一次性拉貨，而是 AI 板需求已經變成營運主體。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>已經很主體了。</p>
-<p>公司研究頁裡多個來源都指向同一件事：伺服器板已經是金像電最重要的業務核心。不同來源對占比有 72%、78%、80% 這些不同口徑，但方向一致，就是伺服器板已經是主體，不是邊角料。</p>
-<p>所以第一層最關鍵的判斷是：<br>金像電不是剛剛沾到 AI，而是 AI 伺服器 / 高速交換器板已經構成它現在的基本盤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>第一層不是夢，是已經兌現的基本盤。</p>
-<p>但如果只停在第一層，你最多只能說它是很強的 AI 板景氣股，還不能說它一定值得高估值。</p>
-<p>因為第一層比較像景氣與需求的起點，它證明 AI 板需求是真的，但還不能單獨證明這個高估值能長久撐住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，第二層才是金像電真正決定估值能不能延續的核心。</p>
-<p>因為如果第一層只是 AI 板需求強，那比較像景氣與出貨量故事；但第二層是在問：<br>金像電做的板，是不是會越做越難、越做越值錢。</p>
-<p>這裡最重要的幾個字就是：<br>- HDI<br>- HLC<br>- 厚板<br>- 多層板<br>- 高速交換器板</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，先用菜鳥版本講。</p>
-<p>你可以把 HLC 想成「層數很多、結構很厚、訊號路徑很複雜的大板」；<br>把 HDI 想成「更高密度、更精細、更進一步壓榨空間與訊號設計能力的板」。</p>
-<p>對投資來說，你不用先背定義，先記一件事：<br>不管最後是 HLC 多、HDI 多，市場真正關心的是，下一代 AI 板規格升級後，金像電是不是仍然能做，而且能把難度變成毛利率。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。</p>
-<p>這就是高規格零組件股最迷人的地方：<br>- 如果只是多賣一點，市場不會一直給高倍數<br>- 但如果每一塊板都變得更高階、更高單價、更難做，而且公司還能做得出來，那估值就不只是量，而是質</p>
-<p>對金像電來說，第二層最重要的問題是：<br>AI 伺服器與高速交換器板升級，能不能把它從「景氣很好的板廠」推到「高規格 AI 板供應商」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有，而且這就是整篇報告最值得研究的地方之一。</p>
-<p>第一層大家比較沒爭議，但第二層分歧很大。</p>
-<p>公司研究頁裡就有清楚對照：<br>- 比較保守的一派，擔心 HDI 取代 HLC 之後的學習曲線、良率、成本與毛利率壓力<br>- 比較樂觀的一派，認為厚銅 HDI、800G 交換器板與 AI 伺服器板的技術路徑，金像電有能力吃下來，並把它轉成更高價值量</p>
-<p>所以第二層真正代表的是：<br>它能不能把高規格板故事，從「接到單」變成「高毛利、高營益率、高品質 EPS」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且這句話非常準。</p>
-<p>第一層是告訴市場它有 AI；<br>第二層才決定市場會不會長期把它當高規格 AI 板供應商，而不是短期爆發板廠。</p>
-<p>如果第二層成立：<br>- 毛利率會更穩<br>- 營業利益率會撐住<br>- 高估值就比較合理</p>
-<p>如果第二層不成立：<br>- 市場就會說你只是這一波景氣熱<br>- 本益比就會被壓回去</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>第三層是平台外延，也就是：<br>- 新產能<br>- 新廠區<br>- 新客戶<br>- 新 ASIC 平台<br>- 新交換器世代</p>
-<p>這一層現在看起來最重要的，就是泰國、蘇州與後續新廠擴張，以及新平台導入。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>不是只有多蓋廠，而是它直接決定兩件事：<br>1. 它能不能把現在的高需求真的接住<br>2. 它能不能把未來新平台與新客戶變成持續增長</p>
-<p>如果高規格板需求是真的，但公司沒有足夠產能、良率又不穩，那第二層升級故事就很難變成真正的獲利。</p>
-<p>所以第三層的關鍵是：<br>新產能不是附加題，而是把高規格板故事變成可持續營運的承接能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>指的是，金像電不是只吃已經成熟的平台，而是有機會持續切入：<br>- 新一代 CSP 自研 ASIC 主板<br>- 新交換器世代<br>- 新平台板型與高階材料組合</p>
-<p>第三層如果成立，市場就不會只把它看成「這一波吃到 AI 伺服器板的公司」，而會把它看成「未來幾代 AI 平台板升級都可能繼續受惠的公司」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這就是最精準的說法。</p>
-<p>第三層不是今天的估值核心，而是未來的選擇權。</p>
-<p>它最有長期價值，但也最容易被市場提早資本化。也就是說，市場常常會在它還沒完全兌現前，就先把價格打上去。</p>
-<p>所以整篇報告收斂後要很清楚：<br>- 第一層是基本盤<br>- 第二層是估值延續核心<br>- 第三層是第二曲線選擇權</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>先講大方向。</p>
-<p>如果放在 AI 硬體比較宇宙裡：<br>- 台達電比較像電力架構升級<br>- 川湖比較像高承重機構件升級<br>- 宏致比較像高速連接器 / 線材 / 電源線升級<br>- 金像電比較像 AI 主板 / 交換器板 / 高規格 PCB 升級</p>
-<p>所以金像電卡的位置，是整個 AI 硬體鏈裡非常核心、但又不是最終整機的中層板材 / 板件環節。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>以這一小群比較宇宙來看，我會這樣下：<br>- 誰最純：金像電（如果定義純度是 AI 伺服器 / 高速交換器高階 PCB）<br>- 誰最廣：廣達 / 伺服器 ODM 鏈<br>- 誰最穩：台達電<br>- 誰最有彈性：金像電<br>- 本公司卡在哪裡：高規格 AI 主板與交換器板供應商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最像的是同樣靠 AI 硬體升級吃到高價值量的供應商，例如川湖這種「不是整機廠、但在關鍵環節很值錢」的資產。</p>
-<p>最不像的是台達電這種平台邊界更寬、產品線更廣、已經更接近基建平台股的公司。</p>
-<p>也就是說：<br>- 金像電更純、更陡、更高彈性<br>- 台達電更廣、更穩、但成長彈性較沒那麼單點爆發</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>先講結論：<br>這不是便宜股，也不是市場把它當普通板廠在定價。</p>
-<p>市場現在給它的，不是傳統景氣股估值，而是高規格 AI 板供應商估值。</p>
-<p>估值五件組你要這樣看：</p>
-<p>1. 毛利率<br>- 重點不是單季高不高，而是高規格板占比上升後，毛利率能不能維持在高檔。<br>- 如果板子越高階、ASP 越高，但毛利率守不住，那代表價值沒有完整留在公司手上。</p>
-<p>2. 營業利益率<br>- 這比毛利率更重要。<br>- 因為市場不是只看板子賣貴，而是看最後能不能變成乾淨的本業利潤。</p>
-<p>3. 淨利率<br>- 這決定 EPS 能不能持續往上。<br>- 如果淨利率只是短期被稅率或一次性因素拉高，市場最後不會永久買單。</p>
-<p>4. 獲利品質<br>- 最重要是分清楚：<br>  - 是本業高規格板占比提升在推動<br>  - 還是只是景氣很熱、產能滿載、短期價格有利</p>
-<p>5. 估值分水嶺<br>- 金像電的估值分水嶺在於：<br>  - 它是不是只是這一波 AI 板景氣受惠股<br>  - 還是已經進入高規格板平台化升級的長期路徑</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場最在乎的不是營收還會不會再創新高，而是：<br>高階 AI 板占比提升，能不能持續把營收轉成高毛利、高營益率、高品質 EPS。</p>
-<p>也就是說，這家公司不是靠「有 AI」值錢，而是靠「AI 讓它賣更高規格的板，而且真的更會賺」值錢。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：AI 伺服器 / 高速交換器板基本盤</li><li>這一層回答：需求是真的，不是假的</li><li>但它比較偏景氣與量的起點</li></ul>
-<ul><li>第二層：HDI / HLC / 多層板升級</li><li>這一層回答：為什麼它不只是量變多，而是單位價值變高</li><li>這才是估值能不能延續的關鍵層</li></ul>
-<ul><li>第三層：新產能 / 新平台 / 新客戶外延</li><li>這一層回答：未來還有沒有第二支柱</li><li>但它也是最容易被市場提早高估的部分</li></ul>
-<p>所以最終估值結論就是：<br>第一層是起點，第二層最關鍵，第三層最有長期價值但也最危險。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最強空方一句話就是：<br>你現在買的不是普通 PCB 廠，而是被市場當成高規格 AI 板核心受惠者的資產；只要高階板升級速度、良率或產能承接稍微不如預期，估值就會先被砍。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這才是重點。</p>
-<p>真正的風險不是「AI 需求完全沒了」，而是：<br>- HDI / HLC 轉換沒有想像中順<br>- 高規格板毛利率沒有繼續往上<br>- 新產能雖然開出，但效率與良率沒有市場期待那麼快<br>- 新平台導入沒有及時補上下一波故事</p>
-<p>這樣的話，市場就會把它從「高規格 AI 板供應商」切回「景氣很好的板廠」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最需要盯的不是單月營收，而是：<br>- 毛利率能不能維持高檔<br>- 營業利益率能不能跟著擴張<br>- 新產能與高階板占比能不能持續支撐獲利品質</p>
-<p>如果未來看到：<br>- 營收成長還在，但毛利率與營益率開始下滑<br>- 或者高階板放量不如預期<br>- 或者新平台接棒沒有接上<br>那 thesis 就要重寫。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場最可能把它切回「景氣循環型高階 PCB 廠」的估值框架。</p>
-<p>也就是說，從現在的高規格 AI 板升級受惠股，退回成：<br>- 景氣很好<br>- 訂單很強<br>- 但仍然本質上只是板廠</p>
-<p>一旦被切回這個框架，本益比就不會再那麼寬鬆。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -921,7 +724,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階板占比提升不如預期。</li><li>AI 伺服器與高速交換器需求放緩。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高規格 PCB 地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階板占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>AI 伺服器與高速交換器需求是否持續墊高營收與獲利平台。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>金像電不是普通板廠，而是 AI 伺服器與高速交換器升級裡的高規格 PCB 供應商；真正關鍵不是營收創高，而是高階板占比能不能持續轉成高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

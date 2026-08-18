@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-估值與市場預期">估值與市場預期</a>
-<a href="#digest-14-估值與市場預期">估值與市場預期</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果一句話先記住，穎崴不是只在賣測試座，它是在賣高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試管理能力。</p>
-<p>以前大家可能把它看成 Test Socket 廠，但現在更準確的理解是：<br>它是站在高階測試介面、MEMS 探針卡、KGD 與先進封裝測試交界處的高價值測試平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對。它不像旺矽那樣更偏探針卡與量測，也不像鴻勁那種更偏測試設備。穎崴最核心的優勢，在於：<br>- 高階 AI / HPC 晶片測試介面能力<br>- Test Socket / HyperSocket / MEMS 探針卡布局<br>- KGD / Chiplet 測試路線與先進封裝測試連動</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>穎崴現在最核心的身份，是高階 AI / HPC 晶片測試介面與 KGD / Chiplet 測試平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是 AI GPU / CPU / TPU 測試介面與 Test Socket / HyperSocket 基本盤。<br>第二條，是 MEMS 探針卡與 KGD / Chiplet 測試複雜度提升。<br>第三條，是 CPO / 車用 ASIC / 新應用接力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 6,920 元<br>- 單日漲幅 1.32%<br>- 本益比 72.6 倍<br>- 股價淨值比 38.75 倍<br>- 總市值 2,519 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 1,600,351 千元<br>- 年增 155.57%<br>- 月增 9.6%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是只在買測試座需求，而是在買三件事：<br>- AI 晶片測試介面需求與規格升級<br>- HyperSocket / MEMS 探針卡 / KGD / Chiplet 內容值提高<br>- 穎崴能不能從 Test Socket 廠往更完整的測試平台公司走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是測試介面出貨量回來，那市場最後還是只會把它看成高成長一陣子的測試座股；但如果每一顆高階 AI 晶片的測試介面難度與內容值都在往上抬，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 Test Socket / HyperSocket 只是短線放量，市場會把它看成高成長一陣子的測試介面股；但如果 Test Socket / HyperSocket 是整個高階 AI 晶片測試管理升級的一部分，那它的定位就會往平台公司靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>因為這條線真正值錢的，不只是測試介面變多，而是測試複雜度升級：<br>- MEMS 探針卡<br>- KGD<br>- Chiplet<br>- 高階封裝前後的測試要求提升</p>
-<p>這些不是單純量增，而是測試難度升級帶來的內容值增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場願意給穎崴高於一般測試零組件股的估值，不是因為測試座出貨量而已，而是因為高階 AI / HPC 晶片測試介面、探針卡與 KGD / Chiplet 測試內容值在升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 KGD / Chiplet 只是題材，那市場會提早反映又提早修正；但如果它們真的成為高階 AI / HPC 晶片量產前的必要測試節點，那穎崴的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是外延。</p>
-<p>如果前兩條主線代表今天最受關注的 AI 測試成長，那第三條主線代表的是：<br>公司不是只有 Test Socket / MEMS 探針卡，而是還在往 CPO、車用 ASIC 與其他新應用測試介面延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>CPO、車用 ASIC、新應用短期不是主體營收，但它們會影響市場願不願意給穎崴比較高的估值框架，因為那代表公司不是只守住測試座，而是真的在往更完整的測試平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果 CPO、車用 ASIC、新應用最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像旺矽那種更偏探針卡量測，也不像鴻勁那種測試設備路線，更不像致茂那種量測平台。它比較像是站在高階 AI 測試介面與先進封裝測試中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟旺矽比：探針卡與高階測試座標<br>- 跟鴻勁比：測試設備與測試介面座標<br>- 跟致茂比：量測平台與驗證座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：穎崴（若只看高階 AI / HPC 測試介面主線）<br>- 誰最廣：致茂<br>- 誰最穩：致茂 / 大型測試驗證平台型公司<br>- 誰最有彈性：穎崴<br>- 穎崴卡在哪：高階 AI / HPC 測試介面、MEMS 探針卡與 KGD / Chiplet 測試平台公司<br>- 最像的比較對手：旺矽<br>- 最不像的比較對手：傳統成熟封測廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般測試座股，而是把它當：<br>- AI 測試介面升級受惠股<br>- MEMS 探針卡 / KGD / Chiplet 內容值提升股<br>- 帶有 CPO / 車用 ASIC 新應用選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是穎崴目前的估值本質：<br>- 如果它只是高成長一陣子的測試介面股，那 72 倍本益比很貴<br>- 如果它真的是高階測試平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 Test Socket、HyperSocket、MEMS 探針卡只是某幾個平台短線放量，後面沒有形成更穩的滲透曲線，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高價值新應用很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- AI 測試介面放量沒有持續擴張<br>- KGD / Chiplet / MEMS 探針卡沒有持續墊高內容值<br>- 新平台與新應用沒有打開能力邊界<br>那穎崴就可能被切回「高成長一陣子的測試介面股」，而不是高階測試平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -764,7 +627,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格測試介面產品占比提升不如預期。</li><li>KGD / Chiplet / CPO / 車用 ASIC 外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高階測試平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格測試介面產品占比是否持續提升。</li><li>KGD / Chiplet / CPO / 車用 ASIC 是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>穎崴不是多賣幾個測試座而已，而是要靠 HyperSocket、MEMS 探針卡、KGD / Chiplet 與新應用外延，把自己從測試介面廠往高階測試平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

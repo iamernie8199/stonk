@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,146 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-第-18-段">第 18 段</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-估值與市場預期">估值與市場預期</a>
-<a href="#digest-22-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這家公司最容易被誤解的地方就在這裡。</p>
-<p>最白話地講，聖暉不是做晶片、不是做設備，也不是做封裝本身，它做的是廠房裡面那些讓先進製程可以真正運作起來的系統工程，例如無塵室、機電整合、空調、製程公用系統，以及某些統包性質的廠務工程。</p>
-<p>你可以把它想成：<br>當大家都在看晶圓廠、記憶體廠、封裝廠蓋新廠時，晶片還沒開始生產之前，廠房本身要先被做出來，而且不是普通大樓，而是能支撐高規格製程的超高標準工業空間。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>兩邊都沾得到，但不能用一般營造股的方式去看它。</p>
-<p>如果你把它當普通建商或一般土木工程公司，會看錯。</p>
-<p>因為它真正值錢的地方不是蓋房子本身，而是能不能滿足：<br>- 無塵等級<br>- 機電整合<br>- 製程公用系統<br>- 特殊客戶驗證<br>- 高規格廠務需求</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>聖暉最適合放在「工程 / 系統整合 / 廠務 / 認列型公司」這個框架裡。</p>
-<p>它跟一般工程公司的最大差別，不在於接不接案，而在於：<br>- 它接的是不是高規格案子<br>- 它能不能通過高科技製程的驗收門檻<br>- 它的 backlog 品質好不好<br>- 它的專案執行與認列節奏穩不穩</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>非常對。看這種公司，第一件事不是背題材，而是先搞清楚：哪些案子真正決定估值，不是所有工程都一樣。</p>
-<p>對聖暉來說，真正決定估值的有三個層級：<br>- 高規格無塵室與機電整合能力<br>- 半導體與先進封裝擴產帶來的長週期接案能見度<br>- 工程品質與認列穩定度</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最直接受惠的主線有三條：<br>- 晶圓廠擴產<br>- 先進封裝廠與後段廠務需求<br>- 高科技產業無塵室 / 機電整合需求</p>
-<p>這三塊共同點是：<br>不是普通建築工程，而是要能通過高科技製程使用標準的工程。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>對，這點非常重要。</p>
-<p>一般工程市場裡，很多案子比的是價格；但高規格廠務工程裡，能不能做、能不能過驗收、能不能配合製程與機電需求，本身就是門檻。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>先進封裝不是只有設備和材料重要，廠房本身也要對應新的製程條件。</p>
-<p>當先進封裝擴產、後段設備前段化、製程條件越來越嚴格，廠務系統、無塵室、製程公用系統的重要性都會往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看：<br>- 第一順位：高規格無塵室與機電整合能力<br>- 第二順位：半導體與先進封裝擴產帶來的長週期接案能見度<br>- 第三順位：更廣義的建廠景氣故事</p>
-<p>真正最值錢的，不是工程量大，而是高規格工程門檻夠高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 漢唐：最具代表性的高規格廠務工程大型玩家之一<br>- 帆宣：廠務工程加設備代理與系統整合能力並重<br>- 亞翔：大型 EPC / 統包工程執行能力強<br>- 聖暉：高規格無塵室 / 機電整合與廠務工程受惠者，規模較上述龍頭小，但彈性更直接</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：聖暉（若只看高規格廠務工程彈性）<br>- 誰最廣：漢唐 / 帆宣<br>- 誰最穩：漢唐<br>- 誰最有彈性：聖暉 / 亞翔<br>- 聖暉卡在哪：中型且高彈性的高規格廠務工程受惠者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>最直接的弱點通常是：<br>- 規模沒有那麼大<br>- 平台廣度沒那麼完整<br>- 在市場心中的龍頭地位也沒有那麼穩</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>漢唐、帆宣更像大型平台型廠務工程資產，聖暉則更像：<br>- 規模較小<br>- 但能承接高規格工程<br>- 在對的週期裡彈性更直接的工程整合商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對工程股來說，接近 20 倍本益比不算便宜。</p>
-<p>市場願意給這個估值，代表它不是把聖暉當成普通工程股看，而是在買：<br>- 高規格無塵室 / 機電整合能力<br>- 半導體與先進封裝擴產的延續性<br>- 接案品質與在手訂單穩定度<br>- 相對一般工程公司更好的獲利品質想像</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 1045<br>- 本益比 19.5<br>- 股價淨值比 9.89<br>- 總市值 1,296 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 4,774,283 千元<br>- 年增 24.9%<br>- 月增 5.65%<br>- 近三月合併營收年增 22.67%<br>- 近 12 月營收合併成長 28.49%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為工程公司最容易讓人誤判的地方是：<br>營收可以很好看，但如果專案品質不好、毛利率下來、認列節奏不穩，市場不會給你高評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對聖暉來說，回答的是：<br>它承接的到底只是工程量，還是高規格、較難取代、較有技術門檻的工程內容。</p>
-<p>如果只是接案多，但高品質專案比例不高，毛利率就很難支撐高估值；如果高規格工程占比持續提升，毛利率就會告訴你：市場願意給較高框架是有依據的。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>聖暉到底是在賺工程量，還是在賺高品質的工程整合利潤。</p>
-<p>如果只是營收變大，但：<br>- 專案執行成本升高<br>- 認列節奏不穩<br>- 高規格工程沒有轉成較好的費用吸收與利潤結構<br>那營業利益率就不一定會同步漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率很重要，因為股東最後看的是 EPS。</p>
-<p>但聖暉這種公司更要看：<br>- EPS 成長是不是主要由高規格工程本業推動<br>- 還是只是專案認列節奏碰巧漂亮</p>
-<p>獲利品質最重要看的就是：<br>- 毛利率是不是健康<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- backlog 品質與認列穩定度能不能一起被證明</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-第-18-段">
-<div class="digest-title">第 18 段</div>
-<div class="content"><p>一句話就是：<br>市場相信聖暉不只是普通工程股，而是高規格建廠需求週期中的較高品質受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方，而且非常合理。</p>
-<p>反方會說：<br>- 工程股本質上還是跟資本支出週期走<br>- 專案一旦高峰過去，成長就會放緩<br>- 就算有高規格門檻，也不代表能長期維持高評價</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這是工程股最現實的風險之一。</p>
-<p>營收與獲利有時不是穩穩線性往上，而是會受到：<br>- 專案進度<br>- 驗收時點<br>- 認列節奏<br>- 新案與舊案切換<br>影響。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全是。</p>
-<p>對工程股來說，接近 20 倍本益比不算便宜，這代表市場已經先把一部分高規格受惠與成長預期算進去了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>聖暉的方向不是錯的，高規格無塵室與廠務工程需求也可能持續；但市場可能高估了高規格廠務工程門檻對長期估值的支撐力，以及半導體建廠熱潮延續時間，所以高估值對接案與認列節奏非常敏感。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -795,7 +645,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>backlog 品質惡化。</li><li>認列穩定度不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高規格工程能力的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>backlog 品質是否持續維持。</li><li>認列穩定度是否持續證明。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>聖暉不是普通工程股，而是高規格廠務工程整合商；真正關鍵不是營收有多強，而是它能不能用高規格工程能力把接案品質與獲利品質一起維持住。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

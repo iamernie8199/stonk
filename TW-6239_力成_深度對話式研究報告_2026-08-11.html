@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,147 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-13-估值與市場預期">估值與市場預期</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-18-第-18-段">第 18 段</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-估值與市場預期">估值與市場預期</a>
-<a href="#digest-22-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-23-第-23-段">第 23 段</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果一句話先記住，力成不是只做成熟封測，它是在賣記憶體封裝測試基本盤，並且試圖往更高階先進封裝延伸的能力。</p>
-<p>以前大家比較容易把力成看成記憶體封測廠，但現在更準確的理解是：<br>它是站在 DRAM / NAND 後段封測與次世代封裝外延交界處的 OSAT 平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>對。它不像前段晶圓代工，也不像日月光那種更廣的綜合型 OSAT 平台。力成最核心的優勢，在於：<br>- 記憶體封測深耕很久<br>- DRAM / NAND 客戶基礎深<br>- 後段測試與先進封裝延伸有機會往上走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話講：<br>力成現在最核心的身份，是記憶體封測基本盤很強、並且想往次世代先進封裝外延的記憶體 OSAT 平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是 DRAM / NAND 封測景氣修復。<br>第二條，是 HPC / 記憶體測試複雜度提升。<br>第三條，是 FOPLP / 玻璃基板等次世代先進封裝外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 282.5 元<br>- 單日漲幅 -2.08%<br>- 本益比 22.6 倍<br>- 股價淨值比 3.67 倍<br>- 總市值 2,145 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 8,270,133 千元<br>- 年增 29.37%<br>- 月增 8.49%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>市場不是只在買成熟封測景氣回升，而是在買兩件事：<br>- 記憶體封測景氣修復能不能持續<br>- 力成有沒有機會往更高階封裝與測試能力走</p>
-<p>也就是說，它不是單純的景氣反彈股，而是帶一點平台外延想像的記憶體 OSAT 股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是景氣讓量回來，那市場最後還是只會把它看成成熟封測景氣股；但如果 DRAM / NAND 封測在 AI 時代因為容量、頻寬、測試要求變高，讓服務內容值一起往上，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>如果力成只是吃到記憶體景氣短線回升，市場最後還是只會給它景氣股估值；但如果後段測試與封裝的價值量真的在上升，那它就有機會走出更高的框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>意思是，AI / HPC 世代對記憶體與後段測試的要求提高，尤其在高頻寬、高容量、異質整合路徑下，測試難度與價值量都在上升。</p>
-<p>對力成來說，這不只是量變，而是如果它能吃到更複雜的測試與封裝需求，市場就不會只用成熟記憶體景氣循環的框架看它。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>市場之所以願意給它高於一般成熟封測股的估值，不只是因為營收回升，而是因為大家在看：<br>- 測試難度有沒有往上<br>- 記憶體與 HPC 的結合有沒有變深<br>- 公司能不能往高價值後段服務走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果只是短期訂單帶來測試繁忙，那市場還是會把它看成景氣受惠；但如果高階測試能力變成持續性競爭優勢，那力成就會從成熟封測景氣股，往更高價值的 OSAT 平台股走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>第三條主線是最有想像空間、但也最需要驗證的地方，也就是：<br>- FOPLP<br>- 玻璃基板<br>- 與客戶共建的次世代先進封裝能力</p>
-<p>如果前兩條主線代表今天的基本盤與升級，那第三條主線代表的是：<br>力成能不能把自己從記憶體封測廠，慢慢往先進封裝平台公司推進。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>FOPLP / 玻璃基板這些東西，短期不是拿來解釋每個月營收的；但它們會影響市場願不願意給力成比較高的估值框架，因為那代表它不是只守住成熟後段，而是真的在往次世代封裝路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>對。這就是最值得追的地方。</p>
-<p>如果 Broadcom、新加坡合資、FOPLP、玻璃基板最後只是題材，那市場現在提早給的想像會被修掉；但如果這些真的變成可量產、可交付、可擴產的能力，那力成的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全正確。</p>
-<p>這不是單純利多消息，而是在問：<br>- 合資是不是只是一個敘事包裝<br>- 還是真的代表公司把先進封裝能力往海外與高階客戶延伸</p>
-<p>如果是後者，市場就會更願意給力成平台股估值；如果是前者，最後還是會回到成熟封測股框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像台積電那種前段，也不像日月光投控那樣廣泛 OSAT 平台，更不像福懋科那種更偏單一記憶體後段配套。它比較像是站在記憶體封測基本盤與次世代封裝外延中間層的平台公司。</p>
-<p>所以比較時要分層：<br>- 跟日月光投控比：綜合型 OSAT 座標<br>- 跟京元電比：高階測試座標<br>- 跟福懋科比：記憶體後段配套座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：力成（若只看記憶體封測 / DRAM / NAND 主線）<br>- 誰最廣：日月光投控<br>- 誰最穩：日月光投控 / 大型綜合 OSAT 平台<br>- 誰最有彈性：力成<br>- 力成卡在哪：記憶體封測基本盤很強、同時想往先進封裝與高階測試外延的 OSAT 平台公司<br>- 最像的比較對手：福懋科<br>- 最不像的比較對手：前段晶圓代工廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-第-18-段">
-<div class="digest-title">第 18 段</div>
-<div class="content"><p>因為市場不是只把它當成熟記憶體封測股，而是把它當：<br>- 記憶體封測景氣修復股<br>- HPC 測試複雜度升級受惠股<br>- 帶有 FOPLP / 玻璃基板選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是力成目前的估值本質：<br>- 如果它只是成熟記憶體封測景氣股，那 22 倍本益比不便宜<br>- 如果它真的是記憶體 OSAT 平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果現在的改善只是 DRAM / NAND 景氣反彈，而不是服務內容值升級，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些選擇權很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- 高階測試複雜度沒有持續上升<br>- FOPLP / 玻璃基板沒有順利商業化<br>- 客戶綁定沒有轉成實際平台外延能力<br>那力成就可能被切回「成熟封測景氣股」，而不是先進封裝平台候選。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-第-23-段">
-<div class="digest-title">第 23 段</div>
-<div class="content"><p>對，這才是最硬的問題。</p>
-<p>真正要驗證的是：<br>- 記憶體封測景氣修復是不是只是短週期反彈，還是內容值提升<br>- HPC / 高階測試複雜度能否持續墊高服務價值<br>- FOPLP / 玻璃基板 / Broadcom 新加坡合資是否真的構成平台外延<br>- 市場是否會把它從成熟 OSAT 升級成更高階的次世代封裝平台股</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -802,7 +651,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階測試 / 次世代封裝產品占比提升不如預期。</li><li>FOPLP / 玻璃基板外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其次世代封裝平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階測試 / 次世代封裝產品占比是否持續提升。</li><li>FOPLP / 玻璃基板外延是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>力成不是封測量回來而已，而是要靠記憶體封測基本盤、HPC 測試複雜度與 FOPLP / 玻璃基板外延，把自己從成熟 OSAT 往更高階的平台推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

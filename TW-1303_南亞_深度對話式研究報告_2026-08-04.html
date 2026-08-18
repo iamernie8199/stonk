@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,157 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-第-21-段">第 21 段</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>這個問題很好，因為南亞就是那種不能只用一個標籤看待的公司。</p>
-<p>最白話地講，南亞的核心仍然是大型石化與材料公司，但它不是只有傳統塑化景氣循環。它的業務橫跨：<br>- 一般塑化 / 石化材料<br>- 電子材料<br>- 銅箔基板相關材料<br>- 工程塑膠<br>- 與記憶體資產相關的價值連動</p>
-<p>更精準的說法是：<br>南亞是一家以大型材料製造能力為底，並且在電子材料與高階材料鏈上具有延伸價值的綜合型材料公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，不能只那樣看。</p>
-<p>如果你只把南亞當成傳統塑化股，你會漏掉兩件非常重要的事：<br>第一，它在電子材料鏈裡有角色。<br>第二，它的價值不只是賣大宗化學品，還包括工程塑膠、高性能材料與資產連結。</p>
-<p>所以南亞不是純電子股，也不是純塑化股，而是「景氣型材料基本盤 + 電子材料升級選項」的複合資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場對南亞的期待，不是它突然變成一檔最純的 AI 股，而是：<br>- 傳統塑化景氣若改善，它本來就會受惠<br>- 如果電子材料與高階材料升級主線成立，市場會願意給它比純塑化更高一點的評價</p>
-<p>所以南亞的投資邏輯不是爆發型單線成長，而是：<br>- 景氣底部回升<br>- 材料結構改善<br>- 電子材料敘事加分<br>三件事疊在一起。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>我會這樣講：<br>南亞的投資主線，是景氣循環修復提供下檔支撐，而電子材料與高階材料升級提供上檔重估空間。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-04 的股價資料：<br>- 收盤價 170.5<br>- 單日漲幅 3.33%<br>- 本益比 15.2<br>- 股價淨值比 3.52<br>- 總市值 13,522 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-09：<br>- 單月合併營收 27,134,592 千元<br>- 年增 31.79%<br>- 月減 5.88%<br>- 近三月合併營收年增 27.29%<br>- 近 12 月營收合併成長 5.66%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>南亞和 AI 供應鏈的連結，不是像台積電那樣直接做核心晶片，而是透過材料層連上去。主要有三條：<br>- 銅箔基板 / 高階 CCL 相關材料<br>- Low CTE 玻纖布等供應鏈瓶頸環節<br>- 高性能工程塑膠</p>
-<p>所以它不是 AI 最前線，但它在材料底層有多個可能受惠點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這個講法很接近，但還要再精準一點。</p>
-<p>南亞的特色是：<br>- 它不是最純的 AI 材料股<br>- 但它也不是毫無關聯的傳統塑化股<br>- 它比較像一個「有大基本盤、又有電子材料升級選項」的複合型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>短期來看，它更像加分項，不一定是最核心主線；但中期來看，不能忽略。</p>
-<p>因為 AI 資料中心不是只有算力，還有散熱、液冷、結構件、高性能絕緣與耐熱材料。工程塑膠若能切到高性能應用，雖然不一定立刻改變整體財務輪廓，但會改變市場看它的方式。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果我先粗分，我會這樣排：<br>- 台塑：更純的大宗塑化與上游原料型資產<br>- 台化：更偏芳香烴與中游石化利差彈性的景氣資產<br>- 南亞：大型材料平台 + 電子材料延伸選項的平衡型資產<br>- 台光電 / 聯茂：高階 CCL 與 AI 板材鏈上的更直接受惠者<br>- 南亞科：記憶體景氣與 DRAM 報價週期更直接的資產</p>
-<p>所以南亞比較像卡在中間：有大材料基本盤，又有機會往電子材料與高性能材料延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>如果用投資語言講：<br>- 台塑比較像上游原料與大宗塑化價格循環的代表<br>- 台化比較像中游利差、芳香烴、化纖與景氣彈性更強的代表<br>- 南亞則比較特別，因為它除了材料景氣循環，還多了電子材料、工程塑膠與集團電子資產連結</p>
-<p>所以它在集團裡最像的是：不是最純景氣股，也不是最純成長股，而是最容易被當成「平衡型材料升級資產」的角色。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>差非常大，而且這就是估值差異的來源。</p>
-<p>台光電、聯茂這類公司，市場願意給更高純度的原因是：<br>- 它們更直接卡在高階 CCL / 高速板材 / AI 伺服器材料規格升級<br>- 受惠鏈比較短<br>- 投資人比較容易把成長、ASP、毛利率改善直接連上去</p>
-<p>南亞雖然也跟這條鏈有關，但它不是那種「看板材升級就先想到它」的第一順位公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>比較偏資產加分，而不是主營運主線。</p>
-<p>南亞科本身是記憶體資產，它的報價、庫存、DRAM 景氣、HBM 想像，都有自己獨立邏輯。</p>
-<p>對南亞來說，南亞科的重要性在於：<br>- 會影響市場看待南亞的資產價值<br>- 會影響淨值與轉投資想像<br>- 但不能把它直接當成南亞本業升級的唯一證據</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>南亞不是 AI 材料鏈裡最直接的高純度核心受惠者，而是具備大型基本盤、能分享材料升級紅利、並且保有電子材料與資產選項的平衡型廣義受惠資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這就是南亞最核心的估值問題。</p>
-<p>市場之所以只給大約 15 倍，不是因為它完全沒故事，而是因為市場對它的判斷仍偏向：<br>- 主要還是景氣循環材料公司<br>- 電子材料升級是加分，不是已經被證明的主引擎<br>- 毛利率與獲利品質，還不足以讓它被當成高純度成長材料股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常對，而且這是南亞跟高純度 AI 股很不一樣的地方。</p>
-<p>對南亞來說，單純營收變好，市場不一定買單；市場更在意的是：<br>- 賣的是不是更高價值材料<br>- 利差是不是改善得更健康<br>- 毛利率是不是能穩住<br>- 電子材料占比有沒有往上<br>- 資產價值是不是能真的轉成股東回報</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>兩個都怕，但就估值來說，市場最怕的是「升級不夠快」。</p>
-<p>如果景氣有修復，結果：<br>- 毛利率沒有明顯改善<br>- 電子材料占比沒拉高<br>- 高階材料還是停留在題材<br>- 本業獲利結構沒有變乾淨<br>那市場就會很快下結論：你不是升級股，只是景氣股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>最直接的一句話是：<br>市場願意承認南亞比純塑化股多一點升級想像，但還不願意把它當成高價值材料成長股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會先看三件事：<br>- 毛利率能不能不只反彈，而是維持改善<br>- 電子材料與高階材料相關營收占比能不能持續抬升<br>- 市場是不是開始相信它的升級不是題材，而是可持續的獲利結構改變</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是非常強的第一個反方，而且一定要正面面對。</p>
-<p>反方會說：<br>- 你講了很多高階材料、AI 供應鏈<br>- 但南亞核心獲利還是跟大宗材料景氣很有關<br>- 所以這些 AI 材料敘事可能只是加分題，不足以改變本質</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這是第二個很現實的反方。</p>
-<p>市場有時候最怕這種公司：<br>- 每條題材都沾一點<br>- 但沒有一條是最強<br>- 所以聽起來很厲害，實際上很難給高溢價</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-第-21-段">
-<div class="digest-title">第 21 段</div>
-<div class="content"><p>完全有可能。</p>
-<p>如果你把它當成大型景氣循環材料股來看，15 倍不一定是被市場嚴重錯殺。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，講公司本質：<br>南亞不是單一塑化股，而是有大型材料基本盤與電子材料延伸能力的綜合型材料公司。</p>
-<p>第二句，講主線：<br>它的下檔來自景氣修復，上檔來自電子材料與高階材料升級選項。</p>
-<p>第三句，講 AI 連結：<br>它不是最前線 AI 股，但透過銅箔基板、Low CTE 玻纖布、高性能工程塑膠等材料層，與 AI 供應鏈產生連結。</p>
-<p>第四句，講比較框架：<br>相較台塑、台化，它更有電子材料與升級選項；相較台光電、聯茂，它又沒那麼純；相較南亞科，它的核心還是本業材料平台，而不是單一記憶體資產。</p>
-<p>第五句，講市場地位：<br>市場現在還沒有把它當高純度材料成長股，而是把它看成景氣股加材料升級選項。</p>
-<p>第六句，講估值本質：<br>15 倍左右本益比，反映的是市場承認它比純塑化股多一點升級想像，但還不願意把它當成高價值材料成長股。</p>
-<p>第七句，講核心風險：<br>如果電子材料與高階材料受惠沒有轉成實際毛利率與獲利品質改善，市場就不會給更高估值。</p>
-<p>第八句，講最終投資分水嶺：<br>南亞最後要證明的，不只是景氣有回來，而是材料結構真的在升級，讓它從景氣股往更高價值材料資產移動。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>南亞不是純塑化股，也不是最純 AI 材料股，而是有大基本盤、能分享材料升級紅利的平衡型材料資產；真正關鍵不是景氣修復，而是電子材料與高階材料能不能把毛利率與估值框架一起往上拉。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -822,7 +661,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>景氣循環修復弱於預期。</li><li>電子材料與高階材料升級不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其平衡型材料資產地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>電子材料與高階材料占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>景氣修復與材料結構改善是否同步成立。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>南亞不是最純 AI 材料股，而是景氣修復提供下檔、電子材料升級提供上檔的平衡型材料資產。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

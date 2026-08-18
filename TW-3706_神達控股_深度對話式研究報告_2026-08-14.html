@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,170 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-估值與市場預期">估值與市場預期</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只用一句話記，神達控股現在最該被理解成：<br>AI 資料中心硬體平台公司。</p>
-<p>不是只有伺服器，不是只有機櫃，也不是一般 PC 組裝。它的核心，是用神雲這個平台去承接：<br>- 美系雲端客戶伺服器需求<br>- AI 資料中心機櫃與整合交付<br>- 北美 / 亞洲在地擴產與測試能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有像，但又不完全一樣。</p>
-<p>廣達、緯穎的市場認知更成熟，神達的特色是：<br>它規模沒有最大，但更像從既有伺服器基礎，往 AI 機櫃、液冷、在地交付能力外延的公司。</p>
-<p>也就是說，它的投資故事不是純粹比規模，而是比：<br>- 成長彈性<br>- 擴產速度<br>- 平台能力會不會被市場重新定價</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會把神達控股歸在「平台型公司」。</p>
-<p>因為市場真正在辯論的，不是它有沒有接到單，而是：<br>它能不能從伺服器與機櫃供應商，變成 AI 資料中心交付平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第一層主線，是雲端 / AI 伺服器基本盤。</p>
-<p>先看正式數據。最新台灣交易日 2026-08-12：<br>- 收盤價 91.7 元<br>- 本益比 14.8 倍<br>- 股價淨值比 1.83 倍<br>- 總市值約 1,217 億元</p>
-<p>再看最新月營收。最新為 2026 年 6 月營收，公告日 2026-08-09：<br>- 單月合併營收 12,833,645 千元<br>- 年增 49.73%<br>- 月增 -18.17%</p>
-<p>這代表公司目前最扎實的底盤，已經不是傳統 PC，而是資料中心與伺服器相關需求。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。</p>
-<p>這一層最重要的意義是：<br>神達已經不是在講未來故事，而是營收動能與美系雲端需求已經確實推動成長。</p>
-<p>但這一層也有邊界：<br>如果市場最後只把它看成低毛利的伺服器出貨成長，那估值不會拉很高。所以第一層重要，但只是起點。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>沒錯。</p>
-<p>第一層證明神達不是空故事，但這一層本身更像底盤，而不是高估值成立的全部理由。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第二層是 AI 機櫃 / 液冷升級。</p>
-<p>這一層之所以關鍵，是因為神達不只是賣伺服器板子或機器，而是開始把產品線往：<br>- AI 液冷機櫃<br>- AI 氣冷機櫃<br>- 高密度儲存機櫃<br>- 更完整的 rack-level 交付<br>去推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>這一層回答的是：<br>神達會不會只是 AI 伺服器景氣跟單者，還是能因為 AI 機櫃、液冷與交付能力，把單位價值量與平台地位一起拉高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是市場最大爭議。</p>
-<p>也就是說，第二層很關鍵，但同時也是估值辯論最核心的地方：<br>- 多頭會說：這是資料中心平台化升級<br>- 空頭會說：這只是低毛利機櫃出貨放大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這就是神達最重要的估值轉折點。</p>
-<p>第一層證明它有單，第二層則回答這些單值不值得更高評價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>這也是為什麼神達最核心的估值問題，不是「營收能不能再創高」，而是「AI 機櫃與液冷能不能提升獲利品質」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三層是北美 / 亞洲擴產與平台外延。</p>
-<p>神達現在不是只講接單，而是同步在：<br>- 北美設廠<br>- 亞洲擴充產線<br>- 建立更完整的在地交付與測試能力<br>- 甚至為高耗電測試導入 Bloom Energy 電力設備</p>
-<p>這代表它在往更完整的資料中心交付平台靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。</p>
-<p>第三層的價值不在短期 EPS 立刻爆發，而在於：<br>市場會不會相信這家公司有能力從「接單出貨」升級成「跨區域交付與擴張平台」。</p>
-<p>如果答案是會，那估值框架就會往上走；如果答案是不會，那市場就只會把它看成景氣循環的伺服器組裝股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>對。</p>
-<p>第一層是成長底盤，第二層是升級核心，第三層則是平台化選擇權。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這句話很重要。</p>
-<p>因為擴產與平台外延最容易被提早資本化。市場常常會先把遠期能力算進股價，但如果後面沒有順利轉成更高品質獲利，修正也會最快落在這一層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>至少要分三層：<br>- 跟廣達、緯穎比：資料中心與伺服器平台能力<br>- 跟勤誠、富世達比：機櫃與機構交付升級<br>- 跟台達電、高力比：資料中心電力與液冷延伸能力</p>
-<p>所以神達不是單點零件股，而是夾在伺服器、機櫃與交付能力之間的平台中層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先這樣看：<br>- 誰最純：緯穎 / 廣達（若只看大型伺服器 ODM）<br>- 誰最廣：台達電<br>- 誰最穩：廣達 / 台達電<br>- 誰最有彈性：神達<br>- 本公司卡在哪裡：AI 資料中心硬體平台中層<br>- 最像的比較對手：勤誠<br>- 最不像的比較對手：單純成熟製程材料股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>表面上不貴，但不能只看本益比。</p>
-<p>神達現在市場真正要判斷的，是：<br>- 這 14 倍到底是低估的成長平台股<br>- 還是只是景氣很好的伺服器組裝股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣看：</p>
-<p>1. 毛利率<br>- 毛利率回答的是：AI 機櫃與液冷升級，到底有沒有讓公司賣更高價值的東西，還是只是低毛利營收做大。</p>
-<p>2. 營業利益率<br>- 這是最該盯的。<br>- 因為擴產、折舊、良率與交付複雜度，都會先打在營業利益率上。</p>
-<p>3. 淨利率<br>- 淨利率要看平台升級有沒有真的落到 EPS，而不是只停在營收成長。</p>
-<p>4. 獲利品質<br>- 核心問題是：<br>  - 成長是不是來自高價值 AI 資料中心平台能力<br>  - 還是只是短期出貨與產能爬升堆出來的營收</p>
-<p>5. 估值分水嶺<br>- 神達的估值分水嶺在於：<br>  - 市場會把它當 AI 資料中心平台升級股<br>  - 還是把它切回低毛利伺服器組裝股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：雲端 / AI 伺服器基本盤</li><li>這一層證明需求真的存在</li><li>但它比較像底盤與起點</li></ul>
-<ul><li>第二層：AI 機櫃 / 液冷升級</li><li>這一層回答神達是不是能把單位價值量往上推</li><li>這才是估值延續核心</li></ul>
-<ul><li>第三層：北美 / 亞洲擴產與平台外延</li><li>這一層回答未來能不能變成更完整的平台交付能力</li><li>最有長期價值，但也最容易被市場提早高估</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值但也最容易被提前資本化。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最強空方一句話就是：<br>你現在買的不是一個單純營收成長公司，而是市場期待它升級成 AI 資料中心平台；只要 AI 機櫃毛利率、良率與擴產效率不如預期，估值就會先掉下來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常重要。</p>
-<p>神達最危險的情境不是營收不成長，而是：<br>- 單有接到<br>- 營收有放大<br>- 但 AI 機櫃 / 液冷太吃毛利<br>- 擴產與折舊先壓住營業利益率</p>
-<p>這樣市場就會說：你只是更大的低毛利公司，不是更好的平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最該盯的是：<br>- 毛利率有沒有被 AI 機櫃結構長期壓住<br>- 營業利益率有沒有被擴產 / 折舊 / 良率拖住<br>- 北美與亞洲新廠量產後，平台能力有沒有轉成更高品質獲利<br>- 美系雲端客戶拉貨有沒有持續</p>
-<p>如果未來看到：<br>- 營收成長還在，但營業利益率長期上不來<br>- 新產能只換到營收，沒有換到品質<br>- AI 機櫃變成結構性低毛利包袱<br>那 thesis 就要重寫。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場最可能把它切回「低毛利伺服器組裝 / 機櫃出貨股」框架。</p>
-<p>也就是說，從現在這種 AI 資料中心平台升級股，退回成：<br>- 有單、有成長<br>- 但缺少高品質平台溢價</p>
-<p>一旦被切回這個框架，本益比就不會太高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -853,7 +679,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 機櫃 / 液冷升級落地不如預期。</li><li>北美 / 亞洲擴產與平台外延不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其資料中心平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>AI 機櫃 / 液冷是否開始明確轉成獲利。</li><li>北美 / 亞洲擴產與平台外延是否持續落地。</li><li>毛利率、營業利益率與獲利品質是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>神達不是單純伺服器組裝股，而是往 AI 資料中心硬體平台升級的公司；真正關鍵不是營收衝多快，而是 AI 機櫃 / 液冷 / 擴產能不能轉成高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

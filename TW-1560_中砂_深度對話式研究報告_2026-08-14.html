@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,175 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-22-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-23-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-25-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>先用最白話講。中砂不是在賣終端產品，它賣的是半導體製程裡很關鍵、但外行很容易忽略的耗材與加工工具。</p>
-<p>你可以把它想成：<br>當晶圓廠往 2 奈米、A16、晶背供電、先進封裝走的時候，晶圓表面要更平、薄化更精準、缺陷更低、測試用晶圓需求更多。中砂賣的，就是這些製程過程裡不可少的耗材與工具。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，而且這正是它最有價值的地方。</p>
-<p>它不是做大而全的平台設備，而是卡在製程很前段、很難被省掉的耗材環節。這種公司一旦對準先進製程升級，價值不一定來自出貨量很大，而是來自：<br>- 技術門檻高<br>- 客戶切換成本高<br>- 單位價值量隨製程升級而增加</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會把中砂放在「高規格零組件 / 材料升級股」。</p>
-<p>因為它的投資主線不是景氣循環本身，而是：<br>- 先進製程越往前，CMP 鑽石碟越重要<br>- 再生晶圓需求跟著製程複雜度走高<br>- 砂輪與特殊應用也受高階電子製造拉動</p>
-<p>所以它值不值得高估值，不只是看需求熱不熱，而是看高階製程耗材的內容值有沒有持續往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>第一層主線，就是鑽石碟基本盤。</p>
-<p>先看正式數據。最新台灣交易日 2026-08-12：<br>- 收盤價 707 元<br>- 本益比 50.9 倍<br>- 股價淨值比 12.88 倍<br>- 總市值約 1,063 億元</p>
-<p>再看最新月營收。最新為 2026 年 6 月營收，公告日 2026-08-03：<br>- 單月合併營收 886,323 千元<br>- 年增 26.56%<br>- 月增 6.41%</p>
-<p>這組數字代表的，不只是公司有成長，而是先進製程用的鑽石碟已經是成長主引擎。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>它回答的是：<br>台積電與其他先進製程客戶往 N2、A16、晶背供電走時，CMP 這個環節是不是變得更重要，而中砂能不能繼續吃到這條需求。</p>
-<p>如果答案是可以，那它就不是一般材料股，而是先進製程升級的直接耗材受惠者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。第一層是它最明確、最已兌現的基本盤。</p>
-<p>但這一層也有邊界：<br>如果市場最後只把它看成「鑽石碟很強」的單一產品股，高估值不一定能長久。所以第一層重要，但還不夠。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>第一層證明中砂不是空故事，但它本身還不足以單獨支撐高估值長期成立。它更像是起點，而不是全部答案。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>第二層是再生晶圓與特殊晶圓升級。</p>
-<p>很多人看中砂只看鑽石碟，但其實再生晶圓是另一個很關鍵的升級支點。因為製程越先進，測試、監控、校正需求越高，再生晶圓的用量與規格也會跟著提升。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。這一層真正值錢的地方不是「片數變多」而已，而是：<br>- 高階再生晶圓占比提升<br>- 特殊晶圓需求增加<br>- 單位價值量提高<br>- 毛利率與營業利益率更有機會被撐起來</p>
-<p>這就讓中砂不只是單靠鑽石碟，而是多了一個品質更高的第二支柱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>第一層是鑽石碟主引擎，第二層則是讓市場看到：<br>它不是只有單一產品，而是有機會把再生晶圓與特殊晶圓一起做成更高品質的製程耗材組合。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>對，這個差異非常重要。</p>
-<p>金像電、臻鼎-KY偏板與載板；中砂偏製程耗材與工藝支撐。它比較像在晶圓進入封裝與系統之前，先卡在前段製程品質與薄化能力的關鍵位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>對。</p>
-<p>第一層證明需求是真的；<br>第二層才決定市場會不會說：<br>這不只是單一耗材受惠，而是往多引擎高階製程耗材平台升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>第三層是砂輪與擴產外延。</p>
-<p>這一層比前兩層更外圍，但不能忽略。因為：<br>- ABU 精密砂輪本身有漲價與產品組合改善<br>- 公司也在擴產，包括 DBU 產能持續拉升<br>- 再生晶圓與高階應用也在往外擴</p>
-<p>這些東西單獨看可能沒那麼性感，但放在一起看，就是公司把主線從單一鑽石碟往更完整耗材平台延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對。</p>
-<p>第三層不是今天最穩的獲利核心，而是未來外延。市場如果很樂觀，會先把它想成：<br>- 砂輪漲價繼續推動 ABU<br>- 擴產順利承接更多先進製程需求<br>- 再生晶圓與特殊晶圓再往上走</p>
-<p>但如果這些外延沒有及時兌現，市場也會先修估值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對。</p>
-<p>第一層是已兌現主引擎，第二層是品質升級核心，第三層則是第二曲線選擇權。</p>
-<p>也就是說：<br>- 第一層證明需求真的存在<br>- 第二層證明獲利品質有機會提升<br>- 第三層決定公司能不能從單點耗材股往更完整的耗材平台延伸</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>它的位置很特別。</p>
-<p>如果放在現有 AI / 半導體硬體比較宇宙裡：<br>- 金像電、臻鼎-KY：偏板與載板<br>- 宏致：偏高速連接器 / 線材<br>- 川湖：偏機構件<br>- 台達電：偏供電架構<br>- 中砂：偏先進製程耗材 / CMP / 再生晶圓</p>
-<p>所以它補的是更前段、更工藝層的那一層，而不是系統、板卡或機構件。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>在這個比較群裡，我會先這樣看：<br>- 誰最純：中砂（如果定義純度是先進製程 CMP / 鑽石碟耗材）<br>- 誰最廣：台達電或臻鼎-KY<br>- 誰最穩：台達電<br>- 誰最有彈性：中砂<br>- 本公司卡在哪裡：先進製程耗材升級股<br>- 最像的比較對手：昇陽半導體 / 辛耘這種工藝支撐鏈<br>- 最不像的比較對手：和碩這種整機 ODM</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>很貴，而且市場不是把它當一般耗材股在看。</p>
-<p>50 倍本益比代表市場買的不是單月營收，而是：<br>- N2 / A16 / 晶背供電對鑽石碟需求的擴張<br>- 再生晶圓與特殊晶圓的高階化<br>- 擴產之後獲利品質能不能維持</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣看：</p>
-<p>1. 毛利率<br>- 毛利率在回答：中砂賣的到底是不是越來越高內容值的耗材，而不是只是更多片數。</p>
-<p>2. 營業利益率<br>- 這一項尤其重要。<br>- 因為只要擴產、折舊、費用先上來，營業利益率就很容易先被吃掉。</p>
-<p>3. 淨利率<br>- 淨利率要看的是高階產品與規模效應，能不能真正落到股東拿得到的 EPS。</p>
-<p>4. 獲利品質<br>- 核心問題是：<br>  - 成長是不是由高階製程耗材推動<br>  - 還是只是短期景氣熱度與產能利用率推上去</p>
-<p>5. 估值分水嶺<br>- 中砂的估值分水嶺在於：<br>  - 市場會把它當一般材料股<br>  - 還是會把它當先進製程耗材升級股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>市場最在乎的不是營收有沒有再創高，而是：<br>高階製程耗材需求放量後，毛利率、營業利益率與獲利品質能不能一起撐住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣翻：</p>
-<ul><li>第一層：鑽石碟基本盤</li><li>這一層回答：先進製程需求是真的</li><li>但它比較像起點</li></ul>
-<ul><li>第二層：再生晶圓 / 特殊晶圓升級</li><li>這一層回答：為什麼中砂不只是單一產品，而是往多引擎高階耗材走</li><li>這才是估值延續核心</li></ul>
-<ul><li>第三層：砂輪與擴產外延</li><li>這一層回答：未來還有沒有第二曲線</li><li>但它也是最容易被市場提早高估的部分</li></ul>
-<p>所以最終估值結論就是：<br>第一層是底盤，第二層最關鍵，第三層最有長期價值但也最危險。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最強空方一句話就是：<br>你現在買的不是一般材料股，而是被市場當成先進製程耗材升級受惠者的資產；只要高階製程放量、產能爬升或再生晶圓升級稍微不如預期，估值就會先被壓縮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對。</p>
-<p>真正的風險不是「沒有先進製程需求」，而是：<br>- N2 / A16 需求放量節奏慢於市場想像<br>- 鑽石碟擴產不如預期<br>- 再生晶圓與特殊晶圓升級沒有那麼快反映在獲利品質<br>- 折舊或費用先上來，營業利益率反而被壓縮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>最該盯的不是單月營收，而是：<br>- 毛利率能不能持續提升或至少維持高檔<br>- 營業利益率有沒有被擴產與費用率吃掉<br>- DBU / SBU 高階產品占比有沒有真的往上走<br>- 產能開出後有沒有變成有效承接，而不是無效擴張</p>
-<p>如果未來看到：<br>- 營收成長還在，但營業利益率掉下去<br>- 高階產品占比不如預期<br>- 擴產沒有轉成更高品質獲利<br>那 thesis 就要重寫。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>市場最可能把它切回「高波動半導體材料 / 耗材股」的估值框架。</p>
-<p>也就是說，從現在這種先進製程耗材升級股，退回成：<br>- 跟著景氣與大客戶 CAPEX 波動<br>- 需求還在，但估值不該太高</p>
-<p>一旦被切回這個框架，本益比就不會這麼寬鬆。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -860,7 +681,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階耗材占比提升不如預期。</li><li>再生晶圓與特殊晶圓升級不如預期。</li><li>毛利率、營業利益率與獲利品質無法持續改善。</li><li>市場重新下修對其高規格製程耗材地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>鑽石碟是否持續作為最明確成長主引擎。</li><li>再生晶圓與特殊晶圓升級是否持續放大。</li><li>毛利率、營業利益率與獲利品質是否持續改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>中砂不是普通材料股，而是 N2 / A16 / 晶背供電與先進封裝升級下的高規格製程耗材供應商；真正關鍵不是營收創高，而是高階耗材占比能不能持續轉成高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

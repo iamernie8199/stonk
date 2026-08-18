@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>技嘉現在最值得研究的地方，就是它已經不能只用傳統 PC 品牌廠的框架看了。</p>
-<p>如果你還只把它當主機板、顯卡、電競品牌，會低估它現在真正被市場重估的那一塊。</p>
-<p>更精準的說法是：技嘉是一家從板卡 / 顯卡 / 主機板基礎能力往 AI 伺服器、整櫃方案與 AI PC 延伸的高彈性系統型硬體公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>技嘉和一般純品牌 PC 廠最大的差異在於：它跟 NVIDIA 平台週期的連動度非常高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>技嘉現在最重要的身份，是 NVIDIA GPU 平台週期下，兼具 AI 伺服器、整櫃系統與 AI PC 延伸能力的高彈性硬體資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 349.5<br>- 單日漲幅 1.6%<br>- 本益比 11.2<br>- 股價淨值比 3.63<br>- 總市值 2,341 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 44,213,037 千元<br>- 年增 59.67%<br>- 月增 3.08%<br>- 近三月合併營收年增 36.34%<br>- 近 12 月營收合併成長 39.01%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場現在買的是三層東西。</p>
-<p>第一層，是 AI 伺服器出貨。這是最直接的成長來源。</p>
-<p>第二層，是 NVIDIA 新平台週期。從 GB300 到 Rubin，這代表未來還有新產品推進，不只是單一一季出貨熱。</p>
-<p>第三層，是 AI PC 與整櫃 / 液冷 / 系統整合延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>技嘉現在最關鍵的問題不是有沒有成長，而是：<br>- AI Server 比重提高後，毛利率與獲利品質會不會被低毛利產品稀釋<br>- 還是它能靠整櫃、平台、AI PC 等新產品，把自己從板卡品牌廠升級成更高品質的 AI 硬體平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最直接有四條：<br>- AI 伺服器出貨<br>- NVIDIA 新平台週期<br>- neocloud 與 enterprise 的 AI 基礎設施需求<br>- AI PC 與本地端 AI 裝置升級</p>
-<p>其中最核心的是前兩條，因為這兩條直接決定營收與市場情緒。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很重要。</p>
-<p>技嘉最值錢的地方不是某一個單品，而是它能同時站在：<br>- NVIDIA GPU 平台升級<br>- AI 伺服器出貨<br>- 整櫃 / 液冷延伸<br>- AI PC 終端升級<br>這幾條主線交會處。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 華碩：品牌深度與產品平台廣度最完整的大型品牌硬體資產<br>- 微星：電競、顯卡、品牌消費性硬體色彩更強<br>- 華擎：規模較小，但在伺服器與板卡題材上更有彈性<br>- 技嘉：AI Server、板卡、整櫃與 AI PC 交會下的高彈性系統型硬體資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：華擎（若只看高題材伺服器彈性）<br>- 誰最廣：華碩<br>- 誰最穩：華碩<br>- 誰最有彈性：技嘉 / 華擎<br>- 技嘉卡在哪：AI Server 連動度極高、兼具整櫃與 AI PC 延伸的系統型硬體資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>華碩更像大型品牌平台資產，微星更像品牌終端與電競敘事，華擎更像小型高題材伺服器彈性股。</p>
-<p>技嘉則剛好卡在中間：<br>- 沒有華碩那麼完整的平台廣度<br>- 沒有微星那麼偏終端品牌<br>- 規模也比華擎大很多</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣排序。</p>
-<p>第一順位：AI Server 與 NVIDIA GPU 平台週期的直接受惠。這是現在最核心的盈利主線。</p>
-<p>第二順位：整櫃、液冷、系統整合帶來的價值提升。</p>
-<p>第三順位：AI PC 與終端裝置升級。這是第二曲線，不是現階段主獲利來源。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全不能。</p>
-<p>對技嘉這種高營收、高彈性的 AI 硬體股，真正要拆的是：<br>- 毛利率<br>- 營業利益率<br>- 淨利率<br>- 獲利品質<br>- 以及為什麼市場只給 11 倍左右本益比</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對技嘉來說，回答的是：高營收成長，到底是高品質平台收入，還是低毛利大單放量。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正的問題：技嘉到底是在賺高營收，還是賺高品質獲利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>淨利率很重要，因為股東最後看的是 EPS。</p>
-<p>但技嘉這種公司更要看：<br>- EPS 成長是不是主要來自本業<br>- 還是有匯率、業外或一次性因素幫忙</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場對它的折價，其實很有邏輯。</p>
-<p>市場不是懷疑它有沒有 AI 營收，而是懷疑：<br>- 這些 AI 營收是不是高品質的<br>- AI Server 會不會低毛利稀釋整體獲利<br>- 整櫃與液冷等延伸，到底能不能把組裝股升級成平台股<br>- AI PC 是否只是想像，還沒變成真正利潤</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且非常合理。</p>
-<p>反方會說：<br>- 現在最強的是 GPU 週期<br>- AI Server 出貨有爆發力，但也有周期性<br>- 如果 Rubin 之後節奏沒那麼強，市場就可能不再給高成長期待</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是很現實的問題。</p>
-<p>AI Server 常常是高營收、但不一定是高毛利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>AI PC 現在比較像額外上檔選項，但它還不是今天最主要的 EPS 來源。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -759,7 +622,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI Server 成長不如預期。</li><li>整櫃 / 液冷 / AI PC 第二曲線落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高品質 AI 硬體平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>AI Server 營收是否持續轉成高品質利潤。</li><li>整櫃 / 液冷 / AI PC 第二曲線是否開始放大。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠 AI Server 營收轉成高品質利潤、再加上整櫃 / 液冷 / AI PC 第二曲線落地，來證明自己不只是 GPU 週期受惠股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

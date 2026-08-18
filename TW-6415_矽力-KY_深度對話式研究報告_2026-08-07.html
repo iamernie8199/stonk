@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,188 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-反方壓力測試">反方壓力測試</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-23-反方壓力測試">反方壓力測試</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要一句話先記住，矽力-KY 本質上是一家 PMIC 與類比 IC 設計公司，它賣的不是運算核心，而是讓整個電子系統能穩定供電、控制功率、提升效率的關鍵晶片。</p>
-<p>很多人研究半導體，第一直覺只想到 CPU、GPU、AI ASIC 這種運算核心，但真實世界不是只有運算核心重要。系統要能運作，還要有一整套電源管理架構，包含：<br>- 電壓轉換<br>- 功率分配<br>- 電流控制<br>- 穩壓與保護<br>- 不同模組之間的電源協調</p>
-<p>PMIC 就是在處理這些事情。你可以把它想成不是引擎本身，而是整台車的供油與配電系統。引擎再強，供電沒管好，系統也跑不起來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個理解非常準。</p>
-<p>矽力-KY 這種公司最容易被外行低估，因為它不是 headline 最多的那種誰的 AI 晶片最強，而是做一層更底層、但非常剛需的事情。</p>
-<p>只要電子系統越來越複雜、功耗越來越高、效率要求越來越嚴格，PMIC 和類比 IC 的重要性就會提高。</p>
-<p>這也就是為什麼你會看到矽力-KY 不只和消費電子有關，也會往：<br>- 車用<br>- 工業<br>- 資料中心<br>- 通訊設備<br>這些更高品質的終端市場走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>如果只是 PMIC 景氣變好，矽力-KY 當然會受惠，但現在市場重新看它，不只是短期景氣而已。</p>
-<p>這一波市場重新定價矽力-KY，有幾條線在一起：<br>- 資料中心與 AI 伺服器帶動更高功率密度需求<br>- 車用與工控需求回溫<br>- 類比 IC / PMIC 供應重新轉緊<br>- 晶圓代工與封測成本上升，帶來漲價與毛利率修復機會</p>
-<p>也就是說，市場不是只在看它賣得比較多，而是在看：<br>矽力-KY 能不能從一間傳統 PMIC 廠，升級成同時受惠於 AI server、車用、工業與高附加價值電源管理需求的高品質類比 IC 資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>如果你要更精準一點，我會這樣說：<br>矽力-KY 不是 AI 運算核心受惠股，而是 AI 基礎設施與高功率電子系統升級過程中，電源管理與類比控制層的受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>矽力-KY 不是單純的消費性 PMIC 公司，而是 AI 資料中心、車用與工控升級趨勢下，具備毛利率修復與高附加價值產品滲透機會的類比 IC / 電源管理平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-07 的股價資料：<br>- 收盤價 441.5 元<br>- 單日漲幅 -0.79%<br>- 本益比 43.8 倍<br>- 股價淨值比 4.53 倍<br>- 總市值 1,725 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 6 月營收，公告日 2026-07-10：<br>- 單月合併營收 2,084,305 千元<br>- 年增 37.77%<br>- 月增 9.06%<br>- 近三月合併營收年增 32.46%<br>- 近 12 月營收合併成長 12.71%</p>
-<p>這組數字代表什麼？<br>代表矽力-KY 不是單純在低基期反彈，而是已經有明確的年增與季增動能，而且市場願意給它接近 44 倍本益比。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是研究矽力-KY 最重要的第一步。</p>
-<p>矽力-KY 現在的高估值，不是因為它只是賣得比去年多，而是市場在賭幾件事：<br>- 資料中心 / AI server 需求會成為新的中長期成長引擎<br>- 車用與工控會一起把產品組合往高毛利方向推<br>- 漲價可以逐步反映成本壓力並修復毛利率<br>- PMIC / 類比 IC 的供需結構，正從單純成本驅動，轉向更偏供給緊張與高附加價值應用驅動</p>
-<p>所以這不是便宜股的邏輯，而是高品質成長股是否值得這個估值的邏輯。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>矽力-KY 最重要的成長主線，是資料中心與 AI 伺服器帶動高功率密度電源管理需求上升，搭配車用與工控需求回溫，推動營收、產品組合與毛利率同步改善。</p>
-<p>拆開來看有四層：<br>- 資料中心與 AI server<br>- 車用<br>- 工控<br>- 產品世代升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>很多人看 PMIC，只看到它是成熟製程、是電源管理、看起來沒有 CPU/GPU 那麼 sexy。但市場真正願意給高評價的，不是有做 PMIC 本身，而是：<br>- 做的應用場景是不是更高價值<br>- 單顆價值量是不是往上走<br>- 毛利率是不是更好<br>- 客戶黏著度是不是更高</p>
-<p>如果矽力-KY 只是停在消費性電子，那估值很難維持高檔；但如果它的資料中心、車用、工控比重持續上來，市場就會把它看成品質更高的類比 IC 資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>漲價非常重要，因為它不只影響營收，還影響市場怎麼看公司的議價能力。</p>
-<p>研究頁裡幾個重點都在講同一件事：<br>- 晶圓代工成本上升<br>- 封裝與物流成本上升<br>- 類比 IC 交期拉長<br>- 供給端變緊</p>
-<p>在這種情況下，如果公司可以順利漲價，而且客戶願意接受，那代表兩件事：<br>- 公司產品不是完全 commodity<br>- 市場對它的需求夠強，讓它有一定議價能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- 致新：台系 PMIC / 類比 IC 穩健型同業座標<br>- 力智：AI 伺服器電源鏈條更直接的映射股<br>- 德儀：全球類比 / 電源管理平台型龍頭<br>- ADI：全球高階類比 / 電源管理平台型龍頭<br>- 矽力-KY：台系高品質 PMIC / 類比 IC 成長代表，正在往更高附加價值平台升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：力智（如果你定義純度是 AI power 映射）<br>- 誰最廣：德儀 / ADI<br>- 誰最穩：德儀 / ADI<br>- 誰最有彈性：矽力-KY<br>- 矽力-KY 卡在哪：高品質 PMIC / 類比 IC 成長重估股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講一句話：<br>致新更像台系 PMIC / 類比應用中的穩定型同業座標，而矽力-KY 更像站在資料中心、車用與工控升級交叉點上的高成長高估值資產。</p>
-<p>也就是說：<br>- 致新偏穩定 benchmark<br>- 矽力-KY 偏成長與重估</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，力智和矽力-KY 的比較，會比致新更有 AI 電源味道。</p>
-<p>市場看力智時，更容易把它放進：<br>- AI 伺服器 / 高功率電源管理<br>- 電源模組升級<br>- 功率相關應用<br>這條主線。</p>
-<p>所以如果矽力-KY 是高品質 PMIC / 類比平台升級，那力智更像是 AI 伺服器電源鏈條裡更直接的 power management 映射標的。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不像德儀、ADI 那麼成熟巨大，成長性沒那麼鈍<br>- 也不像單一 AI power 映射股那樣太聚焦單一主線<br>- 它同時有資料中心、車用、工控、漲價、毛利率修復、mix 升級這幾個故事可以疊加</p>
-<p>所以它是非常典型的高品質類比 IC 成長重估股。</p>
-<p>最大的缺點：<br>- 估值已經很高<br>- 市場期待也很高<br>- 只要高附加價值應用滲透、margin 修復或漲價成效有一項沒跟上，估值就很容易先修</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>40 多倍本益比代表市場交易的已經不是普通修復，而是高品質修復加中期成長。</p>
-<p>市場願意給這個倍數，通常代表它相信幾件事：<br>- 營收成長不只是短期反彈<br>- 毛利率能從成本壓力中恢復<br>- 資料中心與車用等高價值應用比重會持續上升<br>- 公司不只是靠量，而是能靠產品組合升級與議價能力把獲利結構變好</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常準。</p>
-<p>矽力-KY 最關鍵的，不只是營收有沒有變好，而是：<br>- 高附加價值應用占比有沒有提高<br>- 毛利率能不能重新站回 50% 以上<br>- 漲價能不能被市場接受<br>- 資料中心 / 車用成長是不是能抵消消費性需求波動</p>
-<p>也就是說，真正要追的不是單月營收，而是 mix curve 跟 margin curve。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>營業利益率回答的是：<br>成長有沒有真的轉成高品質的經營槓桿。</p>
-<p>淨利率回答的是：<br>股東最後拿到的高獲利，是否乾淨且可持續。</p>
-<p>對矽力-KY 來說，高品質獲利至少要看到：<br>- 資料中心占比持續上升<br>- 車用與工控成為第二支柱<br>- 毛利率重新站穩 50% 以上<br>- 漲價與產品組合升級一起成立</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是資料中心占比、車用與工控滲透、毛利率修復與產品組合升級，能不能一起把 2027 之後的獲利平台墊高。</p>
-<p>如果可以，40 多倍有合理性；<br>如果不行，市場就會把它切回一般高估值 PMIC 股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- 類比 IC 與 PMIC 的供需吃緊不一定永遠持續<br>- 漲價可能是短期供給壓力，不一定是長期議價能力<br>- 如果消費性電子需求偏弱，其他高成長終端未必能完全補上</p>
-<p>這個反方最厲害的地方在於，它不是否認公司現在好，而是質疑這種好能不能維持成新的常態。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是很現實的反方。</p>
-<p>研究頁裡其實就有機構分歧：<br>- 多頭覺得資料中心與車用會持續帶動成長<br>- 空頭則覺得公司在伺服器 / 光通訊 PMIC 曝險未必像市場想的那麼大，而且現在評價已經不便宜</p>
-<p>這代表矽力-KY 的問題不是有沒有 AI 故事，而是 AI 故事的含金量到底有多高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：毛利率是否能重新穩定站上 50%。</p>
-<p>原因很簡單：<br>- 題材可以很多<br>- 終端可以很美<br>- 資料中心與車用都能講故事<br>- 但如果毛利率回不去，市場就很難再相信這是高品質類比 IC 平台升級，而只會把它當一波供需吃緊的高估值股票</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>一般 PMIC 股，而不是高品質類比 IC 成長股。</p>
-<p>差別在於：<br>- 前者看短期供需、漲價與景氣循環<br>- 後者看高附加價值應用滲透、margin 結構與長期平台價值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最誠實的答案是：它兩者都是。</p>
-<p>它確實有高品質成長股的條件：<br>- 資料中心、車用、工控都在往上<br>- 漲價與毛利修復有邏輯<br>- 產品組合在改善</p>
-<p>但它同時也是高預期高波動股，因為市場已經把不少未來好事反映進估值。這代表：<br>- 只要 margin 修復不如預期<br>- 或高附加價值應用滲透速度慢一點<br>- 估值修正就會很快</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>矽力-KY 不是運算核心公司，而是 PMIC / 類比 IC 設計公司。</p>
-<p>第二句，主線：<br>最大的成長主線，是資料中心、AI server、車用與工控帶來的電源管理升級需求。</p>
-<p>第三句，價值來源：<br>它受惠的不只是需求回來，而是高附加價值終端應用比重提高。</p>
-<p>第四句，同業定位：<br>致新偏穩定座標、力智偏 AI power 映射、德儀 / ADI 偏全球平台，而矽力-KY 卡在台系高品質成長重估的位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看資料中心占比、毛利率、營業利益率、淨利率與 mix 改善。</p>
-<p>第六句，最重要驗證：<br>資料中心占比、車用與工控滲透、毛利率修復與產品組合升級，能不能一起把獲利平台墊高。</p>
-<p>第七句，最強反方：<br>它可能只是這一波 PMIC / 類比供需吃緊下，被短期高估值放大的股票。</p>
-<p>第八句，最終投資判斷：<br>矽力-KY 真正值不值得這個高估值，不是看這一季營收多強，而是看高附加價值應用、margin 與 mix 升級能不能一起做實。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>矽力-KY 是 AI 資料中心、車用與工控升級浪潮中的高品質 PMIC / 類比 IC 受益者，但真正決定它值不值這個高估值的，不是這一季營收有多好，而是高附加價值應用、毛利率修復與產品組合升級，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -900,7 +708,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高附加價值應用占比不如預期，資料中心 / 車用成長無法持續推升 mix。</li><li>漲價效果有限，毛利率修復不如市場預期。</li><li>消費性需求疲弱拖累整體營運，使高估值難以維持。</li><li>資金更偏好力智的 AI power 直接映射，或德儀 / ADI 的全球平台確定性，削弱矽力-KY 的溢價空間。</li><li>市場重新把矽力-KY 定價成一般 PMIC 股，而不是高品質類比 IC 成長股。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>矽力-KY 在資料中心、車用、工控、消費性四大終端的更細營收拆分。</li><li>毛利率回升的季度節奏與漲價傳導幅度。</li><li>矽力-KY、致新、力智在資料中心 / 車用 / 工控 / 消費性應用上的更細營收拆分。</li><li>矽力-KY 與德儀 / ADI 在高附加價值 PMIC / 類比電源產品上的更細產品層級對照。</li><li>各家公司在毛利率、產品組合與客戶黏著度上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>矽力-KY 不是一般 PMIC 股，而是資料中心、車用與工控升級浪潮中，最有機會靠高附加價值應用、margin 與 mix 修復撐住高估值的台系類比 IC 成長股之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,126 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>最白話地講，鴻勁是半導體測試設備公司。</p>
-<p>它不是做晶片本身，也不是幫客戶代工生產晶片，而是做讓晶片在出貨前能被測試、分類、驗證的設備。</p>
-<p>如果你把半導體鏈拆開：<br>- 台積電：製造晶片<br>- 聯發科 / Google TPU / 其他 ASIC 客戶：設計晶片<br>- 京元電、封測廠：負責測試 / 封裝 / 出貨前流程<br>- 鴻勁：賣給這些測試廠與封測鏈的測試設備、Handler、SLT / FT 相關設備</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>你可以把它理解成：晶片做出來以後，不是直接就能交貨，還要確認：<br>- 功能有沒有正常<br>- 高溫、高功率下能不能穩定運作<br>- 良率怎麼分級<br>- 哪些是可以出貨的 good die / good package</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且這就是投資主線的核心。</p>
-<p>AI 晶片和一般晶片最大的差別，不只是運算能力更強，而是：<br>- 功耗更高<br>- 封裝更複雜<br>- 測試條件更嚴苛<br>- 測試時間更長<br>- 客戶對可靠度要求更高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣講：<br>鴻勁的投資主線，是 AI 晶片測試複雜度上升，帶動 FT / SLT / Handler 與高功率測試設備需求增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-04 的股價資料：<br>- 收盤價 6190<br>- 單日漲幅 -3.66%<br>- 本益比 49.2<br>- 股價淨值比 17.76<br>- 總市值 11,136 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-08：<br>- 單月合併營收 5,301,564 千元<br>- 年增 106.54%<br>- 月增 28.38%<br>- 近三月合併營收年增 100.64%<br>- 近 12 月營收合併成長 96.85%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>市場現在買的不是單純「半導體設備」四個字，而是：<br>- AI 晶片測試時間變長<br>- FT / SLT / Handler 需求擴大<br>- CPO / 矽光子測試前移<br>- 先進封裝與高功率測試設備升級<br>- 測試鏈變成 AI 基建瓶頸的一部分</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>最直接受惠的是：<br>- FT（Final Test）<br>- SLT（System Level Test）<br>- Handler<br>- 高功率 / 高溫測試設備</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>這是鴻勁除了主力測試設備以外，另一個很有想像空間的中期主線。</p>
-<p>因為 CPO / 矽光子把光通訊與封裝更緊密結合後，測試不再只是傳統電測，而是往更前段、更複雜、更高價值的光學與系統整合測試前移。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且要再多加一句：它是 AI 測試鏈上，高成長但同時高估值的設備商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>如果先粗分，我會這樣排：<br>- Advantest / Teradyne：全球大型 ATE 測試平台廠<br>- 致茂：台灣測試設備與電源 / 光電 / SLT 多產品平台型設備商<br>- 京元電：測試服務提供者，不是設備商<br>- 鴻勁：更聚焦 FT / SLT / Handler / 測試設備鏈的高彈性設備供應商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：鴻勁<br>- 誰最廣：致茂 / Advantest / Teradyne<br>- 誰最穩：Advantest / Teradyne<br>- 誰最有彈性：鴻勁<br>- 鴻勁卡在哪：AI 測試設備鏈高純度高彈性供應商</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>致茂的產品組合更廣，市場看它時會同時想到：<br>- 電源測試<br>- AI 伺服器相關測試<br>- 光電 / CPO 測試<br>- 半導體量測與系統測試</p>
-<p>所以致茂比較像平台型測試設備公司；鴻勁則更集中，因此彈性更強，但估值容錯率更低。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這兩家是全球級 ATE 龍頭，市場給它們的語言更偏：<br>- 平台能力<br>- 客戶廣度<br>- 全球測試資本支出週期</p>
-<p>鴻勁目前比較不像「全球規則制定者」，而比較像在特定測試段落與設備類型上，直接吃到 AI 晶片測試升級紅利的高成長供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，非常高，這也是鴻勁最核心的風險與機會所在。</p>
-<p>市場願意給這麼高，不是在買它今天有沒有賺錢，而是在買：<br>- AI 晶片測試設備需求長得夠快<br>- 設備單價與規格能往上走<br>- 測試鏈的瓶頸價值上升<br>- CPO / 光電測試可以成為下一個加分項</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為高估值設備股最怕的不是沒成長，而是：<br>- 有成長，但毛利率沒撐住<br>- 有出貨，但產品結構沒有往更高價值走<br>- 有訂單，但其實是一次性需求前拉</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話就是：<br>市場相信鴻勁不只是這一輪設備景氣股，而是 AI 測試鏈高價值設備升級的高成長受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最怕三件事：<br>- AI 測試設備需求成長不如預期持久<br>- 高成長其實只是前期拉貨，後面會正常化<br>- CPO / 光電測試想像跑得太快，但落地速度沒跟上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且一定要正面面對。</p>
-<p>反方會說：<br>- 現在所有設備商都沾到 AI 晶片擴產<br>- 鴻勁的爆發，可能很大一部分是這一輪 CAPEX 集中釋放<br>- 一旦測試設備投資進入正常化，成長率就會快速下來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這也是非常強的反方。</p>
-<p>市場通常最願意長期給高溢價的，還是平台型、全球型、規則制定型公司。</p>
-<p>鴻勁更像是：<br>- 高純度<br>- 高彈性<br>- 但平台感較弱</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全是。</p>
-<p>49 倍本益比的問題，不是便不便宜而已，而是它要求未來幾季幾乎都要非常漂亮。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -745,7 +615,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 測試設備需求擴張不如預期。</li><li>CPO / 矽光子測試前移落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高價值測試設備地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>AI 測試設備需求是否持續擴張。</li><li>高價值產品占比與 CPO / 光電測試是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠 AI 測試設備需求持續、高價值產品占比提升與 CPO / 光電測試落地，來證明自己不只是設備景氣股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

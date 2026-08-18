@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,140 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-第-14-段">第 14 段</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-反方壓力測試">反方壓力測試</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>如果最白話地講，景碩是高階 IC 載板公司，而且它最值得研究的地方不是「它也是載板廠」這件事，而是它剛好站在這一輪 ABF 與 BT 載板雙重重估的交叉點。</p>
-<p>很多人第一眼會把景碩當成和欣興、南電差不多的載板股，但這樣看太粗。</p>
-<p>更準確地說：<br>- 欣興比較像平台型高階基板資產<br>- 南電比較像 ABF + BT 雙槓桿高彈性資產<br>- 景碩則更像 CPU substrate、ABF 與 BT 三條線一起驅動的載板彈性股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為載板比一般 PCB 更靠近晶片本身。</p>
-<p>你可以把它想成：<br>- 一般 PCB 比較像系統板<br>- 載板則是把 CPU、GPU、ASIC、記憶體這些高階晶片接進系統的中介層</p>
-<p>當晶片越大、訊號越密、功耗越高，載板價值就會往上走。特別在 AI 與高效能運算時代，載板不再只是「有就好」，而是變成一種稀缺高規格資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>景碩現在最重要的身份，是 CPU substrate 與 ABF / BT 載板雙重受惠的高階載板彈性資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>我會把它濃縮成三條。</p>
-<p>第一條，ABF 載板供需持續吃緊。<br>第二條，CPU substrate 尤其是 NVIDIA Vera CPU 相關需求提升。<br>第三條，BT 載板因同業減產與光模組需求延伸，重新被市場上修價值。</p>
-<p>這三條一起發生，景碩就不只是單純的 ABF 景氣股，而是高階載板結構性升級的高彈性代表。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料。這次是直接用結構化市場資料抓：<br>- 收盤價 842 元<br>- 單日漲幅 0.72%<br>- 本益比 83.4 倍<br>- 股價淨值比 10.34 倍<br>- 總市值 4,436 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 4,548,833 千元<br>- 年增 35.85%<br>- 月增 7.69%<br>- 近三月合併營收年增 33.75%<br>- 近 12 月營收合併成長 31.04%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>這就是景碩最值得研究的地方。</p>
-<p>市場現在不是把它當傳統 PCB / 載板景氣股，而是在買三個東西：<br>- CPU substrate 的結構升級<br>- ABF 載板供需缺口與漲價<br>- BT 載板重新變值錢</p>
-<p>也就是說，這不是單純「營收不錯」而已，而是市場相信它所在的位置正在從一般載板供應商，升級成高價值 substrate 資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>因為它代表景碩不只是吃「載板大家都一起好」，而是可能吃到更高價值、更高單價的 CPU 平台升級。</p>
-<p>公司頁裡很重要的一點是：多家來源都把景碩和 NVIDIA Vera CPU、一般伺服器 CPU substrate 綁在一起看。這意味著市場不是只看它賣更多 ABF，而是看它有沒有切進更高價值的 CPU substrate 環節。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>目前至少有三組可以互相交叉的線索。</p>
-<p>第一，Citi 很早就把景碩放進 Vera CPU 供應鏈核心受惠名單，甚至明講市佔超過 50%。<br>第二，富邦後來補充，FY27 Vera CPU 配比有機會超過 50%，營收貢獻超過 20%。<br>第三，Daiwa 更進一步提出，上限情境下 CPU 產品市佔可能從約 50% 再往更高走。</p>
-<p>你不用把每個數字都當成鐵律，但至少可以確定：市場現在不是把景碩當一般 ABF 廠，而是把它放在 CPU substrate 升級的中心位置。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這就是景碩比一般「ABF 大家都好」更值得細看的原因。</p>
-<p>ABF 漲價是景氣層，CPU substrate 是結構層。若兩者一起成立，市場願意給的估值就會比單純景氣股更高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>這正是景碩很有意思的地方。</p>
-<p>一般人會以為 BT 是舊產品、ABF 才是新主角，但如果供給側出現變化，BT 反而可能成為高彈性加分項。</p>
-<p>根據公司頁整理，多家機構都提到：<br>- 欣興、SEMCO 等減少 BT 供給<br>- 記憶體需求與光模組相關需求延伸到 BT 載板<br>- mSAP HDI 短缺甚至讓部分光模組改走 BT 載板路線</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，而且這點很關鍵。</p>
-<p>如果 BT 只是記憶體週期小反彈，那市場頂多把它當短期補漲；但如果 BT 還能吃到光模組、DSP、AI 伺服器周邊高速傳輸的擴張，BT 就不只是舊產品，而是新的價值容器。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>一句話講：<br>景碩最值錢的地方，是它站在 CPU substrate、ABF 漲價與 BT 再定價三條線交會處。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果先粗分，我會這樣看：<br>- 欣興：平台型高階基板資產<br>- 南電：ABF + BT 雙重重估、獲利斜率最陡的載板高彈性股之一<br>- Ibiden：全球高階載板景氣與技術的國際標竿<br>- Shinko：老牌日系載板廠，偏穩但較保守<br>- 景碩：CPU substrate + ABF + BT 三線交會的台系高彈性載板資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-第-14-段">
-<div class="digest-title">第 14 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：南電 / 景碩（若只看載板漲價與彈性）<br>- 誰最廣：欣興<br>- 誰最穩：Ibiden / Shinko<br>- 誰最有彈性：南電 / 景碩<br>- 景碩卡在哪：CPU substrate 與 BT 再定價兼具的高階載板彈性資產<br>- 最像的比較對手：南電<br>- 最不像的比較對手：Shinko</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>欣興更像平台股，因為它被市場放進更大的高階基板敘事裡；景碩則更像高規格載板需求改善時彈性很直接的標的。</p>
-<p>簡單講：<br>- 欣興偏平台與長線選項<br>- 景碩偏彈性與漲價斜率</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，但彈法不一樣。</p>
-<ul><li>南電更像 ABF + BT 雙主線一起推獲利斜率</li><li>景碩則更像 CPU substrate + ABF + BT 三線驅動</li></ul>
-<p>所以南電比較像雙重重估，景碩比較像多口袋同時打開。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>因為它是國際標竿。很多時候你不是拿它當最直接交易標的，而是拿它驗證：<br>- 全球 ABF 景氣是否真的緊<br>- 高階載板是否真的還在漲<br>- 國際大廠對 Vera CPU / 高階 substrate 的態度是什麼</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為市場不是只在看單月營收，而是在看：<br>- ABF 是否進入更長期的供給吃緊<br>- CPU substrate 是否會把產品組合往上拉<br>- BT 是否會變成額外驚喜<br>- 這三條線是否能一起推高毛利率、營業利益率與獲利品質</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 不管 CPU substrate、BT 轉單講得多精彩，核心還是載板景氣循環<br>- 一旦供給開出或漲價放緩，獲利彈性就會先收斂</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全可能。</p>
-<p>特別是當市場開始用很長的時間軸去押 CPU substrate 與 BT 再定價時，只要落地速度比想像慢，估值就會先被修正。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>對，這也是很關鍵的質疑。</p>
-<p>景碩強在彈性，但弱在平台感沒那麼強。所以只要市場從「追彈性」切回「要穩定高品質」，它就可能先被壓評價。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -778,7 +634,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>ABF / BT 漲價不如預期。</li><li>CPU substrate 放量不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高彈性載板資產地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>CPU substrate 放量是否持續。</li><li>ABF / BT 漲價與高價值產品占比是否持續。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>景碩不是單純 ABF 景氣股，而是 CPU substrate、ABF 漲價、BT 再定價三線疊加的高彈性載板資產。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

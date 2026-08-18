@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,140 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最白話地講，台光電是做高階銅箔基板，也就是 CCL 的。你可以把 CCL 想成 PCB 的上游核心材料之一。沒有好的 CCL，就做不出高階 PCB；沒有高階 PCB，就撐不起 AI 伺服器、交換器、高速網通模組這些高頻高速、高功耗、高散熱需求的系統。</p>
-<p>所以如果你把 AI 伺服器硬體拆開：<br>- 晶片：GPU、ASIC、CPU<br>- 載板 / 封裝：高階封裝、ABF 載板<br>- 板材 / PCB：高階 CCL、PCB、連接與訊號路徑</p>
-<p>台光電就是在這條鏈裡，提供高階板材的核心供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常重要，而且這種重要性在 AI 時代是上升的。</p>
-<p>到了 AI 伺服器、800G / 1.6T 交換器、高速運算板卡之後，板材的規格要求大幅提高：<br>- 更低損耗<br>- 更高頻高速訊號完整性<br>- 更好的耐熱與尺寸穩定性<br>- 更複雜多層板結構的配套能力</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>台光電最適合放在「高規格零組件 / 材料升級股」這個框架裡，而不是平台股。</p>
-<p>市場現在給它高估值，不是因為它像台積電那樣是製造平台，也不是像鴻海那樣是整機平台，而是因為它站在 AI 高速高功耗系統升級裡最有價值的材料節點之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你可以這樣記：<br>台光電不是賣 AI 晶片，也不是組 AI 伺服器；它賣的是讓這些高階硬體能夠被做出來、而且穩定運作的高階板材基礎。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，核心還是 AI 伺服器，但更精準一點說，是：<br>AI 伺服器、交換器與 ASIC 平台升級，正在把高階 CCL 從一般板材，升級成結構性缺貨與規格升級受益的高價值材料。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>完全正確。</p>
-<p>市場不是因為它的商業模式像高階製造平台那樣有壟斷性，而是因為：<br>- 高階 CCL 進入門檻高<br>- AI 伺服器與高速網通都需要它<br>- 一旦客戶結構、產品組合和稼動率一起往上，獲利彈性非常大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>答案是：它不是只吃單一產品，而是吃整個高階板材需求往上升的結構性趨勢。</p>
-<p>你可以把它拆成幾塊：<br>- AI 伺服器主板與加速器板卡<br>- 交換器與高速網通<br>- ASIC / OAM / UBB 相關平台<br>- 甚至部分 AI-RAN 與低軌衛星的高階板材延伸需求</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這就是台光電最核心的投資邏輯：不是只有出貨變多，而是單位價值量變大。</p>
-<p>高階 CCL 的價值提升，通常來自：<br>- 更低損耗材料需求<br>- 更高頻高速訊號要求<br>- 更高層數、更複雜板結構<br>- 更嚴格的熱穩定性與尺寸穩定性</p>
-<p>所以台光電值錢，不只是因為 AI 很熱，而是因為 AI 讓高階板材從一般材料，變成高價值技術材料。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要我先給一個粗排序，我會這樣分：<br>- 台光電：高階 AI 材料王者<br>- 台燿：最具追趕彈性的第二梯隊選手<br>- 聯茂：有高階能力但市場心智沒那麼集中<br>- 南亞：集團與產品線更複雜的廣義受惠者<br>- 生益科技：中國本土高階材料替代紅利代表</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：台光電<br>- 誰最廣：南亞 / 生益科技<br>- 誰最穩：台光電 / 南亞<br>- 誰最有彈性：台燿<br>- 台光電卡在哪：高階 AI 材料王者</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>台燿當然很強，而且是最值得緊盯的直接追趕者。</p>
-<p>但台光電排第一，原因在於它同時具備：<br>- 市場心智最強<br>- AI 伺服器純度最高之一<br>- 高頻高速低損耗材料定位最鮮明<br>- 市場已經先把它當成高端 CCL 代表股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>聯茂和南亞不是不能受惠，而是市場在講它們時，不會那麼直接地說這就是 AI 高階板材最純代表股。</p>
-<p>生益科技則偏中國本土高階材料替代與內循環紅利，不是完全同一套全球高端材料王者框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當普通材料股在看。</p>
-<p>市場現在買的是：<br>- 高階 CCL 供應稀缺<br>- 高階產品組合持續升級<br>- AI 板材規格往更高頻高速走<br>- 公司不只成長快，還可能維持高品質成長</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 5290<br>- 本益比 50.9<br>- 股價淨值比 39.53<br>- 總市值 18,954 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 19,206,698 千元<br>- 年增 129.4%<br>- 月增 8.31%<br>- 近三月合併營收年增 121.91%<br>- 近 12 月營收合併成長 70.56%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對台光電來說，回答的是：它吃到的到底只是量，還是最有價值的高階材料組合。</p>
-<p>如果只是出貨變多，但：<br>- 產品組合沒有持續升級<br>- 高階低損耗材料占比沒有再往上<br>- 同業競爭讓價格開始鬆動<br>那毛利率就會先告訴你：高估值故事是不是開始變鈍。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：台光電到底是在賺高營收，還是在賺高品質材料升級利潤。</p>
-<p>一旦你看到：<br>- 毛利率維持高檔<br>- 營業利益率同步改善<br>- 規模放大有轉成營運槓桿<br>市場就會更願意相信：台光電不只是短期供不應求，而是真的站在高階 CCL 的高價值區間。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但台光電更要看的是：<br>- EPS 成長是不是主要由本業高價值板材推動<br>- 還是只是一段量價齊揚的景氣高點</p>
-<p>獲利品質最重要看的就是：<br>- 高階材料需求是不是帶來健康的毛利結構<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 高端產品占比與王者地位是否繼續強化</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>分水嶺不是營收還會不會成長，而是規格升級、供需緊張與高端產品組合，能不能一起讓毛利率、營業利益率、淨利率與獲利品質維持在市場願意持續給高倍數的狀態。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是非常強的第一個反方。</p>
-<p>因為材料股最大的風險之一，就是市場常常把供不應求想得太長。</p>
-<p>反方會說：<br>- 現在的高階 CCL 確實很缺<br>- 但只要需求夠大，同業就會拼命擴產<br>- 等到台燿、聯茂、南亞、生益、海外供應商慢慢補上來<br>- 價格與毛利的超額利潤就會往下掉</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這是第二個很現實的反方。</p>
-<p>市場在熱的時候，很容易把：<br>- AI 伺服器<br>- 800G / 1.6T 交換器<br>- OAM / UBB / ASIC 平台<br>這些所有高階板材需求，都想像成台光電會吃最核心的一段。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這是第三個最直接的反方。</p>
-<p>50 倍左右本益比對任何硬體材料股來說都不是便宜區間。<br>只要有任何一個環節出現：<br>- 營收不如最樂觀預期<br>- 毛利率略回落<br>- 高端產品占比不如預期<br>- 客戶拉貨節奏不一致<br>股價就可能先大幅修正。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>台光電的長期方向大致正確，高階 CCL 的 AI 升級邏輯也很強；但市場可能高估了供需緊張維持時間、高端價值有多少真正集中到台光電，以及高毛利與高估值可以一起維持多久。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -770,7 +626,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高端產品占比不升反降。</li><li>毛利率與營業利益率無法維持高檔。</li><li>AI 伺服器、交換器與 ASIC 板材升級需求低於預期。</li><li>市場重新下修對其高稀缺與高品質獲利的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高端產品占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否持續維持高檔。</li><li>AI 伺服器、交換器與 ASIC 平台帶來的高規格板材需求是否持續。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台光電不是普通材料股，而是受惠於 AI 伺服器、交換器與 ASIC 板材升級的高階 CCL 王者；真正關鍵不是題材熱，而是高端產品占比、毛利率與獲利品質能不能長期維持高檔。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

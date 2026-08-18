@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,187 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-第-6-段">第 6 段</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-第-18-段">第 18 段</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-22-估值與市場預期">估值與市場預期</a>
-<a href="#digest-23-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-24-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-25-估值與市場預期">估值與市場預期</a>
-<a href="#digest-26-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-27-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這就是理解勤誠最重要的起點。</p>
-<p>如果用舊框架看，勤誠確實就是 server chassis 廠，也就是伺服器機殼與機構件供應商。但如果你還停在這一層，就會低估這家公司這兩年真正被市場重估的原因。</p>
-<p>現在更準確的說法是：<br>勤誠正從單純的伺服器機殼供應商，升級成 AI 資料中心 rack-level 機構件與整合方案供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為「機殼廠」講的是單機，「rack-level」講的是整櫃。</p>
-<p>以前市場看勤誠，多半是在看：<br>- 伺服器機殼出貨量<br>- 伺服器景氣循環<br>- 產品單價提升</p>
-<p>但 AI 資料中心時代，客戶要的不只是單台 server 機殼，而是整個 rack 裡面一整串機構件能力：<br>- Compute tray<br>- Switch tray<br>- Storage tray<br>- Rack frame<br>- Power shelf<br>- Cable management<br>- 液冷相關固定結構<br>- CDU rack</p>
-<p>所以勤誠現在被重估，不是因為它多賣幾個機殼，而是因為它有機會從單機走向整櫃。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>勤誠現在最核心的身份，是 AI 資料中心機構件由單機走向整櫃過程中的高價值機構整合供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會把它先濃縮成兩條主線。</p>
-<p>第一條，是 AI 伺服器本體與 ASIC / HGX / GB 系列平台放量。<br>第二條，是 rack-level 機構件、CDU、Helios、Power / Switch / Storage 等整櫃產品滲透提升。</p>
-<p>先講第一條，勤誠已不只是跟著一般伺服器需求波動，而是直接吃到 AI 平台專案。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-11 的股價資料：<br>- 收盤價 1,015 元<br>- 單日漲幅 -5.58%<br>- 本益比 21.1 倍<br>- 股價淨值比 10.08 倍<br>- 總市值 1,272 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 2,462,300 千元<br>- 年增 41.51%<br>- 月減 23.95%<br>- 近三月合併營收年增 57.77%<br>- 近 12 月營收合併成長 56.12%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-第-6-段">
-<div class="digest-title">第 6 段</div>
-<div class="content"><p>這就是菜鳥最容易問對、也最容易問錯的地方。</p>
-<p>問對，是因為這個數字不能忽略。<br>問錯，是因為只看單月月減，很容易把專案型、排程型公司的營運節奏看成需求崩掉。</p>
-<p>從既有公司頁與券商追蹤來看，市場對 7 月營收的分歧其實不小：<br>- 元富偏保守，認為 7 月達成率偏低，並因此把評等降到中立<br>- 中信則認為更多是物流與零組件短暫遞延，不等於終端需求改變<br>- 凱基也承認 7 月不如預期，但仍把它視為排程與缺料問題，而不是訂單消失</p>
-<p>所以這裡不能直接把月減解讀成需求崩壞，而要看後續 8、9 月有沒有追回來。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>先看最明顯的，是 AWS ASIC 平台。</p>
-<p>既有研究裡反覆提到：<br>- 勤誠在 AWS ASIC 供應鏈已有相當份額<br>- 平台由早期 compute tray 小櫃體，延伸到 switch tray、storage 與更多機構件<br>- 隨著 Trainium / Teton Max 這些平台放量，單一平台可供應內容往上走</p>
-<p>另一條，就是 HGX / GB 系列平台。也就是說，勤誠不是只押單一 ASIC 客戶，而是同時受惠 GPU 與 ASIC 兩條 AI 伺服器主線。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。真正要抓住的不是「有接到 AWS 訂單」這麼表面，而是：<br>- 先從 compute tray 切進去<br>- 再往 switch tray、storage、甚至整櫃相關機構件延伸<br>- 讓單一平台的內容值變厚</p>
-<p>這就是為什麼同樣是 AI server 受惠股，勤誠的市場敘事可以被往上推。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>它代表勤誠不是單押雲端 ASIC，而是同時站在通用 AI GPU 平台升級的主線上。</p>
-<p>如果 AWS ASIC 是雲端自研晶片主線，那 HGX / GB 就是 GPU 平台升級主線。兩條一起成立，代表勤誠不是單一專案故事，而是多平台共振。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話就是：<br>AI 平台越複雜、越往高功耗高密度走，勤誠賣的不只是機殼，而是整套更高價值的機構件內容。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這條主線決定勤誠能不能從「受惠 AI 伺服器的機殼廠」變成「值得更高估值的機構件平台股」。</p>
-<p>如果只賣 chassis，市場最後還是容易用比較傳統的硬體零組件估值看你。但如果你開始賣：<br>- IT rack<br>- Switch rack<br>- CDU rack<br>- Power shelf<br>- Cable management<br>- Helios 機櫃相關結構件</p>
-<p>那你賣的就不只是單機機殼，而是整個 AI data center 佈建的一部分。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為它代表 AI server 機構件從單機架構走向更複雜的整櫃化。</p>
-<p>既有資料裡，Helios 不是被當成普通新產品，而是被當成：<br>- 雙寬 rack<br>- 高密度 GPU<br>- 客製化 power / cooling / cable routing<br>- 開放式架構</p>
-<p>這些條件會讓供應商的價值從板金加工，往設計協同、打樣、驗證、整合走。這就是勤誠為什麼可能被市場放到更高層級看待。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。CDU rack 的重點不在它只是新產品，而在它代表散熱架構升級開始把機構件供應商往液冷與整櫃一體化推。</p>
-<p>換句話說：<br>如果 AI server 機殼只是第一層，CDU、Helios、Switch rack 這些才是把勤誠往第二層平台化推的東西。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>市場願意重新給勤誠評價，不只是因為它接了更多 AI 案子，而是它能供的東西越來越多、越來越深、越來越接近整櫃層級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這正是勤誠最容易搞混的地方。</p>
-<p>它不像廣達或緯穎那樣是整機組裝主平台，也不像奇鋐、雙鴻那樣核心賣點是散熱本體。勤誠更像站在這兩者中間，提供機構件、機櫃與整合骨架的人。</p>
-<p>所以比較時要分層：<br>- 跟廣達 / 緯穎比：平台邊界不同，勤誠不是整機 ODM<br>- 跟奇鋐 / 雙鴻比：受惠同一波 AI 基礎設施升級，但主賣點不是散熱，而是機構件與整櫃結構<br>- 跟傳統機殼廠比：勤誠正往更高單價、更高整合度走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，先用這個版本記。</p>
-<ul><li>誰最純：勤誠（若只看 AI server 機構件 / 機櫃主線）</li><li>誰最廣：廣達 / 緯穎</li><li>誰最穩：廣達</li><li>誰最有彈性：勤誠 / 奇鋐</li><li>勤誠卡在哪：AI 資料中心機構件由 chassis 走向 rack-level integration 的中間核心位置</li><li>最像的比較對手：奇鋐（同樣受益於 AI 基礎設施升級，但賣點不同）</li><li>最不像的比較對手：廣達（整機 ODM 平台）</li></ul></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>奇鋐是散熱邏輯主導，勤誠是機構件 / 機櫃 / 骨架邏輯主導。</p>
-<p>共同點是兩家公司都受益於 AI 機櫃化與高密度化。<br>差別是：<br>- 奇鋐靠熱管理價值量提升<br>- 勤誠靠機構件內容值與整櫃滲透率提升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-第-18-段">
-<div class="digest-title">第 18 段</div>
-<div class="content"><p>對。廣達賣的是整機平台與系統組裝能力；勤誠賣的是機構件、機櫃與整合骨架能力。</p>
-<p>所以廣達比較像大平台股，勤誠比較像高 ASP、高內容值的機構件升級股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果它只是成熟機殼廠，市場不會給這樣的框架。</p>
-<p>市場願意給勤誠高於傳統硬體零組件的估值，是因為它被重新理解成：<br>- AI server 機構件受惠股<br>- rack-level 機構件升級受惠股<br>- 機構件由單機走向整櫃的早期平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>你這句話問得非常準，而且這正是勤誠目前最值得研究的地方。</p>
-<p>三家券商分歧不是在爭論勤誠有沒有吃到 AI，而是在爭論：<br>- 這個成長能延續多久<br>- 7 月遞延到底只是時點問題，還是需求轉弱前兆<br>- 勤誠應該被當成平台升級股，還是專案型高峰股</p>
-<p>換句話說，現在的估值核心不是「有沒有 AI」，而是「AI 平台化是否已經足夠成立」。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我把它簡化成三種估值視角。</p>
-<p>第一種，元富視角：<br>你可以把它理解成「短期驗證派」。7 月營收達成率不夠好、2Q26 毛利率與 EPS 也沒比預期強很多，所以它先把評價收縮，轉為中立。</p>
-<p>第二種，中信視角：<br>這比較像「需求未壞、只是遞延派」。它認為物流、缺料、排程才是問題，終端需求沒變，所以只小調目標價，維持買進。</p>
-<p>第三種，凱基視角：<br>比較像「長線看對、短線降溫派」。它也承認需求還在、平台升級方向沒變，但認為短線要下修預估與倍數，所以目標價砍得比中信大很多，可是評等不翻空。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是勤誠目前估值辯論的本質：<br>- 如果它只是專案型高峰股，那 20 倍本益比以上就不便宜<br>- 如果它真的是 rack-level 機構件平台升級股，那目前評價還有可延續性</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我的看法是：<br>勤誠現在還沒有完全證明自己是成熟平台股，但也已經不是單純傳統機殼廠。</p>
-<p>所以最合理的理解方式，不是非黑即白，而是把它看成：<br>一檔正在從專案型機構件公司，往 AI 資料中心機構平台股轉型中的公司。</p>
-<p>這也解釋了為什麼估值不會像一般硬體代工那麼低，但也不會像最純平台股那麼無腦給高倍數。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最重要的反方，而且非常合理。</p>
-<p>因為如果 AI server / ASIC / rack 專案沒有延續性，那市場現在給它的高評價就很脆弱。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>也可能。若最後客戶只把勤誠當高級板金與組裝供應商，而不是高價值整合夥伴，那它的估值天花板就會被壓住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是目前很現實的問題。</p>
-<p>因為既有機構中已經出現明顯分歧：<br>- 有人維持買進、高目標價<br>- 也有人因為 7 月營收達成率與短期獲利不如預期，把評等降成中立</p>
-<p>這代表市場現在不是在爭論勤誠有沒有受惠 AI，而是在爭論：這個成長被反映了多少。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這才是核心。</p>
-<p>訂單本身已經不是問題，現在真正的問題是：<br>- 訂單能不能從單點專案變成長期平台<br>- 機構件內容值能不能持續往上疊<br>- 毛利率與營業利益率能不能跟著往上<br>- 客戶是否把它當長期結構夥伴，而不是短期機殼供應商</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -894,7 +703,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>7、8、9 月營收無法把遞延需求補回。</li><li>Rack / CDU / Helios 專案放量慢於預期。</li><li>毛利率與營業利益率沒有隨高價值機構件滲透而提升。</li><li>市場重新把公司主體收入解讀成一次性專案高峰，而非可延續的平台升級。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>AWS ASIC / HGX / Helios / CDU 專案滲透與放量節奏。</li><li>毛利率、營業利益率是否隨高內容值機構件占比同步改善。</li><li>市場對它的估值框架，是否仍維持在 AI 機構件平台升級股。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>勤誠不是多賣幾個 AI 機殼而已，而是靠 AWS ASIC、HGX、Helios、CDU 與 rack-level 機構件，把自己從 chassis 廠往 AI data center 機構整合平台推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

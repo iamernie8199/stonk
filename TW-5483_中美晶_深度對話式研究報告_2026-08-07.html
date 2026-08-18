@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,127 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-估值與市場預期">估值與市場預期</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-反方壓力測試">反方壓力測試</a>
-<a href="#digest-18-第-18-段">第 18 段</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>這家公司最容易讓人搞混的地方，就是你用單一標籤很難把它講清楚。</p>
-<p>最白話地講，中美晶不是單純的矽晶圓製造公司，它更像一個以矽材料與半導體相關資產為核心、同時帶有綠能與其他業務的控股型資產。</p>
-<p>所以你看中美晶，不能只看一條線。你要同時看：<br>- 本身的業務組合<br>- 它持有的關鍵資產，尤其是環球晶<br>- 景氣循環往上時，市場最終到底願意把哪一塊價值放大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>很多人會這樣看，但這樣看太粗糙。</p>
-<p>中美晶確實很大程度會受環球晶影響，因為市場很容易把它當成環球晶的控股延伸資產。</p>
-<p>但它又不只是環球晶投資殼。它還有：<br>- 自己的營運主體<br>- 太陽能 / 綠能相關脈絡<br>- 半導體材料與集團延伸布局</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>中美晶現在最重要的身份，是矽晶圓景氣循環與集團資產價值共同驅動的控股型半導體材料資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-07 的股價資料：<br>- 收盤價 168.5<br>- 單日漲幅 -5.07%<br>- 本益比 21.1<br>- 股價淨值比 2.19<br>- 總市值 1,080 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-07：<br>- 單月合併營收 6,997,671 千元<br>- 年增 27.72%<br>- 月增 -9.2%<br>- 近三月合併營收年增 12.76%<br>- 近 12 月營收合併成長 2.83%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>最直接受惠的主線有三條：<br>- 矽晶圓供需改善<br>- 環球晶價值提升<br>- 集團內半導體材料 / 綠能相關資產的評價彈性</p>
-<p>其中第一條最核心，第二條最直接，第三條是額外選項。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這就是控股型資產的關鍵。</p>
-<p>中美晶本身不是最純的單一產品公司，所以投資人會同時問：<br>- 本業怎麼樣<br>- 持有資產怎麼樣<br>- 有沒有折價 / 溢價修正空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
-<p>第一順位，是環球晶帶來的核心資產價值。這是中美晶最直接、也最容易被市場定價的部分。</p>
-<p>第二順位，是矽晶圓景氣循環上來時，控股型資產的折價修復空間。</p>
-<p>第三順位，才是其他非矽業務或集團延伸業務的選項價值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>一句話就是：<br>中美晶最強的主線，是矽晶圓循環回升時，環球晶與集團資產價值一起被重新定價。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 環球晶：全球級矽晶圓製造主體，景氣循環與擴產邏輯最直接<br>- 台勝科：更純的矽晶圓供需循環股之一<br>- 合晶：也是景氣循環與產品結構改善受惠股<br>- 中美晶：比較像以環球晶為核心、帶有控股與集團屬性的複合型資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：台勝科 / 合晶（若只看產品循環純度）<br>- 誰最廣：中美晶<br>- 誰最穩：環球晶<br>- 誰最有彈性：中美晶（若控股折價修復成立）<br>- 中美晶卡在哪：環球晶核心資產 + 集團控股型半導體材料資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>對，這個講法很準。</p>
-<p>它不像環球晶那樣容易直接看產能、ASP、供需；也不像台勝科、合晶那樣比較單純是產品循環資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>最直接的弱點通常是：<br>- 純度不夠高<br>- 估值邏輯比較複雜<br>- 有時候市場會搞不清楚到底要用產品股還是控股股的方式看它</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對中美晶這種複合型資產，我會更小心地分三層看。</p>
-<p>第一層是毛利率。<br>這回答的是：<br>- 本業產品結構有沒有改善<br>- 矽晶圓景氣回升有沒有反映在單位經濟<br>- 集團內核心業務的產品價值有沒有提升</p>
-<p>第二層是營業利益率。<br>這回答的是：<br>- 本業修復有沒有真的轉成營運槓桿<br>- 固定成本、折舊與費用有沒有被營收吸收<br>- 公司本身是不是除了資產重估之外，營運效率也在改善</p>
-<p>第三層是淨利率。<br>這回答的是：<br>- 股東最後真正拿到多少利潤<br>- 有沒有業外、認列、轉投資或評價因素在放大或扭曲結果</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果只能挑一層，我會說是淨利率背後的獲利品質，但拆開來看，最需要先看營業利益率。</p>
-<p>原因是：中美晶不是最純的產品公司，所以市場很容易被最終淨利數字吸引；但如果要判斷它是不是值得被獨立重估，你不能只看最後 EPS，你要先看本業營業利益率有沒有真的改善。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>對，這點非常重要。</p>
-<p>因為控股型或複合型資產，很容易出現：<br>- 轉投資損益<br>- 評價變動<br>- 業外收益<br>- 一次性認列<br>影響最後淨利率。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>一句話就是：<br>市場相信中美晶不只是環球晶影子股，而是有機會把矽晶圓景氣修復與控股資產價值，一起轉成更高品質的獲利與估值框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 真正該看的其實是環球晶<br>- 中美晶只是控股延伸<br>- 既然不是最純標的，市場沒有理由給它太高倍數</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-第-18-段">
-<div class="digest-title">第 18 段</div>
-<div class="content"><p>完全可能。</p>
-<p>市場常常在景氣剛轉好時，先去買最純的主體公司，而不是控股型延伸資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這也是很重要的質疑。</p>
-<p>反方會說：<br>- 混合型資產常常最怕敘事不夠純<br>- 一旦市場只想交易矽晶圓循環，其他業務反而會變成折價來源<br>- 所以中美晶有時候不是加分，而是因為複雜而被打折</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -742,7 +611,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>矽晶圓景氣修復不如預期。</li><li>環球晶價值提升無法有效傳導。</li><li>本業營業利益率、淨利品質與控股折價修復無法一起改善。</li><li>市場重新下修對其中美晶獨立資產價值的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>矽晶圓景氣循環是否持續回升。</li><li>環球晶價值提升是否帶動中美晶折價修復。</li><li>本業營業利益率與淨利品質是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠矽晶圓景氣修復、環球晶價值提升與控股折價修復，來證明自己不只是影子股的複合型材料資產。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

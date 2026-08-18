@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-第-3-段">第 3 段</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-第-8-段">第 8 段</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-估值與市場預期">估值與市場預期</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-第-15-段">第 15 段</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-估值與市場預期">估值與市場預期</a>
-<a href="#digest-19-估值與市場預期">估值與市場預期</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，聯詠不是只在賣顯示驅動 IC，它是在賣顯示驅動與視覺 / 影音 SoC 平台裡的高內容值晶片能力。</p>
-<p>以前市場可能把它看成面板驅動 IC 股，但現在更準確的理解是：<br>它是站在顯示驅動 IC、TV SoC、OLED DDI 與 edge AI 視覺 SoC 之間的平台型 IC 設計公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不是只看單一終端，也不是只靠單一產品。聯詠最核心的優勢，在於：<br>- 驅動 IC / TV SoC 基本盤<br>- OLED DDI 滲透與產品組合升級<br>- edge AI 視覺 / 機器視覺 SoC 平台外延</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-第-3-段">
-<div class="digest-title">第 3 段</div>
-<div class="content"><p>一句話講：<br>聯詠現在最核心的身份，是顯示驅動與視覺 SoC 平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是顯示驅動 IC / TV SoC 基本盤。<br>第二條，是 OLED DDI / TDDI 升級。<br>第三條，是 edge AI 視覺 / 機器視覺 SoC 平台外延。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 537 元<br>- 單日漲幅 -0.19%<br>- 本益比 16 倍<br>- 股價淨值比 4.54 倍<br>- 總市值 3,268 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 10,296,332 千元<br>- 年增 26.8%<br>- 月增 2.73%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是只在買單月營收，而是在買三件事：<br>- DDI / TV SoC 基本盤的韌性<br>- OLED DDI / TDDI 升級能不能抬高毛利率<br>- edge AI 視覺 / 機器視覺 SoC 能不能把聯詠從景氣股推成更完整的平台型 IC 設計公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是單一面板或單一提早拉貨週期，那市場最後還是只會把它看成驅動 IC 景氣股；但如果 DDI / TV SoC 能變成長週期平台基本盤，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-第-8-段">
-<div class="digest-title">第 8 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果基本盤只是短線補庫存，市場會提早反映又提早修正；但如果 DDI / TV SoC 能維持韌性，聯詠的定位就不只是循環股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為這條線真正值錢的，不只是 OLED 題材，而是聯詠從傳統 LCD / 面板驅動，往更高規格、更高毛利的顯示與觸控整合方向延伸：<br>- OLED DDI<br>- OLED TDDI<br>- 摺疊手機<br>- OLED NB driver<br>- 高階顯示產品</p>
-<p>這些不是單純量增，而是產品單位價值量與毛利率結構改善。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>市場願意給聯詠不只是面板景氣股的估值，不是因為短線拉貨而已，而是因為它如果成功把 OLED DDI / TDDI 做成產品升級主線，估值框架就會抬高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 OLED DDI / TDDI 只是短期高階規格題材，市場會提早反映又提早修正；但如果它真的變成長期升級支柱，聯詠的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>第三條主線是平台外延。</p>
-<p>如果前兩條主線代表今天最受關注的 DDI / SoC 基本盤與 OLED 升級，那第三條主線代表的是：<br>公司不是只有顯示驅動，而是還在往 edge AI 視覺、智慧家庭裝置、AI 功能 NVR、智慧眼鏡、無人機與安防監控 SoC 延伸。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>edge AI 視覺短期不是全部主體營收，但它會影響市場願不願意給聯詠比較高的估值框架，因為那代表公司不是只守住傳統驅動 IC，而是真的在往更完整的視覺 SoC 平台路線靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果 edge AI 視覺 / 機器視覺 SoC 最後只是故事，那市場不會長期給太多溢價；但如果它們真的變成公司能力邊界的延伸，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-第-15-段">
-<div class="digest-title">第 15 段</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像聯發科那樣是更完整的大型平台 SoC 公司，也不像奇景那樣更純顯示驅動切角。它比較像是站在驅動 IC 與視覺 SoC 中間層的平台型 IC 設計公司。</p>
-<p>所以比較時要分層：<br>- 跟奇景比：驅動 IC 純度與 OLED DDI 座標<br>- 跟矽創比：小尺寸 / 驅動 IC 升級座標<br>- 跟聯發科比：平台廣度與 SoC 外延座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：奇景 / 矽創（若只看驅動 IC 純度）<br>- 誰最廣：聯發科<br>- 誰最穩：聯詠<br>- 誰最有彈性：聯詠<br>- 聯詠卡在哪：驅動 IC × 視覺 SoC 平台公司<br>- 最像的比較對手：矽創<br>- 最不像的比較對手：單純傳統面板驅動 IC 廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般驅動 IC 景氣股，而是把它當：<br>- DDI / TV SoC 基本盤穩健股<br>- OLED DDI / TDDI 升級受惠股<br>- 帶有 edge AI 視覺與視覺 SoC 平台化選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是聯詠目前的估值本質：<br>- 如果它只是高成長一陣子的驅動 IC 股，那 16 倍本益比有其天花板<br>- 如果它真的是顯示驅動與視覺 SoC 平台股，那目前的估值就還有被解釋的空間</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果 1H26 的亮眼表現主要來自提前拉貨，而 2H26 沒有新品與高毛利產品接上，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高內容值產品很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- OLED DDI / TDDI 放量不如預期<br>- edge AI 視覺 SoC 出貨沒有形成第二條穩定曲線<br>- 漲價與成本轉嫁效果不再延續<br>那聯詠就可能被切回「高成長一陣子的驅動 IC 股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -764,7 +627,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高內容值晶片產品占比提升不如預期。</li><li>OLED DDI / edge AI 視覺外延落地不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其顯示驅動與視覺 SoC 平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高內容值晶片產品占比是否持續提升。</li><li>OLED DDI / edge AI 視覺是否開始落地成獲利。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>聯詠不是多賣幾顆驅動 IC 而已，而是要靠 OLED DDI、TV SoC 與 edge AI 視覺，把自己從驅動 IC 廠往顯示驅動與視覺 SoC 平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

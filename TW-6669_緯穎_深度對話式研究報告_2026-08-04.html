@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,148 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-第-5-段">第 5 段</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-第-7-段">第 7 段</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-反方壓力測試">反方壓力測試</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最白話地講，緯穎是一家高純度的資料中心與 AI 伺服器代工公司。</p>
-<p>如果你把它放在整個伺服器供應鏈裡看，它不是賣晶片，不是賣記憶體，也不是做單一零件，而是替大型雲端客戶把高階伺服器、AI 機櫃、整體系統真正組起來、交出去的那一層。</p>
-<p>所以緯穎最核心的身份，不是一般 PC 公司，而是 AI 資料中心系統整合與機櫃級交付的重要供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這很正常，因為兩家公司高度相關。</p>
-<p>緯穎是緯創集團旗下、聚焦雲端與高階資料中心業務的公司。</p>
-<p>最簡單的理解是：<br>- 緯創本體比較像大型綜合 ODM<br>- 緯穎則是更高純度、更聚焦資料中心 / AI 伺服器的那個子公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>緯穎最適合用「平台型公司」去理解，而且是高純度 AI / 雲端伺服器代工平台資產。</p>
-<p>因為市場現在給它的，不只是出貨成長，而是在看：<br>- 它是不是能在多平台並進下，持續扮演高階資料中心系統整合與機櫃級交付的核心供應商<br>- 它是不是不只吃單一 GPU，而能同時吃到 ASIC、GPU 與一般伺服器平台升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>非常對。看平台型公司，第一件事不是背產品，而是先搞清楚：哪些業務真正決定估值，不是所有業務都同等重要。</p>
-<p>對緯穎來說，真正決定估值的有三個層級：<br>- 高階伺服器 / 機櫃代工基本盤<br>- 多平台 AI 伺服器主線<br>- 機櫃級整合與光互連延伸</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-第-5-段">
-<div class="digest-title">第 5 段</div>
-<div class="content"><p>現階段市場最在意的幾條主線很清楚：<br>- AWS Trainium<br>- AMD Helios<br>- NVIDIA Vera Rubin / VR200 系列<br>- 一般伺服器需求延續<br>- 機櫃級光互連與系統整合能力</p>
-<p>也就是說，緯穎不是押單一平台，而是押在「多平台同時成長」這件事上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這代表緯穎不是只吃單一 GPU 這一條線。</p>
-<p>AWS Trainium 代表的是：<br>- 雲端大客戶的自研 ASIC 路線<br>- 高階 AI 訓練 / 推論需求外溢<br>- 平台多元化</p>
-<p>對緯穎來說，這很重要，因為它意味著它不是單一 GPU 週期受惠者，而是可以同時吃到 GPU 與 ASIC 兩種平台升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-第-7-段">
-<div class="digest-title">第 7 段</div>
-<div class="content"><p>Helios 對緯穎的重要性在於，它是第二個很強的成長選項。</p>
-<p>如果 NVIDIA 代表市場最熟悉的主線，那 AMD Helios 就代表：<br>- 替代平台崛起<br>- 客戶不願只押單一供應商<br>- 緯穎有能力承接多平台系統整合</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是它的核心價值之一。</p>
-<p>如果一家公司只綁單一平台，市場很容易擔心它受單一客戶 / 單一架構影響太大。</p>
-<p>但緯穎現在的故事是：<br>- AWS Trainium<br>- AMD Helios<br>- NVIDIA Vera Rubin / VR200<br>- 一般伺服器底盤</p>
-<p>它更像一個多平台並進的高階資料中心代工商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 鴻海：平台感與垂直整合最強<br>- 廣達：穩定核心供應商地位最強<br>- 緯創：綜合型 ODM，彈性高但結構較混合<br>- 緯穎：AI / 雲端伺服器純度最高、成長槓桿最強的那一類資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：緯穎<br>- 誰最廣：鴻海<br>- 誰最穩：廣達<br>- 誰最有彈性：緯穎 / 緯創<br>- 緯穎卡在哪：高純度 AI / 雲端伺服器代工核心標的</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
-<p>第一順位，現在最重要的是 AWS Trainium。<br>因為這代表：<br>- 大客戶自研 ASIC 路線放量<br>- 緯穎不只依附單一 GPU 供應商<br>- 高成長與平台多元化一起成立</p>
-<p>第二順位，是 AMD Helios。<br>因為 Helios 代表第二條明確的替代平台曲線，它會讓市場相信：緯穎不是只能吃單一 GPU 故事。</p>
-<p>第三順位，才是 VR200 / Rubin。它當然重要，但這條線市場已經很熟，而且大型 ODM 幾乎都會碰到。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對一般 ODM 來說，這個倍數不低。</p>
-<p>市場願意給這個估值，代表它不是把緯穎當成普通硬體代工股，而是在買：<br>- AI 機櫃與高階伺服器平台升級<br>- 多平台並進<br>- 高純度資料中心敞口<br>- 較好的獲利品質想像</p>
-<p>先看更新後數字。最新台灣交易日 2026-08-10：<br>- 收盤價 6010<br>- 本益比 17.2<br>- 股價淨值比 7.97<br>- 總市值 11,167 億</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-06：<br>- 單月合併營收 117,685,530 千元<br>- 年增 39.23%<br>- 月增 5.67%<br>- 近三月合併營收年增 29.67%<br>- 近 12 月營收合併成長 74.27%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>因為高估值不會只因為營收成長就成立。高估值真正要靠的是：<br>- 毛利率穩住甚至改善<br>- 高附加價值平台占比提升<br>- 客戶平台切換沒有讓獲利品質惡化<br>- 高純度成長能轉成高品質獲利，而不是只轉成很大的營收</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>毛利率對緯穎來說，回答的是：<br>它吃到的到底只是量，還是高階 AI 機櫃與多平台伺服器的內容價值。</p>
-<p>如果只是營收放大，但平台切換、競爭與價格壓力讓毛利率守不住，那市場就會開始把它往普通代工股的框架拉回去。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：<br>緯穎到底是在賺高營收，還是在賺高品質的平台代工利潤。</p>
-<p>如果只是營收變大，但：<br>- 平台轉換成本高<br>- 大客戶議價壓力重<br>- 新平台初期良率與出貨節奏不穩<br>那營業利益率不一定會同步漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但緯穎這種公司更要看：<br>- EPS 成長是不是主要由高階平台本業推動<br>- 還是只是景氣熱與訂單放大帶來的短期效果</p>
-<p>獲利品質最重要看的就是：<br>- 毛利率是不是健康<br>- 營業利益率是不是同步改善<br>- 淨利率是不是乾淨地跟上<br>- 一般伺服器底盤是否能在 AI 波動時提供穩定支撐</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話就是：<br>市場相信緯穎不只是普通 ODM，而是高純度 AI / 雲端伺服器代工核心標的。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且一定要正面面對。</p>
-<p>反方會說：<br>- 緯穎現在看起來很強，是因為 AI 機櫃正處於高景氣與放量期<br>- 但高純度也代表高敏感度<br>- 一旦 Trainium / Helios / VR200 任一條線放量低於預期，市場修正會很快</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>對，這是另一個很現實的風險。</p>
-<p>因為高階雲端代工本來就容易高度綁定幾個大客戶。</p>
-<p>所以反方會說：<br>- 平台多元不代表客戶就真的很分散<br>- 若大客戶延後 CAPEX、改變架構、改單，影響會很大<br>- 市場現在給它的高評價，本質上是建立在大客戶持續強勁投資的前提上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全是。</p>
-<p>緯穎雖然沒有某些高估值零組件或材料股那麼誇張，但對代工股來說，17 倍左右也已經不是便宜價。</p>
-<p>這代表市場已經預設：<br>- 它不是普通 ODM<br>- 它會持續吃到 AI 平台升級<br>- 它的獲利品質與成長會比一般代工股更強</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很到位。</p>
-<p>更完整一點說：<br>緯穎的長期方向不是錯的，多平台 AI 伺服器與機櫃級交付也確實很強；但市場可能高估了它從高純度 AI 代工股走向長期平台型資產的持久性、價值密度，以及多平台放量在不同週期裡都能維持高品質獲利的能力。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -794,7 +642,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>多平台高價值 mix 不如預期。</li><li>Trainium、Helios 與 VR200 / Rubin 放量節奏不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其長期平台型資產地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>多平台高價值 mix 是否持續放大。</li><li>Trainium、Helios、VR200 / Rubin 是否持續落地放量。</li><li>毛利率、營業利益率與高品質獲利是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>緯穎不是普通 ODM，而是高純度 AI / 雲端伺服器代工核心標的；真正關鍵不是營收有多強，而是多平台放量能不能長期維持高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

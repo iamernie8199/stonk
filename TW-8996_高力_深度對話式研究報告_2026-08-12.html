@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,133 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-估值與市場預期">估值與市場預期</a>
-<a href="#digest-8-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-9-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-散熱與跨子題比較">散熱與跨子題比較</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-估值與市場預期">估值與市場預期</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-估值與市場預期">估值與市場預期</a>
-<a href="#digest-21-散熱與跨子題比較">散熱與跨子題比較</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果一句話先記住，高力不是只在賣熱交換器，它是在賣資料中心電力與熱管理系統裡的高內容值設備與模組能力。</p>
-<p>以前市場可能把它看成傳統設備或熱交換器公司，但現在更準確的理解是：<br>它是站在 SOFC 主力電源、PHE / CDU 液冷設備與 AI 資料中心 Time-to-Power 問題之間的電力與熱管理平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對。它不是只看單一設備，也不是只做單一終端。高力最核心的優勢，在於：<br>- SOFC / Hot Box 訂單能見度<br>- PHE / CDU 切入液冷設備鏈<br>- AI 資料中心電力與熱管理雙主線</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>高力現在最核心的身份，是 AI 電力與熱管理平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會先把它濃縮成三條。</p>
-<p>第一條，是 SOFC / Hot Box / Bloom Energy 基本盤。<br>第二條，是 PHE / CDU 切入 AI 資料中心液冷設備。<br>第三條，是橋科擴產與產能放大帶來的平台槓桿。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-12 的股價資料：<br>- 收盤價 1,170 元<br>- 單日漲幅 9.86%<br>- 本益比 50.6 倍<br>- 股價淨值比 23.58 倍<br>- 總市值 1,094 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 922,666 千元<br>- 年增 57.63%<br>- 月增 27.31%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>市場不是只在買單月營收，而是在買三件事：<br>- Bloom Energy 訂單能見度能不能持續轉單<br>- SOFC 能不能從備援電力走向主力電源<br>- PHE / CDU 能不能把高力從單一設備廠推向 AI 電力與熱管理平台</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>如果只是單一客戶訂單，那市場最後還是只會把它看成高波動設備股；但如果 SOFC / Hot Box 能變成長週期平台基本盤，那估值框架就不一樣了。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>完全正確。</p>
-<p>如果只是高能見度訂單故事，那市場會提早反映又提早修正；但如果 SOFC 真的從備援電力往主力電源走，高力的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為這條線真正值錢的，不只是 AI 資料中心液冷題材，而是高力從熱交換器零組件，往系統設備方向延伸：<br>- PHE<br>- CDU<br>- CDM<br>- in-row 液冷設備<br>- 資料中心熱管理</p>
-<p>這些不是單純量增，而是系統級內容值增加。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很關鍵。</p>
-<p>市場願意給高力不只是設備股的估值，不是因為短線拉貨而已，而是因為它如果成功把 PHE / CDU 做成資料中心熱管理平台的一部分，估值框架就會抬高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>完全正確。</p>
-<p>如果 PHE / CDU 只是短期液冷設備題材，市場會提早反映又提早修正；但如果它真的變成平台能力的第二支柱，高力的定位就會被重估。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>第三條主線是產能放大與平台化。</p>
-<p>如果前兩條主線代表今天最受關注的 SOFC 訂單與 CDU 設備切入，那第三條主線代表的是：<br>公司不是只有現有出貨，而是還在透過橋科新廠與全球擴產，把 SOFC 與熱管理能力放大成更完整的平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>橋科擴產短期不是主體營收，但它會影響市場願不願意給高力比較高的估值框架，因為那代表公司不是只守住單點產品，而是真的在往更完整的 AI 電力與熱管理平台靠近。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這就是第三條線真正的驗證點。</p>
-<p>如果橋科擴產最後只是追產能，那市場不會長期給太多溢價；但如果它真的變成 SOFC × 熱管理雙主線放大的支點，那估值框架就會再往上抬。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這家公司也很容易被錯比。</p>
-<p>它不像 Bloom Energy 那樣是全球 SOFC 系統龍頭，也不像台達電那樣是更完整的電力基建平台。它比較像是站在 SOFC 零組件與 PHE / CDU 設備中間層的平台供應商。</p>
-<p>所以比較時要分層：<br>- 跟 Bloom Energy 比：SOFC 生態位與客戶依附度座標<br>- 跟台達電比：平台廣度與電力系統整合座標<br>- 跟康舒比：電力轉型與資料中心設備切角座標</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>目前可以先這樣收斂：<br>- 誰最純：高力（若只看 SOFC / PHE / CDU 切角）<br>- 誰最廣：台達電<br>- 誰最穩：台達電 / Bloom Energy<br>- 誰最有彈性：高力<br>- 高力卡在哪：AI 電力 × 熱管理雙主線平台公司<br>- 最像的比較對手：康舒<br>- 最不像的比較對手：單純傳統熱處理設備廠</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>因為市場不是把它當一般設備股，而是把它當：<br>- SOFC 主力電源受惠股<br>- PHE / CDU 液冷設備受惠股<br>- 帶有橋科擴產與 AI 電力平台化選擇權的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>這就是高力目前的估值本質：<br>- 如果它只是高成長一陣子的設備股，那 50 倍本益比很危險<br>- 如果它真的是 AI 電力與熱管理平台股，那目前的高估值才有支撐基礎</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>非常合理，而且這就是最需要防的風險。</p>
-<p>如果訂單能見度很高，但轉成實際出貨與獲利的速度不夠快，那高估值就很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對。這些高內容值設備很有吸引力，但如果過早被拿來支撐今天的本益比，市場就容易先走在基本面前面。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-散熱與跨子題比較">
-<div class="digest-title">散熱與跨子題比較</div>
-<div class="content"><p>有可能。如果市場最後發現：<br>- Bloom Energy 訂單轉換率不如預期<br>- SOFC 擴產時程遞延<br>- PHE / CDU 出貨沒有形成第二條穩定曲線<br>那高力就可能被切回「高成長一陣子的設備股」，而不是平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -756,7 +619,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>Bloom Energy 訂單轉換率不如預期。</li><li>SOFC 擴產時程延後。</li><li>PHE / CDU 放量遞延。</li><li>毛利率 / 營業利益率沒有隨高內容值設備而改善。</li><li>市場重新把它切回單純設備股框架。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>Bloom Energy 訂單轉單與 SOFC 擴產節奏。</li><li>PHE / CDU 與液冷設備出貨放量進度。</li><li>毛利率、營業利益率與高內容值設備占比是否同步提升。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>高力不是多賣幾台設備而已，而是要靠 SOFC、PHE / CDU 與橋科擴產，把自己從設備廠往 AI 電力與熱管理平台公司推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

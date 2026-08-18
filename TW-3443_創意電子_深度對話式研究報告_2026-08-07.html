@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,201 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-22-估值與市場預期">估值與市場預期</a>
-<a href="#digest-23-第-23-段">第 23 段</a>
-<a href="#digest-24-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-25-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-26-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-27-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果你要一句話先記住，創意電子本質上不是一般賣自有品牌晶片的 IC 設計公司，而是台積電生態系裡的 ASIC Turnkey / NRE 設計服務公司。它的價值不在賣一顆標準品晶片給很多客戶，而是在幫客戶把複雜的客製化晶片，從設計、驗證、製造到封裝導入，真正做出來並量產。</p>
-<p>這裡最重要的概念是：<br>- 標準品 IC 公司：做自己的晶片，賣給很多客戶<br>- ASIC / Turnkey 公司：依客戶需求客製化設計晶片，賺設計與量產導入的價值</p>
-<p>所以創意不是在賣一個固定 SKU，而是在賣把高難度晶片做出來的能力。尤其當先進製程、先進封裝、Chiplet、CoWoS、HBM 這些東西一起出現時，這種能力會越來越值錢。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這個理解非常準。</p>
-<p>創意的價值不在於自己押哪個模型、哪個雲端業者會贏，而在於只要 AI ASIC 設計需求持續爆發，它就有機會站在整條需求擴張的中間，去承接：<br>- 客戶的 ASIC 設計需求<br>- NRE 專案收入<br>- 量產後的相關價值<br>- 與台積電先進製程 / 封裝協作的角色</p>
-<p>也就是說，創意不是直接去賭哪個 AI 終端應用爆發，而是在賭：只要越來越多大客戶想做自己的 AI ASIC、CPU、加速器、客製化晶片，創意就有機會成為背後的關鍵設計與導入夥伴。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這個懷疑非常合理，而且如果你不先處理這個問題，後面很容易被 AI 題材詞帶著走。</p>
-<p>一般設計服務公司最大的問題是：<br>- 專案有一次性特徵<br>- 客戶不一定穩<br>- 成長容易斷層<br>- 市場不一定願意給高估值</p>
-<p>但創意被高看，不只是因為接案，而是因為它站在台積電先進製程 / 先進封裝生態與 AI ASIC 專案爆發的交叉點。這代表它的角色不是普通畫圖，而是：<br>- 幫客戶做先進節點導入<br>- 幫客戶做 CoWoS / Chiplet / HBM 協同設計<br>- 幫客戶從 NRE 一路推到量產</p>
-<p>所以它不是一般接案公司，而是生態系中的高稀缺中介層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話很接近標準答案。</p>
-<p>再幫你修得更準一點：<br>創意不是單純賣設計工時的公司，而是 AI ASIC 時代裡，把客製化晶片從設計推進到先進製程 / 先進封裝量產的 Turnkey 核心受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-07 的股價資料：<br>- 收盤價 4,545 元<br>- 單日漲幅 1.45%<br>- 本益比 87.5 倍<br>- 股價淨值比 41.76 倍<br>- 總市值 6,090 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 5,769,170 千元<br>- 年增 158.38%<br>- 月增 17.06%<br>- 近三月合併營收年增 130.61%<br>- 近 12 月營收合併成長 98.84%</p>
-<p>這組數字已經不是一般「有變好」可以形容，而是非常強。</p>
-<p>也就是說，市場現在不是把創意當成普通成長股，而是在把它當成 AI ASIC / 台積電生態系核心資產在交易。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這就是研究創意最重要的第一步。</p>
-<p>創意現在的高估值，不是因為短期營收年增很漂亮而已，而是市場在賭幾件事：<br>- AI ASIC 設計服務需求會持續高速成長<br>- 客戶會不只一個，而是持續有北美 CSP、CPU、車用、自研晶片專案加入<br>- CoWoS / Chiplet / HBM 協同設計門檻越來越高，Turnkey 價值持續提升<br>- NRE 不只是一次性收入，而是能慢慢轉成長期量產收入與更大的利潤池</p>
-<p>所以這不是便宜股邏輯，而是高稀缺高成長資產是否值得這個溢價的邏輯。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話講，就是：<br>創意最重要的成長主線，是 AI ASIC 客製化需求爆發，讓它在台積電先進製程與先進封裝生態裡，成為高價值 Turnkey / NRE 受益者。</p>
-<p>拆開來看有四層：<br>- 北美 CSP、自研 CPU / AI ASIC 興起<br>- 先進製程與先進封裝複雜度大增<br>- 台積電生態系護城河<br>- NRE 到量產的延續性</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全正確，這就是創意和很多題材型 AI 受惠股最不一樣的地方。</p>
-<p>會講 AI ASIC 不難，但真正值錢的是：<br>- 能不能用先進節點做出來<br>- 能不能跟 CoWoS / HBM / Chiplet 一起整合<br>- 能不能驗證、導入、量產<br>- 能不能把一次性 NRE 變成長期量產收入</p>
-<p>所以創意最值錢的，不只是拿到案子，而是它在設計 → 流片 → 封裝 → 量產這條鏈上的推進能力。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>對很多公司來說，講台積電供應鏈只是概念；但對創意來說，這不是裝飾詞，而是核心資產的一部分。</p>
-<p>因為創意的價值很大一部分來自：<br>- 與台積電生態系協同開發能力<br>- OIP / PDK 等早期設計協作關係<br>- 先進節點導入經驗<br>- 封裝與系統協同能力</p>
-<p>當先進節點與封裝複雜度不斷提高時，客戶不是只需要一個會畫晶片的人，而是需要一個能把設計和製造體系真正串起來的夥伴。</p>
-<p>創意就是站在這裡，所以它的稀缺性比一般設計服務公司高很多。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣定義：<br>創意不是單純的 ASIC 設計服務商，而是 AI ASIC 時代裡、台積電先進製程與先進封裝生態下的 Turnkey / NRE 核心平台受益者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- 世芯-KY：高端 AI ASIC / CPU 設計與量產能力已被高度認證的台系代表<br>- 創意電子：台積電生態系下的 Turnkey / NRE 平台型升級資產<br>- Marvell：AI 資料中心互連 / 客製化晶片 / 網通基礎設施平台型座標<br>- Broadcom：全球客製化 ASIC 與高速互連成熟終局龍頭</p>
-<p>這樣看，你就知道它們不是只是「都跟 AI ASIC 有關」而已。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：世芯-KY（如果你定義純度是高端 AI ASIC 量產曝險）<br>- 誰最廣：Broadcom<br>- 誰最穩：Broadcom<br>- 誰最有彈性：創意<br>- 創意卡在哪：台積電生態系下的 Turnkey / NRE 平台升級資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講一句話：<br>世芯-KY 更像高端 AI ASIC / CPU 量產能力已經被市場高度認證的標的，而創意更像台積電生態系中、Turnkey / NRE 到量產轉換正在被快速重估的平台型資產。</p>
-<p>也就是說：<br>- 世芯偏高端量產確定性<br>- 創意偏平台升級與專案擴散彈性</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，Broadcom 不是設計服務商，但它很重要，因為它是 AI ASIC / 客製化晶片終局價值的一個全球龍頭對照框架。</p>
-<p>市場看 Broadcom 時，不只是看傳統網通 / 半導體，而是把它放進：<br>- 客製化 ASIC<br>- 高速互連<br>- AI 資料中心<br>- CPO / 光互連<br>- 全球雲端 AI 基礎設施<br>這個框架裡。</p>
-<p>所以 Broadcom 對創意的意義，不是商模一模一樣，而是它代表了：當客製化 ASIC 生態走到很成熟時，真正大的價值池長什麼樣子。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不像 Broadcom 那麼成熟巨大，成長彈性沒有那麼鈍<br>- 也不像單一高端量產型 ASIC 標的那樣完全綁在少數已知路徑上<br>- 它同時有台積電生態、Turnkey / NRE、CoWoS / Chiplet、AI ASIC 客戶擴散、量產轉換這幾個故事可以疊加</p>
-<p>所以它是非常典型的高稀缺平台升級股。</p>
-<p>最大的缺點：<br>- 估值非常高<br>- 市場對未來量產與專案擴散的期待也非常高<br>- 只要量產接續不如預期，估值就很容易先修</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這個問題問得非常對，因為創意最大的風險就是：市場可能已經先把很多好的未來反映進去了。</p>
-<p>87 倍左右本益比代表市場在交易的，不是一般成長股，而是高稀缺、高成長、高平台價值。</p>
-<p>市場願意給這種倍數，通常代表它相信幾件事：<br>- AI ASIC 專案會持續增加<br>- 客戶不只一兩家，而是會擴散<br>- NRE 會持續轉成量產收入<br>- 創意在先進節點 / 先進封裝的稀缺性會讓它持續留在高價值鏈上</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率在創意這裡，回答的是：<br>Turnkey / NRE 與量產組合，到底有沒有真的讓它賣得更值錢。</p>
-<p>如果營收很強，但毛利率沒有跟上，市場就會懷疑：<br>- 這是不是只是一波專案潮<br>- NRE 有沒有順利轉成高品質量產收入<br>- 高階專案是不是沒有真的帶來更漂亮的利潤結構</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的事：<br>創意到底是在賺高營收，還是在賺高品質平台利潤。</p>
-<p>如果只是營收放大，但研發、人力與專案成本把利潤吃掉，市場就不會長期給這麼高的倍數。</p>
-<p>所以營業利益率是在驗證：<br>- NRE 轉量產<br>- 平台化能力提升<br>- 這兩件事有沒有真的轉成經營槓桿</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率回答股東最後拿到多少利潤；<br>獲利品質則要進一步問：<br>- 這個利潤是不是來自本業高難度設計與量產導入<br>- 是不是來自新客戶、新專案與量產接續<br>- 還是只是短期 NRE 高峰與專案密集導入</p>
-<p>對創意來說，高品質獲利至少要看到：<br>- 新客戶持續增加<br>- NRE 順利轉量產<br>- 量產晶片占比提升<br>- 毛利率、營業利益率、淨利率同步站住<br>- 不只是短期專案熱潮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是新專案、新客戶、NRE 轉量產與平台化能力，能不能一起把營收轉成更好的毛利率、營業利益率、淨利率與高品質獲利。</p>
-<p>如果可以，87 倍有其邏輯；<br>如果不行，市場就會開始懷疑它是否仍只是高估值設計服務股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>夠強，而且這就是最應該先處理的空方版本。</p>
-<p>最強空方一句話可以這樣講：<br>創意不是長線受惠於 AI ASIC 平台化浪潮的稀缺資產，它只是這一波專案熱潮下被高度重估的高估值設計服務股。</p>
-<p>這句話最厲害的地方在於，它不是否定創意現在很好，而是質疑這種好能不能從專案景氣變成長期平台價值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這也是很現實的反方。</p>
-<p>創意的優勢和台積電生態深綁定，這是優勢也是限制。</p>
-<p>優勢是：<br>- 進入門檻很高<br>- 客戶需要它的協同能力</p>
-<p>限制是：<br>- 客戶節奏會影響它<br>- 產能分配會影響它<br>- 專案成敗不全由它決定</p>
-<p>所以創意再強，也不是一個完全自主定價、完全自主需求的標的，這是高估值時一定要記住的事。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-第-23-段">
-<div class="digest-title">第 23 段</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：NRE 是否能順利轉量產，且量產晶片占比持續提升。</p>
-<p>原因很簡單：<br>- 題材可以很熱<br>- 專案可以很多<br>- NRE 可以很漂亮<br>- 但如果量產接不上，市場就很難相信這是一條長線高品質平台成長主線</p>
-<p>所以最脆弱的驗證，不是單月營收，而是 NRE → 量產 的接續質量。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>一般高估值設計服務股，而不是高稀缺平台型資產。</p>
-<p>差別在於：<br>- 前者看專案熱度與接案景氣<br>- 後者看平台地位、台積電生態協同與長期量產利潤池</p>
-<p>一旦切回前者，87 倍左右本益比就很容易撐不住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最誠實的答案是：它兩者都是。</p>
-<p>它確實有高品質成長股的條件：<br>- 站在 AI ASIC、先進製程、先進封裝協同設計的對位置<br>- Turnkey / NRE 主線純度很高<br>- 客戶與專案擴散邏輯很清楚</p>
-<p>但它同時也是高預期高波動股，因為市場已經把很多未來好事先反映進估值。這代表：<br>- 只要量產接續不如預期<br>- 或新專案擴散速度慢一點<br>- 估值修正就會很快</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>創意不是普通 IC 設計公司，而是 ASIC Turnkey / NRE 設計服務平台。</p>
-<p>第二句，主線：<br>最大的成長主線，是 AI ASIC、先進製程與先進封裝協同設計需求爆發。</p>
-<p>第三句，價值來源：<br>它受惠的不只是案子變多，而是設計到量產導入這條鏈的價值一起上升。</p>
-<p>第四句，同業定位：<br>世芯-KY偏高端量產確定性，Marvell 偏資料中心互連平台，Broadcom 偏全球終局霸權，而創意卡在台積電生態下的 Turnkey / NRE 平台升級位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看毛利率、營業利益率、淨利率、獲利品質，以及 NRE 轉量產是否順利。</p>
-<p>第六句，最重要驗證：<br>新客戶、新專案、NRE 轉量產與量產晶片占比，能不能一起把獲利平台墊高。</p>
-<p>第七句，最強反方：<br>它可能只是這一波 AI ASIC 專案潮下被高度重估的高估值設計服務股。</p>
-<p>第八句，最終投資判斷：<br>創意真正值不值得這個高估值，不是看這一季營收多強，而是看 NRE、量產與平台化能力能不能一起做實。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣講：<br>創意電子是 AI ASIC 與台積電先進製程 / 先進封裝生態裡的 Turnkey / NRE 核心受益者，但真正決定它值不值這個高估值的，不是這一季營收有多好，而是 NRE、量產與平台化能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -931,7 +726,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI ASIC 專案無法持續轉成量產，NRE 只是一波短期熱潮。</li><li>客戶專案時程延後或規模不如預期，導致市場對平台價值重估回落。</li><li>高估值對未來成長反映過頭，而後續數字只能符合預期、無法超預期。</li><li>資金更偏好世芯-KY 的高端量產確定性，或 Broadcom / Marvell 的成熟平台價值，削弱創意的溢價空間。</li><li>市場重新把創意定價成一般設計服務股，而不是高稀缺平台型資產。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>創意主要 AI ASIC 客戶與專案在 NRE / 量產收入上的更細拆分。</li><li>創意、世芯-KY、Broadcom、Marvell 在 AI ASIC / CPU / 客製化晶片專案上的更細營收與客戶結構拆分。</li><li>創意在 NRE、量產晶片、Turnkey 服務三塊利潤池上的更細拆分。</li><li>各家公司在先進製程 / 先進封裝協同、客戶黏著度與平台議價能力上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>創意不是普通設計服務公司，而是台積電生態與 AI ASIC / 先進封裝浪潮下最具重估張力的 Turnkey / NRE 平台股之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

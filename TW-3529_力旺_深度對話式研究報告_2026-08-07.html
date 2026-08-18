@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,176 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-估值與市場預期">估值與市場預期</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-9-估值與市場預期">估值與市場預期</a>
-<a href="#digest-10-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-第-13-段">第 13 段</a>
-<a href="#digest-14-估值與市場預期">估值與市場預期</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-19-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-20-反方壓力測試">反方壓力測試</a>
-<a href="#digest-21-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-22-反方壓力測試">反方壓力測試</a>
-<a href="#digest-23-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-24-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-25-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>如果你要一句話先記住，力旺本質上不是晶片設計公司，也不是晶圓製造公司，而是把非揮發性記憶體與硬體安全功能做成可授權的矽智財 IP 公司。</p>
-<p>也就是說，它賣的不是一顆自己品牌的晶片，而是：<br>- 讓客戶在晶片裡內建記憶體功能的 IP<br>- 讓客戶在晶片裡加上安全驗證與信任根能力的 IP<br>- 讓晶片在不同製程節點都能可靠運作的設計 know-how</p>
-<p>所以你可以把它理解成：<br>客戶要做晶片，不想自己從零開發這些高難度功能，就去買力旺的 IP 授權，把它整合進自己的 SoC 或控制晶片裡。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這個方向是對的。</p>
-<p>更精準一點說，力旺賣的是被嵌進客戶晶片裡的關鍵功能模組，而且這些功能不是可有可無，而是很多晶片都需要：<br>- OTP（一次性可編程記憶體）<br>- PUF（防偽安全、硬體信任根）<br>- MTP（可重複程式化記憶體）<br>- 與先進製程相容的 eNVM / 記憶體相關 IP</p>
-<p>所以力旺值錢的地方，不是它做終端產品，而是它站在整個晶片設計流程的前端，而且一旦被客戶導入，通常就不太容易換掉。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果只是因為 IP 授權毛利高，力旺當然會有吸引力，但市場重視它，不只是因為它高毛利而已。</p>
-<p>現在市場重估力旺，有幾條線一起在發生：<br>- 先進製程越來越複雜，客戶更依賴成熟的 IP 供應商<br>- 硬體安全需求提升，PUF / trust root 類型 IP 重要性上升<br>- OIP / PDK 早期協同開發讓先進製程 IP 廠更有護城河<br>- Chiplet、異質整合、埃米級製程讓記憶體與安全 IP 的整合難度更高<br>- 力旺不是只吃授權金，還能透過量產後的權利金持續受益</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>如果你要更精準一點，我會這樣說：<br>力旺不是單純賣授權的 IP 小公司，而是站在先進製程、晶片安全與記憶體功能交叉核心的基礎設施型矽智財供應商。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣定義：<br>力旺不是單純的矽智財授權商，而是先進製程、記憶體功能與硬體安全升級過程中，站在晶片設計基礎層的高稀缺 IP 供應者。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-07 的股價資料：<br>- 收盤價 2,725 元<br>- 單日漲幅 2.44%<br>- 本益比 79.2 倍<br>- 股價淨值比 45.86 倍<br>- 總市值 2,036 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 675,856 千元<br>- 年增 23.77%<br>- 月增 278.73%<br>- 近三月合併營收年增 23.37%<br>- 近 12 月營收合併成長 13.86%</p>
-<p>這組數字很有意思。它不像成熟 IP 股那麼平滑，而是會受到授權金認列與權利金節奏影響，所以波動看起來很大。但市場沒有因此把它當景氣循環股，反而願意用接近 80 倍本益比看它，這代表市場在交易的是更長期的 IP 稀缺性。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這就是研究力旺最重要的第一步。</p>
-<p>力旺現在的高估值，不是因為短期營收漂亮而已，而是市場在賭幾件事：<br>- 先進製程越往下走，客戶越依賴成熟 NVM / 安全 IP<br>- PUF 等硬體安全 IP 會因 AI、邊緣運算與新型架構而更重要<br>- OIP / PDK 協同開發地位會讓力旺持續占到更早期的設計入口<br>- 授權金 + 權利金雙軌模式，能讓它不只一次收費，而是長期吃量產紅利</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話講，就是：<br>力旺最重要的成長主線，是先進製程與硬體安全需求升級，讓它的 NVM IP、PUF 與相關安全 / 記憶體 IP 從利基功能，升級成晶片設計流程裡更不可缺的基礎能力。</p>
-<p>拆開來看有四層：<br>- 先進製程節點越來越複雜，客戶越不想自己重做這些高風險功能<br>- 硬體安全需求上升<br>- OIP / PDK 協同開發護城河<br>- 授權金 + 權利金雙軌商模</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>很多人看到力旺，只會看到高毛利、IP 授權、營收波動，但市場真正願意給高估值的，不是因為它毛利高而已，而是：<br>- 它是不是 OIP / PDK 生態中的早期節點<br>- 它的 NVM / 安全 IP 是不是客戶非用不可<br>- 一旦導入後，切換成本是不是很高<br>- 權利金是不是能跟著客戶量產一起放大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>其實非常重要，而且這種東西正是把技術故事變成投資故事的關鍵。</p>
-<p>因為力旺這種公司，不是只靠終端需求，而是要先進入客戶設計流程。OIP / PDK 協同開發代表的是：<br>- 它能更早接觸先進製程節點<br>- 它能更早跟晶圓代工 / EDA / 客戶一起優化<br>- 它的 IP 更容易成為設計標配</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- M31：廣泛介面 / PHY / SerDes 型 IP 平台公司，市場定價重點是應用廣度與客戶擴散<br>- 力旺：NVM / OTP / PUF / 安全 IP 為核心的高稀缺功能型平台公司，市場定價重點是基礎功能深度與替代難度<br>- Synopsys：EDA + IP 的全球級終局平台，市場定價重點是設計流程控制權與生態鎖定<br>- Cadence：設計基礎設施與高階 IP 生態並重的全球平台，市場定價重點是工具鏈、設計生態與平台廣度</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：力旺<br>- 誰最廣：Synopsys / Cadence<br>- 誰最穩：Synopsys / Cadence<br>- 誰最有彈性：力旺 / M31<br>- 力旺卡在哪：高稀缺功能型平台公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-第-13-段">
-<div class="digest-title">第 13 段</div>
-<div class="content"><p>如果只講一句話：<br>M31 更像通用介面 IP / PHY / SerDes 等較廣泛矽智財平台的代表，而力旺更像在 NVM / OTP / PUF / 安全信任根這條利基但高稀缺的基礎功能線上，卡得更深的一家公司。</p>
-<p>也就是說：<br>- M31 偏平台廣度<br>- 力旺偏功能深度</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>因為它們代表產業終局框架。</p>
-<p>市場看 Synopsys / Cadence，不只是看某一類 IP，而是把它們放進：<br>- EDA + IP 雙平台<br>- 晶片設計流程控制權<br>- 製程入口與設計工具生態<br>這種更高層的框架裡。</p>
-<p>所以它們對力旺的意義，不是商模完全相同，而是回答：<br>當一家公司不只是賣單點 IP，而是掌握設計流程某個極關鍵位置時，市場會給什麼終局估值框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最大的優點：<br>- 不像全球 EDA 巨頭那麼大，成長彈性沒那麼鈍<br>- 也不像廣泛型平台 IP 那樣容易被看成只是應用面擴張<br>- 同時有 NVM、OTP、PUF、安全信任根、OIP / PDK、授權金 + 權利金幾個故事可以疊加</p>
-<p>所以它是非常典型的高稀缺功能型平台升級股。</p>
-<p>最大的缺點：<br>- 估值已經很高<br>- 市場對新授權案、先進製程滲透與權利金放大的期待也非常高<br>- 只要有一項沒跟上，估值就很容易先修</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>因為市場在交易的，已經不是一般授權型公司，而是：<br>- 高稀缺 IP<br>- 先進製程受惠<br>- 安全需求升級<br>- 雙軌商模的長期平台價值</p>
-<p>市場願意給這種倍數，通常代表它相信幾件事：<br>- 授權金不只是短期認列，而是新案源源不絕<br>- 權利金會隨客戶量產長期放大<br>- PUF / NeoFuse / MTP / FinFET 相關 IP 的需求不只是一時現象<br>- OIP / PDK 地位會持續讓力旺留在高價值鏈前端</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話非常準。</p>
-<p>力旺最關鍵的，不只是營收成長，而是：<br>- 新授權案是不是持續增加<br>- 權利金是不是能跟量產一起上升<br>- PUF 等安全 IP 是否持續被更多應用導入<br>- 先進製程導入是不是越來越深</p>
-<p>也就是說，真正要追的不是單月營收，而是授權金、權利金、製程升級與安全需求能不能一起成立。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>營業利益率回答的是：<br>授權金與權利金成長有沒有真的轉成高品質的經營槓桿。</p>
-<p>淨利率回答的是：<br>股東最後拿到的高毛利、高轉換率利潤，是否乾淨且可持續。</p>
-<p>對力旺來說，高品質獲利至少要看到：<br>- 新授權案穩定增加<br>- 權利金隨量產與製程升級放大<br>- PUF / OTP / MTP / FinFET 等產品線持續滲透<br>- 市場逐步把它當成先進製程基礎層 IP 資產，而不是一般授權股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是授權金、權利金、先進製程滲透與平台化能力，能不能一起把 2027 之後的獲利平台墊高。</p>
-<p>如果可以，70~80 倍有平台化想像；<br>如果不行，市場就會把它切回一般高毛利授權股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- IP 公司本來就高毛利<br>- 授權金認列有波動性<br>- 權利金成長可能受單一客戶或單一製程節奏影響</p>
-<p>這個反方最厲害的地方在於，它不是否認力旺現在很好，而是質疑這種好能不能從高毛利授權生意，變成真正長期複利的平台資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：權利金是否能隨量產與先進製程滲透穩定放大。</p>
-<p>原因很簡單：<br>- 授權金可以因單案而波動<br>- 技術故事可以很美<br>- 但如果權利金沒有長尾放大，市場就很難相信它是平台複利，而只會把它當高毛利授權公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-反方壓力測試">
-<div class="digest-title">反方壓力測試</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>一般高毛利授權股，而不是高稀缺基礎層平台資產。</p>
-<p>差別在於：<br>- 前者看單案授權與短期營收認列<br>- 後者看長期設計入口、替代難度與量產長尾價值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最誠實的答案是：它正處在從高估值授權股往高品質平台股過渡的驗證期。</p>
-<p>它確實有高品質平台股的條件：<br>- OIP / PDK 早期入口<br>- NVM / 安全 IP 的功能深度<br>- 授權金 + 權利金雙軌商模<br>- 先進製程與硬體安全需求升級</p>
-<p>但今天的本益比也告訴你，市場已經把很多未來反映進去了。後面要靠權利金放大與平台化能力來證明不是只有高毛利而已。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>力旺不是賣晶片，而是賣被嵌進客戶晶片裡的 NVM / 安全 IP。</p>
-<p>第二句，主線：<br>最大的成長主線，是先進製程與硬體安全需求升級。</p>
-<p>第三句，價值來源：<br>它受惠的不只是授權金，而是授權金加權利金的雙軌平台價值。</p>
-<p>第四句，同業定位：<br>M31 偏平台廣度、Synopsys / Cadence 偏終局平台，而力旺卡在高稀缺功能型平台升級的位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看新授權案、權利金、營業利益率、淨利率與平台滲透能力。</p>
-<p>第六句，最重要驗證：<br>授權金、權利金、先進製程滲透與平台化能力，能不能一起把獲利平台墊高。</p>
-<p>第七句，最強反方：<br>它可能只是一家高毛利授權公司，而不是長期複利的平台資產。</p>
-<p>第八句，最終投資判斷：<br>力旺真正值不值得這個高估值，不是看這一季營收多好，而是看授權金、權利金與平台化能力能不能一起做實。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣講：<br>力旺是先進製程、記憶體功能與硬體安全升級過程中的高稀缺 IP 供應者，但真正決定它值不值得這個高估值的，不是這一季營收有多好，而是授權金、權利金與平台化能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -871,7 +691,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>新授權案停滯，平台化故事轉弱。</li><li>權利金無法順利放大，長期複利邏輯受損。</li><li>先進製程與安全需求滲透速度不如預期。</li><li>市場重新把力旺定價成一般高毛利授權股，而不是高稀缺基礎層平台資產。</li><li>資金更偏好廣平台型 IP 或全球 EDA 終局龍頭，削弱力旺的溢價空間。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>授權金與權利金的更細拆分趨勢。</li><li>不同製程節點與不同客戶群的權利金放大量化路徑。</li><li>力旺與 M31 在不同 IP 類別的授權金 / 權利金結構比較。</li><li>力旺、Synopsys、Cadence 在設計流程影響力、平台深度與資本配置上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>力旺不是單純高毛利 IP 授權公司，而是先進製程、記憶體功能與硬體安全升級中的基礎層高稀缺資產；真正關鍵不是營收波動，而是權利金與平台化能力能不能一起長大。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

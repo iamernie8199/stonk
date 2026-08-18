@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,134 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-第-1-段">第 1 段</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-第-4-段">第 4 段</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-第-11-段">第 11 段</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-第-17-段">第 17 段</a>
-<a href="#digest-18-第-18-段">第 18 段</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-第-20-段">第 20 段</a>
-<a href="#digest-21-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-第-1-段">
-<div class="digest-title">第 1 段</div>
-<div class="content"><p>它們同屬被動元件族群，但不能直接當成同一家公司看。</p>
-<p>最白話地講，華新科是一家以 MLCC 為核心的被動元件公司，和國巨一樣都站在電子系統最底層、最基礎的零件供應位置。</p>
-<p>只是市場在看兩家公司時，通常會給不同框架：<br>- 國巨比較像全球平台型供應商<br>- 華新科比較像台灣本地可比、較偏產品循環與規格升級受惠的公司</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>MLCC 全名是多層陶瓷電容，你可以把它理解成電子系統裡最常見、最關鍵的基礎零件之一。</p>
-<p>它負責：<br>- 穩壓<br>- 濾波<br>- 儲能<br>- 幫助訊號與電源穩定</p>
-<p>所以從手機、PC、網通，到車用電子、工控設備、AI 伺服器，都會用到大量 MLCC。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>華新科最適合放在「高規格零組件 / 材料升級股」這個框架裡。</p>
-<p>它最重要的價值不在平台最廣，而在於：<br>- MLCC 主軸夠清楚<br>- 高規格需求改善時，彈性很直接<br>- 如果車用 / 工控 / AI 等高品質應用占比持續提高，它有機會從普通被動元件循環股，往更高品質的高規格需求受惠股移動</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-第-4-段">
-<div class="digest-title">第 4 段</div>
-<div class="content"><p>我會這樣講：<br>華新科現在最重要的身份，是高規格被動元件循環中的台灣核心 MLCC 供應商之一。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 273.5<br>- 本益比 30.4<br>- 股價淨值比 2.48<br>- 總市值 1,327 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 6 月營收，公告日 2026-07-07：<br>- 單月合併營收 3,960,936 千元<br>- 年增 25.84%<br>- 月增 7.05%<br>- 近三月合併營收年增 19.43%<br>- 近 12 月營收合併成長 8.83%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>現階段最直接受惠的主線有三條：<br>- 車用電子<br>- 工控與高可靠度應用<br>- AI 伺服器與高階運算設備</p>
-<p>這三塊有一個共同點：<br>- 不是只要更多數量<br>- 而是要更高規格</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，性質很像。</p>
-<p>華新科不是做 AI 晶片，也不是做高階加速器本身，但 AI 伺服器、電源模組、網通設備、資料中心硬體，都需要被動元件。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果從投資價值排序，我會這樣看。</p>
-<p>第一順位，還是車用與工控。因為這兩塊最能支撐：<br>- 高規格<br>- 高可靠度<br>- 更高驗證門檻<br>- 更健康的毛利結構</p>
-<p>第二順位，是 AI 伺服器。AI 當然重要，但對華新科來說，現階段更像加速器與評價提升因子。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>如果先粗分，我會這樣看：<br>- 國巨：全球平台型被動元件供應商<br>- 村田 / 太陽誘電 / 三星電機：國際級大型玩家，帶有技術、規模與全球客戶優勢<br>- 華新科：台灣核心 MLCC 公司，較容易被當成高規格需求升級下的本地受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：華新科（若只看台系 MLCC 主軸）<br>- 誰最廣：國巨<br>- 誰最穩：村田 / 國巨<br>- 誰最有彈性：華新科<br>- 華新科卡在哪：台灣高規格 MLCC 需求升級受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-第-11-段">
-<div class="digest-title">第 11 段</div>
-<div class="content"><p>一句話講：<br>國巨比較像平台股，華新科比較像高規格 MLCC 循環股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>弱點通常在於：<br>- 全球客戶覆蓋度<br>- 平台廣度<br>- 品牌與技術定價權<br>- 長期穩定高品質公司的市場印象</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個倍數絕對不低。</p>
-<p>市場願意給這麼高，代表它不是把華新科單純當景氣反彈股看。</p>
-<p>它在買的是：<br>- 高規格需求升級<br>- 車用 / 工控 / AI 應用滲透<br>- 產品組合改善<br>- 毛利率改善空間<br>- 產業集中度下的較佳獲利想像</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>完全正確。</p>
-<p>因為高估值不會只因為營收成長就成立。高估值真正要靠的是：<br>- 毛利率改善<br>- 高規格產品占比提升<br>- 車用 / 工控 / AI 等高品質應用比重拉高<br>- 需求成長不是只靠景氣拉貨，而是規格升級帶動</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對華新科來說，回答的是：它賣的到底只是量，還是更高規格、更高可靠度、較不容易價格競爭的價值。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的問題：華新科到底是在賺景氣修復，還是在賺高品質的高規格零件利潤。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-第-17-段">
-<div class="digest-title">第 17 段</div>
-<div class="content"><p>淨利率很重要，因為股東最後拿到的是 EPS。</p>
-<p>但華新科這種公司更要看：<br>- EPS 成長是不是主要由高規格需求與產品組合推動<br>- 還是只是短期景氣與報價改善撐起來</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-第-18-段">
-<div class="digest-title">第 18 段</div>
-<div class="content"><p>一句話就是：<br>市場相信華新科不只是一般被動元件循環股，而是高規格需求升級下的台灣核心 MLCC 受惠股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方，而且非常合理。</p>
-<p>反方會說：<br>- 不管 AI、車用、工控怎麼講，本質上它還是 MLCC 公司<br>- 只要景氣循環下來、庫存反轉、報價轉弱，市場就會重新把它當循環股看</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-第-20-段">
-<div class="digest-title">第 20 段</div>
-<div class="content"><p>對，這是另一個很現實的問題。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全是。</p>
-<p>對 MLCC / 被動元件公司來說，這個倍數不低。這代表市場已經預設：<br>- 高規格需求會持續<br>- 毛利率與產品結構會改善<br>- 公司不只是景氣股，而是有升級空間</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="第-1-段">
 <div class="round-title">第 1 段</div>
 <div class="round-grid"><article class="bubble junior">
@@ -758,7 +620,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高規格需求升級不如預期。</li><li>高規格應用占比提升不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高規格需求升級地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高規格應用占比是否持續提升。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>車用、工控與 AI 伺服器需求升級是否持續成立。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>先用一句話記住：這是一檔要靠高規格需求占比、毛利率改善與獲利品質來證明自己不只是被動元件循環股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

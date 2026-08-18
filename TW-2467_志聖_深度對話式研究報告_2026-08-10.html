@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,199 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-3-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-4-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-7-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-8-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-9-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-10-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-11-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-12-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-13-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-14-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-15-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-16-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-17-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-21-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-22-估值與市場預期">估值與市場預期</a>
-<a href="#digest-23-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-24-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-25-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-26-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-27-先進製程與先進封裝">先進製程與先進封裝</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>你這個直覺很合理，而且這就是研究志聖的第一道門檻。</p>
-<p>如果你只把它看成一般設備股，你會低估它現在被市場重新定價的原因。因為志聖最值錢的地方，不是設備很多元，而是它剛好卡在 AI 晶片後段製程升級裡，幾個價值很高、而且未來延續性很強的環節上：<br>- 乾膜貼合<br>- Curing<br>- Bonder<br>- 撕膜<br>- 面板級封裝與玻璃基板相關製程設備</p>
-<p>所以你不能只說它是設備公司，而要更精準：<br>它是先進封裝設備升級主線上的平台型設備公司候選。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這個懷疑非常合理，而且如果你不先處理這個問題，後面很容易被題材詞牽著走。</p>
-<p>一般設備股最常見的問題是：<br>- 接單來了就很好<br>- 資本支出轉弱就很快掉下來<br>- 缺少長期平台化能力</p>
-<p>但志聖現在被高看，不只是因為封裝需求熱，而是因為市場認為它站的位置，比一般設備股更接近「製程升級的受益者」而不是「單純的機台供應商」。</p>
-<p>換句話說，市場在問的是：<br>它能不能跟著 CoWoS、CoPoS、FOPLP、玻璃基板這些下一代封裝路線一起升級，而不是只吃一波擴產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這兩個估值框架差非常多。</p>
-<p>如果它只是傳統設備商，市場頂多把它當景氣循環設備股；但如果它能被理解成先進封裝設備平台，市場就會更願意給高本益比，因為那代表：<br>- 內容價值更高<br>- 跟製程升級綁得更深<br>- 平台延續性更長</p>
-<p>所以現在最關鍵的投資問題不是「志聖是不是設備股」，而是：<br>它是不是正在從設備景氣股，往先進封裝設備平台股轉移。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>對，這句話很接近標準答案。</p>
-<p>再幫你修得更準一點：<br>志聖不是單純機台供應商，而是受惠於 CoWoS、CoPoS、玻璃基板與面板級封裝導入的先進封裝設備平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 550 元<br>- 單日漲幅 10%<br>- 本益比 39.3 倍<br>- 股價淨值比 10.88 倍<br>- 總市值 889 億元</p>
-<p>再看最新月營收，依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-08：<br>- 單月合併營收 1,167,511 千元<br>- 年增 132.73%<br>- 月增 34.33%<br>- 近三月合併營收年增 99.26%<br>- 近 12 月營收合併成長 68.19%</p>
-<p>這組數字很直接地告訴你：<br>志聖現在不是只有概念，營運數字本身就已經進入高速成長狀態。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全正確，這就是志聖最值得小心的地方。</p>
-<p>39 倍左右本益比代表：<br>- 市場不是把它當普通設備股看<br>- 市場已經承認它吃到先進封裝升級<br>- 而且還先把部分未來的高成長期待放進價格裡了</p>
-<p>所以研究志聖，不能只停在「設備需求很熱」，而要問：<br>- 這個高估值有沒有足夠長的主線去支撐<br>- 新製程導入是否真能落地<br>- 獲利品質能不能跟著平台升級一起提高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>一句話講，就是：<br>志聖最重要的成長主線，是 AI 晶片後段先進封裝升級，尤其是 CoWoS、CoPoS、FOPLP、玻璃基板等新製程導入，讓它從傳統設備商升級成先進封裝設備平台股。</p>
-<p>拆開來看，大概有四層：<br>- CoWoS 與先進封裝擴產<br>- CoPoS 與玻璃核心載板等下一代技術驗證<br>- FOPLP / 面板級封裝帶來的新設備需求<br>- 半導體設備占比持續提升，帶動整體獲利結構升級</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>完全正確。</p>
-<p>很多人看志聖，只會看到設備需求很熱，但市場真正願意給高估值的，不只是出貨變多，而是：<br>- 製程升級<br>- 新設備導入<br>- 高階封裝占比提高<br>- 半導體設備比重持續拉升</p>
-<p>也就是說，志聖現在不是只靠一波擴產賺錢，而是靠自己在先進封裝供應鏈中的位置越來越重要。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這正是志聖最有趣、也是最危險的地方。</p>
-<p>如果只看短期獲利，市場確實可能先把故事講太多；但如果從中長期看，玻璃基板、CoPoS、FOPLP 這些東西很重要，因為它們代表志聖不只是吃現有 CoWoS，而是有機會繼續卡位下一代封裝製程設備。</p>
-<p>所以市場真正想交易的，不是志聖這一季很好，而是：<br>它能不能在 CoWoS 之後，繼續留在下一輪更高階封裝設備的位置上。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣定義：<br>志聖不是單純設備公司，而是受惠於 AI 晶片後段封裝升級、CoWoS / CoPoS / 玻璃基板導入的先進封裝設備平台型公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>很好，這才是對的問法。</p>
-<p>你可以先這樣粗分：<br>- 弘塑：高端先進封裝設備純度型資產<br>- 辛耘：前後段兼具、工序更綜合的設備平台<br>- 萬潤：高端封裝自動化與光互連題材純度型設備股<br>- 志聖：乾膜貼合、Curing、Bonder 與 CoWoS / CoPoS / FOPLP / 玻璃基板交叉的先進封裝設備平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：弘塑<br>- 誰最廣：辛耘<br>- 誰最穩：辛耘<br>- 誰最有彈性：萬潤<br>- 志聖卡在哪：多主線先進封裝設備平台股</p>
-<p>這不是唯一分法，但對投資判斷最有幫助。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果只講一句話：<br>弘塑更像先進封裝與濕製程 / 高端設備純度更高的設備股，而志聖更像乾膜貼合、Curing、Bonder、面板級封裝與 CoPoS / 玻璃基板導入交叉點上的設備平台股。</p>
-<p>也就是說：<br>- 弘塑偏設備純度<br>- 志聖偏平台廣度與新製程擴散</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>辛耘代表的是另一種更偏多工序、多設備模組能力的先進封裝與半導體設備資產。</p>
-<p>市場看辛耘時，通常更偏向：<br>- 半導體前段 / 後段設備雙邏輯<br>- 多工序設備能力<br>- 先進封裝與 CoPoS 題材交叉</p>
-<p>志聖則更像：<br>- 乾膜貼合 / Curing / Bonder 等關鍵製程設備<br>- 更明確吃到封裝流程中的特定製程節點<br>- 面板級封裝與玻璃基板導入帶來的新增需求</p>
-<p>所以如果只講最像與最不像：<br>- 最像的比較對手：弘塑<br>- 最不像的比較對手：辛耘</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最大的優點：<br>它剛好卡在一個很有吸引力的位置。<br>- 不像弘塑那樣完全走高純度高壁壘路線<br>- 不像辛耘那樣橫跨更多前後段設備工序<br>- 不像萬潤那樣更偏高端自動化與光互連純度<br>- 而是同時卡在乾膜貼合、Curing、Bonder、CoWoS、CoPoS、FOPLP、玻璃基板導入交叉點上</p>
-<p>所以它是很典型的多主線先進封裝設備平台股。</p>
-<p>最大的缺點：<br>- 不像弘塑那樣有更強的設備純度溢價<br>- 不像辛耘那樣有更廣的工序覆蓋與前段連結<br>- 高本益比下，只要新技術驗證與量產節奏稍慢，評價就容易壓縮</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這個問題問得非常對，因為志聖最大的風險就是：市場可能已經先把很多好的未來反映進去了。</p>
-<p>39 倍本益比不是在賭單一數字，而是在賭四層事情能串起來：<br>1. 營收延續性<br>2. 新製程設備放量<br>3. 獲利品質改善<br>4. 高估值框架不掉下來</p>
-<p>白話講就是：<br>市場不只在賭它賣更多設備，而是在賭它賣得更多、賣得更值錢、而且賺得更漂亮。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>毛利率在志聖這裡，回答的是：<br>CoWoS、CoPoS、FOPLP、玻璃基板這些高附加價值製程設備，是否真的讓它賣得更值錢。</p>
-<p>如果營收很強，但毛利率沒有改善，市場就會開始懷疑：<br>- 這是不是只是設備量放大<br>- 而不是設備平台升級</p>
-<p>所以毛利率是第一層驗證。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更接近市場真正想知道的事：<br>志聖到底是在賺高營收，還是在賺高品質獲利。</p>
-<p>如果只是營收放大，但費用率、營運成本把利潤吃掉，市場就不會長期給高倍數。</p>
-<p>所以營業利益率是在驗證：<br>- 設備占比提升<br>- 新製程放量<br>- 這兩件事有沒有真的轉成經營槓桿</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>淨利率回答股東最後拿到多少利潤；<br>獲利品質則要進一步問：<br>- 這個利潤是不是來自本業<br>- 是不是來自高附加價值設備占比提升<br>- 還是有短期業外或一次性因素幫忙</p>
-<p>對志聖來說，高品質獲利至少要看到：<br>- 半導體設備占比持續提升<br>- 新封裝設備真正放量<br>- 毛利率、營業利益率、淨利率同步改善<br>- 不是只吃一波景氣型設備擴產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>估值分水嶺不是營收創不創高，而是新封裝設備放量、半導體設備占比與獲利品質，能不能一起證明它配得上平台型設備股，而不是景氣設備股的估值框架。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>夠強，而且這就是最應該先處理的空方版本。</p>
-<p>最強空方一句話可以這樣講：<br>志聖不是長期先進封裝設備平台股，它只是這一輪封裝擴產高峰下，被市場提前高估的景氣設備股。</p>
-<p>這句話最厲害的地方在於，它不是否定志聖現在很好，而是質疑：這種好能不能從擴產題材，變成真正的平台資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-22-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這是第二層更現實的反方。</p>
-<p>市場最願意長期給高倍數的，通常還是：<br>- 晶片設計<br>- 關鍵製程<br>- 不可替代 IP<br>- 或極少數高壁壘平台型設備龍頭</p>
-<p>設備股再好，市場還是會問：<br>- 客戶 capex 退下來怎麼辦？<br>- 新製程導入會不會延後？<br>- 你的內容價值會不會被競爭對手稀釋？</p>
-<p>所以志聖的高本益比，本質上仍然需要持續被基本面驗證。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-23-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果只能選一個最敏感的，我會選：半導體設備營收占比持續提升。</p>
-<p>原因很簡單：<br>- 營收可以靠擴產與拉貨很強<br>- 毛利率有時還能被短期產品組合解釋<br>- 但如果半導體設備占比拉不上去，就很難說這是一家真正從傳統設備商升級成先進封裝設備平台的公司</p>
-<p>所以最脆弱的驗證不是單月營收，而是設備內容結構有沒有真正升級。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-24-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>如果 thesis 失效，市場最可能把它切回的低級框架是：<br>高波動景氣設備股，而不是先進封裝設備平台資產。</p>
-<p>差別在於：<br>- 前者看接單、擴產、題材熱度<br>- 後者看平台地位、設備內容價值、獲利品質與長期延續性</p>
-<p>一旦切回前者，39 倍左右本益比就很容易撐不住。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-25-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>最誠實的答案是：它兩者都是。</p>
-<p>它確實有高品質成長股的條件：<br>- 站在 CoWoS、CoPoS、玻璃基板、FOPLP 的對位置<br>- 半導體設備占比有提升趨勢<br>- 多主線設備需求都有可能延續</p>
-<p>但它同時也是高預期高波動股，因為市場已經把很多未來好事先反映進估值。這代表：<br>- 只要新技術導入、量產節奏或獲利品質稍微沒跟上<br>- 估值修正就會很快</p></div>
-</section>
-<section class="digest-card section-card" id="digest-26-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>你記 8 句就夠。</p>
-<p>第一句，公司本質：<br>志聖不是一般設備股，而是先進封裝設備平台股。</p>
-<p>第二句，主線：<br>最大的成長主線，是 CoWoS、CoPoS、玻璃基板與 FOPLP 導入。</p>
-<p>第三句，價值來源：<br>它受惠的不只是設備出貨變多，而是封裝製程升級讓設備價值量提高。</p>
-<p>第四句，同業定位：<br>弘塑最純、辛耘最廣、萬潤最有自動化題材純度，而志聖卡在多主線設備平台位置。</p>
-<p>第五句，估值關鍵：<br>不能只看營收，要一起看半導體設備占比、毛利率、營業利益率、淨利率與獲利品質。</p>
-<p>第六句，最重要驗證：<br>新封裝設備放量與半導體設備占比，能不能持續把平台內容價值拉高。</p>
-<p>第七句，最強反方：<br>它可能只是這一輪封裝 capex 高峰下，被市場高估的景氣設備股。</p>
-<p>第八句，最終投資判斷：<br>志聖真正值不值得這個高估值，不是看這一季接單多強，而是看它能不能把 CoWoS、CoPoS、玻璃基板與 FOPLP 的主線，轉成長期高品質平台獲利。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-27-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>我會這樣講：<br>志聖是受惠於 CoWoS、CoPoS、玻璃基板與面板級封裝升級的先進封裝設備平台股，但真正決定它值不值得市場持續高看，不是這一季營收有多好，而是半導體設備占比、技術導入進度、毛利率、營業利益率、淨利率與獲利品質，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -927,7 +724,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>新封裝設備驗證與量產時程延後。</li><li>半導體設備占比提升不如預期。</li><li>毛利率與獲利品質無法持續改善。</li><li>市場持續偏好更高設備純度或更高自動化純度標的，削弱志聖的相對吸引力。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>志聖與弘塑 / 辛耘 / 萬潤在各自主線中的營收與產品拆分比較。</li><li>CoPoS、FOPLP、玻璃基板等新製程對中長期獲利率的量化影響。</li><li>設備組合優化如何轉成更高毛利與更高營業利益率的更細證據。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>志聖不是普通設備股，而是 CoWoS、CoPoS、玻璃基板與面板級封裝升級下，最值得追蹤的先進封裝設備平台股之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

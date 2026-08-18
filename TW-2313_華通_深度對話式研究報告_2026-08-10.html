@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,132 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-2-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-5-估值與市場預期">估值與市場預期</a>
-<a href="#digest-6-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-估值與市場預期">估值與市場預期</a>
-<a href="#digest-9-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-10-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-11-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-12-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-13-晶圓代工與商業模式">晶圓代工與商業模式</a>
-<a href="#digest-14-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-15-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-16-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-17-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-20-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果你要一句話先記住，華通本質上不是只做傳統手機板的 PCB 廠，而是從 HDI、軟硬板一路延伸到低軌衛星板、AI 伺服器板、交換器板與光模組 mSAP 製程的重要高階板供應商。</p>
-<p>也就是說，它最值錢的地方，不是單純板子做很多，而是它可以切進越來越高規格、越來越高價值量的板材應用。</p>
-<p>所以你研究華通，不能只把它看成一般 PCB 景氣股，而要把它看成：<br>- 高階 HDI / 軟硬板平台<br>- 低軌衛星板供應鏈核心受惠者之一<br>- AI 伺服器、800G / 1.6T 光模組與網通升級的高規格板材受惠股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這個方向是對的。</p>
-<p>更精準一點說，華通值錢的地方不是單純有產能，而是：<br>- 原本就有 HDI / 軟硬板能力<br>- 現在又把能力往低軌衛星、AI 伺服器、交換器、光模組 mSAP 這些更高規格產品延伸<br>- 產品組合正從傳統消費性板，轉向非消費性、高毛利、高規格應用</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只是因為低軌衛星很紅，華通當然會受惠，但市場重估華通，不只是單一衛星題材而已。</p>
-<p>現在市場重估華通，有幾條線一起在發生：<br>- 低軌衛星板需求持續提升<br>- AI 伺服器與交換器帶動高階板需求上升<br>- 800G / 1.6T 光模組升級，推動 mSAP 製程與高階 PCB 規格提升<br>- 非消費性產品占比提高，帶動毛利率與獲利品質改善<br>- 大園 / 觀音 / 重慶擴產，讓未來 2027–2028 的成長想像被打開</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話很準。</p>
-<p>如果你要更精準一點，我會這樣說：<br>華通不是單純的 PCB 量產公司，而是受惠於低軌衛星、AI 伺服器、交換器與光模組規格升級的高階板材平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日，也就是 2026-08-10 的股價資料：<br>- 收盤價 215 元<br>- 單日漲幅 3.12%<br>- 本益比 29.1<br>- 股價淨值比 4.78<br>- 總市值 2,653 億元</p>
-<p>再看月營收，最新依月份語意正確解讀，是 2026 年 7 月營收，公告日 2026-08-05：<br>- 單月合併營收 6,955,176 千元<br>- 年增 16.01%<br>- 月增 0.58%<br>- 近三月合併營收年增 16.6%<br>- 近 12 月營收合併成長 9.89%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這就是研究華通最重要的第一步。</p>
-<p>華通現在的估值，不是因為短期營收創高而已，而是市場在賭幾件事：<br>- 低軌衛星板不是短期題材，而是會延續數年的規格與部署升級<br>- 800G / 1.6T 光模組與 AI 伺服器，會把高階板需求推得更久、更深<br>- mSAP 能力與高階板產能，會讓華通從一般板廠升級成更高價值供應商<br>- 非消費性產品占比提高，獲利品質會同步變好</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講，就是：<br>華通最重要的成長主線，是低軌衛星板、AI 伺服器與交換器板、800G / 1.6T 光模組 mSAP 製程升級，讓它從傳統 PCB 廠升級成高規格通訊板與 AI 基礎設施板材平台。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>市場真正願意給比較高估值的，不只是出貨量，而是：<br>- 規格升級<br>- 產品組合改善<br>- 高階製程 mSAP 導入<br>- 非消費性應用占比上升</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為這些不是一般 PCB 需求，而是高頻高速訊號傳輸、密度更高、層數更複雜、製程要求更高的板材需求。</p>
-<p>當規格越高，代表：<br>- 技術門檻更高<br>- 可供應廠商更少<br>- 單位價值量更大<br>- 毛利率更有機會往上走</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>我會這樣定義：<br>華通不是單純的傳統 PCB 廠，而是受惠於低軌衛星、AI 伺服器、交換器與光模組規格升級的高階板材平台公司。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>如果只講一句話，我會這樣說：<br>金像電更像 AI 伺服器 / 交換器板純度更高的 PCB 股，而華通更像低軌衛星、AI 伺服器、交換器、光模組板多主線交叉的高規格板材平台股。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：金像電（若只看 AI 伺服器 / 交換器板純度）<br>- 誰最廣：臻鼎-KY / 華通<br>- 誰最穩：台光電 / 欣興<br>- 誰最有彈性：華通<br>- 華通卡在哪：多主線高規格板材平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-晶圓代工與商業模式">
-<div class="digest-title">晶圓代工與商業模式</div>
-<div class="content"><p>非常重要，因為台光電代表的是高階 CCL 材料龍頭座標，而華通代表的是高階 PCB 製造端。</p>
-<p>很粗分：<br>- 台光電偏材料龍頭座標<br>- 華通偏高規格板製造平台股</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這兩個很重要。</p>
-<ul><li>臻鼎-KY 偏大型綜合 PCB 平台</li><li>欣興偏 ABF / 載板平台</li><li>華通偏高規格衛星 / AI / 光模組板平台</li></ul></div>
-</section>
-<section class="digest-card section-card" id="digest-15-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>華通在這組 peer 裡最大的優點，是它剛好卡在一個很有吸引力的位置：<br>- 它不像台光電那樣主要在材料端<br>- 也不像欣興那樣主要是載板邏輯<br>- 也不像金像電那樣主要押 AI 板純度<br>- 也不像臻鼎-KY 那樣平台太大、題材被稀釋<br>- 它是少數同時卡在衛星、AI 伺服器、交換器、光模組板升級交叉點上的板材平台股</p>
-<p>但它最大的缺點也很清楚：<br>市場也會更嚴格檢查：<br>- 需求是不是都能真正放量<br>- 良率與產能利用率是不是跟得上<br>- 毛利率、營業利益率、淨利率能不能同步抬高</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對這種股票，我不會先問本益比高不高，而是先問三件事。</p>
-<p>第一，現在的高成長是不是主要來自一兩條主線，例如低軌衛星或 AI 交換器板，而不是整個高規格板材能力同步升級。</p>
-<p>第二，mSAP、光模組板、交換器板這些下一段主線，是不是真的已經從開案走向放量，而不是只停留在題材與產能規劃階段。</p>
-<p>第三，市場願意給這麼高的估值，是因為真的看到高規格板材平台的雛形，還是只是把 2027–2028 的想像先反映太多。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這句話非常關鍵。</p>
-<p>如果只是營收很好，但：<br>- 低軌衛星與 AI 板營收占比沒有持續提高<br>- mSAP 與光模組板沒有真正放量<br>- 新廠擴產沒有轉成有效產出<br>- 毛利率、營業利益率與淨利率在擴產後開始被侵蝕<br>那市場後面就會開始懷疑：這是不是只是一波高景氣題材拉貨。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>我會這樣講：<br>華通真正的關鍵，不是這一季營收有多強，而是產品組合、mSAP、高規格板占比與高品質獲利能力，能不能一起把 2027 之後的獲利平台墊高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>這是最強反方之一，而且非常合理。</p>
-<p>反方會說：<br>- PCB 本來就有景氣循環<br>- 現在的高成長可能只是衛星與 AI 題材集中拉貨<br>- 如果後續需求節奏放慢，華通還是會回到一般板廠估值</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>對，這也是很現實的反方。</p>
-<p>華通的價值不只是現在需求很旺，而是市場要相信它擴產後也能把獲利品質守住。</p>
-<p>如果：<br>- 新廠進度不順<br>- 高階板良率與產能轉換沒跟上<br>- 衛星與 AI 板占比沒有如預期提高<br>- 毛利率、營業利益率、淨利率反而被折舊與成本壓回去<br>那市場就可能開始懷疑：它是不是只是一家在高峰期大擴產的板廠，而不是高規格板材平台公司。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="ai-驅動與產業脈絡">
 <div class="round-title">AI 驅動與產業脈絡</div>
 <div class="round-grid"><article class="bubble junior">
@@ -757,7 +621,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>衛星 / AI 板占比提升不如預期。</li><li>mSAP 放量與資本支出效率無法同步改善。</li><li>毛利率與獲利品質無法持續提升。</li><li>市場重新下修對其高階板材平台地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>衛星 / AI 板占比是否持續提升。</li><li>mSAP 放量與資本支出效率是否同步改善。</li><li>毛利率與高品質獲利能力是否持續墊高。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>華通不是普通 PCB 股，而是受惠於低軌衛星、AI 伺服器、交換器與光模組規格升級的高階板材平台公司；真正關鍵不是營收有多強，而是高規格板材平台能不能長期維持高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>

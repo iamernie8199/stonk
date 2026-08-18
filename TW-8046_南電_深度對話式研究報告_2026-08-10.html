@@ -320,20 +320,9 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 }
 .summary-table tr:last-child td { border-bottom: none; }
 .tbl-k { color: var(--text-muted); font-weight: 500; }
-.tbl-v { color: var(--text-main); font-weight: 700; text-align: right; }
-.digest-card { padding: 20px; scroll-margin-top: 110px; }
-.digest-title { font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }
-.digest-toc { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-.digest-toc h3 { margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }
-.digest-toc a { padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
-.digest-toc a:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }
 .footer { color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
-.digest-mode .full-rounds { display: none; }
-.digest-mode .digest-wrap { display: block; }
-.digest-mode .digest-only { display: block; }
-.digest-only { display: none; }
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; }
@@ -367,7 +356,6 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -392,138 +380,8 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          <a href="#digest-1-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-2-第-2-段">第 2 段</a>
-<a href="#digest-3-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-4-估值與市場預期">估值與市場預期</a>
-<a href="#digest-5-先進製程與先進封裝">先進製程與先進封裝</a>
-<a href="#digest-6-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-7-ai-驅動與產業脈絡">AI 驅動與產業脈絡</a>
-<a href="#digest-8-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-9-第-9-段">第 9 段</a>
-<a href="#digest-10-第-10-段">第 10 段</a>
-<a href="#digest-11-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-12-第-12-段">第 12 段</a>
-<a href="#digest-13-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-14-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-15-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-16-第-16-段">第 16 段</a>
-<a href="#digest-17-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-18-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-19-獲利品質與經營槓桿">獲利品質與經營槓桿</a>
-<a href="#digest-20-風險與失效條件">風險與失效條件</a>
-<a href="#digest-21-估值與市場預期">估值與市場預期</a>
-        </section>
-        <section class="digest-card section-card" id="digest-1-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>這很正常，因為南電最容易讓人搞混的地方，就是它不是一般 PCB 廠，也不是單純傳統電子零件廠。</p>
-<p>最白話地講，南電是高階 IC 載板供應商，而且它最關鍵的價值，來自 ABF 與 BT 這兩大載板線在 AI 伺服器、CPU、交換器、記憶體與先進封裝升級裡的角色。</p>
-<p>你可以把載板想成：它不是晶片本身，但它是晶片要被接出去、要能高速傳輸、要能在更高功耗與更高密度環境穩定運作的關鍵中介層。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-2-第-2-段">
-<div class="digest-title">第 2 段</div>
-<div class="content"><p>對，這個理解很重要。</p>
-<p>一般 PCB 廠看的是板層、材料、應用需求，但南電這種高階載板公司看的更接近：<br>- 晶片規格升級<br>- 封裝技術升級<br>- 高速傳輸需求<br>- 伺服器 / 交換器平台升級<br>- 載板層數、尺寸與材料規格變化</p></div>
-</section>
-<section class="digest-card section-card" id="digest-3-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>一句話講：<br>南電現在最重要的身份，是 AI 伺服器與高階運算平台升級下，ABF / BT 載板供需吃緊循環中的高彈性載板資產。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-4-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>先看最新台灣交易日 2026-08-10 的股價資料：<br>- 收盤價 1,130<br>- 本益比 69.4<br>- 股價淨值比 15.63<br>- 總市值 7,302 億</p>
-<p>再看月營收，依月份語意正確解讀，最新是 2026 年 7 月營收，公告日 2026-08-03：<br>- 單月合併營收 5,439,751 千元<br>- 年增 50.24%<br>- 月增 16.13%<br>- 近三月合併營收年增 45.47%<br>- 近 12 月營收合併成長 36.81%</p></div>
-</section>
-<section class="digest-card section-card" id="digest-5-先進製程與先進封裝">
-<div class="digest-title">先進製程與先進封裝</div>
-<div class="content"><p>市場買的是三層東西疊在一起。</p>
-<p>第一層，是 ABF 載板本身的供需吃緊。這個是基本盤。</p>
-<p>第二層，是 BT 載板因為其他大廠縮減產能、轉去做 ABF，反而讓南電的 BT 資產變得更值錢。</p>
-<p>第三層，是高階交換器、CPU、ASIC、記憶體與先進封裝升級，把載板需求從景氣循環往高規格升級推上去。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-6-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全正確。</p>
-<p>市場現在已經不是在問需求有沒有，而是在問：<br>- 漲價能走多久<br>- 利潤擴張能走多深<br>- 2027、2028 年是不是還有新一波高規格需求接上<br>- 南電能不能從景氣資產，變成結構性高獲利資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-7-ai-驅動與產業脈絡">
-<div class="digest-title">AI 驅動與產業脈絡</div>
-<div class="content"><p>最直接有四條：<br>- AI 伺服器與高階交換器帶動 ABF 載板需求<br>- 一般伺服器 CPU 需求回升<br>- BT 載板因供給退出而出現更強轉單與漲價<br>- 高規格封裝與高速傳輸路線讓載板規格提升</p>
-<p>其中第一和第三條，是現在最有彈性的地方。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-8-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>對，這正是南電現在最迷人的地方。</p>
-<p>很多人只把它當 ABF 股看，但這輪真正厲害的是：<br>- ABF 本來就吃緊<br>- BT 又因供給側變化變得更稀缺</p>
-<p>如果一家公司同時站在這兩個漲價鏈交會點，那它的獲利彈性就不只是線性成長，而是可能進入高槓桿區間。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-9-第-9-段">
-<div class="digest-title">第 9 段</div>
-<div class="content"><p>如果粗分，我會這樣看：<br>- 欣興：大平台型載板 / PCB 資產，廣度最強<br>- 景碩：ABF 載板彈性股之一，受高規格需求帶動<br>- Ibiden：全球級高階載板龍頭，國際指標性最強<br>- 南電：兼具 ABF 與 BT 高彈性、最容易被價格與供需再定價放大的資產之一</p></div>
-</section>
-<section class="digest-card section-card" id="digest-10-第-10-段">
-<div class="digest-title">第 10 段</div>
-<div class="content"><p>可以，最短版是：<br>- 誰最純：南電（若只看 ABF / BT 雙漲價彈性）<br>- 誰最廣：欣興<br>- 誰最穩：Ibiden<br>- 誰最有彈性：南電<br>- 南電卡在哪：ABF + BT 雙重重估的高彈性載板資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-11-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>欣興的優勢比較像：<br>- 廣度大<br>- 平台完整<br>- 在 ABF、PCB、更多高階板材應用上都有位置</p>
-<p>南電則更像：<br>- 資產沒有欣興那麼廣<br>- 但在這輪 ABF / BT 雙主線裡，獲利斜率更容易被放大</p></div>
-</section>
-<section class="digest-card section-card" id="digest-12-第-12-段">
-<div class="digest-title">第 12 段</div>
-<div class="content"><p>景碩和南電比較像同樣站在高階載板升級裡的彈性股，但南電更有 BT 這條線的再定價一起打開。</p>
-<p>Ibiden 則是全球級標竿龍頭。它的重要性在於：<br>- 財報、報價、產能利用率與擴產動向，常常能拿來驗證整體 ABF 景氣是不是還在往上<br>- 它是國際比較座標，不一定是台股裡最有彈性的交易標的</p></div>
-</section>
-<section class="digest-card section-card" id="digest-13-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>完全不能。</p>
-<p>對南電這種高彈性載板資產，真正要拆的是：<br>- 毛利率<br>- 營業利益率<br>- 淨利率<br>- 獲利品質<br>- 以及高估值成立的條件</p></div>
-</section>
-<section class="digest-card section-card" id="digest-14-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>毛利率對南電來說，回答的是：漲價是不是有真的進到產品組合與單位經濟裡。</p>
-<p>如果 ABF、BT 載板都漲價，而且高規格產品比重提高，那毛利率就會往上走。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-15-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為營業利益率更直接回答：這家公司是不是進入營運槓桿擴張期。</p>
-<p>如果只是毛利率改善，但費用、折舊、營運成本沒有被吸收，那高估值很難維持。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-16-第-16-段">
-<div class="digest-title">第 16 段</div>
-<div class="content"><p>淨利率很重要，因為股東最後吃的是 EPS。</p>
-<p>但南電這種公司更要確認：<br>- EPS 成長是不是主要來自本業<br>- 還是有太多一次性因素、匯率、業外影響</p></div>
-</section>
-<section class="digest-card section-card" id="digest-17-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>因為市場不是把它當普通景氣循環股，而是把它當成：<br>- 高規格載板供給稀缺資產<br>- 能同時受惠 ABF 與 BT 兩條線再定價的高彈性公司<br>- 可能在未來幾年維持高獲利斜率的資產</p></div>
-</section>
-<section class="digest-card section-card" id="digest-18-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>分水嶺不是營收有沒有創高，而是 ABF / BT 的漲價與高規格需求，能不能讓毛利率、營業利益率、淨利率一起持續走高。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-19-獲利品質與經營槓桿">
-<div class="digest-title">獲利品質與經營槓桿</div>
-<div class="content"><p>這是最強反方，而且很合理。</p>
-<p>反方會說：<br>- 現在這波本質還是供需失衡與漲價<br>- 漲價不可能永遠持續<br>- 一旦供給開出或客戶調整節奏，獲利彈性就會明顯下降</p></div>
-</section>
-<section class="digest-card section-card" id="digest-20-風險與失效條件">
-<div class="digest-title">風險與失效條件</div>
-<div class="content"><p>對，這也是非常大的風險。</p>
-<p>現在最大的分歧不是方向，而是斜率。</p></div>
-</section>
-<section class="digest-card section-card" id="digest-21-估值與市場預期">
-<div class="digest-title">估值與市場預期</div>
-<div class="content"><p>完全可能。</p>
-<p>因為它現在迷人的地方，正是 ABF 和 BT 兩邊都強；但反過來說，只要有一邊先弱掉，市場就可能很快重新調整對它的高估值框架。</p></div>
-</section>
-      </div>
       <div class="full-rounds"><section class="round section-card" id="先進製程與先進封裝">
 <div class="round-title">先進製程與先進封裝</div>
 <div class="round-grid"><article class="bubble junior">
@@ -774,7 +632,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>ABF / BT 雙主線延續不如預期。</li><li>高規格升級與漲價無法持續。</li><li>毛利率、營業利益率與淨利率無法維持高檔。</li><li>市場重新下修對其高階載板資產地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>ABF / BT 雙主線是否持續延續。</li><li>毛利率、營業利益率與淨利率是否一起維持高檔。</li><li>產能利用率是否持續高檔。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>南電不是普通載板股，而是要靠 ABF / BT 雙主線延續、獲利斜率與高規格需求持續性來證明自己不只是載板漲價股的公司。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:27</div>
+      <div class="footer">Generated at 2026-08-18 20:31</div>
     </aside>
   </main>
 </div>
