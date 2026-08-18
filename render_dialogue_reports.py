@@ -1299,6 +1299,7 @@ def build_index_html(entries):
     total = len(entries)
     INDEX_FILTERS_TERM = [
         ('all', '&lt;F1: 全部&gt;'),
+        ('bookmark', '★ 我的收藏 (<span id="bookmarkCount">0</span>)'),
         ('ai-server', '&lt;F2: AI伺服器&gt;'),
         ('semiconductor', '&lt;F3: 半導體 / 封裝&gt;'),
         ('power', '&lt;F4: 電力 / 電源&gt;'),
@@ -1313,8 +1314,8 @@ def build_index_html(entries):
         ('traditional', '傳統產業 / 自動化'),
         ('software-ipc', '軟體 / 遊戲 / 工業電腦')
     ]
-    main_filters = INDEX_FILTERS_TERM[:4]
-    extra_filters = INDEX_FILTERS_TERM[4:]
+    main_filters = INDEX_FILTERS_TERM[:5]
+    extra_filters = INDEX_FILTERS_TERM[5:]
 
     main_btns = []
     for key, label in main_filters:
@@ -1349,7 +1350,11 @@ def build_index_html(entries):
         cards_html.append(f'''      <article class="card" data-tags="{html.escape(tags_attr)}" data-core-bucket="{html.escape(e['core_bucket'])}" data-search="{html.escape(e['search'])}" data-ticker="{html.escape(e['ticker'])}" data-name="{html.escape(e['company'])}">
         <div class="card-top">
           <div class="ticker-box">
-            <div class="ticker">[TW-{html.escape(e['ticker'])}]</div>
+            <div class="ticker-header">
+              <span class="ticker">[TW-{html.escape(e['ticker'])}]</span>
+              <button class="bookmark-star-btn" data-ticker="{html.escape(e['ticker'])}" title="加入/取消收藏" aria-label="收藏股票">★</button>
+              <span class="read-badge" data-ticker="{html.escape(e['ticker'])}">READ</span>
+            </div>
             <div class="company">{html.escape(e['company'])}</div>
           </div>
           <div class="date-chip">DATE: {html.escape(e['date'])}</div>
@@ -1360,7 +1365,7 @@ def build_index_html(entries):
         </div>
         <div class="summary">{html.escape(e['excerpt'])}</div>
         <div class="tag-row">{tag_row}</div>
-        <div class="actions"><a class="btn btn-primary" href="{html.escape(e['href'])}">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
+        <div class="actions"><a class="btn btn-primary report-link" data-ticker="{html.escape(e['ticker'])}" href="{html.escape(e['href'])}">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>''')
 
     cards_block = '\n\n'.join(cards_html)
@@ -1371,7 +1376,7 @@ def build_index_html(entries):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>台股死當 TERMINAL - 深度對話式研究報告索引庫</title>
   <style>
-    :root {{
+    html[data-theme="cyan"], :root {{
       color-scheme: dark;
       --bg: #07090e;
       --panel: rgba(14, 20, 32, 0.85);
@@ -1384,6 +1389,45 @@ def build_index_html(entries):
       --chip-bg: rgba(0, 240, 255, 0.08);
       --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
       --font-mono: "JetBrains Mono", "Roboto Mono", "Consolas", monospace, "Noto Sans TC", sans-serif;
+    }}
+    html[data-theme="gold"] {{
+      color-scheme: dark;
+      --bg: #0c0a06;
+      --panel: rgba(24, 20, 12, 0.85);
+      --panel-border: rgba(255, 183, 0, 0.25);
+      --text: #fef08a;
+      --muted: #a1a1aa;
+      --accent: #ffb700;
+      --amber: #f97316;
+      --accent-emerald: #10b981;
+      --chip-bg: rgba(255, 183, 0, 0.1);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }}
+    html[data-theme="green"] {{
+      color-scheme: dark;
+      --bg: #050d08;
+      --panel: rgba(10, 24, 16, 0.85);
+      --panel-border: rgba(0, 230, 118, 0.25);
+      --text: #dcffe4;
+      --muted: #718096;
+      --accent: #00ff66;
+      --amber: #ffb700;
+      --accent-emerald: #00e676;
+      --chip-bg: rgba(0, 255, 102, 0.08);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }}
+    html[data-theme="slate"] {{
+      color-scheme: dark;
+      --bg: #0f172a;
+      --panel: rgba(30, 41, 59, 0.85);
+      --panel-border: rgba(56, 189, 248, 0.2);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --amber: #f59e0b;
+      --accent-emerald: #34d399;
+      --chip-bg: rgba(56, 189, 248, 0.1);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     }}
     * {{ box-sizing: border-box; }}
     body {{
@@ -1419,6 +1463,64 @@ def build_index_html(entries):
       will-change: opacity, transform;
     }}
     .term-cmd {{ color: var(--amber); font-weight: 700; }}
+    .theme-select {{
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--accent);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      outline: none;
+      cursor: pointer;
+    }}
+    .theme-select:hover {{
+      border-color: var(--accent);
+    }}
+
+    .ticker-header {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .bookmark-star-btn {{
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0 2px;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }}
+    .bookmark-star-btn:hover {{
+      color: var(--amber);
+      transform: scale(1.2);
+    }}
+    .bookmark-star-btn.bookmarked {{
+      color: var(--amber);
+      text-shadow: 0 0 8px rgba(255, 183, 0, 0.6);
+    }}
+    .read-badge {{
+      display: none;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      padding: 1px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }}
+    .card.is-read .read-badge {{
+      display: inline-block;
+    }}
+    .card.is-read {{
+      opacity: 0.88;
+    }}
+    .card.is-read:hover {{
+      opacity: 1;
+    }}
     
     .hero {{
       background: var(--panel);
@@ -1836,7 +1938,16 @@ def build_index_html(entries):
   <div class="container">
     <div class="term-top-bar">
       <div><span class="term-dot">● LIVE</span><span class="term-cmd">STONKS TERMINAL v2.0</span> // TPE MARKET PORTAL</div>
-      <div>TOTAL: {total} REPORTS</div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <label for="themeSelect" style="color: var(--muted); font-size: 11px;">THEME:</label>
+        <select id="themeSelect" class="theme-select" aria-label="選擇主題風格">
+          <option value="cyan">⚡ Cyber Cyan</option>
+          <option value="gold">👑 Bloomberg Gold</option>
+          <option value="green">📟 Matrix Green</option>
+          <option value="slate">🌌 Dark Slate</option>
+        </select>
+        <span>TOTAL: {total} REPORTS</span>
+      </div>
     </div>
 
     <header class="hero">
@@ -1901,6 +2012,83 @@ def build_index_html(entries):
     let activeSortDirection = 'asc';
     let searchTerm = '';
 
+    let bookmarks = new Set(JSON.parse(localStorage.getItem('stonk_bookmarks') || '[]'));
+    let readTickers = new Set(JSON.parse(localStorage.getItem('stonk_read_tickers') || '[]'));
+
+    function saveBookmarks() {{
+      localStorage.setItem('stonk_bookmarks', JSON.stringify(Array.from(bookmarks)));
+      updateBookmarkUI();
+    }}
+
+    function saveReadTickers() {{
+      localStorage.setItem('stonk_read_tickers', JSON.stringify(Array.from(readTickers)));
+      updateReadUI();
+    }}
+
+    function updateBookmarkUI() {{
+      const countEl = document.getElementById('bookmarkCount');
+      if (countEl) countEl.textContent = bookmarks.size;
+
+      cards.forEach(card => {{
+        const ticker = card.dataset.ticker;
+        const starBtn = card.querySelector('.bookmark-star-btn');
+        if (starBtn) {{
+          starBtn.classList.toggle('bookmarked', bookmarks.has(ticker));
+        }}
+      }});
+    }}
+
+    function updateReadUI() {{
+      cards.forEach(card => {{
+        const ticker = card.dataset.ticker;
+        const isRead = readTickers.has(ticker);
+        card.classList.toggle('is-read', isRead);
+      }});
+    }}
+
+    const themeSelect = document.getElementById('themeSelect');
+    const savedTheme = localStorage.getItem('stonk_theme') || 'cyan';
+    if (themeSelect) {{
+      themeSelect.value = savedTheme;
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeSelect.addEventListener('change', (e) => {{
+        const newTheme = e.target.value;
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('stonk_theme', newTheme);
+      }});
+    }}
+
+    document.querySelectorAll('.bookmark-star-btn').forEach(starBtn => {{
+      starBtn.addEventListener('click', (e) => {{
+        e.stopPropagation();
+        const ticker = starBtn.dataset.ticker;
+        if (ticker) {{
+          if (bookmarks.has(ticker)) {{
+            bookmarks.delete(ticker);
+          }} else {{
+            bookmarks.add(ticker);
+          }}
+          saveBookmarks();
+          if (activeFilter === 'bookmark') {{
+            applyFilterAndSort();
+          }}
+        }}
+      }});
+    }});
+
+    document.querySelectorAll('.report-link').forEach(link => {{
+      link.addEventListener('click', () => {{
+        const ticker = link.dataset.ticker;
+        if (ticker) {{
+          readTickers.add(ticker);
+          saveReadTickers();
+        }}
+      }});
+    }});
+
+    updateBookmarkUI();
+    updateReadUI();
+
     function updateSortButtons() {{
       sortButtons.forEach(btn => {{
         const field = btn.dataset.field;
@@ -1947,9 +2135,19 @@ def build_index_html(entries):
     function applyFilterAndSort() {{
       let visibleCount = 0;
       cards.forEach(card => {{
+        const ticker = card.dataset.ticker || '';
         const tags = (card.dataset.tags || '').split(' ');
         const coreBucket = card.dataset.coreBucket || 'all-core';
-        const matchFilter = activeFilter === 'all' || tags.includes(activeFilter);
+
+        let matchFilter = false;
+        if (activeFilter === 'all') {{
+          matchFilter = true;
+        }} else if (activeFilter === 'bookmark') {{
+          matchFilter = bookmarks.has(ticker);
+        }} else {{
+          matchFilter = tags.includes(activeFilter);
+        }}
+
         const matchCore = activeCoreFilter === 'all-core' || coreBucket === activeCoreFilter;
         const matchSearch = matchesSearch(card);
         const show = matchFilter && matchCore && matchSearch;
