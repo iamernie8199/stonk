@@ -612,28 +612,6 @@ def render_text_block(text: str) -> str:
     return '\n'.join(out)
 
 
-def build_senior_digest(rounds):
-    cards = []
-    toc = []
-    for idx, r in enumerate(rounds, start=1):
-        senior_segments = [text for speaker, text in r['segments'] if speaker == 'senior']
-        if not senior_segments:
-            continue
-        merged = '\n\n'.join(senior_segments)
-        label = infer_section_label(r['title'], merged)
-        anchor = f'digest-{idx}-{slugify(label)}'
-        toc.append((label, anchor))
-        cards.append(f'''<section class="digest-card section-card" id="{anchor}">
-<div class="digest-title">{html.escape(label)}</div>
-<div class="content">{render_text_block(merged)}</div>
-</section>''')
-    return '\n'.join(cards), toc
-
-
-def render_digest_toc(toc):
-    return '\n'.join(f'<a href="#{anchor}">{html.escape(label)}</a>' for label, anchor in toc)
-
-
 def render_rounds(rounds):
     blocks = []
     for r in rounds:
@@ -879,7 +857,6 @@ def render_tail_sections_from_markdown(md_text: str) -> str:
 
 def build_html(title, meta, rounds, summary, md_text=''):
     generated = datetime.now().strftime('%Y-%m-%d %H:%M')
-    senior_digest, digest_toc = build_senior_digest(rounds)
     tail_summary_cards = render_tail_sections_from_markdown(md_text) if md_text else render_summary(summary)
     clean_display_title = re.sub(r'\s*深度對話式研究報告.*$', '', title)
     m_title = re.match(r'^(TW-\d{4})\s+(.+)$', clean_display_title)
@@ -1214,20 +1191,9 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
 }}
 .summary-table tr:last-child td {{ border-bottom: none; }}
 .tbl-k {{ color: var(--text-muted); font-weight: 500; }}
-.tbl-v {{ color: var(--text-main); font-weight: 700; text-align: right; }}
-.digest-card {{ padding: 20px; scroll-margin-top: 110px; }}
-.digest-title {{ font-size: 16px; font-weight: 800; color: var(--green); margin-bottom: 10px; border-bottom: 1px solid rgba(0, 230, 118, 0.2); padding-bottom: 6px; }}
-.digest-toc {{ padding: 16px; display: flex; flex-direction: column; gap: 6px; }}
-.digest-toc h3 {{ margin: 0 0 8px; font-size: 13px; color: var(--amber); font-weight: 800; }}
-.digest-toc a {{ padding: 8px 12px; border-radius: 6px; color: var(--text-main); background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; font-weight: 600; transition: all 0.2s ease; }}
-.digest-toc a:hover {{ border-color: var(--cyan); background: rgba(0, 240, 255, 0.1); color: #ffffff; transform: translateX(3px); }}
 .footer {{ color: var(--text-muted); font-size: 11px; margin-top: 4px; padding: 0 4px; font-family: var(--font-mono); }}
 .focus-mode .sidebar {{ display: none; }}
 .focus-mode .layout {{ grid-template-columns: 1fr; }}
-.digest-mode .full-rounds {{ display: none; }}
-.digest-mode .digest-wrap {{ display: block; }}
-.digest-mode .digest-only {{ display: block; }}
-.digest-only {{ display: none; }}
 @media (max-width: 860px) {{
   .layout {{ grid-template-columns: 1fr; }}
   .sidebar {{ position: static; }}
@@ -1261,7 +1227,6 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
           <span class="nav-brand">台股死當</span>
         </a>
         <div class="mode-tools">
-          <button class="toolbtn" onclick="document.body.classList.toggle('digest-mode')">資深研究員摘要版</button>
           <button class="toolbtn" onclick="document.body.classList.toggle('focus-mode')">Focus 閱讀模式</button>
         </div>
       </div>
@@ -1280,15 +1245,8 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
           <h2 style="margin:0; font-size:15px; font-weight:700; color:#fbbf24;">💡 閱讀說明</h2>
           <button onclick="document.getElementById('readerNote').style.display='none';" style="background:none; border:none; color:#64748b; font-size:16px; cursor:pointer; padding:0 4px; transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'" title="關閉說明">✕</button>
         </div>
-        <div>預設保留完整 Mentor / Junior 擬真對話。「資深研究員摘要版」可切換至單欄精華稿並提供智慧自動目錄。</div>
+        <div>預設保留完整 Mentor / Junior 擬真對話。可點擊右上角「Focus 閱讀模式」進行沉浸式閱讀。</div>
       </section>
-      <div class="digest-wrap">
-        <section class="digest-only section-card digest-toc">
-          <h3>自動目錄</h3>
-          {render_digest_toc(digest_toc)}
-        </section>
-        {senior_digest}
-      </div>
       <div class="full-rounds">{render_rounds(rounds)}</div>
     </div>
     <aside class="sidebar">
