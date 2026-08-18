@@ -324,10 +324,25 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .container { padding: 10px 12px 32px; }
+  .term-top-bar { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+  .term-top-bar span.logged-as { display: none; }
+  .hero { padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }
+  .top-nav { margin-bottom: 4px; gap: 8px; }
+  .nav-brand-btn { padding: 3px 8px; }
+  .nav-logo { width: 18px; height: 18px; }
+  .nav-brand { font-size: 12px; }
+  .toolbtn { padding: 3px 8px; font-size: 11px; }
+  .company-name { font-size: 20px; }
+  .ticker-badge { font-size: 13px; padding: 2px 7px; }
+  .company-badge-row { gap: 8px; }
+  .header-main { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .header-meta-box { width: 100%; }
+  .header-meta-box .meta-card { width: 100%; padding: 4px 8px; font-size: 11px; }
+  .layout { grid-template-columns: 1fr; gap: 14px; }
   .sidebar { position: static; }
-  .header-main { grid-template-columns: 1fr; gap: 12px; }
-  .header-meta-box { justify-content: flex-start; }
+  .round { padding: 14px 16px; }
+  .bubble { padding: 12px 14px; }
 }
 </style>
 </head>
@@ -343,7 +358,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
@@ -721,7 +736,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>1.6T / 3.2T 升級不如預期，需求節奏明顯放緩。</li><li>上游供應鏈瓶頸沒有解除，導致聯亞無法把需求順利轉成營收與獲利。</li><li>資金更偏好中游彈性、題材輪動或其他多應用平台標的，削弱聯亞的溢價空間。</li><li>產能擴充與量產執行不如預期，使高估值失去支撐。</li><li>市場重新把聯亞定價成一般光通訊題材股，而不是 AI 光互連上游稀缺平台資產。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>聯亞在 1.6T、3.2T、矽光 / CPO 相關應用的更細營收拆分。</li><li>InP 基板、磊晶與後段封裝配套的更細供應能力與擴產節奏。</li><li>聯亞、華星光、IET-KY、全新、環宇-KY 在光通訊、矽光、材料 / 磊晶、模組等不同環節的更細營收拆分。</li><li>聯亞在 1.6T、3.2T、CPO 相關應用上的更細產品與客戶定位。</li><li>各家公司在上游材料掌控、量產能力與高規格產品滲透上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>聯亞不是一般高估值光通訊股，而是 AI 資料中心高速光互連與矽光升級浪潮中，最具上游稀缺性的 1.6T / 3.2T 關鍵供應能力資產之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:35</div>
+      <div class="footer">Generated at 2026-08-18 20:37</div>
     </aside>
   </main>
 </div>

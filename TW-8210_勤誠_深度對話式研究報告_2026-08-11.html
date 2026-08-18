@@ -324,10 +324,25 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .container { padding: 10px 12px 32px; }
+  .term-top-bar { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+  .term-top-bar span.logged-as { display: none; }
+  .hero { padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }
+  .top-nav { margin-bottom: 4px; gap: 8px; }
+  .nav-brand-btn { padding: 3px 8px; }
+  .nav-logo { width: 18px; height: 18px; }
+  .nav-brand { font-size: 12px; }
+  .toolbtn { padding: 3px 8px; font-size: 11px; }
+  .company-name { font-size: 20px; }
+  .ticker-badge { font-size: 13px; padding: 2px 7px; }
+  .company-badge-row { gap: 8px; }
+  .header-main { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .header-meta-box { width: 100%; }
+  .header-meta-box .meta-card { width: 100%; padding: 4px 8px; font-size: 11px; }
+  .layout { grid-template-columns: 1fr; gap: 14px; }
   .sidebar { position: static; }
-  .header-main { grid-template-columns: 1fr; gap: 12px; }
-  .header-meta-box { justify-content: flex-start; }
+  .round { padding: 14px 16px; }
+  .bubble { padding: 12px 14px; }
 }
 </style>
 </head>
@@ -343,7 +358,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
@@ -703,7 +718,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>7、8、9 月營收無法把遞延需求補回。</li><li>Rack / CDU / Helios 專案放量慢於預期。</li><li>毛利率與營業利益率沒有隨高價值機構件滲透而提升。</li><li>市場重新把公司主體收入解讀成一次性專案高峰，而非可延續的平台升級。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>AWS ASIC / HGX / Helios / CDU 專案滲透與放量節奏。</li><li>毛利率、營業利益率是否隨高內容值機構件占比同步改善。</li><li>市場對它的估值框架，是否仍維持在 AI 機構件平台升級股。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>勤誠不是多賣幾個 AI 機殼而已，而是靠 AWS ASIC、HGX、Helios、CDU 與 rack-level 機構件，把自己從 chassis 廠往 AI data center 機構整合平台推上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:35</div>
+      <div class="footer">Generated at 2026-08-18 20:37</div>
     </aside>
   </main>
 </div>

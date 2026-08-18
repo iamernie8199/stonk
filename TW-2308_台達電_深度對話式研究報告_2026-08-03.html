@@ -324,10 +324,25 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .container { padding: 10px 12px 32px; }
+  .term-top-bar { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+  .term-top-bar span.logged-as { display: none; }
+  .hero { padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }
+  .top-nav { margin-bottom: 4px; gap: 8px; }
+  .nav-brand-btn { padding: 3px 8px; }
+  .nav-logo { width: 18px; height: 18px; }
+  .nav-brand { font-size: 12px; }
+  .toolbtn { padding: 3px 8px; font-size: 11px; }
+  .company-name { font-size: 20px; }
+  .ticker-badge { font-size: 13px; padding: 2px 7px; }
+  .company-badge-row { gap: 8px; }
+  .header-main { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .header-meta-box { width: 100%; }
+  .header-meta-box .meta-card { width: 100%; padding: 4px 8px; font-size: 11px; }
+  .layout { grid-template-columns: 1fr; gap: 14px; }
   .sidebar { position: static; }
-  .header-main { grid-template-columns: 1fr; gap: 12px; }
-  .header-meta-box { justify-content: flex-start; }
+  .round { padding: 14px 16px; }
+  .bubble { padding: 12px 14px; }
 }
 </style>
 </head>
@@ -343,7 +358,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
@@ -698,7 +713,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>HVDC / 800VDC 放量明顯遞延，且市場開始確認不是短期噪音。</li><li>AI 相關收入成長存在，但毛利率、營業利益率與淨利率持續不及預期。</li><li>台達電最終被市場重新降級回高成長設備供應商，而非平台級基建股估值框架。</li><li>同業如光寶科在 AI 電源升級上實際追趕速度快於市場原先預期，導致台達電溢價被重新壓縮。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>更清楚的 AI 相關產品線收入拆分。</li><li>更高信度的 HVDC / 800VDC 導入時程與客戶節奏。</li><li>與主要競爭者相比的實際份額變化與價格壓力證據。</li><li>台達電與光寶科在同一產品環節上的毛利結構與內容價值差異。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台達電不是普通電源股，而是 AI 資料中心供電架構升級的關鍵系統級供應商；真正關鍵不是營收成長，而是新架構能不能持續把獲利品質與平台價值一起墊高。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:35</div>
+      <div class="footer">Generated at 2026-08-18 20:37</div>
     </aside>
   </main>
 </div>

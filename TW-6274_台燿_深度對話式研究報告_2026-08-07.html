@@ -324,10 +324,25 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .container { padding: 10px 12px 32px; }
+  .term-top-bar { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+  .term-top-bar span.logged-as { display: none; }
+  .hero { padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }
+  .top-nav { margin-bottom: 4px; gap: 8px; }
+  .nav-brand-btn { padding: 3px 8px; }
+  .nav-logo { width: 18px; height: 18px; }
+  .nav-brand { font-size: 12px; }
+  .toolbtn { padding: 3px 8px; font-size: 11px; }
+  .company-name { font-size: 20px; }
+  .ticker-badge { font-size: 13px; padding: 2px 7px; }
+  .company-badge-row { gap: 8px; }
+  .header-main { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .header-meta-box { width: 100%; }
+  .header-meta-box .meta-card { width: 100%; padding: 4px 8px; font-size: 11px; }
+  .layout { grid-template-columns: 1fr; gap: 14px; }
   .sidebar { position: static; }
-  .header-main { grid-template-columns: 1fr; gap: 12px; }
-  .header-meta-box { justify-content: flex-start; }
+  .round { padding: 14px 16px; }
+  .bubble { padding: 12px 14px; }
 }
 </style>
 </head>
@@ -343,7 +358,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
@@ -639,7 +654,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>高階料號占比提升不如預期。</li><li>擴產落地與利用率不如預期。</li><li>毛利率、營業利益率與淨利率無法持續改善。</li><li>市場重新下修對其高階 CCL 地位的評價。</li></ul></section>
 <section class="summary-card section-card"><h3>最值得追蹤的 3 個指標</h3><ul><li>高階料號占比是否持續提升。</li><li>擴產利用率是否持續拉高。</li><li>毛利率、營業利益率與淨利率是否一起改善。</li><li>## 投資收斂</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>台燿不是普通材料股，而是 AI server、ASIC 與高速交換器板卡升級浪潮中的高階 CCL 核心受益者；真正關鍵不是題材熱，而是高階料號占比、毛利率與擴產利用率，能不能把升級做成長線高品質獲利。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:35</div>
+      <div class="footer">Generated at 2026-08-18 20:37</div>
     </aside>
   </main>
 </div>

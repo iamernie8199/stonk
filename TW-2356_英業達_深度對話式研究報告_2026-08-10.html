@@ -324,10 +324,25 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .container { padding: 10px 12px 32px; }
+  .term-top-bar { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+  .term-top-bar span.logged-as { display: none; }
+  .hero { padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }
+  .top-nav { margin-bottom: 4px; gap: 8px; }
+  .nav-brand-btn { padding: 3px 8px; }
+  .nav-logo { width: 18px; height: 18px; }
+  .nav-brand { font-size: 12px; }
+  .toolbtn { padding: 3px 8px; font-size: 11px; }
+  .company-name { font-size: 20px; }
+  .ticker-badge { font-size: 13px; padding: 2px 7px; }
+  .company-badge-row { gap: 8px; }
+  .header-main { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .header-meta-box { width: 100%; }
+  .header-meta-box .meta-card { width: 100%; padding: 4px 8px; font-size: 11px; }
+  .layout { grid-template-columns: 1fr; gap: 14px; }
   .sidebar { position: static; }
-  .header-main { grid-template-columns: 1fr; gap: 12px; }
-  .header-meta-box { justify-content: flex-start; }
+  .round { padding: 14px 16px; }
+  .bubble { padding: 12px 14px; }
 }
 </style>
 </head>
@@ -343,7 +358,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
@@ -721,7 +736,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>伺服器占比提升不如預期。</li><li>AI 伺服器與高附加價值組裝沒有持續擴大。</li><li>毛利率與獲利品質無法持續改善。</li><li>市場持續偏好更高純度 AI 伺服器平台或更大型平台資產，削弱英業達的相對吸引力。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>英業達與緯創 / 廣達 / 鴻海在各自主線中的營收與產品拆分比較。</li><li>美國 / 泰國產能布局對中長期獲利率的量化影響。</li><li>組裝深度提升如何轉成更高毛利與更高營業利益率的更細證據。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>英業達不是只靠筆電代工的成熟 ODM 股，而是 AI 伺服器、一般伺服器與 L10 / L11 組裝升級下，最有結構改善彈性的伺服器 ODM 平台股之一。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:35</div>
+      <div class="footer">Generated at 2026-08-18 20:37</div>
     </aside>
   </main>
 </div>

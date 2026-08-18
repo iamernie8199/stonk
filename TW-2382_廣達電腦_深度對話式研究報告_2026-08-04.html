@@ -324,10 +324,25 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 .focus-mode .sidebar { display: none; }
 .focus-mode .layout { grid-template-columns: 1fr; }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .container { padding: 10px 12px 32px; }
+  .term-top-bar { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+  .term-top-bar span.logged-as { display: none; }
+  .hero { padding: 8px 12px; margin-bottom: 12px; border-radius: 10px; }
+  .top-nav { margin-bottom: 4px; gap: 8px; }
+  .nav-brand-btn { padding: 3px 8px; }
+  .nav-logo { width: 18px; height: 18px; }
+  .nav-brand { font-size: 12px; }
+  .toolbtn { padding: 3px 8px; font-size: 11px; }
+  .company-name { font-size: 20px; }
+  .ticker-badge { font-size: 13px; padding: 2px 7px; }
+  .company-badge-row { gap: 8px; }
+  .header-main { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .header-meta-box { width: 100%; }
+  .header-meta-box .meta-card { width: 100%; padding: 4px 8px; font-size: 11px; }
+  .layout { grid-template-columns: 1fr; gap: 14px; }
   .sidebar { position: static; }
-  .header-main { grid-template-columns: 1fr; gap: 12px; }
-  .header-meta-box { justify-content: flex-start; }
+  .round { padding: 14px 16px; }
+  .bubble { padding: 12px 14px; }
 }
 </style>
 </head>
@@ -343,7 +358,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
         <option value="green">📟 Matrix Green</option>
         <option value="slate">🌌 Dark Slate</option>
       </select>
-      <span>LOGGED AS: SENIOR_ANALYST</span>
+      <span class="logged-as">LOGGED AS: SENIOR_ANALYST</span>
     </div>
   </div>
 
@@ -713,7 +728,7 @@ code { background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4px
 <section class="summary-card section-card"><h3>thesis 失效條件</h3><ul><li>AI 機櫃需求成長放緩，出貨動能顯著低於預期。</li><li>高營收無法轉成毛利率與獲利品質改善。</li><li>市場重新把廣達定價成傳統大型 ODM，而非升級中的平台型硬體供應商。</li></ul></section>
 <section class="summary-card section-card"><h3>目前最缺的資料</h3><ul><li>廣達 AI 機櫃、一般伺服器、雲端網路、光互連相關業務的更細營收拆分。</li><li>高附加價值整櫃 / Rack-scale 交付內容對毛利率與營益率的更細影響。</li><li>廣達、鴻海、緯穎、緯創、英業達在 AI 機櫃、一般伺服器、網路與光互連上的更細營收拆分。</li><li>廣達在光互連與雲端網路延伸能力上的更細客戶與產品定位。</li><li>各家公司在系統整合深度、平台邊界與獲利品質上的更細比較表。</li></ul></section>
 <section class="summary-card section-card"><h3>最短版記法</h3><ul><li>廣達不是單純出貨很多的大型 ODM，而是 AI 機櫃與資料中心系統整合層的第一梯隊核心供應商；真正的重估關鍵，是營收強之外，毛利率、獲利品質與平台價值能不能一起上去。</li></ul></section>
-      <div class="footer">Generated at 2026-08-18 20:35</div>
+      <div class="footer">Generated at 2026-08-18 20:37</div>
     </aside>
   </main>
 </div>
