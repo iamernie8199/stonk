@@ -14,6 +14,18 @@ CORE_OVERRIDES = {
     '3293': '遊戲 / 授權平台 / 高現金流',
     '2395': '工業電腦 / 邊緣 AI',
     '2376': 'AI 伺服器 / GPU 平台週期',
+
+    # Traditional / Automation / Non-standard tech overrides
+    '2027': '北美鋼鋁通路 / 關稅保護 / 資料中心',
+    '1503': '重電設備 / AIDC電力基建',
+    '1590': '氣動元件 / 工業自動化',
+    '2049': '線性傳動 / 工業自動化',
+    '5536': '半導體建廠 / 潔淨室工程',
+    '6548': '導線架 / 半導體封裝材料',
+    '8150': '記憶體與面板驅動IC封測',    '8358': '高頻高速電子銅箔',
+    '1303': '塑化與電子材料平台',
+    '2303': '晶圓代工 / 成熟與特殊製程',
+    '8996': '熱管理 / 散熱與液冷系統',
 }
 
 SKIP_META_PREFIXES = (
@@ -25,16 +37,45 @@ SKIP_META_PREFIXES = (
     '- 本次重整重點：',
 )
 
-
 TAG_RULES = [
     ('ai-server', 'AI伺服器', ('AI伺服器', '機櫃', 'Rack-scale', '資料中心', 'GPU', '伺服器')),
-    ('semiconductor', '半導體 / 封裝', ('半導體', '封裝', '先進封裝', '晶圓代工', 'DRAM', '製程', 'OSAT')),
-    ('power', '電力 / 電源', ('電力', '電源', '供電', 'HVDC')),
+    ('semiconductor', '半導體 / 封裝', ('半導體', '封裝', '先進封裝', '晶圓代工', 'DRAM', 'OSAT')),
+    ('power', '電力 / 電源', ('電力', '電源', 'HVDC')),
     ('asic', 'AI ASIC / TPU', ('ASIC', 'TPU', 'SoC')),
-    ('materials', '材料 / CCL', ('材料', 'CCL', '載板', '玻纖', 'ABF', '基板')),
-    ('network', '網通 / 交換器', ('交換器', '網通', '800G', '1.6T', '光互連', 'CPO')),
+    ('materials', '材料 / CCL', ('CCL', '載板', '玻纖', 'ABF', '基板', '銅箔基板', '玻纖布')),
+    ('network', '網通 / 交換器', ('交換器', '網通', '800G', '1.6T', '光互連', 'CPO', '光通訊', '低軌衛星')),
     ('components', '被動元件 / 零組件', ('被動元件', 'MLCC', '晶片電阻', '電容')),
+    ('highspeed-io', '高速介面 / SerDes', ('SerDes', 'Retimer', 'Redriver', '高速傳輸', 'DisplayPort', 'eDP', 'PCIe', 'USB4', '訊號補償')),
+    ('iiiv-photonics', 'III-V 光電 / RF', ('GaAs', '砷化鎵', 'InP', '磷化銦', 'VCSEL', 'CW Laser', 'EML', 'PD', '光電子', 'RF 前端', 'PA')),
+    ('advanced-packaging-equip', '先進封裝設備 / 濕製程', ('濕製程', '電鍍', 'CoWoS', 'CoPoS', 'FOPLP', '玻璃填孔', '背面供電', 'TGV', '化學品')),
+    ('test-interface', '測試介面 / 探針卡', ('探針卡', '測試板', '測試介面', 'KGD', 'Chiplet', 'Probe Card', 'Load Board', '高頻驗證', '高速驗證')),
+    ('traditional', '傳統產業 / 自動化', ('不銹鋼', '鋼鐵', '鋁廠', '鋼鋁', '自動化', '氣動', '滑軌', '傳動')),
+    ('software-ipc', '軟體 / 遊戲 / 工業電腦', ('遊戲', '博弈', '工業電腦', '邊緣AI', 'IPC', '軟體')),
 ]
+
+TAG_BLACKLIST = {
+    '2027': {'ai-server'},                     # 大成鋼 (Steel/Aluminum)
+    '1503': {'ai-server', 'semiconductor'},     # 士電 (Heavy Electrical)
+    '1590': {'semiconductor', 'materials'},    # 亞德客-KY (Pneumatic Automation)
+    '2049': {'semiconductor', 'materials'},    # 上銀 (Linear Guides)
+    '2059': {'semiconductor', 'materials'},    # 川湖 (Server Slide Rails - keep AI-server)
+    '1560': {'materials', 'power'},            # 中砂 (Diamond Disks - keep Semiconductor)
+    '5536': {'materials'},                     # 聖暉 (Cleanroom - keep Semiconductor)
+    '6187': {'network'},                       # 萬潤 (Packaging Equip - keep Semiconductor/Equip)
+    '7795': {'materials'},                     # 長廣 (Packaging Equip - keep Semiconductor/Equip)
+    '6548': {'ai-server', 'network'},          # 長科 (Leadframe - keep Semiconductor)
+    '8150': {'materials', 'network'},          # 南茂 (OSAT - keep Semiconductor)
+    '8358': {'ai-server', 'network'},          # 金居 (Copper Foil - keep Materials)
+    '8996': {'network'},                       # 高力 (Heat Exchangers - keep Power/AI-server)
+    '1303': {'advanced-packaging-equip'},      # 南亞 (Chemicals - keep Materials/AI-server)
+    '2303': {'network'},                       # 聯電 (Foundry - keep Semiconductor/ASIC)
+    '3017': {'network'},                       # 奇鋐 (Cooling - keep AI-server)
+    '6173': {'ai-server'},                     # 信昌電 (Passive components - keep Power/Components)
+    '6770': {'components'},                    # 力積電 (Foundry - keep Semiconductor)
+}
+
+TAG_OVERRIDES = {}
+
 
 CORE_CATEGORY_RULES = [
     {
@@ -116,6 +157,26 @@ CORE_CATEGORY_RULES = [
         'label': '工業電腦 / 邊緣 AI',
         'keywords': [('工業電腦', 6), ('邊緣AI', 6), ('Edge AI', 6), ('邊緣運算', 5), ('嵌入式', 5), ('自動化', 4), ('工業', 3)],
         'require_any': ['工業電腦', '邊緣AI', 'Edge AI', '邊緣運算', '嵌入式'],
+    },
+    {
+        'label': '高速介面 / SerDes 平台',
+        'keywords': [('SerDes', 6), ('Retimer', 6), ('Redriver', 5), ('高速傳輸', 5), ('DisplayPort', 5), ('eDP', 5), ('PCIe', 5), ('USB4', 4), ('訊號補償', 5)],
+        'require_any': ['SerDes', 'Retimer', 'Redriver', '高速傳輸', 'DisplayPort', 'PCIe'],
+    },
+    {
+        'label': 'III-V 光電 / RF 平台',
+        'keywords': [('GaAs', 6), ('砷化鎵', 6), ('InP', 6), ('磷化銦', 6), ('VCSEL', 5), ('CW Laser', 5), ('EML', 5), ('PD', 4), ('光電子', 5), ('RF 前端', 5), ('PA', 4), ('低軌衛星', 4)],
+        'require_any': ['GaAs', '砷化鎵', 'InP', '磷化銦', 'VCSEL', '光電子'],
+    },
+    {
+        'label': '先進封裝濕製程設備',
+        'keywords': [('濕製程', 6), ('電鍍', 6), ('CoWoS', 5), ('CoPoS', 5), ('FOPLP', 5), ('玻璃填孔', 5), ('背面供電', 5), ('TGV', 4), ('化學品', 4), ('高密度封裝', 4)],
+        'require_any': ['濕製程', '電鍍', 'CoWoS', 'CoPoS', 'FOPLP', '玻璃填孔', '背面供電'],
+    },
+    {
+        'label': '高階測試介面平台',
+        'keywords': [('探針卡', 6), ('測試板', 6), ('測試介面', 5), ('KGD', 5), ('Chiplet', 5), ('Probe Card', 5), ('Load Board', 5), ('高頻驗證', 4), ('高速驗證', 4), ('HPC 測試', 4)],
+        'require_any': ['探針卡', '測試板', '測試介面', 'KGD', 'Chiplet', 'Probe Card', 'Load Board'],
     },
 ]
 
@@ -208,12 +269,14 @@ def extract_core_keywords(title, meta, rounds, summary_sections, company):
 INDEX_FILTERS = [
     ('all', '全部'),
     ('ai-server', 'AI伺服器'),
-    ('semiconductor', '半導體 / 封裝'),
+    ('semiconductor', '半體 / 封裝'),
     ('power', '電力 / 電源'),
     ('asic', 'AI ASIC / TPU'),
     ('materials', '材料 / CCL'),
     ('network', '網通 / 交換器'),
     ('components', '被動元件 / 零組件'),
+    ('traditional', '傳統產業 / 自動化'),
+    ('software-ipc', '軟體 / 遊戲 / 工業電腦'),
 ]
 
 CORE_BUCKETS = [
@@ -226,6 +289,10 @@ CORE_BUCKETS = [
     ('core-power', '電力 / 電源'),
     ('core-industrial', '工業 / 邊緣AI'),
     ('core-gaming', '遊戲 / 授權平台'),
+    ('core-highspeed-io', '高速介面 / SerDes'),
+    ('core-iiiv', 'III-V 光電 / RF'),
+    ('core-packaging-equip', '先進封裝濕製程設備'),
+    ('core-test', '高階測試介面'),
 ]
 
 
@@ -240,6 +307,10 @@ def classify_core_bucket(core_text: str) -> str:
         (('電力', '電源', 'HVDC'), 'core-power'),
         (('工業電腦', '邊緣 AI'), 'core-industrial'),
         (('遊戲', '授權平台', '高現金流'), 'core-gaming'),
+        (('高速介面', 'SerDes', 'Retimer', 'Redriver', 'DisplayPort', 'PCIe'), 'core-highspeed-io'),
+        (('III-V', 'GaAs', '砷化鎵', 'InP', '磷化銦', 'VCSEL', 'RF 平台'), 'core-iiiv'),
+        (('先進封裝濕製程設備', '濕製程', '電鍍', 'FOPLP', '玻璃填孔', '背面供電'), 'core-packaging-equip'),
+        (('高階測試介面', '探針卡', '測試板', 'KGD', 'Chiplet'), 'core-test'),
     ]
     for keywords, bucket in mapping:
         if any(keyword in core_text for keyword in keywords):
@@ -312,11 +383,15 @@ def parse_md(md: str):
             current_round = {'title': line.strip(), 'segments': []}
             i += 1
             continue
-        if line.startswith('## 對話後總結'):
+        if line.startswith('## 對話後總結') or line.startswith('## 投資收斂') or line.startswith('### 最短版記法'):
             mode = 'summary'
             if current_round:
                 rounds.append(current_round)
                 current_round = None
+            if line.startswith('### 最短版記法'):
+                if current_summary:
+                    summary_sections.append(current_summary)
+                current_summary = {'title': '最短版記法', 'items': []}
             i += 1
             continue
         if mode == 'rounds' and current_round is not None:
@@ -329,7 +404,7 @@ def parse_md(md: str):
                 i += 1
                 while i < len(lines):
                     nxt = lines[i]
-                    if nxt.startswith('菜鳥研究員：') or nxt.startswith('資深研究員：') or nxt.startswith('### Round ') or nxt.startswith('## '):
+                    if nxt.startswith('菜鳥研究員：') or nxt.startswith('資深研究員：') or nxt.strip().startswith('#'):
                         break
                     content_lines.append(nxt)
                     i += 1
@@ -338,13 +413,26 @@ def parse_md(md: str):
                 continue
         if mode == 'summary':
             if line.startswith('### '):
+                title_val = line[4:].strip()
+                if current_summary and current_summary['title'] == title_val:
+                    i += 1
+                    continue
                 if current_summary:
                     summary_sections.append(current_summary)
-                current_summary = {'title': line[4:].strip(), 'items': []}
+                current_summary = {'title': title_val, 'items': []}
                 i += 1
                 continue
-            if current_summary and line.strip().startswith('- '):
-                current_summary['items'].append(line.strip()[2:])
+            if current_summary:
+                stripped = line.strip()
+                if stripped:
+                    val = None
+                    if stripped.startswith('- '):
+                        val = stripped[2:].strip()
+                    elif not stripped.startswith('#'):
+                        val = stripped
+                    
+                    if val and val not in current_summary['items']:
+                        current_summary['items'].append(val)
         i += 1
     if current_round:
         rounds.append(current_round)
@@ -451,13 +539,22 @@ def render_rounds(rounds):
 
 def format_revenue_amount(val_str: str) -> str:
     s = val_str.strip()
-    is_thousands = '千元' in s or '千' in s
+    multiplier = 1.0
+    if '兆' in s:
+        multiplier = 1e12
+    elif '億' in s:
+        multiplier = 1e8
+    elif '萬' in s:
+        multiplier = 1e4
+    elif '千' in s:
+        multiplier = 1e3
+
     clean_num_str = re.sub(r'[^0-9.]', '', s)
     if not clean_num_str:
         return val_str
     try:
         num = float(clean_num_str)
-        ntd_val = num * 1000.0 if is_thousands else num
+        ntd_val = num * multiplier
 
         if ntd_val >= 1e12:
             return f'{ntd_val / 1e12:,.2f} 兆'
@@ -476,6 +573,7 @@ def format_revenue_amount(val_str: str) -> str:
             return f'{ntd_val:,.0f} 元'
     except Exception:
         return val_str
+
 
 
 def format_summary_section(items):
@@ -611,9 +709,61 @@ def render_summary(sections):
     return '\n'.join(cards)
 
 
-def build_html(title, meta, rounds, summary):
+def render_tail_sections_from_markdown(md_text: str) -> str:
+    cards = []
+
+    summary_block_start = md_text.find('## 對話後總結')
+    if summary_block_start != -1:
+        summary_block_end = md_text.find('### 最短版記法', summary_block_start)
+        if summary_block_end == -1:
+            summary_block_end = len(md_text)
+        body = md_text[summary_block_start + len('## 對話後總結'):summary_block_end]
+        summary_chunks = []
+        current_title = None
+        current_items = []
+        for raw_line in body.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if line.startswith('### '):
+                if current_title is not None:
+                    summary_chunks.append((current_title, current_items[:]))
+                current_title = line[4:].strip()
+                current_items = []
+                continue
+            if line.startswith('- '):
+                current_items.append(line[2:].strip())
+            else:
+                current_items.append(line)
+        if current_title is not None:
+            summary_chunks.append((current_title, current_items[:]))
+
+        for title, items in summary_chunks:
+            sec_html = format_summary_section(items)
+            if sec_html:
+                cards.append(f'<section class="summary-card section-card"><h3>{html.escape(title)}</h3>{sec_html}</section>')
+
+    m_short = re.search(r'^### 最短版記法\s*(.*?)(?=^## |^### |\Z)', md_text, flags=re.M | re.S)
+    if m_short:
+        short_lines = [line.strip() for line in m_short.group(1).splitlines() if line.strip()]
+        short_lines = [line[2:].strip() if line.startswith('- ') else line for line in short_lines]
+        if short_lines:
+            deduped = []
+            seen = set()
+            for line in short_lines:
+                if line not in seen:
+                    seen.add(line)
+                    deduped.append(line)
+            short_html = format_summary_section(deduped)
+            cards.append('<section class="summary-card section-card"><h3>最短版記法</h3>' + short_html + '</section>')
+
+    return '\n'.join(cards)
+
+
+def build_html(title, meta, rounds, summary, md_text=''):
     generated = datetime.now().strftime('%Y-%m-%d %H:%M')
     senior_digest, digest_toc = build_senior_digest(rounds)
+    tail_summary_cards = render_tail_sections_from_markdown(md_text) if md_text else render_summary(summary)
     clean_display_title = re.sub(r'\s*深度對話式研究報告.*$', '', title)
     m_title = re.match(r'^(TW-\d{4})\s+(.+)$', clean_display_title)
     if m_title:
@@ -951,7 +1101,7 @@ code {{ background: rgba(0, 240, 255, 0.08); padding: 2px 7px; border-radius: 4p
       <div class="full-rounds">{render_rounds(rounds)}</div>
     </div>
     <aside class="sidebar">
-      {render_summary(summary)}
+      {tail_summary_cards}
       <div class="footer">Generated at {generated}</div>
     </aside>
   </main>
@@ -1023,8 +1173,26 @@ def infer_index_entry(md_path: Path):
 
     tag_scores = []
     for key, label, keywords in TAG_RULES:
-        hit_count = sum(combined.count(keyword) for keyword in keywords)
-        min_hits = 2 if key in {'ai-server', 'semiconductor', 'components', 'power'} else 1
+        if ticker in TAG_BLACKLIST and key in TAG_BLACKLIST[ticker]:
+            continue
+
+        # Force match if overridden
+        is_overridden = ticker in TAG_OVERRIDES and key in TAG_OVERRIDES[ticker]
+
+        hit_count = 0
+        if is_overridden:
+            hit_count = 999
+        else:
+            for keyword in keywords:
+                count = combined.count(keyword)
+                if keyword == '交換器':
+                    count -= combined.count('熱交換器')
+                hit_count += count
+
+        min_hits = 2 if key in {'ai-server', 'semiconductor', 'components', 'power', 'traditional', 'software-ipc'} else 1
+        if key == 'semiconductor':
+            min_hits = 5
+
         if hit_count >= min_hits:
             tag_scores.append((key, label, hit_count))
 
@@ -1037,6 +1205,8 @@ def infer_index_entry(md_path: Path):
         'materials': 4,
         'network': 5,
         'components': 6,
+        'traditional': 7,
+        'software-ipc': 8,
     }
     tag_scores.sort(key=lambda item: (-item[2], priority_order.get(item[0], 99)))
     selected = tag_scores[:3]
@@ -1044,6 +1214,7 @@ def infer_index_entry(md_path: Path):
     tag_labels = [label for _, label, _ in selected]
 
     summary = ''
+    summary_sources = []
     if summary_sections:
         for sec in summary_sections:
             if any(k in sec['title'] for k in ('資料與資訊邊界', '資料截至', '資訊邊界')):
@@ -1054,6 +1225,25 @@ def infer_index_entry(md_path: Path):
             ]
             if valid_items:
                 summary = '；'.join(valid_items[:2])
+                break
+
+    core = extract_core_keywords(title, meta, rounds, summary_sections, company)
+
+    if not summary and core:
+        summary = f'{company}目前主線聚焦「{core}」，市場主要在交易其平台能力能否延續並擴張。'
+
+    if not summary:
+        preferred_labels = {
+            '高速介面 / SerDes 平台',
+            'III-V 光電 / RF 平台',
+            '先進封裝濕製程設備',
+            '高階測試介面平台',
+        }
+        for r in rounds:
+            merged = ' '.join(seg[1] for seg in r['segments'] if seg[0] == 'senior')
+            label = infer_section_label(r.get('title', ''), merged)
+            if label in preferred_labels and merged.strip():
+                summary = re.sub(r'\s+', ' ', merged.strip())
                 break
 
     if not summary:
@@ -1087,8 +1277,9 @@ def infer_index_entry(md_path: Path):
         'search': ' '.join([ticker, company, title, summary, combined])[:3000],
         'summary': summary,
         'tag_labels': tag_labels,
-        'core': extract_core_keywords(title, meta, rounds, summary_sections, company),
-        'core_bucket': classify_core_bucket(extract_core_keywords(title, meta, rounds, summary_sections, company)),
+        'core': core,
+        'core_bucket': classify_core_bucket(core),
+        'excerpt': summary,
         'href': md_path.stem + '.html'
     }
 
@@ -1103,7 +1294,13 @@ def build_index_html(entries):
         ('asic', '&lt;F5: AI ASIC / TPU&gt;'),
         ('materials', '&lt;F6: 材料 / CCL&gt;'),
         ('network', '&lt;F7: 網通 / 交換器&gt;'),
-        ('components', '&lt;F8: 被動元件 / 零組件&gt;')
+        ('components', '&lt;F8: 被動元件 / 零組件&gt;'),
+        ('highspeed-io', '&lt;F9: 高速介面 / SerDes&gt;'),
+        ('iiiv-photonics', '&lt;F10: III-V 光電 / RF&gt;'),
+        ('advanced-packaging-equip', '&lt;F11: 先進封裝設備 / 濕製程&gt;'),
+        ('test-interface', '&lt;F12: 測試介面 / 探針卡&gt;'),
+        ('traditional', '傳統產業 / 自動化'),
+        ('software-ipc', '軟體 / 遊戲 / 工業電腦')
     ]
     main_filters = INDEX_FILTERS_TERM[:4]
     extra_filters = INDEX_FILTERS_TERM[4:]
@@ -1150,7 +1347,7 @@ def build_index_html(entries):
           <div class="core-label">THESIS // 投資主線 ↵</div>
           <div class="core-value">{html.escape(e['core'])}</div>
         </div>
-        <div class="summary">{html.escape(e['summary'])}</div>
+        <div class="summary">{html.escape(e['excerpt'])}</div>
         <div class="tag-row">{tag_row}</div>
         <div class="actions"><a class="btn btn-primary" href="{html.escape(e['href'])}">RUN &gt; 閱讀研究報告 &lt;GO&gt;</a></div>
       </article>''')
@@ -1915,7 +2112,7 @@ def update_index():
 def convert_file(md_path: Path):
     md = md_path.read_text(encoding='utf-8')
     title, meta, rounds, summary = parse_md(md)
-    html_text = build_html(title, meta, rounds, summary)
+    html_text = build_html(title, meta, rounds, summary, md)
     out_path = OUT_DIR / (md_path.stem + '.html')
     out_path.write_text(html_text, encoding='utf-8')
     return out_path
