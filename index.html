@@ -83,13 +83,17 @@
       padding: 4px 12px;
       margin-bottom: 12px;
     }
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.25; }
+    }
     .term-dot {
       color: var(--accent-emerald);
       font-weight: 700;
       margin-right: 6px;
       display: inline-block;
       animation: pulse-live 1.8s infinite ease-in-out;
-      will-change: opacity, transform;
+      will-change: opacity;
     }
     .term-cmd { color: var(--amber); font-weight: 700; }
     .theme-select {
